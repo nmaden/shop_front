@@ -396,6 +396,24 @@
             </div>
         </v-dialog>
         
+        <v-dialog
+            v-model="modal_success"
+            max-width="500"
+        >
+            <v-card>
+                <div class="type__auth">
+                    <h2>
+                        Изменения сохранены успешно
+                    </h2>
+                    <div class="type__auth__block">
+                        <img src="../../assets/all/super-girl.svg" alt="images">
+                        <button @click="modal_success = false">
+                            ЗАКРЫТЬ
+                        </button>
+                    </div>
+                </div>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -477,6 +495,7 @@ export default {
             date_start_picker: false,
             date_end_picker: false,
             scan_photo_picker: false,
+            modal_success: false,
             picker: null,
             items: ['foo', 'bar', 'fizz', 'buzz'],
             img: null,
@@ -534,47 +553,48 @@ export default {
                 this.$v.$touch()
                 return 
             } else {  
-                this.$axios({ 
-                    method: 'post',
-                    url: this.$API_URL + this.$API_VERSION + 'registry/create',
-                    data: {
-                        surname: this.surname,
-                        name: this.name,
-                        patronymic: this.middle_name,
-                        date_birth: this.date_birth,
-                        email: this.email,
-                        phone: this.phone,
-                        doctype_id: this.type_document,
-                        document_number: this.document_number,
-                        series_documents: this.series_documents,
-                        date_issue: this.date_issuing,
-                        valid_until: this.date_endings,
-                        notify_mvd: this.checkbox_notify_mvd,
-                        gender_id: this.floor,
-                        start_check_date: this.start_check_date,
-                        end_check_date: this.end_check_date,
-                        kato_id: this.citizenship,
-                        target_id: this.target,
-                        check_in: this.arrival,
-                        check_out: this.departure,
-                        comment: this.comment,
-                        welcome_message: this.checkbox_welcome_message,
-                        check_in_time: this.check_in_time,
+                this.modal_success = true
+                // this.$axios({ 
+                //     method: 'post',
+                //     url: this.$API_URL + this.$API_VERSION + 'registry/create',
+                //     data: {
+                //         surname: this.surname,
+                //         name: this.name,
+                //         patronymic: this.middle_name,
+                //         date_birth: this.date_birth,
+                //         email: this.email,
+                //         phone: this.phone,
+                //         doctype_id: this.type_document,
+                //         document_number: this.document_number,
+                //         series_documents: this.series_documents,
+                //         date_issue: this.date_issuing,
+                //         valid_until: this.date_endings,
+                //         notify_mvd: this.checkbox_notify_mvd,
+                //         gender_id: this.floor,
+                //         start_check_date: this.start_check_date,
+                //         end_check_date: this.end_check_date,
+                //         kato_id: this.citizenship,
+                //         target_id: this.target,
+                //         check_in: this.arrival,
+                //         check_out: this.departure,
+                //         comment: this.comment,
+                //         welcome_message: this.checkbox_welcome_message,
+                //         check_in_time: this.check_in_time,
                         
-                        check_out_time: '12:00',
+                //         check_out_time: '12:00',
 
-                        number: this.number,
-                        status: this.status.value,
-                    }
-                })
-                .then((response) => {
-                    if (response.data.msg == "success register") {
-                        this.modal = true
-                    }
-                })  
-                .catch((error) => {
-                    console.log(error);
-                });              
+                //         number: this.number,
+                //         status: this.status.value,
+                //     }
+                // })
+                // .then((response) => {
+                //     if (response.data.msg == "success register") {
+                //         this.modal = true
+                //     }
+                // })  
+                // .catch((error) => {
+                //     console.log(error);
+                // });              
             }
         },
         getCountries () {
@@ -653,6 +673,38 @@ export default {
 </script>
 
 <style scoped lang="less">
+.type__auth {
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 50px 70px;
+
+    h2 {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 30px;
+        line-height: 37px;
+        letter-spacing: -0.05em;
+        color: #000000;
+    }
+    .type__auth__block {
+        margin-top: 30px;
+        button {
+            padding: 15px 40px;
+            background: #FDE88D;
+            border: 3px solid #FDE88D;
+            box-sizing: border-box;
+            border-radius: 30px;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 25px;
+            color: #000;
+            outline: none;
+            margin-top: 20px;
+        }
+    }
+}
 .scan__block {
     width: 100%;
     background: #fff;

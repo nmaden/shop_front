@@ -38,7 +38,7 @@
                     </div>
                     <div class="type__auth__block">
                         <img src="../../assets/all/entity.svg" alt="images">
-                        <a href="https://cabinet.stage.eqonaq.kz/login" target="_blank">
+                        <a href="https://cabinet.eqonaq.kz/login" target="_blank">
                             <button>
                                 Юридическое лицо
                             </button>
