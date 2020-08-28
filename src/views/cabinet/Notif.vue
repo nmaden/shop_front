@@ -26,7 +26,7 @@
                         </label>
                         <input v-model.trim="check_in_time" class="input" :disabled="true" type="text" id="check_in_time">
                     </div>
-                    <div class="input__block select__input">
+                    <!-- <div class="input__block select__input">
                         <label>
                             Адрес прибывания <span>*</span>
                         </label>
@@ -43,7 +43,7 @@
                                 :single-line="true"
                             ></v-autocomplete>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <button @click="scanDocument">Сканировать документ</button>
