@@ -1,8 +1,6 @@
 <template>
     <div class="profile">
-        <Header 
-            :name="this.user.name"
-        />
+        <Header />
         <div class="main__base__margin">
             <h1>
                 {{this.user.name}} {{this.user.surname}}
@@ -53,7 +51,7 @@
 <script>
 import ListGuest from './components/ListGuest'
 import Header from '../components/Header'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     components: {
@@ -74,6 +72,9 @@ export default {
         this.getUser()
     },
     methods: {
+        ...mapActions([
+            'USER_DATA',
+        ]),
         getUser () {
             this.$axios({ 
                 method: 'post',
@@ -84,7 +85,7 @@ export default {
                 data: {}
             })
             .then((response) => {
-                console.log(response.data)
+                this.USER_DATA(response.data.name)
                 this.user = response.data
                 this.street = response.data.responsible[0].street
                 this.house = response.data.responsible[0].house
@@ -158,7 +159,7 @@ export default {
     background: url('../../assets/all/hotpng_bg.png') no-repeat;
     background-position: right bottom;
     background-size: 15%;
-
+    font-family: "MontserratBold";
     .main__base__margin {
         width: 1200px;
         margin: 0 auto;

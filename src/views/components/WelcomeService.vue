@@ -34,12 +34,12 @@ export default {
         service: [
             {
                 title: 'Листы прибытия',
-                img: require('../../assets/icons/arrival_sheet.png'),
+                img: require('../../assets/icons/arrival_sheet.svg'),
                 text: 'Заполяйте листы прибытия быстро и без ошибок. Используйсте функции сканирования документов, автозаполнения и группового заезда.'
             },
             {
                 title: 'Справочник',
-                img: require('../../assets/icons/directory.png'),
+                img: require('../../assets/icons/directory.svg'),
                 text: 'Просмотрите актуальные миграционные правила для страны проживания вашего гостя.'
             },
             {
@@ -63,11 +63,20 @@ export default {
         font-weight: bold;
         font-size: 55px;
         line-height: 67px;
+        font-style: normal;
+        letter-spacing: -0.05em;
+        color: #000000;
+        font-family: 'MontserratBold';
     }
     p {
         font-weight: bold;
         font-size: 24px;
-        margin-top: 30px;
+        margin-top: 40px;
+        font-style: normal;
+        line-height: 29px;
+        font-family: 'MontserratBold';
+        letter-spacing: -0.05em;
+        color: #000000;
     }
 
     .service__type {
@@ -85,16 +94,20 @@ export default {
             h3 {
                 font-weight: bold;
                 font-size: 20px;
-                color: #000;
-                margin-top: 10px;
+                margin-top: 15px;
+                font-family: 'MontserratBold';
+                font-style: normal;
+                line-height: 25px;
+                color: #000000;
             }
             p {
-                margin-top: 10px;
+                margin-top: 15px;
+                font-weight: 600;
+                font-family: 'MediumExtraLight';
                 font-style: normal;
-                font-weight: 300;
                 font-size: 16px;
                 line-height: 24px;
-                color: #000000
+                color: #000000;
             }
         }
     }

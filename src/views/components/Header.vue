@@ -29,7 +29,7 @@
                     <div class="main__header__menu__user" @mouseleave="show_menu = false" @mouseover="show_menu = true" v-if="GET_TOKEN.length !== 0">
                         <div class="header__menu__user">
                             <p>
-                                {{name}}
+                                {{GET_USER_DATA}}
                             </p>
                             <img src="../../assets/icons/person_default.svg" alt="person_default">
                         </div>
@@ -71,7 +71,6 @@
 import { mapGetters } from 'vuex'
 
 export default {
-    props: ['name'],
     data () {
       return {
         selectLangs: { state: 'Русский', abbr: 'ru' },
@@ -126,7 +125,7 @@ export default {
         currentRouteName () {
             return this.$route.name;
         },
-        ...mapGetters(['GET_TOKEN']),
+        ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
     }
 }
 </script>
@@ -165,6 +164,8 @@ export default {
         }
         .lang {
             width: 120px;
+            z-index: 999;
+            font-family: 'MontserratBold';
         }
         .user {
             margin-left: 15px;
@@ -272,10 +273,13 @@ export default {
             padding: 15px 40px;
             border: 3px solid #FDE88D;
             border-radius: 30px;
+            font-family: 'MontserratBold';
             font-size: 16px;
+            font-style: normal;
             font-weight: bold;
             margin-right: 10px;
             text-transform: uppercase;
+            letter-spacing: -0.05em;
             user-select: none;
             color: #000;
             cursor: pointer;

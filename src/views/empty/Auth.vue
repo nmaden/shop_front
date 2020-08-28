@@ -105,7 +105,7 @@ export default {
     background-position: right bottom;
     overflow: hidden;
     background-size: 45%;
-    
+    font-family: "MontserratBold";
     .auth__margin {
         width: 85%;
         margin: 0 auto;

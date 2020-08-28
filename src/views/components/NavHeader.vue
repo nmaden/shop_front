@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div @click="$router.go(-1)"  class="back__button">
-            <img src="../../assets/icons/left-arrow.png">
+            <img src="../../assets/icons/left-arrow.svg">
             <span>
                 Назад
             </span>

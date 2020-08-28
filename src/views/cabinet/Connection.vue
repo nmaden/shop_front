@@ -74,6 +74,7 @@ export default {
     background: url('../../assets/all/hotpng_bg.png') no-repeat;
     background-position: right bottom;
     background-size: 15%;
+    font-family: "MontserratBold";
 
     .main__base__margin {
         width: 1200px;
@@ -89,15 +90,18 @@ export default {
         }
         p {
             font-style: normal;
-            font-weight: 300;
+            font-weight: 600;
             font-size: 20px;
             line-height: 25px;
             color: #000;
             margin: 0;
             margin-bottom: 15px;
             width: 965px;
+            font-family: "MediumExtraLight";
+
             b {
                 font-weight: bold;
+                font-family: "MontserratBold";
             }
         }
     }

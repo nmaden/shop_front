@@ -400,7 +400,7 @@ export default {
 
 .auth {
     width: 100%;
-
+    font-family: "MontserratBold";
     .auth__margin {
         width: 85%;
         margin: 0 auto;

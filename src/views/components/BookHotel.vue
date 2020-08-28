@@ -69,6 +69,7 @@ export default {
         font-weight: bold;
         font-size: 24px;
         margin-top: 30px;
+        font-family: 'MontserratBold';
     }
 
     .book__hotel__filter {
@@ -81,11 +82,13 @@ export default {
         .book__hotel__filter__margin {
             width: 95%;
             margin: 40px auto;
+
             h4 {
                 font-size: 24px;
                 color: #fff;
                 line-height: 29px;
                 text-transform: uppercase;
+                font-family: 'MontserratBold';
             }
             .filter__book__hotel {
                 width: 100%;
@@ -121,6 +124,7 @@ export default {
                         font-style: normal;
                         font-weight: 500;
                         font-size: 16px;
+                        font-family: 'MediumMedium';
                     }
                 }
                 a {

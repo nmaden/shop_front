@@ -88,6 +88,7 @@ export default {
     background: url('../../assets/all/hotpng_bg.png') no-repeat;
     background-position: right bottom;
     background-size: 15%;
+    font-family: "MontserratBold";
 
     .main__base__margin {
         width: 1200px;

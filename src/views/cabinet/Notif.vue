@@ -1,6 +1,6 @@
 <template>
-    <div class="auth">
-        <div class="auth__margin">
+    <div class="notif">
+        <div class="notif__margin">
             <Nav />
             <div class="registrations">
                 <h2>
@@ -116,6 +116,7 @@
                                 :items="genders"
                                 item-text="label"
                                 dense
+                                :flat="true"
                                 solo
                                 :hide-details="true"
                             ></v-select>
@@ -263,10 +264,12 @@
                 <v-checkbox
                     v-model="checkbox_notify_mvd"
                     color="#FDE88D"
+                    :hide-details="true"
                     label="Отправить уведомление в МВД РК о прибытии иностранного постояльца."
                 ></v-checkbox>
                 <v-checkbox
                     v-model="checkbox_welcome_message"
+                    :hide-details="true"
                     color="#FDE88D"
                     label="Отправить welcome сообщение на email."
                 ></v-checkbox>
@@ -401,11 +404,11 @@
             max-width="500"
         >
             <v-card>
-                <div class="type__auth">
+                <div class="type__notif">
                     <h2>
                         Изменения сохранены успешно
                     </h2>
-                    <div class="type__auth__block">
+                    <div class="type__notif__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
                         <button @click="modal_success = false">
                             ЗАКРЫТЬ
@@ -553,7 +556,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {  
-                this.modal_success = true
+                // this.modal_success = true
                 // this.$axios({ 
                 //     method: 'post',
                 //     url: this.$API_URL + this.$API_VERSION + 'registry/create',
@@ -673,7 +676,8 @@ export default {
 </script>
 
 <style scoped lang="less">
-.type__auth {
+
+.type__notif {
     width: 100%;
     background: #fff;
     text-align: center;
@@ -687,7 +691,7 @@ export default {
         letter-spacing: -0.05em;
         color: #000000;
     }
-    .type__auth__block {
+    .type__notif__block {
         margin-top: 30px;
         button {
             padding: 15px 40px;
@@ -709,7 +713,6 @@ export default {
     width: 100%;
     background: #fff;
     padding: 20px;
-    
     .scan__block__header {
         width: 100%;
         margin-bottom: 20px;
@@ -756,10 +759,10 @@ export default {
         }
     }
 }
-.auth {
+.notif {
     width: 100%;
-    
-    .auth__margin {
+    font-family: "MontserratBold";
+    .notif__margin {
         width: 85%;
         margin: 0 auto;
         margin-top: 40px;
@@ -797,6 +800,7 @@ export default {
                     opacity: 0.7;
                 }
             }
+        
             .registrations__form {
                 width: 100%;
                 display: flex;

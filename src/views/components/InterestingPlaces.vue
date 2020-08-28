@@ -31,7 +31,7 @@ export default {
       return {
         places: [
             {
-                title: 'ОТДЫХ НА Откртом воздухе',
+                title: 'ОТДЫХ НА Открытом воздухе',
                 img: require('../../assets/all/pr_img1.png'),
                 uri: 'https://kazakhstan.travel/publications/ru/15/10-must-see-landscapes-in-kazakhstan'
             },
@@ -62,6 +62,7 @@ export default {
 .places {
     width: 100%;
     margin-top: 40px;
+    font-family: 'MontserratBold';
 
     p {
         font-weight: bold;
@@ -103,6 +104,7 @@ export default {
                     line-height: 29px;
                     color: #fff;
                     text-transform: uppercase;
+                    letter-spacing: -0.05em;
                 }
             }
         }

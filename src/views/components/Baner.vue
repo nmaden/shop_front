@@ -123,6 +123,7 @@ export default {
     justify-content: space-between;
     border-radius: 10px;
     padding: 5px;
+    font-family: 'MontserratBold';
 
     .banner_l {
         width: 17%;
@@ -144,9 +145,11 @@ export default {
         width: 65%;
         h1 {
             font-weight: bold;
-            font-size: 26px;
+            font-size: 23px;
             text-transform: uppercase;
             margin-top: 22px;
+            font-style: normal;
+            line-height: 32px;
         }
         button {
             padding: 15px 50px;
@@ -157,6 +160,11 @@ export default {
             margin-top: 20px;
             margin-bottom: 20px;
             outline: none;
+            font-style: normal;
+            line-height: 25px;
+            letter-spacing: -0.05em;
+            color: #000000;
+
             &:hover {
                 opacity: .7;
             }
