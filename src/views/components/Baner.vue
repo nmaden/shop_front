@@ -9,18 +9,112 @@
             <h1>
                 Qus jetken jerine qonar, Qonaq qalag’an uıine qonar
             </h1>
-            <button>
+            <button v-if="GET_TOKEN.length !== 0" @click="route">
+                Отправить уведомление о прибытии гостя
+            </button>
+            <button v-else @click="modal = true">
                 Отправить уведомление о прибытии гостя
             </button>
         </div>
         <div class="banner_r">
             <img src="../../assets/all/hotpng.png" alt="hotpng">
         </div>
+
+        <v-dialog
+            v-model="modal"
+            max-width="500"
+        >
+            <v-card>
+                <div class="type__baner">
+                    <h2>
+                        Требуеться авторизация или регистрация
+                    </h2>
+                    
+                    <div class="type__baner__block">
+                        <img src="../../assets/all/auth_reg.svg" alt="images">
+                        <p>
+                            Вам на почту отправлено письмо с вашим паролем для авторизации в системе.
+                        </p>
+                        <router-link to="/login">
+                            <button>
+                                АВТОРИЗОВАТЬСЯ
+                            </button>
+                        </router-link>
+                    </div>
+                </div>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
-<style scoped lang="less">
+<script>
+import { mapGetters } from 'vuex'
 
+export default {
+    data () {
+        return {
+            modal: false
+        }
+    },
+    methods: {
+        route () {
+            this.$router.push('/notif')
+        },
+    },
+    computed: {
+        ...mapGetters(['GET_TOKEN']),
+    }
+}
+</script>
+
+<style scoped lang="less">
+.type__baner {
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 50px 70px;
+
+    h2 {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 30px;
+        line-height: 37px;
+        letter-spacing: -0.05em;
+        color: #000000;
+    }
+    
+    .type__baner__block {
+        margin-top: 30px;
+        img {
+            width: 350px;
+        }
+        button {
+            padding: 15px 40px;
+            background: #FDE88D;
+            border: 3px solid #FDE88D;
+            box-sizing: border-box;
+            border-radius: 30px;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 25px;
+            color: #000;
+            outline: none;
+        }
+        p {
+            font-style: normal;
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 15px;
+            text-align: center;
+            letter-spacing: -0.05em;
+            color: #000000;
+            margin: 0;
+            margin-bottom: 20px;
+            margin-top: 15px;
+        }
+    }
+}
 .banner {
     width: 100%;
     background: #FDE88D;

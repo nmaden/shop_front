@@ -33,7 +33,7 @@ export default {
         applications: [
             {
                 title: 'eQonaq',
-                img: require('../../assets/logo/logo.png'),
+                img: require('../../assets/logo/logo.svg'),
                 text: 'Турист может прибывать в Республике Казахстан без визы в течении 30 дней, если свыше указанного срока необходимо оформление визы.'
             },
             {

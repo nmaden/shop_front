@@ -1,9 +1,11 @@
 <template>
     <div class="profile">
-        <Header />
+        <Header 
+            :name="this.user.name"
+        />
         <div class="main__base__margin">
             <h1>
-                Елдос Сейдулаев
+                {{this.user.name}} {{this.user.surname}}
             </h1>
         </div>
         <div class="profile__data">
@@ -13,8 +15,11 @@
                         <p>
                             ИИН:
                         </p>
-                        <h4>
-                            950912354465
+                        <h4 v-if="this.user.iin !== null">
+                            {{this.user.iin}}
+                        </h4>
+                        <h4 v-else>
+                            не добавлен
                         </h4>
                     </div>
                     <div class="profile__data__text"> 
@@ -22,25 +27,17 @@
                             Почта:
                         </p>
                         <h4>
-                            black63squad@gmail.com
+                            {{this.user.email}}
                         </h4>
                     </div>
                 </div>
                 <div class="profile__data__flex">
                     <div class="profile__data__text"> 
                         <p>
-                            Номер телефона
-                        </p>
-                        <h4>
-                            7 707 683 45 33
-                        </h4>
-                    </div>
-                    <div class="profile__data__text"> 
-                        <p>
                             Адрес:
                         </p>
                         <h4>
-                            г. Нур-Султан, Сарыаркинский район, ул Акмешит 7, кв 56
+                            {{region}}, {{area}}, {{locality}}, {{street}} {{house}}
                         </h4>
                     </div>
                 </div>
@@ -54,14 +51,102 @@
 </template>
 
 <script>
-import Header from './components/HeaderCabinet'
 import ListGuest from './components/ListGuest'
+import Header from '../components/Header'
+import { mapGetters } from 'vuex'
 
 export default {
     components: {
-        Header,
         ListGuest,
+        Header,
     },
+    data () {
+        return {
+            user: [],
+            region: null,
+            area: null,
+            locality: null,
+            street: null,
+            house: null,
+        }
+    },
+    mounted() {
+        this.getUser()
+    },
+    methods: {
+        getUser () {
+            this.$axios({ 
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'user/me',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+                data: {}
+            })
+            .then((response) => {
+                console.log(response.data)
+                this.user = response.data
+                this.street = response.data.responsible[0].street
+                this.house = response.data.responsible[0].house
+                this.getRegion()
+                this.getDistrict()
+                this.getLocality()
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
+        getRegion () {
+            this.$axios({
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
+                data: {
+                    id: this.user.responsible[0].region_id
+                }
+            })
+            .then((response) => {
+                this.region = response.data.user_region.name_rus
+            })  
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        getDistrict () {
+            this.$axios({
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
+                data: {
+                    id: this.user.responsible[0].area_id
+                }
+            })
+            .then((response) => {
+                this.area = response.data.user_region.name_rus
+            })  
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        getLocality () {
+            this.$axios({
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
+                data: {
+                    id: this.user.responsible[0].locality_id
+                }
+            })
+            .then((response) => {
+                this.locality = response.data.user_region.name_rus
+            })  
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        
+        
+    },
+    computed: {
+        ...mapGetters(['GET_TOKEN']),
+    }
 }
 </script>
 
@@ -89,6 +174,7 @@ export default {
             background: #FDE88D;
             border: 3px solid #FDE88D;
             font-style: normal;
+            outline: none;
             font-weight: bold;
             font-size: 16px;
             border-radius: 30px;
@@ -134,6 +220,7 @@ export default {
             }
         }
     }
+    
 }
 
 

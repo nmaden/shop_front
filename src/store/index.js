@@ -1,21 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
+import SecureLS from "secure-ls";
+import modules from './modules/index'
 
 Vue.use(Vuex)
 
-import createPersistedState from "vuex-persistedstate";
-import SecureLS from "secure-ls";
 const ls = new SecureLS({ isCompression: false });
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  },
+  modules,
   plugins: [createPersistedState({
     storage: {
       getItem: key => ls.get(key),

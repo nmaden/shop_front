@@ -25,6 +25,7 @@
 
 <script>
 import { required, email } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex'
 
 export default {
     data () {
@@ -43,15 +44,35 @@ export default {
         },
     },
     methods: {
+        ...mapActions([
+            'SIGN_IN_USER',
+        ]),
         login () {
             if (this.$v.$invalid) {
                 this.$v.$touch()
                 return 
             } else {
-                console.log('ok reg')                 
+                this.$axios({ 
+                    method: 'post',
+                    url: this.$API_URL + this.$API_VERSION + 'auth/login',
+                    data: {
+                        email: this.email,
+                        password: this.password,
+                    }
+                })
+                .then((response) => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        this.SIGN_IN_USER(response.data.token)
+                        this.$router.push('/profile')
+                    }
+                })  
+                .catch((error) => {
+                    console.log(error);
+                });    
             }
         },
-    }
+    },
 }
 </script>
 
@@ -61,7 +82,7 @@ export default {
     h2 {
         font-style: normal;
         font-weight: 500;
-        font-size: 48px;
+        font-size: 32px;
         color: #000;
     }
     .login__form {

@@ -1,159 +1,277 @@
 <template>
     <div class="auth">
         <div class="auth__margin">
-            <Header />
+            <Nav />
             <div class="registrations">
                 <h2>
-                    Отправит уведомление о прибытии гостя в МВД
+                    Отправить уведомление о прибытии гостя в МВД
                 </h2>
 
                 <div class="registrations__form">
-                    <div class="input__block">
-                        <label for="date_arrival">
+                    <div @click="date_arrival = true" class="input__block">
+                        <label>
                             Дата заезда - выезда <span>*</span>
                         </label>
                         <div class="data_input_block">
-                            <p @click="dialog = true">20.20.2020</p>
+                            <p>{{this.arrival}}</p>
                             <p>-</p>
-                            <p @click="dialog = true">20.20.2020</p>
+                            <p>{{this.departure}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
+                        <div class="error__text" v-if="$v.picker.$dirty && !$v.picker.required">Поле 'Дата заезда - выезда' обязателен к заполнению</div>
+                    </div>
+                    <div class="input__block">
+                        <label for="check_in_time">
+                            Время заезда <span>*</span>
+                        </label>
+                        <input v-model.trim="check_in_time" class="input" :disabled="true" type="text" id="check_in_time">
                     </div>
                     <div class="input__block select__input">
-                        <label for="stay_addres">
+                        <label>
                             Адрес прибывания <span>*</span>
                         </label>
                         <div class="data_input_block">
-                            <img src="../../assets/icons/search.png" alt="date">
-                            <input class="search_input" type="text" id="stay_addres">
-                            <img class="icon__size" src="../../assets/icons/down.png" alt="date">
+                            <img src="../../assets/icons/search.svg" alt="date">
+                             <v-autocomplete
+                                v-model.trim="stay_addres"
+                                :items="items"
+                                dense
+                                filled
+                                :hide-details="true"
+                                no-data-text="Нечего не найдено"
+                                background-color="transparent"
+                                :single-line="true"
+                            ></v-autocomplete>
                         </div>
-                    </div>
-                    <div class="input__block">
-                        <label for="flat">
-                            Квартира <span>*</span>
-                        </label>
-                        <input class="input" type="text" id="flat">
                     </div>
                 </div>
 
-                <button>Сканировать документ</button>
+                <button @click="scanDocument">Сканировать документ</button>
 
                 <h3>Данные гостя</h3>
-
 
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="name">
                             Имя <span>*</span>
                         </label>
-                        <input class="input" type="text" id="name">
+                        <input v-model.trim="name" class="input" type="text" id="name">
+                        <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателен к заполнению</div>
                     </div>
 
                     <div class="input__block">
                         <label for="surname">
                             Фамилия <span>*</span>
                         </label>
-                        <input class="input" type="text" id="surname">
+                        <input v-model.trim="surname" class="input" type="text" id="surname">
+                        <div class="error__text" v-if="$v.surname.$dirty && !$v.surname.required">Поле 'Фамилия' обязателен к заполнению</div>
                     </div>
 
                     <div class="input__block">
                         <label for="middle_name">
                             Отчество
                         </label>
-                        <input class="input" type="text" id="middle_name">
+                        <input v-model.trim="middle_name" class="input" type="text" id="middle_name">
                     </div>
-
-                    <div class="input__block">
-                        <label for="citizenship">
+ 
+                    <div class="input__block select__input">
+                        <label>
                             Гражданство <span>*</span>
                         </label>
-                        <input class="input" type="text" id="citizenship">
+                        <div class="data_input_block">
+                             <v-autocomplete
+                                v-model.trim="citizenship"
+                                :items="countries"
+                                item-text="label"
+                                dense
+                                filled
+                                :hide-details="true"
+                                no-data-text="Нечего не найдено"
+                                background-color="transparent"
+                                :single-line="true"
+                            ></v-autocomplete>
+                        </div>
+                        <div class="error__text" v-if="$v.citizenship.$dirty && !$v.citizenship.required">Поле 'Гражданство' обязателен к заполнению</div>
                     </div>
 
                     <div class="input__block__child">
                         <label for="date_birth">
-                            Дата рожденья <span>*</span>
+                            Дата рождения <span>*</span>
                         </label>
-                        <input class="input" type="text" id="date_birth">    
+                        <div @click="date_birth_picker = true" class="data_input_block">
+                            <p>{{date_birth}}</p>
+                            <img src="../../assets/icons/date.png" alt="date">
+                        </div>
+                        <div class="error__text" v-if="$v.date_birth.$dirty && !$v.date_birth.required">Поле 'Дата рождения' обязателен к заполнению</div>
                     </div>
 
                     <div class="input__block__child">
                         <label for="floor">
                             Пол <span>*</span>
                         </label>
-                        <input class="input" type="text" id="floor">    
+                        
+                        <div class="data_input_block">
+                             <v-select
+                                v-model.trim="floor"
+                                :items="genders"
+                                item-text="label"
+                                dense
+                                solo
+                                :hide-details="true"
+                            ></v-select>
+                        </div>
+                        <div class="error__text" v-if="$v.floor.$dirty && !$v.floor.required">Поле 'Пол' обязателен к заполнению</div>
                     </div>
-                    
                 </div>
-
 
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="phone">
                             Телефон  <span>*</span>
                         </label>
-                        <input class="input" type="text" id="phone">
+                        <masked-input class="input" v-model.trim="phone" id="phone" mask="\+\7 (111) 1111-11" />
+                        <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
                     </div>
                     <div class="input__block">
                         <label for="email">
                             E-mail <span>*</span>
                         </label>
-                        <input class="input" type="text" id="email">
+                        <input class="input" v-model.trim="email" type="text" id="email">
+                        <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
+                        <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                     </div>
                 </div>
 
                 <h3>Документы, удостоверяющие личность</h3>
-
 
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="type_document">
                             Тип документа  <span>*</span>
                         </label>
-                        <input class="input" type="text" id="type_document">
+                        <div class="data_input_block">
+                             <v-autocomplete
+                                v-model.trim="type_document"
+                                :items="doctypes"
+                                dense
+                                item-text="label"
+                                filled
+                                :hide-details="true"
+                                no-data-text="Нечего не найдено"
+                                background-color="transparent"
+                                :single-line="true"
+                            ></v-autocomplete>
+                        </div>
+                        <div class="error__text" v-if="$v.type_document.$dirty && !$v.type_document.required">Поле 'Тип документа' обязателен к заполнению</div>
                     </div>
                     <div class="input__block__child">
                         <label for="document_number">
                             Номер документа <span>*</span>
                         </label>
-                        <input class="input" type="text" id="document_number">
+                        <input class="input" v-model.trim="document_number" type="text" id="document_number">
+                        <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателен к заполнению</div>
+                        <div class="error__text" v-if="!$v.document_number.numeric">Поле 'Номер документа' введите только цифры</div>
                     </div>
                     <div class="input__block__child">
                         <label for="series_documents">
                             Серия документа <span>*</span>
                         </label>
-                        <input class="input" type="text" id="series_documents">
+                        <input class="input" v-model.trim="series_documents" type="text" id="series_documents">
+                        <div class="error__text" v-if="$v.series_documents.$dirty && !$v.series_documents.required">Поле 'Серия документа' обязателен к заполнению</div>
+                        <div class="error__text" v-if="!$v.series_documents.numeric">Поле 'Серия документа' введите только цифры</div>
                     </div>
                 </div>
 
                 <div class="registrations__form">
                     <div class="input__block__child">
-                        <label for="date_issuing">
+                        <label>
                             Дата выдачи <span>*</span>
                         </label>
-                        <input class="input" type="text" id="date_issuing">
+                        <div @click="date_issuing_picker = true" class="data_input_block">
+                            <p>{{date_issuing}}</p>
+                            <img src="../../assets/icons/date.png" alt="date">
+                        </div>
+                        <div class="error__text" v-if="$v.date_issuing.$dirty && !$v.date_issuing.required">Поле 'Дата выдачи' обязателен к заполнению</div>
                     </div>
                     <div class="input__block__child">
-                        <label for="date_endings">
-                            Дата окончания <span>*</span>
+                        <label>
+                            Дата окончания срока <span>*</span>
                         </label>
-                        <input class="input" type="text" id="date_endings">
+                        <div @click="date_endings_picker = true" class="data_input_block">
+                            <p>{{date_endings}}</p>
+                            <img src="../../assets/icons/date.png" alt="date">
+                        </div>
+                        <div class="error__text" v-if="$v.date_endings.$dirty && !$v.date_endings.required">Поле 'Дата окончания срока' обязателен к заполнению</div>
                     </div>
                 </div>
 
                 <h3>Данные о пребывании</h3>
 
                 <div class="registrations__form">
-                    <div class="input__block">
-                        <label for="purpose_visit">
-                            Цель визита  <span>*</span>
+                    <div class="input__block select__input">
+                        <label>
+                            Цель визита <span>*</span>
                         </label>
-                        <input class="input" type="text" id="purpose_visit">
+                        <div class="data_input_block">
+                             <v-autocomplete
+                                v-model.trim="target"
+                                :items="targets"
+                                item-text="label"
+                                dense
+                                filled
+                                :hide-details="true"
+                                no-data-text="Нечего не найдено"
+                                background-color="transparent"
+                                :single-line="true"
+                            ></v-autocomplete>
+                        </div>
+                        <div class="error__text" v-if="$v.target.$dirty && !$v.target.required">Поле 'Цель визита' обязателен к заполнению</div>
                     </div>
+                    <div class="input__block__child">
+                        <label>
+                            Дата начала <span>*</span>
+                        </label>
+                        <div @click="date_start_picker = true" class="data_input_block">
+                            <p>{{start_check_date}}</p>
+                            <img src="../../assets/icons/date.png" alt="date">
+                        </div>
+                        <div class="error__text" v-if="$v.start_check_date.$dirty && !$v.start_check_date.required">Поле 'Дата начала' обязателен к заполнению</div>
+                    </div>
+                    <div class="input__block__child">
+                        <label>
+                            Дата окончания <span>*</span>
+                        </label>
+                        <div @click="date_end_picker = true" class="data_input_block">
+                            <p>{{end_check_date}}</p>
+                            <img src="../../assets/icons/date.png" alt="date">
+                        </div>
+                        <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.required">Поле 'Дата окончания' обязателен к заполнению</div>
+                    </div>
+                    
                 </div>
 
-                <button>ОТПРАВИТЬ</button>
+                 <div class="registrations__form">
+                    <div class="input__block">
+                        <label for="comment">
+                            Дополнительные сведения <span>*</span>
+                        </label>
+                        <textarea class="textarea" v-model.trim="comment" id="comment"></textarea>
+                        <div class="error__text" v-if="$v.comment.$dirty && !$v.comment.required">Поле 'Дополнительные сведения' обязателен к заполнению</div>
+                    </div>
+                </div>
+                
+                <v-checkbox
+                    v-model="checkbox_notify_mvd"
+                    color="#FDE88D"
+                    label="Отправить уведомление в МВД РК о прибытии иностранного постояльца."
+                ></v-checkbox>
+                <v-checkbox
+                    v-model="checkbox_welcome_message"
+                    color="#FDE88D"
+                    label="Отправить welcome сообщение на email."
+                ></v-checkbox>
+
+                <button @click="send_notif">ОТПРАВИТЬ</button>
             </div>
         </div>
 
@@ -161,40 +279,434 @@
         <!-- modal window -->
 
         <v-dialog
-            v-model="dialog"
+            v-model="date_arrival"
             max-width="290"
         >
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
                     v-model="picker"
+                    range
+                    @change="changeDateArrival"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
 
+        <v-dialog
+            v-model="date_birth_picker"
+            max-width="290"
+        >
+            <v-card>
+                <v-date-picker 
+                    locale="ru-in"
+                    v-model="date_birth"
+                    @change="date_birth_picker = false"
+                ></v-date-picker>
+            </v-card>
+        </v-dialog>
+        
+        <v-dialog
+            v-model="date_issuing_picker"
+            max-width="290"
+        >
+            <v-card>
+                <v-date-picker 
+                    locale="ru-in"
+                    v-model="date_issuing"
+                    @change="date_issuing_picker = false"
+                ></v-date-picker>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog
+            v-model="date_endings_picker"
+            max-width="290"
+        >
+            <v-card>
+                <v-date-picker 
+                    locale="ru-in"
+                    v-model="date_endings"
+                    @change="date_endings_picker = false"
+                ></v-date-picker>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog
+            v-model="date_start_picker"
+            max-width="290"
+        >
+            <v-card>
+                <v-date-picker 
+                    locale="ru-in"
+                    v-model="start_check_date"
+                    @change="date_start_picker = false"
+                ></v-date-picker>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog
+            v-model="date_end_picker"
+            max-width="290"
+        >
+            <v-card>
+                <v-date-picker 
+                    locale="ru-in"
+                    v-model="end_check_date"
+                    @change="date_end_picker = false"
+                ></v-date-picker>
+            </v-card>
+        </v-dialog>
+        
+
+        <v-dialog
+            v-model="scan_photo_picker"
+            max-width="900"
+        >
+            <div class="scan__block">
+                <div class="scan__block__header">
+                    <h3>
+                        Сканирование документа, удостоверящего личность
+                    </h3>
+                </div>
+                <div class="scan__block__flex">
+                    <div class="scan__block__flex__child">
+                        <WebCam
+                            ref="webcam"
+                            width="100%"
+                            height="100%"
+                            class="webCamMirror"
+                        ></WebCam>
+                    </div>
+                    <div class="scan__block__flex__child">
+                        <img :src="img" v-if="img !== null" />
+                        <img src="../../assets/all/rightside.svg" v-else>
+                    </div>
+                </div>
+                <div class="button__flex">
+                    <button @click="onCapture" class="bg__btn__1">
+                        сканировать
+                    </button>
+                    <button  @click="img = null" class="bg__btn__1">
+                        переснять
+                    </button>
+                    <button @click="closeScanDocument" class="bg__btn__2">
+                        закрыть
+                    </button>
+                </div>
+            </div>
+        </v-dialog>
+        
     </div>
 </template>
 
 <script>
-import Header from './components/Header'
+import Nav from '../components/NavHeader'
+import MaskedInput from 'vue-masked-input'
+import { WebCam } from "vue-cam-vision";
+import { required, email, numeric } from 'vuelidate/lib/validators'
+import { mapGetters } from 'vuex'
 
 export default {
     components: {
-        Header,
+        Nav, 
+        MaskedInput, 
+        WebCam
     },
-     data () {
-        return {
-            picker: new Date().toISOString().substr(0, 10),
-            dialog: false
+    validations: {
+        picker: {
+            required
+        },
+        name: {
+            required
+        },
+        surname: {
+            required
+        },
+        citizenship: {
+            required
+        },
+        date_birth: {
+            required
+        },
+        floor: {
+            required
+        },
+        phone: {
+            required
+        },
+        email: {
+            required,
+            email
+        },
+        type_document: {
+            required
+        },
+        document_number: {
+            required,
+            numeric
+        },
+        series_documents: {
+            required,
+            numeric
+        },
+        date_issuing: {
+            required
+        },
+        date_endings: {
+            required
+        },
+        target: {
+            required
+        },
+        start_check_date: {
+            required
+        },
+        end_check_date: {
+            required
+        },
+        comment: {
+            required
         }
     },
+    data () {
+        return {
+            date_arrival: false,
+            date_birth_picker: false,
+            date_issuing_picker: false,
+            date_endings_picker: false,
+            date_start_picker: false,
+            date_end_picker: false,
+            scan_photo_picker: false,
+            picker: null,
+            items: ['foo', 'bar', 'fizz', 'buzz'],
+            img: null,
+
+            genders: [
+                {
+                    label: 'мужской',
+                    value: 2,
+                },
+                {
+                    label: 'женский',
+                    value: 1,
+                }
+            ],
+            targets: [],
+            doctypes: [],
+            countries: [],
+
+            stay_addres: null,
+
+            arrival: 'заезд',
+            departure: 'выезд',
+            name: null,
+            surname: null,
+            middle_name: null,
+            floor: null,
+            citizenship: null,
+            phone: null,
+            date_birth: null,
+            type_document: null,
+            date_issuing: null,
+            date_endings: null,
+            start_check_date: null,
+            end_check_date: null,
+            target: null,
+            email: null,
+            comment: null,
+            document_number: null,
+            series_documents: null,
+            checkbox_notify_mvd: true,
+            checkbox_welcome_message: true,
+            check_in_time: null,
+            check_out_time: null,
+        }
+    },
+    mounted() {
+        this.getDate()
+        this.getCountries()
+        this.getDoctypes()
+        this.getTargets()
+    },
+    methods: {
+        send_notif () {
+            if (this.$v.$invalid) {
+                this.$v.$touch()
+                return 
+            } else {  
+                this.$axios({ 
+                    method: 'post',
+                    url: this.$API_URL + this.$API_VERSION + 'registry/create',
+                    data: {
+                        surname: this.surname,
+                        name: this.name,
+                        patronymic: this.middle_name,
+                        date_birth: this.date_birth,
+                        email: this.email,
+                        phone: this.phone,
+                        doctype_id: this.type_document,
+                        document_number: this.document_number,
+                        series_documents: this.series_documents,
+                        date_issue: this.date_issuing,
+                        valid_until: this.date_endings,
+                        notify_mvd: this.checkbox_notify_mvd,
+                        gender_id: this.floor,
+                        start_check_date: this.start_check_date,
+                        end_check_date: this.end_check_date,
+                        kato_id: this.citizenship,
+                        target_id: this.target,
+                        check_in: this.arrival,
+                        check_out: this.departure,
+                        comment: this.comment,
+                        welcome_message: this.checkbox_welcome_message,
+                        check_in_time: this.check_in_time,
+                        
+                        check_out_time: '12:00',
+
+                        number: this.number,
+                        status: this.status.value,
+                    }
+                })
+                .then((response) => {
+                    if (response.data.msg == "success register") {
+                        this.modal = true
+                    }
+                })  
+                .catch((error) => {
+                    console.log(error);
+                });              
+            }
+        },
+        getCountries () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION + 'country/index',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                // console.log(response.data)
+                let obj;
+                let arr = []
+                for (let index = 0; index < response.data.length; index++) {
+                    obj = {
+                        label: response.data[index].label,
+                        value: response.data[index].value
+                    }
+                    arr.push(obj)
+                }
+                console.log(arr)
+                this.countries = arr
+            }); 
+        },
+        getDoctypes () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION + 'doctype/index',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                this.doctypes = response.data
+            }); 
+        },
+        getTargets () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION + 'target/index',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                this.targets = response.data
+            }); 
+        },
+        getDate () {
+            let hours = (new Date()).getHours();
+            let minutes = (new Date()).getMinutes();
+            this.check_in_time = hours + ':'  + minutes
+        },
+        closeScanDocument () {
+            this.$refs.webcam.stop();
+            this.scan_photo_picker = false
+        },
+        changeDateArrival () {
+            this.date_arrival = false
+            this.arrival = this.picker[0]
+            this.departure = this.picker[1]
+        },
+        scanDocument () {
+            this.scan_photo_picker = true
+        },
+        onCapture() {
+            this.img = this.$refs.webcam.capture();
+            // this.send_base64();
+        },
+    },
+    computed: {
+        ...mapGetters(['GET_TOKEN']),
+    }
 }
 </script>
 
 <style scoped lang="less">
+.scan__block {
+    width: 100%;
+    background: #fff;
+    padding: 20px;
+    
+    .scan__block__header {
+        width: 100%;
+        margin-bottom: 20px;
+        h3 {
+            color: #000;
+            font-size: 20px;
+        }
+    }
+    .scan__block__flex {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .scan__block__flex__child {
+            width: 400px;
+            height: 300px;
+            img {
+                width: 100%;
+            }
+            .webCamMirror {
+                -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);
+            }
+        }
+    }
+    .button__flex {
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        button {
+            padding: 9px 20px;
+            text-transform: uppercase;
+            margin-right: 14px;
+            font-size: 14px;
+            outline: none;
+            border-radius: 5px;
+        }
+        .bg__btn__1 {
+            background: #FDE88D;
+            color: #000;
+        }
+        .bg__btn__2 {
+            background: red;
+            color: #fff;
+        }
+    }
+}
 .auth {
     width: 100%;
-
+    
     .auth__margin {
         width: 85%;
         margin: 0 auto;
@@ -221,6 +733,7 @@ export default {
                 padding: 15px 50px;
                 background: #FDE88D;
                 border: 3px solid #FDE88D;
+                outline: none;
                 box-sizing: border-box;
                 font-style: normal;
                 font-weight: bold;
@@ -247,7 +760,11 @@ export default {
                     span {
                         color: red;
                     }
-                    
+                    .error__text {
+                        color: red;
+                        font-size: 12px;
+                        margin-bottom: 10px;
+                    }
                     .input {
                         width: 100%;
                         height: 46px;
@@ -257,6 +774,15 @@ export default {
                         border: 2px solid #000000;
                         padding: 10px;
                         margin-bottom: 10px;
+                    }
+                    .textarea {
+                        width: 100%;
+                        height: 146px;
+                        background: #fff;
+                        border-radius: 10px;
+                        outline: none;
+                        border: 2px solid #000000;
+                        padding: 10px;
                     }
                     
                     
@@ -306,6 +832,28 @@ export default {
                 .input__block__child {
                     width: 201px;
                     margin-right: 10px;
+                    .error__text {
+                        color: red;
+                        font-size: 12px;
+                        margin-bottom: 10px;
+                    }
+                    .data_input_block {
+                        cursor: pointer;
+                        width: 100%;
+                        height: 46px;
+                        background: #fff;
+                        border-radius: 10px;
+                        outline: none;
+                        border: 2px solid #000000;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        p {
+                            margin: 0
+                        }
+                    }
                     span {
                         color: red;
                     }

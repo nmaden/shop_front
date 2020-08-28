@@ -1,7 +1,7 @@
 <template>
     <div class="header">
-        <div class="back__button">
-            <img src="../../../assets/icons/left-arrow.png">
+        <div @click="$router.go(-1)"  class="back__button">
+            <img src="../../assets/icons/left-arrow.png">
             <span>
                 Назад
             </span>
@@ -30,12 +30,13 @@ export default {
         img {
             margin-right: 10px;
             user-select: none;
+            width: 30px;
         }
         span {
             font-style: normal;
             user-select: none;
             font-weight: 500;
-            font-size: 24px;
+            font-size: 20px;
             text-transform: uppercase;
         }
     }

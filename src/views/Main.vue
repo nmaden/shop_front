@@ -27,8 +27,16 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "Montserrat";
+  src: url('../font/Montserrat-Black.ttf');
+}
+* {
+    /* font-family: 'Montserrat'; */
+}
 .main__base__margin {
     width: 1200px;
     margin: 0 auto;
+    margin-top: 135px;
 }
 </style>

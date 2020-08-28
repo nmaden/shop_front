@@ -2,11 +2,13 @@
     <div>
         <div class="header">
             <div class="header__l">
-                <img src="../../assets/logo/logo.png" alt="logo">
+                <router-link to="/">
+                    <img src="../../assets/logo/logo.svg" alt="logo">
+                </router-link>
             </div>
             <div class="header__r">
                 <div class="search">
-                    <img src="../../assets/icons/search.png" alt="search">
+                    <img src="../../assets/icons/search.svg" alt="search">
                 </div>
                 <div class="lang">
                     <v-select
@@ -21,20 +23,44 @@
                     ></v-select>
                 </div>
                 <div class="user">
-                    <router-link to="/login">
-                        <img src="../../assets/icons/person_default.png" alt="person_default">
+                    <router-link v-if="GET_TOKEN.length == 0" to="/login">
+                        <img src="../../assets/icons/person_default.svg" alt="person_default">
                     </router-link>
+                    <div class="main__header__menu__user" @mouseleave="show_menu = false" @mouseover="show_menu = true" v-if="GET_TOKEN.length !== 0">
+                        <div class="header__menu__user">
+                            <p>
+                                {{name}}
+                            </p>
+                            <img src="../../assets/icons/person_default.svg" alt="person_default">
+                        </div>
+                        <div v-show="show_menu == true" class="header__menu__user__hover">
+                            <div class="header__menu__user__hover__after">
+                                <div v-if="currentRouteName !== 'Profile'" @click="to_profile" class="header__menu__user__hover__after__block">
+                                    <p>
+                                        Личный кабинет 
+                                    </p>
+                                </div>
+                                <div @click="sign_out" class="header__menu__user__hover__after__block">
+                                    <p>
+                                        Выход
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
-        <div class="scroll__menu">
+        <div v-if="currentRouteName !== 'Profile'" class="scroll__menu">
             <div class="menu">
                 <a 
                     class="menu__item"
                     v-for="menu_item in menu"
                     :key="menu_item.name"
+                    @click="route(menu_item.to)"
                 >
-                        {{menu_item.name}}
+                    {{menu_item.name}}
                 </a>
             </div>
         </div>
@@ -42,7 +68,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
+    props: ['name'],
     data () {
       return {
         selectLangs: { state: 'Русский', abbr: 'ru' },
@@ -53,25 +82,52 @@ export default {
         menu: [
             {
                 name: 'номера телефонов',
+                to: '/telephones'
             },
             {
                 name: 'Связь',
+                to: '/connection'
             },
             {
                 name: 'МИГРАЦИОННЫЙ СПРАВОЧНИК',
+                to: '/'
             },
             {
                 name: 'ВАЛЮТА',
+                to: '/currency'
             },
             {
                 name: 'ГОСТИНИЦЫ',
+                to: '/'
             },
             {
                 name: 'ИСТОРИЯ КАЗАХСТАНА',
+                to: '/'
             },
-        ]
+        ],
+        show_menu: false
       }
     },
+    methods: {
+        route (to) {
+            this.$router.push(to)
+        },
+        to_profile () {
+            this.$router.push('/profile')
+        },
+        sign_out () {
+            console.log('ok')
+            localStorage.clear()
+            this.$router.push('/')
+            location.reload()
+        }
+    },
+    computed: {
+        currentRouteName () {
+            return this.$route.name;
+        },
+        ...mapGetters(['GET_TOKEN']),
+    }
 }
 </script>
 
@@ -87,6 +143,9 @@ export default {
 
     .header__l {
         width: 50%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
     .header__r {
         width: 50%;
@@ -109,6 +168,69 @@ export default {
         }
         .user {
             margin-left: 15px;
+            .main__header__menu__user {
+                position: relative;
+                z-index: 9999;
+
+                .header__menu__user__hover {
+                    position: absolute;
+                    width: 200px;
+                    top: 40px;
+                    right: 0px;
+                    .header__menu__user__hover__after {
+                        width: 100%;
+                        margin-top: 10px;
+                        background: #fff;
+                        border-radius: 5px;
+                        box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.25);
+                        padding: 10px 15px;
+                        &::after {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            right: 10px;
+                            top: -10px;
+                            transform: rotateZ(180deg);
+                            border: 10px solid transparent;
+                            border-top: 10px solid #fff;
+                        }
+
+                        .header__menu__user__hover__after__block {
+                            width: 100%;
+                            border-bottom: 1px solid #F5F5FC;
+                            padding-top: 9px;
+                            cursor: pointer;
+                            padding-bottom: 9px;
+                            p {
+                                margin: 0;
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 14px;
+                                line-height: 17px;
+                                color: #000;
+                                user-select: none;
+                            }
+                        }
+                    }
+                }
+                .header__menu__user {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    cursor: pointer;
+                    p {
+                        margin: 0;
+                        margin-right: 10px;
+                        color: #000;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 17px;
+                        line-height: 25px;
+                        user-select: none;
+                    }
+                }
+            }
+            
             img {
                 cursor: pointer;
                 &:hover {
@@ -120,15 +242,18 @@ export default {
 }
 
 .scroll__menu {
-    width: 100%;
+    width: 1200px;
+    margin: 0 auto;
+    z-index: 20;
+    margin-top: 10px;
     .menu {
         width: 100%;
-        padding-left: 13%;
-        display: flex;
-        justify-content: center;
         padding-bottom: 10px;
         overflow: auto;
+        z-index: 100;
         white-space: nowrap;
+        position: absolute;
+
         &::-webkit-scrollbar {
             height: 0px;
         }
@@ -143,6 +268,7 @@ export default {
             opacity: 0.7;
         }
         .menu__item {
+            display: inline-block;
             padding: 15px 40px;
             border: 3px solid #FDE88D;
             border-radius: 30px;
@@ -152,10 +278,9 @@ export default {
             text-transform: uppercase;
             user-select: none;
             color: #000;
-            display: block;
             cursor: pointer;
             &:hover {
-                opacity: .7;
+                background: #FDE88D;
             }
         }
     }
