@@ -10,6 +10,7 @@
                 v-for="places_item in places"
                 :key="places_item.title"
                 :style="'background: url(' + places_item.img + ') no-repeat'"
+                @click="to_link(places_item.uri)"
             >
                 <div class="header">
 
@@ -32,20 +33,29 @@ export default {
             {
                 title: 'ОТДЫХ НА Откртом воздухе',
                 img: require('../../assets/all/pr_img1.png'),
+                uri: 'https://kazakhstan.travel/publications/ru/15/10-must-see-landscapes-in-kazakhstan'
             },
             {
                 title: 'АРХИТЕКТУРА',
                 img: require('../../assets/all/pr_img2.png'),
+                uri: 'https://kazakhstan.travel/publications/ru/15/10-must-see-landscapes-in-kazakhstan'
             },
             {
                 title: 'Куда съездить',
                 img: require('../../assets/all/pr_img3.png'),
+                uri: 'https://kazakhstan.travel/publications/ru/15/10-must-see-landscapes-in-kazakhstan'
             },
         ]
       }
     },
+    methods: {
+        to_link (to) {
+            window.location.href = to
+        }
+    }
 }
 </script>
+
 
 <style scoped lang="less">
 
@@ -72,7 +82,7 @@ export default {
             margin-right: 10px;
             overflow: hidden;
             position: relative;
-
+            cursor: pointer;
             .header {
                 position: absolute;
                 width: 20px;
