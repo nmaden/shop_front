@@ -75,10 +75,12 @@ export default {
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
+        margin-top: 35px;
 
         .service__type__block {
-            width: 45%;
+            width: 32%;
             margin-bottom: 20px;
+            margin-right: 16px;
 
             h3 {
                 font-weight: bold;

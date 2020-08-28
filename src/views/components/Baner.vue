@@ -2,7 +2,7 @@
     <div class="banner">
         <div class="banner_l">
             <div class="banner_user">
-                <img src="../../assets/all/banner_user.png" alt="banner_user">
+                <img src="../../assets/all/banner_user.svg" alt="banner_user">
             </div>
         </div>
         <div class="banner_c">
@@ -131,7 +131,6 @@ export default {
         align-items: center;
 
         .banner_user {
-            background: #FFCC47;
             border-radius: 50%;
             width: 112px;
             height: 112px;
@@ -147,6 +146,7 @@ export default {
             font-weight: bold;
             font-size: 26px;
             text-transform: uppercase;
+            margin-top: 22px;
         }
         button {
             padding: 15px 50px;

@@ -38,12 +38,12 @@ export default {
             {
                 title: 'АРХИТЕКТУРА',
                 img: require('../../assets/all/pr_img2.png'),
-                uri: 'https://kazakhstan.travel/publications/ru/15/10-must-see-landscapes-in-kazakhstan'
+                uri: 'https://kazakhstan.travel/publications/ru/108/seven-architectural-wonders-of-kazakhstan'
             },
             {
                 title: 'Куда съездить',
                 img: require('../../assets/all/pr_img3.png'),
-                uri: 'https://kazakhstan.travel/publications/ru/15/10-must-see-landscapes-in-kazakhstan'
+                uri: 'https://kazakhstan.travel/'
             },
         ]
       }
