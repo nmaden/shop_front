@@ -73,7 +73,7 @@
                         </label>
                         <input v-model.trim="middle_name" class="input" type="text" id="middle_name">
                     </div>
- 
+
                     <div class="input__block select__input">
                         <label>
                             Гражданство <span>*</span>
@@ -542,6 +542,7 @@ export default {
             checkbox_welcome_message: true,
             check_in_time: null,
             check_out_time: null,
+            status: null,
         }
     },
     mounted() {
@@ -549,56 +550,72 @@ export default {
         this.getCountries()
         this.getDoctypes()
         this.getTargets()
+        this.getStatus()
     },
     methods: {
+
         send_notif () {
             if (this.$v.$invalid) {
                 this.$v.$touch()
                 return 
             } else {  
-                // this.modal_success = true
-                // this.$axios({ 
-                //     method: 'post',
-                //     url: this.$API_URL + this.$API_VERSION + 'registry/create',
-                //     data: {
-                //         surname: this.surname,
-                //         name: this.name,
-                //         patronymic: this.middle_name,
-                //         date_birth: this.date_birth,
-                //         email: this.email,
-                //         phone: this.phone,
-                //         doctype_id: this.type_document,
-                //         document_number: this.document_number,
-                //         series_documents: this.series_documents,
-                //         date_issue: this.date_issuing,
-                //         valid_until: this.date_endings,
-                //         notify_mvd: this.checkbox_notify_mvd,
-                //         gender_id: this.floor,
-                //         start_check_date: this.start_check_date,
-                //         end_check_date: this.end_check_date,
-                //         kato_id: this.citizenship,
-                //         target_id: this.target,
-                //         check_in: this.arrival,
-                //         check_out: this.departure,
-                //         comment: this.comment,
-                //         welcome_message: this.checkbox_welcome_message,
-                //         check_in_time: this.check_in_time,
-                        
-                //         check_out_time: '12:00',
-
-                //         number: this.number,
-                //         status: this.status.value,
-                //     }
-                // })
-                // .then((response) => {
-                //     if (response.data.msg == "success register") {
-                //         this.modal = true
-                //     }
-                // })  
-                // .catch((error) => {
-                //     console.log(error);
-                // });              
+                this.$axios({ 
+                    method: 'post',
+                    url: this.$API_URL + this.$API_VERSION + 'registry/create',
+                    headers: {
+                        'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                    },
+                    data: {
+                        surname: this.surname,
+                        name: this.name,
+                        patronymic: this.middle_name,
+                        date_birth: this.date_birth,
+                        email: this.email,
+                        phone: this.phone,
+                        doctype_id: this.type_document,
+                        document_number: this.document_number,
+                        series_documents: this.series_documents,
+                        date_issue: this.date_issuing,
+                        valid_until: this.date_endings,
+                        notify_mvd: this.checkbox_notify_mvd,
+                        gender_id: this.floor,
+                        start_check_date: this.start_check_date,
+                        end_check_date: this.end_check_date,
+                        kato_id: this.citizenship,
+                        target_id: this.target,
+                        check_in: this.arrival,
+                        check_out: this.departure,
+                        comment: this.comment,
+                        welcome_message: this.checkbox_welcome_message,
+                        check_in_time: this.check_in_time,
+                        status: this.status,                        
+                        check_out_time: '12:00',
+                    }
+                })
+                .then((response) => {
+                    if (response.data.success == "Успешно зарегистрирован пользователь") {
+                        this.modal_success = true
+                    }
+                })  
+                .catch((error) => {
+                    console.log(error);
+                });              
             }
+        },
+        getStatus() {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION + 'status/check_in',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then(response => {
+                this.status = response.data[1].value;
+            })
+            .catch(error => {
+                console.log(error)
+            });
         },
         getCountries () {
             this.$axios({
@@ -609,7 +626,6 @@ export default {
                 },
             })
             .then((response) => {
-                // console.log(response.data)
                 let obj;
                 let arr = []
                 for (let index = 0; index < response.data.length; index++) {
@@ -619,7 +635,6 @@ export default {
                     }
                     arr.push(obj)
                 }
-                console.log(arr)
                 this.countries = arr
             }); 
         },
@@ -774,7 +789,7 @@ export default {
             h2 {
                 font-style: normal;
                 font-weight: 500;
-                font-size: 48px;
+                font-size: 40px;
                 color: #000;
             }
             h3 {
@@ -853,6 +868,7 @@ export default {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+                        cursor: pointer;
                         margin-bottom: 10px;
                         .search_input {
                             height: 26px;
