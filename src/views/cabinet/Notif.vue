@@ -13,9 +13,9 @@
                             Дата заезда - выезда <span>*</span>
                         </label>
                         <div class="data_input_block">
-                            <p>{{this.arrival}}</p>
+                            <p>{{this.arrival | moment("DD.MM.YYYY")}}</p>
                             <p>-</p>
-                            <p>{{this.departure}}</p>
+                            <p>{{this.departure | moment("DD.MM.YYYY")}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.picker.$dirty && !$v.picker.required">Поле 'Дата заезда - выезда' обязателен к заполнению</div>
@@ -26,24 +26,6 @@
                         </label>
                         <input v-model.trim="check_in_time" class="input" :disabled="true" type="text" id="check_in_time">
                     </div>
-                    <!-- <div class="input__block select__input">
-                        <label>
-                            Адрес прибывания <span>*</span>
-                        </label>
-                        <div class="data_input_block">
-                            <img src="../../assets/icons/search.svg" alt="date">
-                             <v-autocomplete
-                                v-model.trim="stay_addres"
-                                :items="items"
-                                dense
-                                filled
-                                :hide-details="true"
-                                no-data-text="Нечего не найдено"
-                                background-color="transparent"
-                                :single-line="true"
-                            ></v-autocomplete>
-                        </div>
-                    </div> -->
                 </div>
 
                 <button @click="scanDocument">Сканировать документ</button>
@@ -79,7 +61,7 @@
                             Гражданство <span>*</span>
                         </label>
                         <div class="data_input_block">
-                             <v-autocomplete
+                            <v-autocomplete
                                 v-model.trim="citizenship"
                                 :items="countries"
                                 item-text="label"
@@ -89,6 +71,7 @@
                                 no-data-text="Нечего не найдено"
                                 background-color="transparent"
                                 :single-line="true"
+                                @change="checkCountry"
                             ></v-autocomplete>
                         </div>
                         <div class="error__text" v-if="$v.citizenship.$dirty && !$v.citizenship.required">Поле 'Гражданство' обязателен к заполнению</div>
@@ -99,7 +82,7 @@
                             Дата рождения <span>*</span>
                         </label>
                         <div @click="date_birth_picker = true" class="data_input_block">
-                            <p>{{date_birth}}</p>
+                            <p>{{date_birth | moment("DD.MM.YYYY")}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.date_birth.$dirty && !$v.date_birth.required">Поле 'Дата рождения' обязателен к заполнению</div>
@@ -111,7 +94,7 @@
                         </label>
                         
                         <div class="data_input_block">
-                             <v-select
+                            <v-select
                                 v-model.trim="floor"
                                 :items="genders"
                                 item-text="label"
@@ -130,7 +113,7 @@
                         <label for="phone">
                             Телефон  <span>*</span>
                         </label>
-                        <masked-input class="input" v-model.trim="phone" id="phone" mask="\+\7 (111) 1111-11" />
+                        <masked-input class="input" v-model.trim="phone" id="phone" mask="\+\7 (111) 111-11-11" />
                         <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
                     </div>
                     <div class="input__block">
@@ -151,7 +134,7 @@
                             Тип документа  <span>*</span>
                         </label>
                         <div class="data_input_block">
-                             <v-autocomplete
+                            <v-autocomplete
                                 v-model.trim="type_document"
                                 :items="doctypes"
                                 dense
@@ -189,7 +172,7 @@
                             Дата выдачи <span>*</span>
                         </label>
                         <div @click="date_issuing_picker = true" class="data_input_block">
-                            <p>{{date_issuing}}</p>
+                            <p>{{date_issuing | moment("DD.MM.YYYY")}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.date_issuing.$dirty && !$v.date_issuing.required">Поле 'Дата выдачи' обязателен к заполнению</div>
@@ -199,7 +182,7 @@
                             Дата окончания срока <span>*</span>
                         </label>
                         <div @click="date_endings_picker = true" class="data_input_block">
-                            <p>{{date_endings}}</p>
+                            <p>{{date_endings | moment("DD.MM.YYYY")}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.date_endings.$dirty && !$v.date_endings.required">Поле 'Дата окончания срока' обязателен к заполнению</div>
@@ -214,7 +197,7 @@
                             Цель визита <span>*</span>
                         </label>
                         <div class="data_input_block">
-                             <v-autocomplete
+                            <v-autocomplete
                                 v-model.trim="target"
                                 :items="targets"
                                 item-text="label"
@@ -233,7 +216,7 @@
                             Дата начала <span>*</span>
                         </label>
                         <div @click="date_start_picker = true" class="data_input_block">
-                            <p>{{start_check_date}}</p>
+                            <p>{{start_check_date | moment("DD.MM.YYYY")}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.start_check_date.$dirty && !$v.start_check_date.required">Поле 'Дата начала' обязателен к заполнению</div>
@@ -243,7 +226,7 @@
                             Дата окончания <span>*</span>
                         </label>
                         <div @click="date_end_picker = true" class="data_input_block">
-                            <p>{{end_check_date}}</p>
+                            <p>{{end_check_date | moment("DD.MM.YYYY")}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.required">Поле 'Дата окончания' обязателен к заполнению</div>
@@ -251,7 +234,7 @@
                     
                 </div>
 
-                 <div class="registrations__form">
+                <div class="registrations__form">
                     <div class="input__block">
                         <label for="comment">
                             Дополнительные сведения <span>*</span>
@@ -273,7 +256,6 @@
                     color="#FDE88D"
                     label="Отправить welcome сообщение на email."
                 ></v-checkbox>
-
                 <button @click="send_notif">ОТПРАВИТЬ</button>
             </div>
         </div>
@@ -517,8 +499,6 @@ export default {
             doctypes: [],
             countries: [],
 
-            stay_addres: null,
-
             arrival: 'заезд',
             departure: 'выезд',
             name: null,
@@ -553,8 +533,11 @@ export default {
         this.getStatus()
     },
     methods: {
-
-        send_notif () {
+        checkCountry () {
+            this.citizenship == 216 ? this.checkbox_notify_mvd = false : this.checkbox_notify_mvd = true
+        },
+        send_notif (e) {
+            e.preventDefault()
             if (this.$v.$invalid) {
                 this.$v.$touch()
                 return 
@@ -593,13 +576,50 @@ export default {
                     }
                 })
                 .then((response) => {
+                    this.arrival = 'заезд'
+                    this.departure = 'выезд'
+                    this.name = null
+                    this.surname = null
+                    this.middle_name = null
+                    this.floor = null
+                    this.citizenship = null
+                    this.phone = null
+                    this.date_birth = null
+                    this.type_document = null
+                    this.date_issuing = null
+                    this.date_endings = null
+                    this.start_check_date = null
+                    this.end_check_date = null
+                    this.target = null
+                    this.email = null
+                    this.comment = null
+                    this.document_number = null
+                    this.series_documents = null
+
                     if (response.data.success == "Успешно зарегистрирован пользователь") {
                         this.modal_success = true
+                        return false
+                    }
+                    if (response.data.success == "Успешно зарегистрирован ранее зарегистрированный пользователь") {
+                        this.$toast.open({
+                            message: response.data.success,
+                            type: 'success',
+                            position: 'bottom',
+                            duration: 1500,
+                            queue: true
+                        });
+                        return false
                     }
                 })  
                 .catch((error) => {
-                    console.log(error);
-                });              
+                    this.$toast.open({
+                        message: error.response.data.message,
+                        type: 'error',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
+                });   
             }
         },
         getStatus() {
@@ -662,10 +682,17 @@ export default {
                 this.targets = response.data
             }); 
         },
+        addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        },
         getDate () {
-            let hours = (new Date()).getHours();
-            let minutes = (new Date()).getMinutes();
-            this.check_in_time = hours + ':'  + minutes
+            let d = new Date();
+            let h = this.addZero(d.getHours());
+            let m = this.addZero(d.getMinutes());
+            this.check_in_time = h + ":" + m 
         },
         closeScanDocument () {
             this.$refs.webcam.stop();
@@ -676,7 +703,8 @@ export default {
             this.arrival = this.picker[0]
             this.departure = this.picker[1]
         },
-        scanDocument () {
+        scanDocument (e) {
+            e.preventDefault()
             this.scan_photo_picker = true
         },
         onCapture() {

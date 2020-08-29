@@ -68,7 +68,15 @@ export default {
                     }
                 })  
                 .catch((error) => {
-                    console.log(error);
+                    if (error.response.status == 401) {
+                        this.$toast.open({
+                            message: 'неверный логин или пароль!',
+                            type: 'error',
+                            position: 'bottom',
+                            duration: 1500,
+                            queue: true
+                        });
+                    }
                 });    
             }
         },

@@ -198,19 +198,19 @@ import { required, numeric, email, minLength, maxLength } from 'vuelidate/lib/va
 export default {
     data () {
         return {
-            name: '',
-            surname: '',
-            document_number: '',
-            middle_name: '',
-            iin: '',
-            phone: '',
-            email: '',
-            region: '',
-            district: '',
-            address: '',
-            house_number: '',
-            apartment_number: '',
-            locality: '',
+            name: null,
+            surname: null,
+            document_number: null,
+            middle_name: null,
+            iin: null,
+            phone: null,
+            email: null,
+            region: null,
+            district: null,
+            address: null,
+            house_number: null,
+            apartment_number: null,
+            locality: null,
 
             modal: false,
             region__array: [],
@@ -296,10 +296,31 @@ export default {
                 .then((response) => {
                     if (response.data.msg == "success register") {
                         this.modal = true
+                        this.name = null
+                        this.surname = null
+                        this.document_number = null
+                        this.middle_name = null
+                        this.iin = null
+                        this.phone = null
+                        this.email = null
+                        this.region = null
+                        this.district = null
+                        this.address = null
+                        this.house_number = null
+                        this.apartment_number = null
+                        this.locality = null
                     }
                 })  
                 .catch((error) => {
-                    console.log(error);
+                    if (error.response.status == 400) {
+                        this.$toast.open({
+                            message: error.response.data.msg,
+                            type: 'error',
+                            position: 'bottom',
+                            duration: 1500,
+                            queue: true
+                        });
+                    }
                 });              
             }
         },
