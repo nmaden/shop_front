@@ -11,34 +11,131 @@
                     домов и других вариантов
                 </h4>
                 <div class="filter__book__hotel">
-                    <div class="filter__book__hotel__block filter__book__hotel__block__border">
-                        <img class="base__filter__img" src="../../assets/icons/travel_filter.png" alt="travel_filter">
-                        <p>
-                            Куда вы хотите поехать?
-                        </p>
-                        <img class="base__img__down" src="../../assets/icons/down.png" alt="down">
-                    </div>
-                    <div class="filter__book__hotel__block">
-                        <p>
-                            26.07.2020
-                        </p>
-                        <p>
-                            -
-                        </p>
-                        <p>
-                            26.07.2020
-                        </p>
-                        <img class="base__filter__img" src="../../assets/icons/data_picker_filter.png" alt="data_picker_filter">
-                    </div>
-                    <div class="filter__book__hotel__block">
-                        <img class="base__filter__img" src="../../assets/icons/person_filter.png" alt="person_filter">
-                        <p>
-                            2 - взрослых
-                        </p>
-                        <p>
-                            1 - номер
-                        </p>
-                    </div>
+                    <v-menu
+                        v-model="where_to_go"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        offset-y
+                        max-width="310px"
+                        min-width="310px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                            <div 
+                                class="filter__book__hotel__block filter__book__hotel__block__border"
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                <img class="base__filter__img" src="../../assets/icons/travel_filter.png" alt="travel_filter">
+                                <p>
+                                    Куда вы хотите поехать?
+                                </p>
+                                <img class="base__img__down" src="../../assets/icons/down.png" alt="down">
+                            </div>
+                        </template>
+                        <div class="cities__list">
+
+                        </div>
+                    </v-menu>
+                    
+                    <v-menu
+                        v-model="date_arrival__view"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        offset-y
+                        max-width="310px"
+                        min-width="310px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                            <div 
+                                class="filter__book__hotel__block"
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                <p>
+                                    {{arrival | moment("DD.MM.YYYY")}}
+                                </p>
+                                <p>
+                                    -
+                                </p>
+                                <p>
+                                    {{departure | moment("DD.MM.YYYY")}}
+                                </p>
+                                <img class="base__filter__img" src="../../assets/icons/data_picker_filter.png" alt="data_picker_filter">
+                            </div>
+                        </template>
+                        <v-date-picker 
+                            v-model="date_arrival" 
+                            no-title 
+                            @change="changeDateArrival"
+                            locale="ru-in"
+                            width="310"
+                            range
+                        >
+                        </v-date-picker>
+                    </v-menu>
+
+                    <v-menu
+                        v-model="count__view"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        offset-y
+                        max-width="310px"
+                        min-width="310px"
+                    >
+                       <template v-slot:activator="{ on, attrs }">
+                            <div 
+                                class="filter__book__hotel__block"
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                <img class="base__filter__img" src="../../assets/icons/person_filter.png" alt="person_filter">
+                                <p>
+                                    {{adults}} - взрослых 
+                                </p>
+                                <p>
+                                    {{numbers}} - номер
+                                </p>    
+                            </div>
+                        </template>
+                        <div class="counter__type">
+                            <div class="counter__type__flex">
+                                <div class="counter__type__flex__block_l">
+                                    <p>
+                                        Взрослых
+                                    </p>
+                                </div>
+                                <div class="counter__type__flex__block_r">
+                                    <div @click="numbersAdults('munus')" class="minus__plus__counter">
+                                        -
+                                    </div>
+                                    <div class="result__counter__text">
+                                        {{adults}}
+                                    </div>
+                                    <div @click="numbersAdults('plus')" class="minus__plus__counter">
+                                        +
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="counter__type__flex">
+                                <div class="counter__type__flex__block_l">
+                                    <p>
+                                        Номера
+                                    </p>
+                                </div>
+                                <div class="counter__type__flex__block_r">
+                                    <div @click="numbersCalc('munus')" class="minus__plus__counter">
+                                        -
+                                    </div>
+                                    <div class="result__counter__text">
+                                        {{numbers}}
+                                    </div>
+                                    <div @click="numbersCalc('plus')" class="minus__plus__counter">
+                                        +
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </v-menu>
                     <a href="https://eqonaq.kz/hotels" target="_blank">
                         Проверить цены
                     </a>
@@ -53,14 +150,103 @@
 export default {
     data () {
       return {
+        date_arrival__view: false,
+        count__view: false,
+        where_to_go: false,
+        date_arrival: null,
         
+
+        arrival: 'Заезд',
+        departure: 'Отъезд',
+        adults: 0,
+        numbers: 0,
       }
     },
+    methods: {
+        changeDateArrival () {
+            this.date_arrival__view = false
+            this.arrival = this.date_arrival[0]
+            this.departure = this.date_arrival[1]
+        },
+        numbersAdults(type) {
+            if (type == 'plus') {
+                this.adults++
+            } else {
+                if (this.adults == 0) {
+                    this.adults = 0
+                } else {
+                    this.adults--
+                }
+            }
+        },
+        numbersCalc(type) {
+            if (type == 'plus') {
+                this.numbers++
+            } else {
+                if (this.numbers == 0) {
+                    this.numbers = 0
+                } else {
+                    this.numbers--
+                }
+            }
+        }
+    }
 }
 </script>
 
 <style scoped lang="less">
-
+.cities__list {
+    width: 100%;
+    height: 170px;
+    background: #fff;
+}
+.counter__type {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    .counter__type__flex {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        .counter__type__flex__block_l {
+            width: 50%;
+            p {
+                margin: 0;
+                margin-left: 10px;
+            }
+        }
+        .counter__type__flex__block_r {
+            width: 50%;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 10px;
+            .result__counter__text {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+            }
+            .minus__plus__counter {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #FFCE03;
+                color: #000;
+                font-weight: bold;
+                cursor: pointer;
+                user-select: none;
+                font-size: 26px;
+            }
+        }
+    }
+}
 .book__hotel {
     width: 100%;
     margin-top: 40px;
@@ -98,7 +284,7 @@ export default {
                 background: #FFCE03;
                 margin-top: 20px;
                 border-radius: 10px;
-
+                
                 .filter__book__hotel__block__border {
                     border-radius: 10px 0px 0px 10px;
                 }
@@ -110,6 +296,7 @@ export default {
                     align-items: center;
                     padding: 15px 25px;
                     width: 311px;
+                    cursor: pointer;
 
                     .base__filter__img {
                         width: 20px;
@@ -117,7 +304,7 @@ export default {
                     }
                     .base__img__down {
                         width: 10px;
-                        height: 10px;
+                        height: 6px;
                     }
                     p {
                         margin: 0;
@@ -125,6 +312,7 @@ export default {
                         font-weight: 500;
                         font-size: 16px;
                         font-family: 'MediumMedium';
+                        user-select: none;
                     }
                 }
                 a {

@@ -53,6 +53,18 @@ const routes = [
     component: () => import('../views/cabinet/Connection.vue'),
     meta: {layout: 'not_authorized', auth: false},
   },
+  {
+    path: '/migration',
+    name: 'Migration',
+    component: () => import('../views/cabinet/Migration.vue'),
+    meta: {layout: 'not_authorized', auth: false},
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/cabinet/Search.vue'),
+    meta: {layout: 'not_authorized', auth: false},
+  },
 ]
 
 const router = new VueRouter({

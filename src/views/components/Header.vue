@@ -8,7 +8,9 @@
             </div>
             <div class="header__r">
                 <div class="search">
-                    <img src="../../assets/icons/search.svg" alt="search">
+                    <router-link to="/search">
+                        <img src="../../assets/icons/search.svg" alt="search">
+                    </router-link>
                 </div>
                 <div class="lang">
                     <v-select
@@ -89,7 +91,7 @@ export default {
             },
             {
                 name: 'МИГРАЦИОННЫЙ СПРАВОЧНИК',
-                to: '/'
+                to: '/migration'
             },
             {
                 name: 'ВАЛЮТА',
