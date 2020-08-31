@@ -256,7 +256,7 @@
                     color="#FDE88D"
                     label="Отправить welcome сообщение на email."
                 ></v-checkbox>
-                <button @click="send_notif">ОТПРАВИТЬ</button>
+                <button @click="sendNotif">ОТПРАВИТЬ</button>
             </div>
         </div>
 
@@ -484,7 +484,6 @@ export default {
             picker: null,
             items: ['foo', 'bar', 'fizz', 'buzz'],
             img: null,
-
             genders: [
                 {
                     label: 'мужской',
@@ -536,8 +535,7 @@ export default {
         checkCountry () {
             this.citizenship == 216 ? this.checkbox_notify_mvd = false : this.checkbox_notify_mvd = true
         },
-        send_notif (e) {
-            e.preventDefault()
+        sendNotif () {
             if (this.$v.$invalid) {
                 this.$v.$touch()
                 return 
@@ -703,13 +701,47 @@ export default {
             this.arrival = this.picker[0]
             this.departure = this.picker[1]
         },
-        scanDocument (e) {
-            e.preventDefault()
+        scanDocument () {
+            this.img = null
             this.scan_photo_picker = true
         },
-        onCapture() {
-            this.img = this.$refs.webcam.capture();
-            // this.send_base64();
+        async onCapture() {
+            this.img = await this.$refs.webcam.capture();
+            this.sendBase64();
+        },
+        sendBase64() {
+            this.$axios({ 
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'regula',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+                data: {
+                    image: this.img
+                }
+            })
+            .then(response => {
+                console.log(response.data)
+                // // let info = this.getByEngName(response.data.Country);
+                this.scan_photo_picker = false
+                this.$refs.webcam.stop();
+            })
+            .catch(e => {
+                console.log(e)
+            })
+        },
+        getByEngName(eng_name) {
+            let array = this.countries_all;
+            let info = [];
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                if(element["label_eng"]==eng_name) {
+                    info.push(element["value"]);
+                    info.push(element["label"]);
+                    info.push(element["flag"]);
+                    return info;
+                }
+            }
         },
     },
     computed: {
