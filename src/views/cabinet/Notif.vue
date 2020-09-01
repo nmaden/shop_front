@@ -722,26 +722,20 @@ export default {
             })
             .then(response => {
                 console.log(response.data)
-                // // let info = this.getByEngName(response.data.Country);
                 this.scan_photo_picker = false
                 this.$refs.webcam.stop();
+                this.floor = response.data.Gender
+                this.document_number = response.data.DocNumber
+                this.name = response.data.FirstName
+                this.surname = response.data.LastName
+                this.date_birth = response.data.Birthday
+                this.date_issuing = response.data.Issue
+                this.date_endings = response.data.Valid
+                
             })
             .catch(e => {
                 console.log(e)
             })
-        },
-        getByEngName(eng_name) {
-            let array = this.countries_all;
-            let info = [];
-            for (let index = 0; index < array.length; index++) {
-                const element = array[index];
-                if(element["label_eng"]==eng_name) {
-                    info.push(element["value"]);
-                    info.push(element["label"]);
-                    info.push(element["flag"]);
-                    return info;
-                }
-            }
         },
     },
     computed: {
