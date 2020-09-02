@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <button @click="scanDocument">Сканировать документ</button>
+                <button @click="onCapture">Сканировать документ</button>
 
                 <h3>Данные гостя</h3>
 
@@ -231,7 +231,6 @@
                         </div>
                         <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.required">Поле 'Дата окончания' обязателен к заполнению</div>
                     </div>
-                    
                 </div>
 
                 <div class="registrations__form">
@@ -345,38 +344,30 @@
 
         <v-dialog
             v-model="scan_photo_picker"
-            max-width="900"
+            max-width="600"
         >
             <div class="scan__block">
                 <div class="scan__block__header">
                     <h3>
                         Сканирование документа, удостоверящего личность
                     </h3>
+                    <span class="mdi mdi-close" @click="closeScanDocument"></span>
                 </div>
-                <div class="scan__block__flex">
-                    <div class="scan__block__flex__child">
-                        <WebCam
-                            ref="webcam"
-                            width="100%"
-                            height="100%"
-                            class="webCamMirror"
-                        ></WebCam>
+                <div class="scan__block_webcam">
+                    <div class="scan__block_webcam__hidden">
+                        <div class="scan__block__child">
+                            <WebCam
+                                ref="webcam"
+                                width="100%"
+                                height="100%"
+                                :class="{
+                                    webCamMirror: default_style, 
+                                    errorWebCam: error_style,
+                                    successWebCam: success_style
+                                }"
+                            ></WebCam>
+                        </div>
                     </div>
-                    <div class="scan__block__flex__child">
-                        <img :src="img" v-if="img !== null" />
-                        <img src="../../assets/all/rightside.svg" v-else>
-                    </div>
-                </div>
-                <div class="button__flex">
-                    <button @click="onCapture" class="bg__btn__1">
-                        сканировать
-                    </button>
-                    <button  @click="img = null" class="bg__btn__1">
-                        переснять
-                    </button>
-                    <button @click="closeScanDocument" class="bg__btn__2">
-                        закрыть
-                    </button>
                 </div>
             </div>
         </v-dialog>
@@ -481,6 +472,11 @@ export default {
             date_end_picker: false,
             scan_photo_picker: false,
             modal_success: false,
+
+            default_style: true,
+            error_style: false,
+            success_style: false,
+
             picker: null,
             items: ['foo', 'bar', 'fizz', 'buzz'],
             img: null,
@@ -629,7 +625,7 @@ export default {
                 },
             })
             .then(response => {
-                this.status = response.data[1].value;
+                this.status = response.data[0].value;
             })
             .catch(error => {
                 console.log(error)
@@ -701,13 +697,15 @@ export default {
             this.arrival = this.picker[0]
             this.departure = this.picker[1]
         },
-        scanDocument () {
-            this.img = null
-            this.scan_photo_picker = true
-        },
-        async onCapture() {
+        async capturePhoto () {
             this.img = await this.$refs.webcam.capture();
             this.sendBase64();
+        },
+        onCapture() {
+            this.scan_photo_picker = true
+            setTimeout(() => {
+                 this.capturePhoto()
+            }, 1000);
         },
         sendBase64() {
             this.$axios({ 
@@ -721,20 +719,31 @@ export default {
                 }
             })
             .then(response => {
-                console.log(response.data)
-                this.scan_photo_picker = false
-                this.$refs.webcam.stop();
-                this.floor = response.data.Gender
-                this.document_number = response.data.DocNumber
-                this.name = response.data.FirstName
-                this.surname = response.data.LastName
-                this.date_birth = response.data.Birthday
-                this.date_issuing = response.data.Issue
-                this.date_endings = response.data.Valid
-                
+                if (response.data.Empty == 1) {
+                    setTimeout(() => {
+                        this.capturePhoto()
+                    }, 1000);
+                    this.default_style = false
+                    this.error_style = true
+                    this.success_style = false
+                } else {
+                    this.default_style = false
+                    this.error_style = false
+                    this.success_style = true
+                    this.scan_photo_picker = false
+                    this.$refs.webcam.stop();
+                    this.floor = response.data.Gender
+                    this.document_number = response.data.DocNumber
+                    this.name = response.data.FirstName
+                    this.surname = response.data.LastName
+                    this.date_birth = response.data.Birthday
+                    this.date_issuing = response.data.Issue
+                    this.date_endings = response.data.Valid
+                }
             })
             .catch(e => {
                 console.log(e)
+                this.capturePhoto()
             })
         },
     },
@@ -785,47 +794,108 @@ export default {
     .scan__block__header {
         width: 100%;
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         h3 {
             color: #000;
-            font-size: 20px;
+            font-size: 18px;
         }
-    }
-    .scan__block__flex {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        .scan__block__flex__child {
-            width: 400px;
-            height: 300px;
-            img {
-                width: 100%;
-            }
-            .webCamMirror {
-                -webkit-transform: scaleX(-1);
-                transform: scaleX(-1);
-            }
-        }
-    }
-    .button__flex {
-        width: 100%;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        button {
-            padding: 9px 20px;
-            text-transform: uppercase;
-            margin-right: 14px;
-            font-size: 14px;
-            outline: none;
-            border-radius: 5px;
-        }
-        .bg__btn__1 {
-            background: #FDE88D;
+        span {
             color: #000;
+            font-size: 27px;
+            cursor: pointer;
         }
-        .bg__btn__2 {
-            background: red;
-            color: #fff;
+    }
+    .scan__block_webcam {
+        width: 100%;
+        background: #fff;
+        .scan__block_webcam__hidden {
+            width: 100%;
+            height: 421px;
+            overflow: hidden;
+            .scan__block__child {
+                width: 100%;
+                height: 100%;
+                .webCamMirror {
+                    -webkit-transform: scaleX(-1);
+                    transform: scaleX(-1);
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        border: 35px solid rgba(0, 0, 0, 0.5);
+                    }
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        border: 5px solid #FDE88D;
+                        margin: 34px;
+                    }
+                }
+                .errorWebCam {
+                    -webkit-transform: scaleX(-1);
+                    transform: scaleX(-1);
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        border: 35px solid rgba(0, 0, 0, 0.5);
+                    }
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        border: 5px solid red;
+                        margin: 34px;
+                    }
+                }
+                .successWebCam {
+                    -webkit-transform: scaleX(-1);
+                    transform: scaleX(-1);
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        border: 35px solid rgba(0, 0, 0, 0.5);
+                    }
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        border: 5px solid #00d800;
+                        margin: 34px;
+                    }
+                }
+                
+            }
         }
+        
     }
 }
 .notif {
