@@ -15,7 +15,6 @@
     "vue-cam-vision": "0.0.8",
     "vue-masked-input": "^0.5.2",
     "vue-moment": "^4.1.0",
-    "vue-native-websocket": "^2.0.14",
     "vue-router": "^3.2.0",
     "vue-toast-notification": "^0.5.0",
     "vuelidate": "^0.7.5",

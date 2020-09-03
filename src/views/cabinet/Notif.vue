@@ -13,9 +13,11 @@
                             Дата заезда - выезда <span>*</span>
                         </label>
                         <div class="data_input_block">
-                            <p>{{this.arrival | moment("DD.MM.YYYY")}}</p>
+                            <p>
+                                {{arrival | moment("DD.MM.YYYY")}}
+                            </p>
                             <p>-</p>
-                            <p>{{this.departure | moment("DD.MM.YYYY")}}</p>
+                            <p>{{departure | moment("DD.MM.YYYY")}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.picker.$dirty && !$v.picker.required">Поле 'Дата заезда - выезда' обязателен к заполнению</div>
@@ -270,6 +272,7 @@
                 <v-date-picker 
                     locale="ru-in"
                     v-model="picker"
+                    color="#FDE88D"
                     range
                     @change="changeDateArrival"
                 ></v-date-picker>
@@ -284,6 +287,7 @@
                 <v-date-picker 
                     locale="ru-in"
                     v-model="date_birth"
+                    color="#FDE88D"
                     @change="date_birth_picker = false"
                 ></v-date-picker>
             </v-card>
@@ -296,6 +300,7 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
+                    color="#FDE88D"
                     v-model="date_issuing"
                     @change="date_issuing_picker = false"
                 ></v-date-picker>
@@ -309,6 +314,7 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
+                    color="#FDE88D"
                     v-model="date_endings"
                     @change="date_endings_picker = false"
                 ></v-date-picker>
@@ -322,6 +328,7 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
+                    color="#FDE88D"
                     v-model="start_check_date"
                     @change="date_start_picker = false"
                 ></v-date-picker>
@@ -335,6 +342,7 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
+                    color="#FDE88D"
                     v-model="end_check_date"
                     @change="date_end_picker = false"
                 ></v-date-picker>
@@ -349,7 +357,7 @@
             <div class="scan__block">
                 <div class="scan__block__header">
                     <h3>
-                        Сканирование документа, удостоверящего личность
+                        Сканирование документа 
                     </h3>
                     <span class="mdi mdi-close" @click="closeScanDocument"></span>
                 </div>
@@ -359,6 +367,7 @@
                             <WebCam
                                 ref="webcam"
                                 width="100%"
+                                :autoplay="false"
                                 height="100%"
                                 :class="{
                                     webCamMirror: default_style, 
@@ -371,7 +380,6 @@
                 </div>
             </div>
         </v-dialog>
-        
         <v-dialog
             v-model="modal_success"
             max-width="500"
@@ -478,7 +486,6 @@ export default {
             success_style: false,
 
             picker: null,
-            items: ['foo', 'bar', 'fizz', 'buzz'],
             img: null,
             genders: [
                 {
@@ -704,6 +711,7 @@ export default {
         onCapture() {
             this.scan_photo_picker = true
             setTimeout(() => {
+                //  this.$refs.webcam.start()
                  this.capturePhoto()
             }, 1000);
         },

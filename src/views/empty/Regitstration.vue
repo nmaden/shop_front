@@ -7,6 +7,9 @@
                     Регистрация
                 </h2>
                 <div class="registrations__form">
+                    <button @click="handleSend">Выбрать ЭЦП</button>
+                </div>
+                <div class="registrations__form">
                     <div class="input__block">
                         <label for="name">
                             Имя <span>*</span>
@@ -154,9 +157,6 @@
                         <div class="error__text" v-if="$v.apartment_number.$dirty && !$v.apartment_number.required">Поле 'Номер квартиры' обязателен к заполнению</div>
                         <div class="error__text" v-if="!$v.apartment_number.numeric">Поле 'Номер квартиры' введите только цифры</div>
                     </div>
-                    <div class="input__block__child">
-                        <button @click="handleSend">Выбрать ЭЦП</button>
-                    </div>
                 </div>
                 <button @click="registarations">РЕГИСТРАЦИЯ</button>
             </div>
@@ -216,6 +216,11 @@ export default {
             region__array: [],
             district__array: [],
             locality__array: [],
+
+            // websocked
+            connection: null,
+            ready: false,
+            esp__array: null
         }
     },
     validations: {
@@ -267,13 +272,13 @@ export default {
     mounted() {
         this.getLocal()
     },
+    
     methods: {
         registarations () {
             if (this.$v.$invalid) {
                 this.$v.$touch()
                 return 
             } else {
-                console.log('ok reg')   
                 this.$axios({ 
                     method: 'post',
                     url: this.$API_URL + this.$API_VERSION + 'auth/register-individual',
@@ -324,11 +329,23 @@ export default {
                 });              
             }
         },
-        
         handleSend() {
-             
+            if (this.ready == false) {
+                console.log('Убедитесь, что программа NCALayer запущена')
+            } else {
+                const data = {
+                    module: 'kz.gov.pki.knca.commonUtils',
+                    method: "signXml",
+                    args: [
+                        "PKCS12",
+                        "AUTHENTICATION",
+                        "<login><sessionid>caacda70-fd36-45ed-8d94-45a88890f83a</sessionid></login>",
+                        "", ""
+                    ]
+                };
+                this.connection.send(JSON.stringify(data));
+            }
         },
-
         getLocal () {
             this.$axios({
                 method: 'get',
@@ -338,7 +355,6 @@ export default {
                 this.region__array = response.data
             }); 
         },
-        
         getDistrict () {
             this.$axios({
                 method: 'post',
@@ -369,9 +385,43 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
+        },
+        sendEsp () {
+            this.$axios({ 
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'guest/loginwithecp/bar',
+                data: {
+                    data: this.esp__array,
+                }
+            })
+            .then((response) => {
+                console.log(response)
+            })  
+            .catch((error) => {
+                console.log(error)
+            });    
         }
         
-    }
+    },
+    created() {
+        console.log('start web socked')
+        this.connection = new WebSocket("wss://127.0.0.1:13579/")
+        
+        this.connection.onopen = () => {
+            console.log("Connection success");
+            this.ready = true
+        }
+        this.connection.onmessage = (e) => {
+            const arr = JSON.parse(e.data);
+            const parse__arr = arr.responseObject
+            this.esp__array = parse__arr
+            if (typeof this.esp__array !== 'undefined') {
+                console.log('ok send req')
+                this.sendEsp()
+            }
+        };
+    },
+   
 }
 </script>
 

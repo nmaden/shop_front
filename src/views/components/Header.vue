@@ -99,7 +99,7 @@ export default {
             },
             {
                 name: 'ГОСТИНИЦЫ',
-                to: '/'
+                to: 'https://eqonaq.kz/hotels'
             },
             {
                 name: 'ИСТОРИЯ КАЗАХСТАНА',
@@ -111,7 +111,11 @@ export default {
     },
     methods: {
         route (to) {
-            this.$router.push(to)
+            if (to == 'https://eqonaq.kz/hotels') {
+                window.location.href = to
+            } else {
+                this.$router.push(to)
+            }
         },
         to_profile () {
             this.$router.push('/profile')
