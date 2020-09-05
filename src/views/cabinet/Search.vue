@@ -13,7 +13,6 @@
                 <img src="../../assets/all/result__search.png" alt="result__search">
             </div>
         </div>
-       
     </div>
 </template>
 
@@ -42,7 +41,7 @@ export default {
     .main__base__margin {
         width: 1200px;
         margin: 0 auto;
-        margin-top: 135px;
+        margin-top: 65px;
 
         h1 {
             font-style: normal;

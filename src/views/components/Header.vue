@@ -31,7 +31,7 @@
                     <div class="main__header__menu__user" @mouseleave="show_menu = false" @mouseover="show_menu = true" v-if="GET_TOKEN.length !== 0">
                         <div class="header__menu__user">
                             <p>
-                                {{GET_USER_DATA}}
+                                {{GET_USER_DATA}} 
                             </p>
                             <img src="../../assets/icons/person_default.svg" alt="person_default">
                         </div>
@@ -54,8 +54,14 @@
                 </div>
             </div>
         </div>
-        <div v-if="currentRouteName !== 'Profile'" class="scroll__menu">
-            <div class="menu">
+        <div 
+            @mousewheel="scrollMenu" 
+            @mousemove="scrollBodyOver" 
+            @mouseleave="scrollBodyLeave" 
+            v-if="currentRouteName !== 'Profile'" 
+            class="scroll__menu"
+        >
+            <div class="menu" :style="'margin-left:' + this.menu_count + 'px'">
                 <a 
                     class="menu__item"
                     v-for="menu_item in menu"
@@ -106,7 +112,8 @@ export default {
                 to: '/'
             },
         ],
-        show_menu: false
+        show_menu: false,
+        menu_count: 0,
       }
     },
     methods: {
@@ -121,10 +128,27 @@ export default {
             this.$router.push('/profile')
         },
         sign_out () {
-            console.log('ok')
             localStorage.clear()
             this.$router.push('/')
             location.reload()
+        },
+        scrollMenu (e) {
+            e = e || window.event
+            let delta = e.deltaY || e.detail || e.wheelDelta
+            if (this.menu_count > -1) {
+                delta > 0 ? this.menu_count -= 20 : this.menu_count = 0;
+            } else {
+                delta > 0 ? this.menu_count -= 20 : this.menu_count += 20;
+            }
+            // let res = 1200 - Number(String(this.menu_count).replace("-", ""))
+            // console.log(res)
+        },
+        scrollBodyOver () {
+            document.body.style.height = '100vh';
+            document.body.style.overflow = 'hidden';
+        },
+        scrollBodyLeave () {
+            document.body.style.height = 'auto';
         }
     },
     computed: {
@@ -253,10 +277,12 @@ export default {
     margin: 0 auto;
     z-index: 20;
     margin-top: 10px;
+    height: 65px;
+    position: relative;
+
     .menu {
         width: 100%;
         padding-bottom: 10px;
-        overflow: auto;
         z-index: 100;
         white-space: nowrap;
         position: absolute;

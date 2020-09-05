@@ -30,6 +30,6 @@ export default {
 .main__base__margin {
     width: 1200px;
     margin: 0 auto;
-    margin-top: 135px;
+    margin-top: 65px;
 }
 </style>

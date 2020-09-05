@@ -11,7 +11,6 @@ export default {
 </script>
 
 <style scoped>
-
 @font-face {
   font-family: "MontserratBold";
   src: url('./font/Montserrat-Bold.ttf');

@@ -247,14 +247,14 @@
                 
                 <v-checkbox
                     v-model="checkbox_notify_mvd"
-                    color="#FDE88D"
+                    color="#FFCC47"
                     :hide-details="true"
                     label="Отправить уведомление в МВД РК о прибытии иностранного постояльца."
                 ></v-checkbox>
                 <v-checkbox
                     v-model="checkbox_welcome_message"
                     :hide-details="true"
-                    color="#FDE88D"
+                    color="#FFCC47"
                     label="Отправить welcome сообщение на email."
                 ></v-checkbox>
                 <button @click="sendNotif">ОТПРАВИТЬ</button>
@@ -272,7 +272,7 @@
                 <v-date-picker 
                     locale="ru-in"
                     v-model="picker"
-                    color="#FDE88D"
+                    color="#FFCC47"
                     range
                     @change="changeDateArrival"
                 ></v-date-picker>
@@ -287,7 +287,7 @@
                 <v-date-picker 
                     locale="ru-in"
                     v-model="date_birth"
-                    color="#FDE88D"
+                    color="#FFCC47"
                     @change="date_birth_picker = false"
                 ></v-date-picker>
             </v-card>
@@ -300,7 +300,7 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
-                    color="#FDE88D"
+                    color="#FFCC47"
                     v-model="date_issuing"
                     @change="date_issuing_picker = false"
                 ></v-date-picker>
@@ -314,7 +314,7 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
-                    color="#FDE88D"
+                    color="#FFCC47"
                     v-model="date_endings"
                     @change="date_endings_picker = false"
                 ></v-date-picker>
@@ -328,7 +328,7 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
-                    color="#FDE88D"
+                    color="#FFCC47"
                     v-model="start_check_date"
                     @change="date_start_picker = false"
                 ></v-date-picker>
@@ -342,7 +342,7 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
-                    color="#FDE88D"
+                    color="#FFCC47"
                     v-model="end_check_date"
                     @change="date_end_picker = false"
                 ></v-date-picker>
@@ -363,20 +363,46 @@
                 </div>
                 <div class="scan__block_webcam">
                     <div class="scan__block_webcam__hidden">
-                        <div class="scan__block__child">
-                            <WebCam
-                                ref="webcam"
-                                width="100%"
-                                :autoplay="false"
-                                height="100%"
-                                :class="{
-                                    webCamMirror: default_style, 
-                                    errorWebCam: error_style,
-                                    successWebCam: success_style
-                                }"
-                            ></WebCam>
+                            <div class="scan__border__main">
+                                <div 
+                                    :class="{
+                                        scan__border__left__top: default_style, 
+                                        scan__border__left__top__error: error_style,
+                                        scan__border__left__top__success: success_style,
+                                    }"
+                                >
+                                </div>
+                                <div 
+                                    :class="{
+                                        scan__border__rigth__top: default_style, 
+                                        scan__border__rigth__top__error: error_style,
+                                        scan__border__rigth__top__success: success_style,
+                                    }"
+                                >
+                                </div>
+                                <div 
+                                    :class="{
+                                        scan__border__left__bottom: default_style, 
+                                        scan__border__left__bottom__error: error_style,
+                                        scan__border__left__bottom__success: success_style,
+                                    }"
+                                >
+                                </div>
+                                <div 
+                                    :class="{
+                                        scan__border__rigth__bottom: default_style, 
+                                        scan__border__rigth__bottom__error: error_style,
+                                        scan__border__rigth__bottom__success: success_style,
+                                    }"
+                                >
+                                </div>
+                            </div>
+                            <video 
+                                ref="webcam" 
+                                class="webCamMirror"
+                            />
+                            <canvas id="canvas" />
                         </div>
-                    </div>
                 </div>
             </div>
         </v-dialog>
@@ -404,7 +430,6 @@
 <script>
 import Nav from '../components/NavHeader'
 import MaskedInput from 'vue-masked-input'
-import { WebCam } from "vue-cam-vision";
 import { required, email, numeric } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 
@@ -412,7 +437,6 @@ export default {
     components: {
         Nav, 
         MaskedInput, 
-        WebCam
     },
     validations: {
         picker: {
@@ -695,25 +719,47 @@ export default {
             let m = this.addZero(d.getMinutes());
             this.check_in_time = h + ":" + m 
         },
-        closeScanDocument () {
-            this.$refs.webcam.stop();
-            this.scan_photo_picker = false
-        },
         changeDateArrival () {
             this.date_arrival = false
             this.arrival = this.picker[0]
             this.departure = this.picker[1]
         },
+
+        
+        closeScanDocument () {
+            this.scan_photo_picker = false
+
+            const stream = this.$refs.webcam.srcObject;
+            const tracks = stream.getTracks();
+
+            tracks.forEach((track) => {
+                track.stop();
+            });
+
+            this.$refs.webcam.srcObject = null;
+        },
         async capturePhoto () {
-            this.img = await this.$refs.webcam.capture();
+            let canvas = document.getElementById('canvas')
+            let context = canvas.getContext('2d');
+            context.drawImage(this.$refs.webcam, 0, 0, 550, 400);
+            this.img = canvas.toDataURL('image/png');
             this.sendBase64();
         },
         onCapture() {
+            let constraints = { audio: false, video: { front: "user", width: 550, height: 400 } }; 
+            navigator.mediaDevices.getUserMedia(constraints)
+            .then((mediaStream) => {
+                this.$refs.webcam.srcObject = mediaStream;
+                this.$refs.webcam.onloadedmetadata = () => {
+                    this.$refs.webcam.play();
+                }
+            })
+            .catch((err) => { console.log(err.name + ": " + err.message); });
             this.scan_photo_picker = true
+
             setTimeout(() => {
-                //  this.$refs.webcam.start()
                  this.capturePhoto()
-            }, 1000);
+            }, 1000)
         },
         sendBase64() {
             this.$axios({ 
@@ -738,8 +784,10 @@ export default {
                     this.default_style = false
                     this.error_style = false
                     this.success_style = true
-                    this.scan_photo_picker = false
-                    this.$refs.webcam.stop();
+
+                    // this.scan_photo_picker = false
+
+
                     this.floor = response.data.Gender
                     this.document_number = response.data.DocNumber
                     this.name = response.data.FirstName
@@ -820,87 +868,147 @@ export default {
         background: #fff;
         .scan__block_webcam__hidden {
             width: 100%;
-            height: 421px;
+            height: 409px;
             overflow: hidden;
-            .scan__block__child {
+            position: relative;
+            .scan__border__main {
+                position: absolute;
                 width: 100%;
                 height: 100%;
-                .webCamMirror {
-                    -webkit-transform: scaleX(-1);
-                    transform: scaleX(-1);
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 0;
-                        bottom: 0;
-                        right: 0;
-                        left: 0;
-                        border: 35px solid rgba(0, 0, 0, 0.5);
-                    }
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 0;
-                        bottom: 0;
-                        right: 0;
-                        left: 0;
-                        border: 5px solid #FDE88D;
-                        margin: 34px;
-                    }
+                z-index: 999;
+
+                // border 1
+                .scan__border__left__top {
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    border-left: 3px solid #FFCC47;
+                    border-top: 3px solid #FFCC47;
+                    left: 25px;
+                    top: 25px;
                 }
-                .errorWebCam {
-                    -webkit-transform: scaleX(-1);
-                    transform: scaleX(-1);
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 0;
-                        bottom: 0;
-                        right: 0;
-                        left: 0;
-                        border: 35px solid rgba(0, 0, 0, 0.5);
-                    }
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 0;
-                        bottom: 0;
-                        right: 0;
-                        left: 0;
-                        border: 5px solid red;
-                        margin: 34px;
-                    }
+                .scan__border__left__top__error {
+                    border-left: 3px solid red;
+                    border-top: 3px solid red;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    left: 25px;
+                    top: 25px;
                 }
-                .successWebCam {
-                    -webkit-transform: scaleX(-1);
-                    transform: scaleX(-1);
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 0;
-                        bottom: 0;
-                        right: 0;
-                        left: 0;
-                        border: 35px solid rgba(0, 0, 0, 0.5);
-                    }
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        top: 0;
-                        bottom: 0;
-                        right: 0;
-                        left: 0;
-                        border: 5px solid #00d800;
-                        margin: 34px;
-                    }
+                .scan__border__left__top__success {
+                    border-left: 3px solid #26f700;
+                    border-top: 3px solid #26f700;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    left: 25px;
+                    top: 25px;
                 }
-                
+                // border 2
+                .scan__border__rigth__top {
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    border-right: 3px solid #FFCC47;
+                    border-top: 3px solid #FFCC47;
+                    right: 25px;
+                    top: 25px;
+                }
+                .scan__border__rigth__top__error {
+                    border-right: 3px solid red;
+                    border-top: 3px solid red;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    right: 25px;
+                    top: 25px;
+                }
+                .scan__border__rigth__top__success {
+                    border-right: 3px solid #26f700;
+                    border-top: 3px solid #26f700;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    right: 25px;
+                    top: 25px;
+                }
+                // border 3
+                .scan__border__left__bottom {
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    border-left: 3px solid #FFCC47;
+                    border-bottom: 3px solid #FFCC47;
+                    left: 25px;
+                    bottom: 25px;
+                }
+                .scan__border__left__bottom__error {
+                    border-left: 3px solid red;
+                    border-bottom: 3px solid red;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    left: 25px;
+                    bottom: 25px;
+                }
+                .scan__border__left__bottom__success {
+                    border-left: 3px solid #26f700;
+                    border-bottom: 3px solid #26f700;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    left: 25px;
+                    bottom: 25px;
+                }
+                // border 4
+                .scan__border__rigth__bottom {
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    border-right: 3px solid #FFCC47;
+                    border-bottom: 3px solid #FFCC47;
+                    right: 25px;
+                    bottom: 25px;
+                }
+                .scan__border__rigth__bottom__error {
+                    border-right: 3px solid red;
+                    border-bottom: 3px solid red;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    right: 25px;
+                    bottom: 25px;
+                }
+                .scan__border__rigth__bottom__success {
+                    border-right: 3px solid #26f700;
+                    border-bottom: 3px solid #26f700;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    right: 25px;
+                    bottom: 25px;
+                }
+
+                // after ------------------------
+                &::after {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    border: 25px solid rgba(0, 0, 0, 0.5);
+                }
+            }
+            #canvas {
+                display: none;
+            }
+            .webCamMirror {
+                -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);
+                z-index: 98;
+                width: 100%;
+                height: 100%;
             }
         }
         

@@ -404,9 +404,7 @@ export default {
         
     },
     created() {
-        console.log('start web socked')
         this.connection = new WebSocket("wss://127.0.0.1:13579/")
-        
         this.connection.onopen = () => {
             console.log("Connection success");
             this.ready = true
@@ -416,7 +414,6 @@ export default {
             const parse__arr = arr.responseObject
             this.esp__array = parse__arr
             if (typeof this.esp__array !== 'undefined') {
-                console.log('ok send req')
                 this.sendEsp()
             }
         };
