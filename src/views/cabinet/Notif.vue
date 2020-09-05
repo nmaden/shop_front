@@ -363,46 +363,53 @@
                 </div>
                 <div class="scan__block_webcam">
                     <div class="scan__block_webcam__hidden">
-                            <div class="scan__border__main">
-                                <div 
-                                    :class="{
-                                        scan__border__left__top: default_style, 
-                                        scan__border__left__top__error: error_style,
-                                        scan__border__left__top__success: success_style,
-                                    }"
-                                >
-                                </div>
-                                <div 
-                                    :class="{
-                                        scan__border__rigth__top: default_style, 
-                                        scan__border__rigth__top__error: error_style,
-                                        scan__border__rigth__top__success: success_style,
-                                    }"
-                                >
-                                </div>
-                                <div 
-                                    :class="{
-                                        scan__border__left__bottom: default_style, 
-                                        scan__border__left__bottom__error: error_style,
-                                        scan__border__left__bottom__success: success_style,
-                                    }"
-                                >
-                                </div>
-                                <div 
-                                    :class="{
-                                        scan__border__rigth__bottom: default_style, 
-                                        scan__border__rigth__bottom__error: error_style,
-                                        scan__border__rigth__bottom__success: success_style,
-                                    }"
-                                >
-                                </div>
+                        <div v-show="loader_scan" class="scan__preloader">
+                            <div class="scan__preloader__flex">
+                                <v-progress-circular
+                                    indeterminate
+                                    color="#FFCC47"
+                                ></v-progress-circular>
                             </div>
-                            <video 
-                                ref="webcam" 
-                                class="webCamMirror"
-                            />
-                            <canvas id="canvas" />
                         </div>
+                        <div class="scan__border__main">
+                            <div 
+                                :class="{
+                                    scan__border__left__top: default_style, 
+                                    scan__border__left__top__error: error_style,
+                                    scan__border__left__top__success: success_style,
+                                }"
+                            >
+                            </div>
+                            <div 
+                                :class="{
+                                    scan__border__rigth__top: default_style, 
+                                    scan__border__rigth__top__error: error_style,
+                                    scan__border__rigth__top__success: success_style,
+                                }"
+                            >
+                            </div>
+                            <div 
+                                :class="{
+                                    scan__border__left__bottom: default_style, 
+                                    scan__border__left__bottom__error: error_style,
+                                    scan__border__left__bottom__success: success_style,
+                                }"
+                            >
+                            </div>
+                            <div 
+                                :class="{
+                                    scan__border__rigth__bottom: default_style, 
+                                    scan__border__rigth__bottom__error: error_style,
+                                    scan__border__rigth__bottom__success: success_style,
+                                }"
+                            >
+                            </div>
+                        </div>
+                        <video 
+                            ref="webcam" 
+                            class="webCamMirror"
+                        />
+                    </div>
                 </div>
             </div>
         </v-dialog>
@@ -508,9 +515,9 @@ export default {
             default_style: true,
             error_style: false,
             success_style: false,
+            loader_scan: false,
 
             picker: null,
-            img: null,
             genders: [
                 {
                     label: 'мужской',
@@ -728,22 +735,23 @@ export default {
         
         closeScanDocument () {
             this.scan_photo_picker = false
-
             const stream = this.$refs.webcam.srcObject;
             const tracks = stream.getTracks();
-
             tracks.forEach((track) => {
                 track.stop();
             });
-
             this.$refs.webcam.srcObject = null;
         },
-        async capturePhoto () {
-            let canvas = document.getElementById('canvas')
-            let context = canvas.getContext('2d');
-            context.drawImage(this.$refs.webcam, 0, 0, 550, 400);
-            this.img = canvas.toDataURL('image/png');
-            this.sendBase64();
+        capturePhoto () {
+            let context
+            let canvas = document.createElement('canvas')
+            let width = this.$refs.webcam.offsetWidth,
+                height = this.$refs.webcam.offsetHeight
+            canvas.width = width
+            canvas.height = height
+            context = canvas.getContext('2d')
+            context.drawImage(this.$refs.webcam, 0, 0, width, height)
+            this.sendBase64(canvas.toDataURL('image/png'))
         },
         onCapture() {
             let constraints = { audio: false, video: { front: "user", width: 550, height: 400 } }; 
@@ -756,12 +764,12 @@ export default {
             })
             .catch((err) => { console.log(err.name + ": " + err.message); });
             this.scan_photo_picker = true
-
             setTimeout(() => {
                  this.capturePhoto()
-            }, 1000)
+            }, 2000)
         },
-        sendBase64() {
+        sendBase64(img) {
+            this.loader_scan = true
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION + 'regula',
@@ -769,14 +777,17 @@ export default {
                     'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
                 },
                 data: {
-                    image: this.img
+                    image: img
                 }
             })
             .then(response => {
+                this.loader_scan = false
                 if (response.data.Empty == 1) {
-                    setTimeout(() => {
-                        this.capturePhoto()
-                    }, 1000);
+                    if (this.scan_photo_picker == true) {
+                        setTimeout(() => {
+                            this.capturePhoto()
+                        }, 1000);
+                    }
                     this.default_style = false
                     this.error_style = true
                     this.success_style = false
@@ -785,8 +796,7 @@ export default {
                     this.error_style = false
                     this.success_style = true
 
-                    // this.scan_photo_picker = false
-
+                    this.closeScanDocument()
 
                     this.floor = response.data.Gender
                     this.document_number = response.data.DocNumber
@@ -795,6 +805,13 @@ export default {
                     this.date_birth = response.data.Birthday
                     this.date_issuing = response.data.Issue
                     this.date_endings = response.data.Valid
+
+                    this.$toast.open({
+                        message: "Данные успешно получены!",
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                    })
                 }
             })
             .catch(e => {
@@ -871,6 +888,25 @@ export default {
             height: 409px;
             overflow: hidden;
             position: relative;
+            .scan__preloader {
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                background: transparent;
+                position: absolute;
+                top: 0;
+                align-items: center;
+                .scan__preloader__flex {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: rgba(0, 0, 0, 0.5);
+                    width: 89.4%;
+                    height: 86.4%;
+                }
+            }
             .scan__border__main {
                 position: absolute;
                 width: 100%;
@@ -1000,9 +1036,7 @@ export default {
                     border: 25px solid rgba(0, 0, 0, 0.5);
                 }
             }
-            #canvas {
-                display: none;
-            }
+            
             .webCamMirror {
                 -webkit-transform: scaleX(-1);
                 transform: scaleX(-1);
