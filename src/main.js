@@ -12,7 +12,7 @@ import 'vue-toast-notification/dist/theme-default.css';
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 Vue.prototype.$API_VERSION = 'v1/';
-Vue.prototype.$API_URL = 'https://eqonaq.kz/api/';
+Vue.prototype.$API_URL = 'https://api.eqonaq.kz/api/';
 
 // vue use ---------------------
 Vue.use(Vuelidate)
