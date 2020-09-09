@@ -66,9 +66,26 @@ export default {
     },
     data () {
       return {
-         
+         country: [],
       }
     },
+    mounted() {
+        this.getMigrations()
+    },
+    methods: {
+        getMigrations () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + 'v2/countries',
+            })
+            .then((response) => {
+                console.log(response)
+            })  
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+    }
 }
 </script>
 

@@ -142,8 +142,6 @@ export default {
                 console.log(error);
             });
         },
-        
-        
     },
     computed: {
         ...mapGetters(['GET_TOKEN']),

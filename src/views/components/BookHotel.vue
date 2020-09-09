@@ -27,13 +27,23 @@
                             >
                                 <img class="base__filter__img" src="../../assets/icons/travel_filter.png" alt="travel_filter">
                                 <p>
-                                    Куда вы хотите поехать?
+                                    {{region_label}}
                                 </p>
                                 <img class="base__img__down" src="../../assets/icons/down.png" alt="down">
                             </div>
                         </template>
                         <div class="cities__list">
-
+                            <div 
+                                class="list__view"
+                                v-for="item in region"
+                                :key="item.value"
+                                @click="setRegion(item.value, item.label)"
+                            >
+                                <span class="mdi mdi-map-marker"></span>
+                                <p>
+                                    {{item.label}}
+                                </p>
+                            </div>
                         </div>
                     </v-menu>
                     
@@ -160,7 +170,13 @@ export default {
         departure: 'Отъезд',
         adults: 0,
         numbers: 0,
+        region: [],
+        region_id: null,
+        region_label: 'Куда вы хотите поехать? ',
       }
+    },
+    mounted() {
+        this.getLocality()
     },
     methods: {
         changeDateArrival () {
@@ -189,6 +205,23 @@ export default {
                     this.numbers--
                 }
             }
+        },
+        getLocality () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION + 'guest/region',
+            })
+            .then((response) => {
+                 this.region = response.data
+            })  
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        setRegion(id, label) {
+            this.region_id = id
+            this.region_label = label
+            this.where_to_go = false
         }
     }
 }
@@ -199,6 +232,27 @@ export default {
     width: 100%;
     height: 170px;
     background: #fff;
+    overflow-y: scroll;
+    .list__view {
+        width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        cursor: pointer;
+        padding-left: 10px;
+        span {
+            color: #ffce03;
+            font-size: 24px;
+        }
+        p {
+            margin: 0;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+    }
 }
 .counter__type {
     width: 100%;
@@ -292,9 +346,9 @@ export default {
                 .filter__book__hotel__block {
                     background: #fff;
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: space-around;
                     align-items: center;
-                    padding: 15px 25px;
+                    padding: 15px 12px;
                     width: 311px;
                     cursor: pointer;
 
@@ -310,7 +364,7 @@ export default {
                         margin: 0;
                         font-style: normal;
                         font-weight: 500;
-                        font-size: 16px;
+                        font-size: 14px;
                         font-family: 'MediumMedium';
                         user-select: none;
                     }

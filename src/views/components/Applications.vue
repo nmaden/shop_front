@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         to_link (to) {
-            window.location.href = to
+            window.open(to, '_blank');
         }
     }
 }
