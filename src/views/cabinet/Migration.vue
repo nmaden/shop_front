@@ -17,7 +17,21 @@
                  Выберите страну
              </h4>
              <div class="migrations__select">
-
+                <img src="../../assets/icons/search.svg" alt="search">
+                <img class="flag" v-show="country_id !== null" :src="country_flag" alt="search">
+                <v-autocomplete
+                    v-model.trim="country_id"
+                    :items="countries"
+                    item-text="label"
+                    solo 
+                    :flat="true"
+                    :hide-details="true"
+                    no-data-text="Нечего не найдено"
+                    background-color="transparent"
+                    :single-line="true"
+                    height="68"
+                    @change="getCountry"
+                ></v-autocomplete>
              </div>
              <p>
                  Турист может прибывать в Республике Казахстан без визы в течении 30 дней, если свыше указанного срока необходимо оформление визы.
@@ -32,7 +46,7 @@
                     <div class="migrations__flex__block__content">
                         <p>
                             <b>
-                                30
+                                {{allowed_days_without_registration}}
                             </b>
                             дней
                         </p>
@@ -47,7 +61,7 @@
                     <div class="migrations__flex__block__content">
                         <p>
                             <b>
-                                Да
+                                {{visa_required}}
                             </b>
                         </p>
                     </div>
@@ -66,20 +80,49 @@ export default {
     },
     data () {
       return {
-         country: [],
+        country: [],
+        countries: [],
+        country_id: null,
+        allowed_days_without_registration: 30,
+        visa_required: 'Нет',
+        country_flag: null
       }
     },
     mounted() {
         this.getMigrations()
     },
     methods: {
+        getCountry() {
+            if (typeof this.country_id !== 'undefined') {
+                let res = this.country.filter((item) => item.id == this.country_id)
+                this.country_flag = res[0].flag
+                if (res[0].visa_required == 1) {
+                    this.visa_required = 'Да'
+                } else {
+                    this.visa_required = 'Нет'
+                }
+                this.allowed_days_without_registration = res[0].allowed_days_without_registration
+            } else {
+                this.country_id = null
+            }
+        },
         getMigrations () {
             this.$axios({
                 method: 'get',
                 url: this.$API_URL + 'v2/countries',
             })
             .then((response) => {
-                console.log(response)
+                this.country = response.data.migration_guide
+                let obj;
+                let arr = []
+                for (let index = 0; index < response.data.migration_guide.length; index++) {
+                    obj = {
+                        label: response.data.migration_guide[index].name_rus,
+                        value: response.data.migration_guide[index].id
+                    }
+                    arr.push(obj)
+                }
+                this.countries = arr
             })  
             .catch((error) => {
                 console.log(error);
@@ -90,7 +133,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-
 .migrations {
     width: 100%;
     height: 100%;
@@ -143,7 +185,17 @@ export default {
             height: 70px;
             background: #F7F7F7;
             border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            padding-left: 15px;
+            padding-right: 10px;
+            align-items: center;
             margin-bottom: 38px;
+
+            .flag {
+                width: 35px;
+                margin-left: 20px;
+            }
         }
         p {
             font-style: normal;
