@@ -107,7 +107,7 @@ export default {
             },
             {
                 name: 'ГОСТИНИЦЫ',
-                to: 'https://eqonaq.kz/hotels'
+                to: 'https://api.eqonaq.kz/hotels'
             },
             {
                 name: 'ИСТОРИЯ КАЗАХСТАНА',
@@ -120,7 +120,7 @@ export default {
     },
     methods: {
         route (to) {
-            if (to == 'https://eqonaq.kz/hotels') {
+            if (to == 'https://api.eqonaq.kz/hotels') {
                 window.location.href = to
             } else {
                 this.$router.push(to)
@@ -155,15 +155,11 @@ export default {
                 }
             }
         },
-        preventDefault(e) {
-           e.preventDefault();
-        },
+        
         scrollBodyOver () {
-            // window.addEventListener('DOMMouseScroll', this.preventDefault, false);
             disableScroll.on()
         },
         scrollBodyLeave () {
-            // window.removeEventListener('DOMMouseScroll', this.preventDefault, false);
             disableScroll.off()
         }
     },
