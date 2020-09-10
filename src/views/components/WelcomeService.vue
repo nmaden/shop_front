@@ -54,11 +54,14 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .service {
     width: 100%;
     margin-top: 40px;
-
+    @media (max-width: @mobile) {
+        margin-top: 20px;
+    }
     h1 {
         font-weight: bold;
         font-size: 55px;
@@ -67,6 +70,10 @@ export default {
         letter-spacing: -0.05em;
         color: #000000;
         font-family: 'MontserratBold';
+        @media (max-width: @mobile) {
+            margin-top: 0;
+            display: none;
+        }
     }
     p {
         font-weight: bold;
@@ -77,6 +84,11 @@ export default {
         font-family: 'MontserratBold';
         letter-spacing: -0.05em;
         color: #000000;
+        @media (max-width: @mobile) {
+            font-size: 17px;
+            margin-top: 0;
+            line-height: 0;
+        }
     }
 
     .service__type {
@@ -85,12 +97,23 @@ export default {
         justify-content: flex-start;
         flex-wrap: wrap;
         margin-top: 35px;
-
+        @media (max-width: @mobile) {
+            margin-top: 20px;
+        }
         .service__type__block {
             width: 32%;
             margin-bottom: 20px;
             margin-right: 16px;
-
+            @media (max-width: @mobile) {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 0;
+            }
+            img {
+                @media (max-width: @mobile) {
+                    width: 24%;
+                }
+            }
             h3 {
                 font-weight: bold;
                 font-size: 20px;
@@ -99,6 +122,10 @@ export default {
                 font-style: normal;
                 line-height: 25px;
                 color: #000000;
+                @media (max-width: @mobile) {
+                    font-size: 14px;
+                    margin-top: 0px;
+                }
             }
             p {
                 margin-top: 15px;
@@ -108,6 +135,11 @@ export default {
                 font-size: 16px;
                 line-height: 24px;
                 color: #000000;
+                @media (max-width: @mobile) {
+                    margin-top: 0px;
+                    font-size: 12px;
+                    line-height: 17px;
+                }
             }
         }
     }

@@ -17,7 +17,6 @@
                         transition="scale-transition"
                         offset-y
                         max-width="310px"
-                        min-width="310px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                             <div 
@@ -53,7 +52,6 @@
                         transition="scale-transition"
                         offset-y
                         max-width="310px"
-                        min-width="310px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                             <div 
@@ -89,8 +87,7 @@
                         :close-on-content-click="false"
                         transition="scale-transition"
                         offset-y
-                        max-width="310px"
-                        min-width="310px"
+                        max-width="100%"
                     >
                        <template v-slot:activator="{ on, attrs }">
                             <div 
@@ -228,6 +225,8 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
+
 .cities__list {
     width: 100%;
     height: 170px;
@@ -265,6 +264,7 @@ export default {
         align-items: center;
         margin-top: 20px;
         margin-bottom: 20px;
+        
         .counter__type__flex__block_l {
             width: 50%;
             p {
@@ -304,12 +304,18 @@ export default {
 .book__hotel {
     width: 100%;
     margin-top: 40px;
-
+    @media (max-width: @mobile) {
+        margin-top: 0px;
+    }
     p {
         font-weight: bold;
         font-size: 24px;
         margin-top: 30px;
         font-family: 'MontserratBold';
+        @media (max-width: @mobile) {
+            font-size: 17px;
+            margin-top: 10px;
+        }
     }
 
     .book__hotel__filter {
@@ -322,13 +328,20 @@ export default {
         .book__hotel__filter__margin {
             width: 95%;
             margin: 40px auto;
-
+            @media (max-width: @mobile) {
+                margin: 20px auto;
+            }
             h4 {
                 font-size: 24px;
                 color: #fff;
                 line-height: 29px;
                 text-transform: uppercase;
                 font-family: 'MontserratBold';
+                @media (max-width: @mobile) {
+                    font-size: 14px;
+                    line-height: 17px;
+                    margin-top: 10px;
+                }
             }
             .filter__book__hotel {
                 width: 100%;
@@ -338,9 +351,15 @@ export default {
                 background: #FFCE03;
                 margin-top: 20px;
                 border-radius: 10px;
+                @media (max-width: @mobile) {
+                    flex-wrap: wrap;
+                }
                 
                 .filter__book__hotel__block__border {
                     border-radius: 10px 0px 0px 10px;
+                    @media (max-width: @mobile) {
+                        border-radius: 10px 10px 0px 0px;
+                    }
                 }
 
                 .filter__book__hotel__block {
@@ -351,6 +370,10 @@ export default {
                     padding: 15px 12px;
                     width: 311px;
                     cursor: pointer;
+                    @media (max-width: @mobile) {
+                        width: 100%;
+                        margin-bottom: 2px;
+                    }
 
                     .base__filter__img {
                         width: 20px;
@@ -367,6 +390,9 @@ export default {
                         font-size: 14px;
                         font-family: 'MediumMedium';
                         user-select: none;
+                        @media (max-width: @mobile) {
+                            font-size: 13px;
+                        }
                     }
                 }
                 a {
@@ -381,6 +407,13 @@ export default {
                     text-decoration: none;
                     &:hover {
                         opacity: .7;
+                    }
+                    @media (max-width: @mobile) {
+                        width: 100%;
+                        text-align: center;
+                        border-radius: 0px 0px 10px 10px;
+                        font-size: 14px;
+                        padding: 10px 25px;
                     }
                 }
             }

@@ -62,16 +62,24 @@ export default {
 
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .places {
     width: 100%;
     margin-top: 40px;
     font-family: 'MontserratBold';
+    @media (max-width: @mobile) {
+        margin-top: 0px;
+    }
 
     p {
         font-weight: bold;
         font-size: 24px;
         margin-top: 30px;
+        @media (max-width: @mobile) {
+            font-size: 17px;
+            margin-top: 10px;
+        }
     }
 
     .places__type {
@@ -79,18 +87,33 @@ export default {
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
+        @media (max-width: @mobile) {
+            overflow-x: scroll;
+            width: 100%;
+            white-space: nowrap;
+            display: block;
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+        }
 
         .places__type__block__parrent {
             width: 370px;
             margin-right: 10px;
+            height: 466px;
             overflow: hidden;
             border-radius: 15px;
-            height: 466px;
+            @media (max-width: @mobile) {
+                width: 185px;
+                height: 250px;
+                display: inline-block;
+            }
             .places__type__block {
                 width: 100%;
                 height: 100%;
                 position: relative;
                 cursor: pointer;
+                background-size: cover;
                 &:hover {
                     transition: .7s;
                     transform: scale(1.04);
@@ -103,12 +126,22 @@ export default {
                     top: 33px;
                     background: #FFCE03;
                     border-radius: 50%;
+                    @media (max-width: @mobile) {
+                        width: 10px;
+                        height: 10px;
+                        left: 14px;
+                        top: 14px;
+                    }
                 }
                 .footer {
                     position: absolute;
                     bottom: 0;
                     width: 100%;
                     padding: 20px;
+                    @media (max-width: @mobile) {
+                        bottom: 22px;
+                        padding: 5px;
+                    }
                     h4 {
                         font-weight: bold;
                         font-size: 24px;
@@ -116,6 +149,10 @@ export default {
                         color: #fff;
                         text-transform: uppercase;
                         letter-spacing: -0.05em;
+                        @media (max-width: @mobile) {
+                            font-size: 10px;
+                            line-height: 0;
+                        }
                     }
                 }
             }

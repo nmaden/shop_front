@@ -26,10 +26,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@mobile: 900px;
+
 .main__base__margin {
     width: 1200px;
     margin: 0 auto;
     margin-top: 65px;
+    @media (max-width: @mobile) {
+        width: 95%;
+        margin-top: 0;
+    }
 }
 </style>

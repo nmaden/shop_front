@@ -2,9 +2,30 @@
     <div>
         <div class="header">
             <div class="header__l">
+                <div class="icon__mobile">
+                    <img src="../../assets/icons/menu_icon_mobile.svg" alt="menu">
+                </div>
+
                 <router-link to="/">
                     <img src="../../assets/logo/logo.svg" alt="logo">
                 </router-link>
+
+                <div 
+                    class="languages"
+                    @mouseleave="view__langs = false"
+                >
+                    <img :src="flag_uri" @click="getLocale" alt="language">
+                    <div class="languages__list" v-show="view__langs">
+                        <div 
+                            class="languages__list__block"
+                            v-for="flag_item in langs"
+                            :key="flag_item.lang"
+                            @click="localeSite(flag_item)"
+                        >
+                            <img :src="flag_item.flag" alt="flag">
+                        </div>  
+                    </div>
+                </div>
             </div>
             <div class="header__r">
                 <div class="search">
@@ -13,16 +34,22 @@
                     </router-link>
                 </div>
                 <div class="lang">
-                    <v-select
-                        v-model="selectLangs"
-                        :items="langs"
-                        item-text="state"
-                        item-value="abbr"
-                        label="Select"
-                        persistent-hint
-                        return-object
-                        single-line
-                    ></v-select>
+                    <div 
+                        class="languages"
+                        @mouseleave="view__langs = false"
+                    >
+                        <img :src="flag_uri" @click="getLocale" alt="language">
+                        <div class="languages__list" v-show="view__langs">
+                            <div 
+                                class="languages__list__block"
+                                v-for="flag_item in langs"
+                                :key="flag_item.lang"
+                                @click="localeSite(flag_item)"
+                            >
+                                <img :src="flag_item.flag" alt="flag">
+                            </div>  
+                        </div>
+                    </div>
                 </div>
                 <div class="user">
                     <router-link v-if="GET_TOKEN.length == 0" to="/login">
@@ -83,11 +110,22 @@ import disableScroll from 'disable-scroll'
 export default {
     data () {
       return {
-        selectLangs: { state: 'Русский', abbr: 'ru' },
+        flag_uri: require('../../assets/flags/russia.svg'),
         langs: [
-          { state: 'Русский', abbr: 'ru' },
-          { state: 'Англиский', abbr: 'en' },
+            {
+                flag: require('../../assets/flags/russia.svg'),
+                lang: 'ru'
+            },
+            {
+                flag: require('../../assets/flags/kazakhstan.svg'),
+                lang: 'kz'
+            },
+            {
+                flag: require('../../assets/flags/britannia.svg'),
+                lang: 'br'
+            }
         ],
+        view__langs: false,
         menu: [
             {
                 name: 'номера телефонов',
@@ -109,16 +147,19 @@ export default {
                 name: 'ГОСТИНИЦЫ',
                 to: 'https://api.eqonaq.kz/hotels'
             },
-            {
-                name: 'ИСТОРИЯ КАЗАХСТАНА',
-                to: '/'
-            },
         ],
         show_menu: false,
         menu_count: 0,
       }
     },
     methods: {
+        getLocale () {
+            this.view__langs = !this.view__langs
+        },
+        localeSite (item) {
+            this.flag_uri = item.flag
+            this.view__langs = false
+        },
         route (to) {
             if (to == 'https://api.eqonaq.kz/hotels') {
                 window.location.href = to
@@ -142,16 +183,20 @@ export default {
             let style__last__menu__item = window.getComputedStyle(last__menu__item)
             let offset__width = last__menu__item.offsetLeft + parseInt(style__last__menu__item.width.replace('px', ''))
             let margin__left__menu = Number(String(this.menu_count).replace('-', '')) + 1200
-            
-            if (margin__left__menu > offset__width) {
-                 if (delta < 0) {
-                     this.menu_count += 20
-                 }
+
+            if (offset__width < 1200) {
+                return false
             } else {
-                if (this.menu_count > -1) {
-                    delta > 0 ? this.menu_count -= 20 : this.menu_count = 0;
+                if (margin__left__menu > offset__width) {
+                    if (delta < 0) {
+                        this.menu_count += 20
+                    } 
                 } else {
-                    delta > 0 ? this.menu_count -= 20 : this.menu_count += 20;
+                    if (this.menu_count > -1) {
+                        delta > 0 ? this.menu_count -= 20 : this.menu_count = 0;
+                    } else {
+                        delta > 0 ? this.menu_count -= 20 : this.menu_count += 20;
+                    }
                 }
             }
         },
@@ -173,6 +218,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .header {
     width: 1200px;
@@ -181,18 +227,70 @@ export default {
     justify-content: space-between;
     padding-top: 15px;
     padding-bottom: 15px;
+    
+    @media (max-width: @mobile) {
+        width: 95%;
+    }
 
     .header__l {
         width: 50%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        img {
+            @media (max-width: @mobile) {
+                width: 100px;
+            }
+        }
+        @media (max-width: @mobile) {
+            width: 100%;
+            justify-content: space-between;
+        }
+        .icon__mobile {
+            display: none;
+            @media (max-width: @mobile) {
+                display: block;
+            }
+            img {
+                width: auto;
+                cursor: pointer;
+            }
+        }
+        .languages {
+            width: 37px;
+            cursor: pointer;
+            z-index: 999;
+            display: none;
+            position: relative;
+            @media (max-width: @mobile) {
+                display: block;
+            }
+            img {
+                width: 100%;
+            }
+            .languages__list {
+                width: 100%;
+                background: #fff;
+                position: absolute;
+                .languages__list__block {
+                    width: 100%;
+                    height: 31px;
+                    overflow: hidden;
+                    img {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
     }
     .header__r {
         width: 50%;
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        @media (max-width: @mobile) {
+            display: none;
+        }
         .search {
             margin-right: 15px;
             border-right: 2px solid #000;
@@ -205,9 +303,38 @@ export default {
             }
         }
         .lang {
-            width: 120px;
+            width: 51px;
             z-index: 999;
             font-family: 'MontserratBold';
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             .languages {
+                width: 37px;
+                cursor: pointer;
+                z-index: 999;
+                display: block;
+                position: relative;
+                @media (max-width: @mobile) {
+                    display: none;
+                }
+                img {
+                    width: 100%;
+                }
+                .languages__list {
+                    width: 100%;
+                    background: #fff;
+                    position: absolute;
+                    .languages__list__block {
+                        width: 100%;
+                        height: 31px;
+                        overflow: hidden;
+                        img {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
         }
         .user {
             margin-left: 15px;
@@ -291,6 +418,9 @@ export default {
     margin-top: 10px;
     height: 65px;
     position: relative;
+    @media (max-width: @mobile) {
+        display: none;
+    }
 
     .menu {
         width: 100%;
