@@ -16,8 +16,8 @@ deploy to server:
     - echo "$SSH_PRIVATE_KEY" >> key.pem
     - chmod 400 key.pem
   script:
-    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "git -C /home/eqonaq/www/guest.eqonaq pull origin master && \"cd www/guest.eqonaq && npm install\""
-    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "docker exec -i php-fpm_prod bash -c \"cd guest.eqonaq && npm run build\""
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "git -C /home/eqonaq/www/guest.eqonaq pull origin master"
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "docker exec -i php-fpm_prod bash -c \"cd www/guest.eqonaq && npm install\" && \"cd guest.eqonaq && npm run build\""
   after_script:
     - rm key.pem
   only:
