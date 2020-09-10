@@ -66,6 +66,7 @@
                     class="menu__item"
                     v-for="menu_item in menu"
                     :key="menu_item.name"
+                    ref="menu__item"
                     @click="route(menu_item.to)"
                 >
                     {{menu_item.name}}
@@ -77,6 +78,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import disableScroll from 'disable-scroll'
 
 export default {
     data () {
@@ -135,20 +137,34 @@ export default {
         scrollMenu (e) {
             e = e || window.event
             let delta = e.deltaY || e.detail || e.wheelDelta
-            if (this.menu_count > -1) {
-                delta > 0 ? this.menu_count -= 20 : this.menu_count = 0;
+            let menu__item = this.$refs.menu__item
+            let last__menu__item = menu__item[Object.keys(menu__item)[Object.keys(menu__item).length - 1]] 
+            let style__last__menu__item = window.getComputedStyle(last__menu__item)
+            let offset__width = last__menu__item.offsetLeft + parseInt(style__last__menu__item.width.replace('px', ''))
+            let margin__left__menu = Number(String(this.menu_count).replace('-', '')) + 1200
+            
+            if (margin__left__menu > offset__width) {
+                 if (delta < 0) {
+                     this.menu_count += 20
+                 }
             } else {
-                delta > 0 ? this.menu_count -= 20 : this.menu_count += 20;
+                if (this.menu_count > -1) {
+                    delta > 0 ? this.menu_count -= 20 : this.menu_count = 0;
+                } else {
+                    delta > 0 ? this.menu_count -= 20 : this.menu_count += 20;
+                }
             }
-            // let res = 1200 - Number(String(this.menu_count).replace("-", ""))
-            // console.log(res)
+        },
+        preventDefault(e) {
+           e.preventDefault();
         },
         scrollBodyOver () {
-            document.body.style.height = '100vh';
-            document.body.style.overflow = 'hidden';
+            // window.addEventListener('DOMMouseScroll', this.preventDefault, false);
+            disableScroll.on()
         },
         scrollBodyLeave () {
-            document.body.style.height = 'auto';
+            // window.removeEventListener('DOMMouseScroll', this.preventDefault, false);
+            disableScroll.off()
         }
     },
     computed: {
