@@ -17,6 +17,8 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
+
 .header {
     width: 100%;
     .back__button {
@@ -31,6 +33,10 @@ export default {
             margin-right: 10px;
             user-select: none;
             width: 30px;
+            @media (max-width: @mobile) {
+                width: 20px;
+                margin-right: 5px;
+            }
         }
         span {
             font-style: normal;
@@ -38,6 +44,9 @@ export default {
             font-weight: 500;
             font-size: 20px;
             text-transform: uppercase;
+            @media (max-width: @mobile) {
+                font-size: 14px;
+            }
         }
     }
 }

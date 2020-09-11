@@ -150,6 +150,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .profile {
     width: 100%;
@@ -162,11 +163,17 @@ export default {
         width: 1200px;
         margin: 0 auto;
         margin-top: 30px;
-
+        @media (max-width: @mobile) {
+            width: 95%;
+            margin-top: 10px;
+        }
         h1 {
             font-style: normal;
             font-weight: 500;
             font-size: 48px;
+            @media (max-width: @mobile) {
+                font-size: 20px;
+            }
         }
         button {
             padding: 15px 50px;
@@ -180,6 +187,13 @@ export default {
             &:hover {
                 opacity: 0.7;
             }
+            @media (max-width: @mobile) {
+                padding: 10px 20px;
+                color: #000;
+                font-size: 14px;
+                margin-top: 0px;
+                width: 100%;
+            }
         }
     }
     .profile__data {
@@ -188,14 +202,20 @@ export default {
         padding-top: 20px;
         padding-bottom: 20px;
         background: #FFF5CB;
-
+        @media (max-width: @mobile) {
+            margin-top: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
         .profile__data__margin {
             width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-
+            @media (max-width: @mobile) {
+                width: 95%;
+            }
             .profile__data__flex {
                 margin-right: 30px;
 
@@ -214,6 +234,9 @@ export default {
                         font-weight: 500;
                         font-size: 20px;
                         color: #000;
+                        @media (max-width: @mobile) {
+                            font-size: 13px;
+                        }
                     }
                 }
             }

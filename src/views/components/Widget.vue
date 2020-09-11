@@ -1,6 +1,6 @@
 <template>
     <div class="widget">
-        <div class="widget__block">
+        <div @click="route" class="widget__block">
             <div class="widget__image__mr">
                 <img src="../../assets/all/mr.svg" alt="widget">
             </div>
@@ -12,7 +12,7 @@
         <div class="widget__block">
             <img src="../../assets/all/sun.svg" alt="widget">
             <p class="sun__text">
-                28 ℃
+                21 °C
             </p>    
         </div>
     </div>
@@ -20,7 +20,11 @@
 
 <script>
 export default {
-    
+    methods: {
+        route () {
+            this.$router.push('/migration')
+        }
+    }
 }
 </script>
 
@@ -31,7 +35,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     .widget__block {
-        width: 163px;
+        width: 170px;
         height: 50px;
         cursor: pointer;
         background: #fff;
@@ -60,13 +64,15 @@ export default {
         }
         .mr__text {
             font-size: 11px;
+            font-family: "MontserratBold";
             font-weight: bold;
             margin: 5px;
-            line-height: 11px;
+            line-height: 16px;
         }
         .sun__text {
             font-weight: bold;
-            font-size: 32px;
+            font-size: 23px;
+            font-family: "MontserratBold";
             margin: 5px;
         }
     }

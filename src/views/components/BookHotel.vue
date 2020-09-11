@@ -7,7 +7,7 @@
         <div class="book__hotel__filter">
             <div class="book__hotel__filter__margin">
                 <h4>
-                    Найдите спецпредложения от отелей, <br>
+                    Найдите спецпредложения от отелей, 
                     домов и других вариантов
                 </h4>
                 <div class="filter__book__hotel">
@@ -16,7 +16,6 @@
                         :close-on-content-click="false"
                         transition="scale-transition"
                         offset-y
-                        max-width="310px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                             <div 
@@ -51,7 +50,6 @@
                         :close-on-content-click="false"
                         transition="scale-transition"
                         offset-y
-                        max-width="310px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                             <div 
@@ -76,7 +74,7 @@
                             no-title 
                             @change="changeDateArrival"
                             locale="ru-in"
-                            width="310"
+                            :full-width="true"
                             range
                         >
                         </v-date-picker>
@@ -87,7 +85,6 @@
                         :close-on-content-click="false"
                         transition="scale-transition"
                         offset-y
-                        max-width="100%"
                     >
                        <template v-slot:activator="{ on, attrs }">
                             <div 
@@ -264,12 +261,18 @@ export default {
         align-items: center;
         margin-top: 20px;
         margin-bottom: 20px;
-        
+        @media (max-width: @mobile) {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
         .counter__type__flex__block_l {
             width: 50%;
             p {
                 margin: 0;
                 margin-left: 10px;
+                @media (max-width: @mobile) {
+                    font-size: 12px;
+                }
             }
         }
         .counter__type__flex__block_r {
@@ -284,6 +287,11 @@ export default {
                 justify-content: center;
                 align-items: center;
                 font-weight: bold;
+                @media (max-width: @mobile) {
+                    font-size: 12px;
+                    width: 30px;
+                    height: 30px;
+                }
             }
             .minus__plus__counter {
                 width: 40px;
@@ -297,6 +305,11 @@ export default {
                 cursor: pointer;
                 user-select: none;
                 font-size: 26px;
+                @media (max-width: @mobile) {
+                    font-size: 12px;
+                    width: 30px;
+                    height: 30px;
+                }
             }
         }
     }
@@ -315,6 +328,7 @@ export default {
         @media (max-width: @mobile) {
             font-size: 17px;
             margin-top: 10px;
+            line-height: 18px;
         }
     }
 
@@ -339,8 +353,9 @@ export default {
                 font-family: 'MontserratBold';
                 @media (max-width: @mobile) {
                     font-size: 14px;
-                    line-height: 17px;
+                    line-height: 15px;
                     margin-top: 10px;
+                    text-transform: none;
                 }
             }
             .filter__book__hotel {
@@ -400,7 +415,7 @@ export default {
                     width: 194px;
                     padding: 15px 25px;
                     border-radius: 0px 10px 10px 0px;
-                    font-weight: 500;
+                    font-weight: 800;
                     font-size: 16px;
                     text-transform: uppercase;
                     color: #000000;

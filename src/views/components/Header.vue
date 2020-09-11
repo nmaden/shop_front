@@ -3,28 +3,19 @@
         <div class="header">
             <div class="header__l">
                 <div class="icon__mobile">
-                    <img src="../../assets/icons/menu_icon_mobile.svg" alt="menu">
+                    <img @click="show_mobile_menu = true" src="../../assets/icons/menu_icon_mobile.svg" alt="menu">
                 </div>
 
                 <router-link to="/">
                     <img src="../../assets/logo/logo.svg" alt="logo">
                 </router-link>
-
-                <div 
-                    class="languages"
-                    @mouseleave="view__langs = false"
-                >
-                    <img :src="flag_uri" @click="getLocale" alt="language">
-                    <div class="languages__list" v-show="view__langs">
-                        <div 
-                            class="languages__list__block"
-                            v-for="flag_item in langs"
-                            :key="flag_item.lang"
-                            @click="localeSite(flag_item)"
-                        >
-                            <img :src="flag_item.flag" alt="flag">
-                        </div>  
-                    </div>
+                
+                <div class="languages">
+                    <select>
+                        <option value="">РУС</option>
+                        <option value="">ҚАЗ</option>
+                        <option value="">ENG</option>
+                    </select>
                 </div>
             </div>
             <div class="header__r">
@@ -34,27 +25,18 @@
                     </router-link>
                 </div>
                 <div class="lang">
-                    <div 
-                        class="languages"
-                        @mouseleave="view__langs = false"
-                    >
-                        <img :src="flag_uri" @click="getLocale" alt="language">
-                        <div class="languages__list" v-show="view__langs">
-                            <div 
-                                class="languages__list__block"
-                                v-for="flag_item in langs"
-                                :key="flag_item.lang"
-                                @click="localeSite(flag_item)"
-                            >
-                                <img :src="flag_item.flag" alt="flag">
-                            </div>  
-                        </div>
-                    </div>
+                     <v-select
+                        :items="langs"
+                        :hide-details="true"
+                        dense
+                        :flat="true"
+                        label="Язык"
+                        item-color="#000"
+                        solo
+                    ></v-select>
                 </div>
                 <div class="user">
-                    <router-link v-if="GET_TOKEN.length == 0" to="/login">
-                        <img src="../../assets/icons/person_default.svg" alt="person_default">
-                    </router-link>
+                    <img  v-if="GET_TOKEN.length == 0" @click="route('/login')" src="../../assets/icons/person_default.svg" alt="person_default">
                     <div class="main__header__menu__user" @mouseleave="show_menu = false" @mouseover="show_menu = true" v-if="GET_TOKEN.length !== 0">
                         <div class="header__menu__user">
                             <p>
@@ -64,7 +46,7 @@
                         </div>
                         <div v-show="show_menu == true" class="header__menu__user__hover">
                             <div class="header__menu__user__hover__after">
-                                <div v-if="currentRouteName !== 'Profile'" @click="to_profile" class="header__menu__user__hover__after__block">
+                                <div v-if="currentRouteName !== 'Profile'" @click="route('/profile')" class="header__menu__user__hover__after__block">
                                     <p>
                                         Личный кабинет 
                                     </p>
@@ -100,6 +82,55 @@
                 </a>
             </div>
         </div>
+
+        <!-- mobile menu -->
+
+        <div v-show="show_mobile_menu == true" class="mobile__menu">
+            <div class="mobile__menu__position">
+                <div class="mobile__menu__list">
+                    <div class="mobile__menu__list__header">
+                        <img @click="show_mobile_menu = false" src="../../assets/all/back__white.svg" alt="">
+                    </div>
+                    <div class="mobile__menu__list__header">
+                        <img src="../../assets/logo/logo__white.svg" alt="">
+                    </div>
+                    <div class="mobile__menu__list__flex">
+                        <div 
+                            class="mobile__menu__list__flex__block"
+                            v-for="menu_item in menu"
+                            :key="menu_item.name"
+                            @click="route(menu_item.to)"
+                        >
+                            <p>
+                                {{menu_item.name}}
+                            </p>
+                        </div>
+                    </div>
+             
+                    <div v-if="GET_TOKEN.length == 0" @click="route('/login')" class="cabinet__block">
+                        <img src="../../assets/icons/person_default.svg" alt="person_default">
+                        <p>
+                            Личный кабинет
+                        </p>
+                    </div>
+                    <div v-if="GET_TOKEN.length !== 0" @click="route('/profile')" class="cabinet__block__user">
+                        <img src="../../assets/icons/person_default.svg" alt="person_default">
+                        <p>
+                            Личный кабинет
+                        </p>
+                    </div>
+                    <div v-if="GET_TOKEN.length !== 0" @click="sign_out" class="cabinet__block">
+                        <p>
+                            Выход
+                        </p>
+                    </div>
+                  
+                </div>
+                <div class="mobile__menu__img">
+                    <img src="../../assets/all/hotpng__black.svg" alt="hotpng__black">
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -111,21 +142,7 @@ export default {
     data () {
       return {
         flag_uri: require('../../assets/flags/russia.svg'),
-        langs: [
-            {
-                flag: require('../../assets/flags/russia.svg'),
-                lang: 'ru'
-            },
-            {
-                flag: require('../../assets/flags/kazakhstan.svg'),
-                lang: 'kz'
-            },
-            {
-                flag: require('../../assets/flags/britannia.svg'),
-                lang: 'br'
-            }
-        ],
-        view__langs: false,
+        langs: ['РУС', 'ҚАЗ', 'ENG'],
         menu: [
             {
                 name: 'номера телефонов',
@@ -150,25 +167,21 @@ export default {
         ],
         show_menu: false,
         menu_count: 0,
+        show_mobile_menu: false
       }
     },
     methods: {
         getLocale () {
             this.view__langs = !this.view__langs
         },
-        localeSite (item) {
-            this.flag_uri = item.flag
-            this.view__langs = false
-        },
+        
         route (to) {
             if (to == 'https://api.eqonaq.kz/hotels') {
                 window.location.href = to
             } else {
                 this.$router.push(to)
             }
-        },
-        to_profile () {
-            this.$router.push('/profile')
+            this.show_mobile_menu = false
         },
         sign_out () {
             localStorage.clear()
@@ -239,12 +252,25 @@ export default {
         align-items: center;
         img {
             @media (max-width: @mobile) {
-                width: 100px;
+                width: 134px;
             }
         }
         @media (max-width: @mobile) {
             width: 100%;
             justify-content: space-between;
+        }
+        .languages {
+            width: 40px;
+            display: none;
+            @media (max-width: @mobile) {
+                display: block;
+            }
+            select {
+                font-size: 14px;
+                font-weight: bold;
+                width: 100%;
+                outline: none;
+            }
         }
         .icon__mobile {
             display: none;
@@ -256,32 +282,7 @@ export default {
                 cursor: pointer;
             }
         }
-        .languages {
-            width: 37px;
-            cursor: pointer;
-            z-index: 999;
-            display: none;
-            position: relative;
-            @media (max-width: @mobile) {
-                display: block;
-            }
-            img {
-                width: 100%;
-            }
-            .languages__list {
-                width: 100%;
-                background: #fff;
-                position: absolute;
-                .languages__list__block {
-                    width: 100%;
-                    height: 31px;
-                    overflow: hidden;
-                    img {
-                        cursor: pointer;
-                    }
-                }
-            }
-        }
+        
     }
     .header__r {
         width: 50%;
@@ -303,38 +304,12 @@ export default {
             }
         }
         .lang {
-            width: 51px;
+            width: 100px;
             z-index: 999;
             font-family: 'MontserratBold';
             display: flex;
             justify-content: center;
             align-items: center;
-             .languages {
-                width: 37px;
-                cursor: pointer;
-                z-index: 999;
-                display: block;
-                position: relative;
-                @media (max-width: @mobile) {
-                    display: none;
-                }
-                img {
-                    width: 100%;
-                }
-                .languages__list {
-                    width: 100%;
-                    background: #fff;
-                    position: absolute;
-                    .languages__list__block {
-                        width: 100%;
-                        height: 31px;
-                        overflow: hidden;
-                        img {
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
         }
         .user {
             margin-left: 15px;
@@ -460,6 +435,116 @@ export default {
             &:hover {
                 background: #FDE88D;
             }
+        }
+    }
+}
+
+.mobile__menu {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: rgba(23, 23, 23, 0.9);
+    position: fixed;
+    top: 0;
+
+    .mobile__menu__position {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        .mobile__menu__list {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            top: 0;
+            z-index: 11;
+            .mobile__menu__list__header {
+                width: 100%;
+                margin-top: 20px;
+                img {
+                    cursor: pointer;
+                }
+            }
+            .mobile__menu__list__flex {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                margin-top: 30px;
+                .mobile__menu__list__flex__block {
+                    padding: 7px 14px;
+                    border-radius: 30px;
+                    cursor: pointer;
+                    border: 3px solid #FDE88D;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                    color: #fff;
+                    &:hover {
+                        background: #FDE88D;
+                        color: #000;
+                    }
+                    p {
+                        margin: 0;
+                        font-style: normal;
+                        text-transform: uppercase;
+                        font-weight: bold;
+                        font-size: 13px;
+                        line-height: 20px;
+                    }
+                }
+            }
+            .cabinet__block {
+                width: 90%;
+                padding: 10px;
+                display: flex;
+                background: #FDE88D;
+                cursor: pointer;
+                justify-content: flex-start;
+                position: absolute;
+                bottom: 20px;
+                align-items: center;
+                border-radius: 10px;
+                img {
+                    width: 30px;
+                }
+                p {
+                    margin: 0;
+                    color: #000;
+                    margin-left: 10px;
+                    font-weight: bold;
+                    user-select: none;
+                    font-size: 14px;
+                }
+            }
+            .cabinet__block__user {
+                width: 90%;
+                padding: 10px;
+                display: flex;
+                background: #FDE88D;
+                cursor: pointer;
+                justify-content: flex-start;
+                position: absolute;
+                bottom: 73px;
+                align-items: center;
+                border-radius: 10px;
+                img {
+                    width: 30px;
+                }
+                p {
+                    margin: 0;
+                    color: #000;
+                    margin-left: 10px;
+                    font-weight: bold;
+                    font-size: 13px;
+                    user-select: none;
+                }
+            }
+        }
+        .mobile__menu__img {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 10;
         }
     }
 }

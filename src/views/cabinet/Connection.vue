@@ -67,6 +67,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .telephones {
     width: 100%;
@@ -80,6 +81,10 @@ export default {
         width: 1200px;
         margin: 0 auto;
         margin-top: 65px;
+        @media (max-width: @mobile) {
+            width: 95%;
+            margin-top: 10px;
+        }
 
         h1 {
             font-style: normal;
@@ -87,6 +92,9 @@ export default {
             font-size: 48px;
             margin-bottom: 10px;
             color: #000;
+            @media (max-width: @mobile) {
+                font-size: 20px;
+            }
         }
         p {
             font-style: normal;
@@ -98,6 +106,14 @@ export default {
             margin-bottom: 15px;
             width: 965px;
             font-family: "MediumExtraLight";
+            @media (max-width: @mobile) {
+                font-size: 12px;
+                line-height: 16px;
+                margin: 0;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                width: auto;
+            }
 
             b {
                 font-weight: bold;

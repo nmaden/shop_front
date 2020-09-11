@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <button @click="onCapture">Сканировать документ</button>
+                <button class="capture__photo__desktop" @click="onCapture">Сканировать документ</button>
 
                 <h3>Данные гостя</h3>
 
@@ -827,13 +827,16 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .type__notif {
     width: 100%;
     background: #fff;
     text-align: center;
     padding: 50px 70px;
-
+    @media (max-width: @mobile) {
+        padding: 10px;
+    }
     h2 {
         font-style: normal;
         font-weight: 600;
@@ -841,9 +844,22 @@ export default {
         line-height: 37px;
         letter-spacing: -0.05em;
         color: #000000;
+        @media (max-width: @mobile) {
+            font-size: 16px;
+            line-height: 20px;
+            margin-top: 10px;
+        }
     }
     .type__notif__block {
         margin-top: 30px;
+        @media (max-width: @mobile) {
+            margin-top: 15px;
+        }
+        img {
+            @media (max-width: @mobile) {
+                width: 50%;
+            }
+        }
         button {
             padding: 15px 40px;
             background: #FDE88D;
@@ -857,6 +873,12 @@ export default {
             color: #000;
             outline: none;
             margin-top: 20px;
+            @media (max-width: @mobile) {
+                padding: 10px 20px;
+                color: #000;
+                width: 70%;
+                font-size: 14px;
+            }
         }
     }
 }
@@ -1055,16 +1077,28 @@ export default {
         width: 85%;
         margin: 0 auto;
         margin-top: 40px;
-
+        
         .registrations {
             width: 100%;
             margin-top: 40px;
-
+            @media (max-width: @mobile) {
+                margin-top: 15px;
+            }
+            .capture__photo__desktop {
+                display: block;
+                @media (max-width: @mobile) {
+                    display: none;
+                }
+            }
             h2 {
                 font-style: normal;
                 font-weight: 500;
                 font-size: 40px;
                 color: #000;
+                @media (max-width: @mobile) {
+                    font-size: 20px;
+                    line-height: 25px;
+                }
             }
             h3 {
                 font-style: normal;
@@ -1072,6 +1106,10 @@ export default {
                 font-weight: 500;
                 font-size: 20px;
                 margin-top: 20px;
+                @media (max-width: @mobile) {
+                    font-size: 17px;
+                    line-height: 20px;
+                }
             }
             button {
                 padding: 15px 50px;
@@ -1096,6 +1134,9 @@ export default {
                 flex-wrap: wrap;
                 justify-content: flex-start;
                 margin-top: 20px;
+                @media (max-width: @mobile) {
+                    margin-top: 10px;
+                }
                 .select__input {
                     cursor: pointer;
                 }

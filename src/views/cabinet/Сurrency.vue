@@ -81,6 +81,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .currency {
     width: 100%;
@@ -94,11 +95,17 @@ export default {
         width: 1200px;
         margin: 0 auto;
         margin-top: 65px;
-
+        @media (max-width: @mobile) {
+            width: 95%;
+            margin-top: 10px;
+        }
         h1 {
             font-style: normal;
             font-weight: 500;
             font-size: 48px;
+            @media (max-width: @mobile) {
+                font-size: 20px;
+            }
         }
         
     }
@@ -107,14 +114,22 @@ export default {
         margin-top: 20px;
         padding-top: 20px;
         padding-bottom: 20px;
-
+        @media (max-width: @mobile) {
+            margin-top: 0px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
         .currency__data__margin {
             width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-
+            @media (max-width: @mobile) {
+                width: 95%;
+                margin-top: 10px;
+                justify-content: center;
+            }
             .currency__block {
                 width: 446px;
                 background: #FFFFFF;
@@ -122,26 +137,46 @@ export default {
                 border-radius: 15px;
                 padding: 25px;
                 margin-right: 20px;
+                @media (max-width: @mobile) {
+                    width: 100%;
+                    margin-right: 0;
+                    padding: 10px;
+                    margin-bottom: 10px;
+                }
                 .currency__block__info__line {
                     border-top: 1px solid #DADADA;
                     width: 100%;
                     padding-top: 25px;
+                    @media (max-width: @mobile) {
+                        padding-top: 10px;
+                    }
                 }
                 .currency__block__info {
                     width: 100%;
                     .currency__number {
                         margin-top: 20px;
+                        @media (max-width: @mobile) {
+                            margin-top: 10px;
+                        }
                         p {
                             margin: 0;
                             font-weight: 600;
                             font-size: 48px;
                             color: #000;
                             line-height: 59px;
+                            @media (max-width: @mobile) {
+                                font-size: 20px;
+                                color: #000;
+                                line-height: 20px;
+                            }
                         }
                     }   
                     
                     .currency__number__margin {
                         margin-bottom: 25px;
+                        @media (max-width: @mobile) {
+                            margin-bottom: 10px;
+                        }
                     }
 
                     .currency__block__info__header {
@@ -149,6 +184,11 @@ export default {
                         display: flex;
                         justify-content: flex-start;
                         align-items: center;
+                        img {
+                            @media (max-width: @mobile) {
+                                width: 30px;
+                            }
+                        }
                         p {
                             margin: 0;
                             margin-left: 15px;
@@ -156,6 +196,9 @@ export default {
                             color: #000;
                             font-style: normal;
                             font-weight: 300;
+                            @media (max-width: @mobile) {
+                                font-size: 14px;
+                            }
                             b {
                                 font-weight: bold;
                             }

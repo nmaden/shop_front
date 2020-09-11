@@ -53,9 +53,9 @@
                         
                         <div class="type__baner__block">
                             <img src="../../assets/all/auth_reg.svg" alt="images">
-                            <p>
+                            <!-- <p>
                                 Вам на почту отправлено письмо с вашим паролем для авторизации в системе.
-                            </p>
+                            </p> -->
                             <router-link to="/login">
                                 <button>
                                     АВТОРИЗОВАТЬСЯ
@@ -107,7 +107,9 @@ export default {
     background: #fff;
     text-align: center;
     padding: 50px 70px;
-
+    @media (max-width: @mobile) {
+        padding: 10px;
+    }
     h2 {
         font-style: normal;
         font-weight: 600;
@@ -115,12 +117,23 @@ export default {
         line-height: 37px;
         letter-spacing: -0.05em;
         color: #000000;
+        @media (max-width: @mobile) {
+            font-size: 16px;
+            line-height: 20px;
+            margin-top: 10px;
+        }
     }
     
     .type__baner__block {
         margin-top: 30px;
+        @media (max-width: @mobile) {
+            margin-top: 15px;
+        }
         img {
             width: 350px;
+            @media (max-width: @mobile) {
+                width: 90%;
+            }
         }
         button {
             padding: 15px 40px;
@@ -134,6 +147,13 @@ export default {
             line-height: 25px;
             color: #000;
             outline: none;
+            @media (max-width: @mobile) {
+                padding: 10px 20px;
+                color: #000;
+                font-size: 14px;
+                margin-top: 19px;
+                width: 100%;
+            }
         }
         p {
             font-style: normal;
@@ -146,6 +166,9 @@ export default {
             margin: 0;
             margin-bottom: 20px;
             margin-top: 15px;
+            @media (max-width: @mobile) {
+                margin-bottom: 0px;
+            }
         }
     }
 }
@@ -160,6 +183,7 @@ export default {
     font-family: 'MontserratBold';
     @media (max-width: @mobile) {
         margin-top: 0;
+        padding: 5px 20px;
     }
     .banner_l {
         width: 17%;
@@ -182,7 +206,7 @@ export default {
     .banner_c {
         width: 65%;
         @media (max-width: @mobile) {
-            width: 73%;
+            width: 70%;
         }
         h1 {
             font-weight: bold;
@@ -192,7 +216,7 @@ export default {
             font-style: normal;
             line-height: 32px;
             @media (max-width: @mobile) {
-                font-size: 17px;
+                font-size: 16px;
                 margin-top: 5px;
                 text-transform: none;
             }
@@ -227,8 +251,8 @@ export default {
                 opacity: .7;
             }
             @media (max-width: @mobile) {
-                padding: 7px 12px;
-                font-size: 15px;
+                padding: 4px 10px;
+                font-size: 12px;
                 margin-top: 0px;
                 margin-bottom: 5px;
             }
@@ -240,12 +264,12 @@ export default {
         justify-content: flex-end;
         align-items: flex-end;
         @media (max-width: @mobile) {
-            width: 25%;
+            width: 29%;
             position: relative;
         }
         img {
             @media (max-width: @mobile) {
-                width: 45px;
+                width: 35px;
             }
         }
         .banner_user {

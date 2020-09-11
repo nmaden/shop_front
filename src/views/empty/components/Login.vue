@@ -85,6 +85,8 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
+
 .login {
     width: 100%;
     h2 {
@@ -92,10 +94,17 @@ export default {
         font-weight: 500;
         font-size: 32px;
         color: #000;
+        @media (max-width: @mobile) {
+            font-size: 20px;
+        }
     }
     .login__form {
         width: 90%;
         margin-top: 20px;
+        @media (max-width: @mobile) {
+            width: 100%;
+            margin-top: 10px;
+        }
         .error__text {
             color: red;
             font-size: 12px;
@@ -114,6 +123,9 @@ export default {
             font-style: normal;
             font-weight: 500;
             font-size: 14px;
+            @media (max-width: @mobile) {
+                font-size: 13px;
+            }
         }
         p {
             color: #64A4E0;
@@ -139,6 +151,13 @@ export default {
             text-transform: uppercase;
             &:hover {
                 opacity: .7;
+            }
+            @media (max-width: @mobile) {
+                padding: 10px 20px;
+                color: #000;
+                font-size: 14px;
+                margin-top: 0;
+                width: 100%;
             }
         }
     }

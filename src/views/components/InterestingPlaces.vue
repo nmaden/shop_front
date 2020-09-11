@@ -13,7 +13,7 @@
             >
                 <div 
                     class="places__type__block"
-                    :style="'background: url(' + places_item.img + ') no-repeat'"
+                    :style="'background: url(' + places_item.img + ') no-repeat; background-size: cover'"
                 >
                     <div class="header">
 
@@ -54,7 +54,7 @@ export default {
     },
     methods: {
         to_link (to) {
-            window.location.href = to
+            window.open(to, '_blank')
         }
     }
 }

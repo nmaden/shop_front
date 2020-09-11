@@ -98,6 +98,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .telephones {
     width: 100%;
@@ -111,11 +112,17 @@ export default {
         width: 1200px;
         margin: 0 auto;
         margin-top: 65px;
-
+        @media (max-width: @mobile) {
+            width: 95%;
+            margin-top: 10px;
+        }
         h1 {
             font-style: normal;
             font-weight: 500;
             font-size: 48px;
+            @media (max-width: @mobile) {
+                font-size: 20px;
+            }
         }
         p {
             font-style: normal;
@@ -125,6 +132,14 @@ export default {
             margin: 0;
             margin-top: 10px;
             width: 863px;
+            @media (max-width: @mobile) {
+                font-size: 12px;
+                line-height: 16px;
+                margin: 0;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                width: auto;
+            }
         }
     }
     .telephones__data {
@@ -132,6 +147,11 @@ export default {
         margin-top: 20px;
         padding-top: 20px;
         padding-bottom: 20px;
+        @media (max-width: @mobile) {
+            margin-top: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
 
         .telephones__data__margin {
             width: 1200px;
@@ -139,6 +159,9 @@ export default {
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
+            @media (max-width: @mobile) {
+                width: 95%;
+            }
 
             .telephones__block {
                 width: 446px;
@@ -151,7 +174,12 @@ export default {
                 margin-bottom: 20px;
                 display: flex;
                 justify-content: space-between;
-
+                @media (max-width: @mobile) {
+                    width: 100%;
+                    margin-right: 0;
+                    padding: 10px;
+                    margin-bottom: 10px;
+                }
                 .telephones__block__number__l {
                     width: 30%;
                     display: flex;
@@ -165,6 +193,14 @@ export default {
                         line-height: 32px;
                         margin: 0;
                         margin-left: 15px;
+                        @media (max-width: @mobile) {
+                            font-size: 20px;
+                        }
+                    }
+                    img {
+                        @media (max-width: @mobile) {
+                            width: 20px;
+                        }
                     }
                 }
                 .telephones__block__number__r {
@@ -178,6 +214,9 @@ export default {
                         font-size: 16px;
                         line-height: 20px;
                         margin: 0;
+                        @media (max-width: @mobile) {
+                            font-size: 12px;
+                        }
                     }
                 }
             }

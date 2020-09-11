@@ -6,9 +6,12 @@
                 <h2>
                     Регистрация
                 </h2>
-                <div class="registrations__form">
-                    <button @click="handleSend">Выбрать ЭЦП</button>
+                <div class="eds__desktop">
+                    <div class="registrations__form">
+                        <button @click="handleSend">Выбрать ЭЦП</button>
+                    </div>
                 </div>
+                
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="name">
@@ -175,9 +178,9 @@
                     </h2>
                     <div class="type__registration__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
-                        <p>
+                        <!-- <p>
                             Вам на почту отправлено письмо с вашим паролем для авторизации в системе.
-                        </p>
+                        </p> -->
                         <router-link to="/login">
                             <button>
                                 ПОНЯТНО
@@ -423,13 +426,16 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
 
 .type__registration {
     width: 100%;
     background: #fff;
     text-align: center;
     padding: 50px 70px;
-
+    @media (max-width: @mobile) {
+        padding: 10px;
+    }
     h2 {
         font-style: normal;
         font-weight: 600;
@@ -437,9 +443,22 @@ export default {
         line-height: 37px;
         letter-spacing: -0.05em;
         color: #000000;
+         @media (max-width: @mobile) {
+            font-size: 16px;
+            line-height: 20px;
+            margin-top: 10px;
+        }
     }
     .type__registration__block {
         margin-top: 30px;
+        @media (max-width: @mobile) {
+            margin-top: 15px;
+        }
+        img {
+            @media (max-width: @mobile) {
+                width: 50%;
+            }
+        }
         p {
             font-style: normal;
             font-weight: 300;
@@ -462,6 +481,12 @@ export default {
             line-height: 25px;
             color: #000;
             outline: none;
+            @media (max-width: @mobile) {
+                padding: 10px 20px;
+                color: #000;
+                width: 70%;
+                font-size: 14px;
+            }
         }
     }
 }
@@ -477,12 +502,24 @@ export default {
         .registrations {
             width: 100%;
             margin-top: 40px;
-
+            @media (max-width: @mobile) {
+                margin-top: 15px;
+            }
+            .eds__desktop {
+                display: block;
+                @media (max-width: @mobile) {
+                    display: none;
+                }
+            }
             h2 {
                 font-style: normal;
                 font-weight: 500;
                 font-size: 48px;
                 color: #000;
+                @media (max-width: @mobile) {
+                    font-size: 20px;
+                    line-height: 25px;
+                }
             }
             h3 {
                 font-style: normal;
@@ -490,6 +527,10 @@ export default {
                 font-weight: 500;
                 font-size: 20px;
                 margin-top: 20px;
+                @media (max-width: @mobile) {
+                    font-size: 17px;
+                    line-height: 20px;
+                }
             }
             button {
                 padding: 15px 50px;
@@ -513,6 +554,9 @@ export default {
                 flex-wrap: wrap;
                 justify-content: flex-start;
                 margin-top: 20px;
+                @media (max-width: @mobile) {
+                    margin-top: 10px;
+                }
                 .input__block {
                     width: 345px;
                     margin-right: 10px;

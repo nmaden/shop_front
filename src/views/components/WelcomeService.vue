@@ -60,7 +60,7 @@ export default {
     width: 100%;
     margin-top: 40px;
     @media (max-width: @mobile) {
-        margin-top: 20px;
+        margin-top: 25px;
     }
     h1 {
         font-weight: bold;
@@ -87,7 +87,6 @@ export default {
         @media (max-width: @mobile) {
             font-size: 17px;
             margin-top: 0;
-            line-height: 0;
         }
     }
 
@@ -107,7 +106,6 @@ export default {
             @media (max-width: @mobile) {
                 width: 100%;
                 margin-right: 0;
-                margin-bottom: 0;
             }
             img {
                 @media (max-width: @mobile) {
@@ -138,7 +136,7 @@ export default {
                 @media (max-width: @mobile) {
                     margin-top: 0px;
                     font-size: 12px;
-                    line-height: 17px;
+                    line-height: 14px;
                 }
             }
         }

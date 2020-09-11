@@ -133,6 +133,8 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
+
 .migrations {
     width: 100%;
     height: 100%;
@@ -142,11 +144,17 @@ export default {
         width: 1200px;
         margin: 0 auto;
         margin-top: 65px;
-
+        @media (max-width: @mobile) {
+            width: 95%;
+            margin-top: 10px;
+        }
         h1 {
             font-style: normal;
             font-weight: 500;
             font-size: 48px;
+            @media (max-width: @mobile) {
+                font-size: 20px;
+            }
         }
         p {
             font-style: normal;
@@ -158,6 +166,14 @@ export default {
             margin-top: 10px;
             width: 859px;
             margin-bottom: 20px;
+            @media (max-width: @mobile) {
+                font-size: 12px;
+                line-height: 16px;
+                margin: 0;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                width: auto;
+            }
             a {
                 text-decoration: none;
                 font-family: "MontserratBold";
@@ -171,6 +187,12 @@ export default {
         margin-top: 20px;
         padding-top: 20px;
         padding-bottom: 20px;
+        @media (max-width: @mobile) {
+            width: 95%;
+            margin-top: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
         h4 {
             font-style: normal;
             font-weight: 600;
@@ -178,6 +200,9 @@ export default {
             line-height: 29px;
             letter-spacing: -0.05em;
             color: #000000;
+            @media (max-width: @mobile) {
+                font-size: 18px;
+            }
         }
         .migrations__select {
             margin-top: 15px;
@@ -191,7 +216,14 @@ export default {
             padding-right: 10px;
             align-items: center;
             margin-bottom: 38px;
-
+            @media (max-width: @mobile) {
+                width: 100%;
+                margin-top: 5px;
+                height: 45px;
+                padding-left: 10px;
+                padding-right: 3px;
+                margin-bottom: 12px;
+            }
             .flag {
                 width: 35px;
                 margin-left: 20px;
@@ -206,11 +238,22 @@ export default {
             letter-spacing: -0.05em;
             width: 726px;
             color: #000000;
+            @media (max-width: @mobile) {
+                font-size: 12px;
+                line-height: 16px;
+                margin: 0;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                width: auto;
+            }
         }
         .migrations__flex {
             width: 100%;
             display: flex;
             justify-content: flex-start;
+            @media (max-width: @mobile) {
+                flex-wrap: wrap;
+            }
 
             .migrations__flex__block {
                 width: 211px;
@@ -218,6 +261,11 @@ export default {
                 border-radius: 5px;
                 margin-right: 35px;
                 padding: 10px 15px;
+                @media (max-width: @mobile) {
+                    width: 100%;
+                    margin-right: 0;
+                    margin-bottom: 10px;
+                }
                 .migrations__flex__block__header {
                     width: 100%;
                     p {
