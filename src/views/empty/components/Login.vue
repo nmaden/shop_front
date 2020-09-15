@@ -51,17 +51,23 @@ export default {
             } else {
                 this.$axios({ 
                     method: 'post',
-                    url: this.$API_URL + this.$API_VERSION + 'auth/login',
+                    url: this.$API_URL + this.$API_VERSION_2 + 'login',
                     data: {
                         email: this.email,
                         password: this.password,
                     }
                 })
                 .then((response) => {
-                    console.log(response)
                     if (response.status == 200) {
-                        this.SIGN_IN_USER(response.data.token)
-                        this.$router.push('/profile')
+                        if (response.data.is_entity == 1) {
+                            localStorage.setItem('access_token', JSON.stringify(response.data.token))
+                            setTimeout(() => {
+                                window.location.href = 'https://cabinet.eqonaq.kz/home'
+                            }, 1500)
+                        } else {
+                            this.SIGN_IN_USER(response.data.token)
+                            this.$router.push('/profile')
+                        }
                     }
                 })  
                 .catch((error) => {
