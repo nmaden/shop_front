@@ -44,6 +44,7 @@ export default {
         ...mapActions([
             'SIGN_IN_USER',
         ]),
+         
         login () {
             if (this.$v.$invalid) {
                 this.$v.$touch()
@@ -60,10 +61,8 @@ export default {
                 .then((response) => {
                     if (response.status == 200) {
                         if (response.data.is_entity == 1) {
-                            localStorage.setItem('access_token', JSON.stringify(response.data.token))
-                            setTimeout(() => {
-                                window.location.href = 'https://cabinet.eqonaq.kz/home'
-                            }, 1500)
+                            document.cookie = "token="+ response.data.token + "; domain=cabinet.eqonaq.kz"
+                            window.location.href = 'https://cabinet.eqonaq.kz/login'
                         } else {
                             this.SIGN_IN_USER(response.data.token)
                             this.$router.push('/profile')
