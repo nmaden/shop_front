@@ -61,8 +61,8 @@ export default {
                 .then((response) => {
                     if (response.status == 200) {
                         if (response.data.is_entity == 1) {
-                            document.cookie = "token="+ response.data.token + "; domain=cabinet.eqonaq.kz"
-                            window.location.href = 'https://cabinet.eqonaq.kz/login'
+                            document.cookie = "token="+ response.data.token + "; domain=cabinet.stage.eqonaq.kz"
+                            window.location.href = 'https://cabinet.stage.eqonaq.kz/login'
                         } else {
                             this.SIGN_IN_USER(response.data.token)
                             this.$router.push('/profile')
