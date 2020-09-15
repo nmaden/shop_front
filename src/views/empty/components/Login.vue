@@ -63,6 +63,7 @@ export default {
                         if (response.data.is_entity == 1) {
                             document.cookie = "token="+ response.data.token + "; domain=cabinet.stage.eqonaq.kz"
                             window.location.href = 'https://cabinet.stage.eqonaq.kz/login'
+                            // window.location.href = 'http://localhost:8081/login'
                         } else {
                             this.SIGN_IN_USER(response.data.token)
                             this.$router.push('/profile')
