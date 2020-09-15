@@ -17,7 +17,7 @@
                         transition="scale-transition"
                         offset-y
                     >
-                      <template v-slot:activator="{ on, attrs }">
+                        <template v-slot:activator="{ on, attrs }">
                             <div 
                                 class="filter__book__hotel__block filter__book__hotel__block__border"
                                 v-bind="attrs"
@@ -69,15 +69,17 @@
                                 <img class="base__filter__img" src="../../assets/icons/data_picker_filter.png" alt="data_picker_filter">
                             </div>
                         </template>
-                        <v-date-picker 
-                            v-model="date_arrival" 
-                            no-title 
-                            @change="changeDateArrival"
-                            locale="ru-in"
-                            :full-width="true"
-                            range
-                        >
-                        </v-date-picker>
+                        <div class="data__picker__filter">
+                            <v-date-picker 
+                                v-model="date_arrival" 
+                                no-title 
+                                @change="changeDateArrival"
+                                locale="ru-in"
+                                :full-width="true"
+                                range
+                            >
+                            </v-date-picker>
+                        </div>
                     </v-menu>
 
                     <v-menu
@@ -248,6 +250,12 @@ export default {
             font-size: 14px;
             margin-left: 10px;
         }
+    }
+}
+.data__picker__filter {
+    width: 312px;
+    @media (max-width: @mobile) {
+        width: 100%;
     }
 }
 .counter__type {

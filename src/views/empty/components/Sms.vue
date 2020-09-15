@@ -1,30 +1,33 @@
 <template>
-    <div class="login">
-        <h2>
-            Регистрация по номеру телефона
-        </h2>
-        <div class="login__form">
+    <div class="sms">
+        <div class="sms__form">
+            <label for="iin">
+                ИИН
+            </label>
+            <input type="text" v-model.trim="iin" id="iin">
+            <div class="error__text" v-if="$v.iin.$dirty && !$v.iin.required">Поле 'ИИН' обязателен к заполнению</div>
+            <div class="error__text" v-if="!$v.iin.numeric">Поле 'ИИН' введите только цифры</div>
+            <div class="error__text" v-if="!$v.iin.minLength">Минимальное количество символов 12</div>
+            <div class="error__text" v-if="!$v.iin.maxLength">Максимальное количество символов 12</div>
             <label for="phone">
-                Телефон
+                Номер телефона
             </label>
             <masked-input v-model.trim="phone" id="phone" mask="\+\7 (111) 1111-11" />
-            <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
-            <p>
-                для регестрирования по номеру телефона необходимо иметь ключ ЭЦП либо быть зарегестрированным в <b>Digital ID</b>
-            </p>
-            <button @click="reg">ДАЛЕЕ</button>
+            <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Номер телефона' обязателен к заполнению</div>
+            <button @click="auth">Войти</button>
         </div>
     </div>
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import { required, numeric, minLength, maxLength } from 'vuelidate/lib/validators'
 import MaskedInput from 'vue-masked-input'
 
 export default {
     data () {
         return {
             phone: '',
+            iin: '',
         }
     },
     components: {
@@ -34,9 +37,15 @@ export default {
         phone: {
             required, 
         },
+        iin: {
+            required, 
+            numeric,
+            minLength: minLength(12),
+            maxLength: maxLength(12)
+        }
     },
     methods: {
-        reg () {
+        auth () {
             if (this.$v.$invalid) {
                 this.$v.$touch()
                 return 
@@ -49,17 +58,10 @@ export default {
 </script>
 
 <style scoped lang="less">
-.login {
+.sms {
     width: 100%;
-    h2 {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 32px;
-        color: #000;
-    }
-    .login__form {
-        width: 90%;
-        margin-top: 20px;
+    .sms__form {
+        width: 100%;
         .error__text {
             color: red;
             font-size: 12px;
@@ -78,20 +80,6 @@ export default {
             font-style: normal;
             font-weight: 500;
             font-size: 14px;
-        }
-        p {
-            color: #000;
-            font-style: normal;
-            font-weight: 300;
-            font-size: 12px;
-            line-height: 15px;
-            user-select: none;
-            b {
-                font-weight: 500;
-                font-style: normal;
-                color: blue;
-                cursor: pointer;
-            }
         }
         button {
             padding: 15px 50px;

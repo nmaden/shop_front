@@ -4,7 +4,13 @@
             <Nav />
             <div class="login__and__registration__flex">
                 <div class="login__and__registration__flex__l">
-                    <Login />
+                    <h2>
+                        Войти в eQonaq
+                    </h2>
+                    <p>
+                        Выберите способ авторизации
+                    </p>
+                    <Tabs />
                 </div>
                 <div class="login__and__registration__flex__r">
                     <h2>
@@ -52,11 +58,11 @@
 
 <script>
 import Nav from '../components/NavHeader'
-import Login from './components/Login'
+import Tabs from './components/Tabs'
 
 export default {
     components: {
-        Nav, Login
+        Nav, Tabs
     },
     data() {
         return {
@@ -152,6 +158,15 @@ export default {
                 width: 361px;
                 @media (max-width: @mobile) {
                     width: 100%;
+                }
+                h2 {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 32px;
+                    color: #000;
+                    @media (max-width: @mobile) {
+                        font-size: 20px;
+                    }
                 }
             }
             .login__and__registration__flex__r {

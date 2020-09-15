@@ -1,8 +1,5 @@
 <template>
     <div class="login">
-        <h2>
-            Войти в eQonaq
-        </h2>
         <div class="login__form">
             <label for="email">
                 E-mail
@@ -89,22 +86,9 @@ export default {
 
 .login {
     width: 100%;
-    h2 {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 32px;
-        color: #000;
-        @media (max-width: @mobile) {
-            font-size: 20px;
-        }
-    }
+   
     .login__form {
-        width: 90%;
-        margin-top: 20px;
-        @media (max-width: @mobile) {
-            width: 100%;
-            margin-top: 10px;
-        }
+        width: 100%;
         .error__text {
             color: red;
             font-size: 12px;
