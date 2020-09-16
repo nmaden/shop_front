@@ -60,10 +60,10 @@ export default {
                 .then((response) => {
                     if (response.status == 200) {
                         if (response.data.is_entity == 1) {
-                            document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz;"
-                            window.location.href = 'https://cabinet.stage.eqonaq.kz'
-                            // document.cookie = "token="+ response.data.token + "; domain=localhost;"
-                            // window.location.href = 'http://localhost:8081/login' 
+                            // document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz;"
+                            // window.location.href = 'https://cabinet.stage.eqonaq.kz'
+                            document.cookie = "token="+ response.data.token + "; domain=localhost; max-age=30"
+                            window.location.href = 'http://localhost:8081/login' 
                         } else {
                             this.SIGN_IN_USER(response.data.token)
                             this.$router.push('/profile')
