@@ -24,6 +24,12 @@ const routes = [
     meta: {layout: 'not_authorized', auth: false},
   },
   {
+    path: '/entityregistration',
+    name: 'EntityRegistration',
+    component: () => import('../views/empty/EntityRegistration.vue'),
+    meta: {layout: 'not_authorized', auth: false},
+  },
+  {
     path: '/notif',
     name: 'Notif',
     component: () => import('../views/cabinet/Notif.vue'),

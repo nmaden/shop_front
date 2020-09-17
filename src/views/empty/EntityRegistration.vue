@@ -4,7 +4,7 @@
             <Nav />
             <div class="registrations">
                 <h2>
-                    Регистрация физических лиц
+                    Регистрация юридических лиц
                 </h2>
                 <div class="eds__desktop">
                     <div class="registrations__form">
@@ -57,6 +57,19 @@
                         <div class="error__text" v-if="!$v.iin.minLength">Минимальное количество символов 12</div>
                         <div class="error__text" v-if="!$v.iin.maxLength">Максимальное количество символов 12</div>
                     </div>
+                    <div class="input__block">
+                        <label for="email">
+                            Роль <span>*</span>
+                        </label>
+                        <select 
+                            v-model.trim="role" 
+                        >
+                            <option value="" disabled>Выберите роль</option>
+                            <option value="admin">Администартор</option>
+                            <option value="user">Пользователь</option>
+                        </select>
+                        <div class="error__text" v-if="$v.role.$dirty && !$v.role.required">Поле 'Роль' обязателен к заполнению</div>
+                    </div>
                     <div class="input__block__child">
                         <label for="phone">
                             Телефон <span>*</span>
@@ -72,11 +85,35 @@
                         <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
                         <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                     </div>
+                    <div class="input__block__child">
+                        <label for="bin">
+                            БИН места размещения <span>*</span>
+                        </label>
+                        <input type="text" v-model.trim="bin" id="bin">    
+                        <div class="error__text" v-if="$v.bin.$dirty && !$v.bin.required">Поле 'БИН места размещения' обязателен к заполнению</div>
+                        <div class="error__text" v-if="!$v.bin.numeric">Поле 'БИН места размещения' введите только цифры</div>
+                        <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
+                        <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
+                    </div>
                 </div>
 
-                <h3>Адресные данные</h3>
+                <div v-if="additional_fields == true" class="registrations__form">
+                    <div class="input__block">
+                        <label for="hotel_name">
+                            Наименование места размещения <span>*</span>
+                        </label>
+                        <input type="text" v-model.trim="hotel_name" id="hotel_name">
+                        <div class="error__text" v-if="$v.hotel_name.$dirty && !$v.hotel_name.required">Поле 'Наименование места размещения' обязателен к заполнению</div>
+                    </div>
 
-                <div class="registrations__form">
+                    <div class="input__block">
+                        <label for="hotel_entity">
+                            Наименование юридического лица <span>*</span>
+                        </label>
+                        <input type="text" v-model.trim="hotel_entity" id="hotel_entity">
+                        <div class="error__text" v-if="$v.hotel_entity.$dirty && !$v.hotel_entity.required">Поле 'Наименование юридического лица' обязателен к заполнению</div>
+                    </div>
+
                     <div class="input__block">
                         <label for="region">
                             Область <span>*</span>
@@ -152,14 +189,36 @@
                         <div class="error__text" v-if="!$v.house_number.numeric">Поле 'Номер дома' введите только цифры</div>
                     </div>
 
-                    <div class="input__block__child">
-                        <label for="apartment_number">
-                            Номер квартиры <span>*</span>
+                    <div class="input__block">
+                        <label for="hotel_pms">
+                            PMS <span>*</span>
                         </label>
-                        <input type="text"  v-model.trim="apartment_number"  id="apartment_number">
-                        <div class="error__text" v-if="$v.apartment_number.$dirty && !$v.apartment_number.required">Поле 'Номер квартиры' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.apartment_number.numeric">Поле 'Номер квартиры' введите только цифры</div>
+                        <input type="text" v-model.trim="hotel_pms" id="hotel_pms">
+                        <div class="error__text" v-if="$v.hotel_pms.$dirty && !$v.hotel_pms.required">Поле 'PMS' обязателен к заполнению</div>
                     </div>
+
+                    <div class="input__block">
+                        <label for="hotel_site">
+                            Сайт <span>*</span>
+                        </label>
+                        <input type="text" v-model.trim="hotel_site" id="hotel_site">
+                        <div class="error__text" v-if="$v.hotel_site.$dirty && !$v.hotel_site.required">Поле 'Сайт' обязателен к заполнению</div>
+                    </div>
+                    <div class="input__block">
+                        <label for="hotel_booking">
+                            Booking <span>*</span>
+                        </label>
+                        <input type="text" v-model.trim="hotel_booking" id="hotel_booking">
+                        <div class="error__text" v-if="$v.hotel_booking.$dirty && !$v.hotel_booking.required">Поле 'Booking' обязателен к заполнению</div>
+                    </div>
+                    <div class="input__block">
+                        <label for="hotel_tripadvisor">
+                            Tripadvisor <span>*</span>
+                        </label>
+                        <input type="text" v-model.trim="hotel_tripadvisor" id="hotel_tripadvisor">
+                        <div class="error__text" v-if="$v.hotel_tripadvisor.$dirty && !$v.hotel_tripadvisor.required">Поле 'Tripadvisor' обязателен к заполнению</div>
+                    </div>
+
                 </div>
                 <button @click="registarations">РЕГИСТРАЦИЯ</button>
             </div>
@@ -212,13 +271,21 @@ export default {
             district: null,
             address: null,
             house_number: null,
-            apartment_number: null,
             locality: null,
+            role: null,
+            bin: null,
+            hotel_name: null,
+            hotel_entity: null,
+            hotel_pms: null,
+            hotel_site: null,
+            hotel_booking: null,
+            hotel_tripadvisor: null,
 
             modal: false,
             region__array: [],
             district__array: [],
             locality__array: [],
+            additional_fields: false,
 
             // websocked
             connection: null,
@@ -243,12 +310,21 @@ export default {
             minLength: minLength(12),
             maxLength: maxLength(12)
         },
+        bin: {
+            required, 
+            numeric,
+            minLength: minLength(12),
+            maxLength: maxLength(12)
+        },
         phone: {
             required, 
         },
         email: {
             required, 
             email,
+        },
+        role: {
+            required, 
         },
         region: {
             required, 
@@ -263,9 +339,23 @@ export default {
             required,
             numeric 
         },
-        apartment_number: {
-            required, 
-            numeric
+        hotel_name: {
+            required,
+        },
+        hotel_entity: {
+            required
+        },
+        hotel_pms: {
+            required
+        },
+        hotel_site: {
+            required
+        },
+        hotel_booking: {
+            required
+        },
+        hotel_tripadvisor: {
+            required
         }
     },
     components: {
@@ -284,7 +374,7 @@ export default {
             } else {
                 this.$axios({ 
                     method: 'post',
-                    url: this.$API_URL + this.$API_VERSION + 'auth/register-individual',
+                    url: this.$API_URL + this.$API_VERSION_2 + 'register/request',
                     data: {
                         first_name: this.name,
                         last_name: this.surname,
@@ -298,7 +388,6 @@ export default {
                         locality_id: this.locality,
                         hotel_address: this.address,
                         hotel_house: this.house_number,
-                        hotel_apartment: this.apartment_number
                     }
                 })
                 .then((response) => {
@@ -315,7 +404,6 @@ export default {
                         this.district = null
                         this.address = null
                         this.house_number = null
-                        this.apartment_number = null
                         this.locality = null
                     }
                 })  
@@ -392,7 +480,7 @@ export default {
         sendEsp () {
             this.$axios({ 
                 method: 'post',
-                url: this.$API_URL + this.$API_VERSION_2 + 'api/register/pki',
+                url: this.$API_URL + this.$API_VERSION + 'guest/loginwithecp/bar',
                 data: {
                     data: this.esp__array,
                 }
@@ -521,17 +609,7 @@ export default {
                     line-height: 25px;
                 }
             }
-            h3 {
-                font-style: normal;
-                color: #000;
-                font-weight: 500;
-                font-size: 20px;
-                margin-top: 20px;
-                @media (max-width: @mobile) {
-                    font-size: 17px;
-                    line-height: 20px;
-                }
-            }
+             
             button {
                 padding: 15px 50px;
                 background: #FDE88D;

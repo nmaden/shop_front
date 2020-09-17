@@ -29,8 +29,13 @@
                         <input v-model.trim="check_in_time" class="input" :disabled="true" type="text" id="check_in_time">
                     </div>
                 </div>
-
-                <button class="capture__photo__desktop" @click="onCapture">Сканировать документ</button>
+                
+                <div class="registrations__form">
+                    <button class="capture__photo__desktop" @click="onCapture">Сканировать документ</button>
+                    <button  @click="runGetPhoto">Загрузить документ</button>
+                    <input type="file" id="get__file" @change="changePhoto">
+                </div>
+                
 
                 <h3>Данные гостя</h3>
 
@@ -556,6 +561,7 @@ export default {
             check_in_time: null,
             check_out_time: null,
             status: null,
+            uplodaImgBs64: []
         }
     },
     mounted() {
@@ -566,6 +572,26 @@ export default {
         this.getStatus()
     },
     methods: {
+        runGetPhoto () {
+            document.getElementById('get__file').click();
+        },
+        changePhoto (e) {
+            let file = e.target.files[0]
+            this.readFile(file,  (e) => {
+                this.uplodaImgBs64.push({
+                    bs64: e.target.result
+                })
+            })
+            // this.sendBase64(e.target.result)
+            console.log(this.uplodaImgBs64)
+        },
+
+        readFile(file, callback){
+            let reader = new FileReader();
+            reader.onload = callback
+            reader.readAsDataURL(file);
+        },
+
         checkCountry () {
             this.citizenship == 216 ? this.checkbox_notify_mvd = false : this.checkbox_notify_mvd = true
         },
@@ -781,38 +807,39 @@ export default {
                 }
             })
             .then(response => {
+                console.log(response)
                 this.loader_scan = false
-                if (response.data.Empty == 1) {
-                    if (this.scan_photo_picker == true) {
-                        setTimeout(() => {
-                            this.capturePhoto()
-                        }, 1000);
-                    }
-                    this.default_style = false
-                    this.error_style = true
-                    this.success_style = false
-                } else {
-                    this.default_style = false
-                    this.error_style = false
-                    this.success_style = true
+                // if (response.data.Empty == 1) {
+                //     if (this.scan_photo_picker == true) {
+                //         setTimeout(() => {
+                //             this.capturePhoto()
+                //         }, 1000);
+                //     }
+                //     this.default_style = false
+                //     this.error_style = true
+                //     this.success_style = false
+                // } else {
+                //     this.default_style = false
+                //     this.error_style = false
+                //     this.success_style = true
 
-                    this.closeScanDocument()
+                //     this.closeScanDocument()
 
-                    this.floor = response.data.Gender
-                    this.document_number = response.data.DocNumber
-                    this.name = response.data.FirstName
-                    this.surname = response.data.LastName
-                    this.date_birth = response.data.Birthday
-                    this.date_issuing = response.data.Issue
-                    this.date_endings = response.data.Valid
+                //     this.floor = response.data.Gender
+                //     this.document_number = response.data.DocNumber
+                //     this.name = response.data.FirstName
+                //     this.surname = response.data.LastName
+                //     this.date_birth = response.data.Birthday
+                //     this.date_issuing = response.data.Issue
+                //     this.date_endings = response.data.Valid
 
-                    this.$toast.open({
-                        message: "Данные успешно получены!",
-                        type: 'success',
-                        position: 'bottom',
-                        duration: 1500,
-                    })
-                }
+                //     this.$toast.open({
+                //         message: "Данные успешно получены!",
+                //         type: 'success',
+                //         position: 'bottom',
+                //         duration: 1500,
+                //     })
+                // }
             })
             .catch(e => {
                 console.log(e)
@@ -1086,6 +1113,7 @@ export default {
             }
             .capture__photo__desktop {
                 display: block;
+                margin-right: 15px;
                 @media (max-width: @mobile) {
                     display: none;
                 }
@@ -1134,6 +1162,9 @@ export default {
                 flex-wrap: wrap;
                 justify-content: flex-start;
                 margin-top: 20px;
+                #get__file {
+                    display: none;
+                }
                 @media (max-width: @mobile) {
                     margin-top: 10px;
                 }

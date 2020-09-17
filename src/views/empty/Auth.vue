@@ -44,11 +44,11 @@
                     </div>
                     <div class="type__auth__block">
                         <img src="../../assets/all/entity.svg" alt="images">
-                        <a href="https://eqonaq.kz" target="_blank">
+                        <router-link to="/entityregistration">
                             <button>
                                 Юридическое лицо
                             </button>
-                        </a>
+                        </router-link>
                     </div>
                 </div>
             </v-card>

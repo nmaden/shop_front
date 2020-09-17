@@ -7,7 +7,9 @@
             <InterestingPlaces />
             <BookHotel />
             <Applications />
+            <WithSupport />
         </div>
+        <Footer />
     </div>
 </template>
 
@@ -18,10 +20,12 @@ import WelcomeService from './components/WelcomeService'
 import InterestingPlaces from './components/InterestingPlaces'
 import BookHotel from './components/BookHotel'
 import Applications from './components/Applications'
+import WithSupport from './components/WithSupport'
+import Footer from './components/Footer'
 
 export default {
     components: {
-        Header, Baner, WelcomeService, InterestingPlaces, BookHotel, Applications
+        Header, Baner, WelcomeService, InterestingPlaces, BookHotel, Applications, WithSupport, Footer
     },
 }
 </script>

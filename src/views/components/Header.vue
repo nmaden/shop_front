@@ -67,7 +67,6 @@
             @mousewheel="scrollMenu" 
             @mousemove="scrollBodyOver" 
             @mouseleave="scrollBodyLeave" 
-            v-if="currentRouteName !== 'Profile'" 
             class="scroll__menu"
         >
             <div class="menu" :style="'margin-left:' + this.menu_count + 'px'">
@@ -144,6 +143,10 @@ export default {
         flag_uri: require('../../assets/flags/russia.svg'),
         langs: ['РУС', 'ҚАЗ', 'ENG'],
         menu: [
+            {
+                name: 'главная',
+                to: '/'
+            },
             {
                 name: 'номера телефонов',
                 to: '/telephones'
@@ -296,6 +299,7 @@ export default {
             margin-right: 15px;
             border-right: 2px solid #000;
             padding-right: 15px;
+            display: none;
             img {
                 cursor: pointer;
                 &:hover {
@@ -305,7 +309,7 @@ export default {
         }
         .lang {
             width: 100px;
-            z-index: 999;
+            z-index: 99;
             font-family: 'MontserratBold';
             display: flex;
             justify-content: center;
@@ -404,19 +408,7 @@ export default {
         white-space: nowrap;
         position: absolute;
 
-        &::-webkit-scrollbar {
-            height: 0px;
-        }
-        &::-webkit-scrollbar-track {
-            background: #fff; 
-        }
-        &::-webkit-scrollbar-thumb {
-            background: #ffce03; 
-            border-radius: 5px;
-        }
-        &::-webkit-scrollbar-thumb:hover {
-            opacity: 0.7;
-        }
+        
         .menu__item {
             display: inline-block;
             padding: 15px 40px;
