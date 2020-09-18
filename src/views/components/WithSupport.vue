@@ -22,13 +22,14 @@ export default {
       return {
         withSupport: [
             {
-                img: require('../../assets/logo/1.svg'),
+                img: require('../../assets/logo/3.svg'),
             },
             {
                 img: require('../../assets/logo/2.svg'),
             },
+            
             {
-                img: require('../../assets/logo/3.svg'),
+                img: require('../../assets/logo/1.svg'),
             },
         ]
       }

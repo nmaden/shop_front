@@ -12,215 +12,215 @@
                     </div>
                 </div>
                 
-                <div class="registrations__form">
-                    <div class="input__block">
-                        <label for="name">
-                            Имя <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="name" id="name">
-                        <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателен к заполнению</div>
+                <div v-if="showEdsForm !== false">
+                    <div class="registrations__form">
+                        <div class="input__block">
+                            <label for="name">
+                                Имя <span>*</span>
+                            </label>
+                            <div class="input">
+                                {{name}}
+                            </div>
+                            <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателен к заполнению</div>
+                        </div>
+
+                        <div class="input__block">
+                            <label for="surname">
+                                Фамилия <span>*</span>
+                            </label>
+                            <div class="input">
+                                {{surname}}
+                            </div>
+                            <div class="error__text" v-if="$v.surname.$dirty && !$v.surname.required">Поле 'Фамилия' обязателен к заполнению</div>
+                        </div>
+
+                        <div class="input__block">
+                            <label for="middle_name">
+                                Отчество
+                            </label>
+                            <div class="input">
+                                {{middle_name}}
+                            </div>
+                        </div>
+
+
+                        <div class="input__block">
+                            <label for="document_number">
+                                Номер документа <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="document_number" id="document_number">
+                            <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателен к заполнению</div>
+                            <div class="error__text" v-if="!$v.document_number.numeric">Поле 'Номер документа' введите только цифры</div>
+                        </div>
+
+                        <div class="input__block">
+                            <label for="email">
+                                Роль <span>*</span>
+                            </label>
+                            <div class="input">
+                                {{
+                                    role == "admin" ?
+                                    'Администартор'
+                                    :
+                                    'Пользователь'
+                                }}
+                            </div>
+                            <div class="error__text" v-if="$v.role.$dirty && !$v.role.required">Поле 'Роль' обязателен к заполнению</div>
+                        </div>
+                        <div class="input__block__child">
+                            <label for="phone">
+                                Телефон <span>*</span>
+                            </label>
+                            <masked-input v-model.trim="phone" id="phone" mask="\+\7 (111) 111-11-11" />
+                            <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
+                        </div>
+                        <div class="input__block__child">
+                            <label for="email">
+                                E-mail <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="email" id="email">    
+                            <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
+                            <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
+                        </div>
+                        <div class="input__block__child">
+                            <label for="bin">
+                                БИН места размещения <span>*</span>
+                            </label>
+                            <div class="input">
+                                {{bin}}
+                            </div>
+                            <div class="error__text" v-if="$v.bin.$dirty && !$v.bin.required">Поле 'БИН места размещения' обязателен к заполнению</div>
+                            <div class="error__text" v-if="!$v.bin.numeric">Поле 'БИН места размещения' введите только цифры</div>
+                            <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
+                            <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
+                        </div>
                     </div>
 
-                    <div class="input__block">
-                        <label for="surname">
-                            Фамилия <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="surname" id="surname">
-                        <div class="error__text" v-if="$v.surname.$dirty && !$v.surname.required">Поле 'Фамилия' обязателен к заполнению</div>
-                    </div>
+                    <div v-if="additional_fields == true" class="registrations__form">
+                        <div class="input__block">
+                            <label for="hotel_name">
+                                Наименование места размещения <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="hotel_name" id="hotel_name">
+                            <div class="error__text" v-if="$v.hotel_name.$dirty && !$v.hotel_name.required">Поле 'Наименование места размещения' обязателен к заполнению</div>
+                        </div>
 
-                    <div class="input__block">
-                        <label for="middle_name">
-                            Отчество
-                        </label>
-                        <input type="text" v-model.trim="middle_name" id="middle_name">
-                    </div>
+                        <div class="input__block">
+                            <label for="hotel_entity">
+                                Наименование юридического лица <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="hotel_entity" id="hotel_entity">
+                            <div class="error__text" v-if="$v.hotel_entity.$dirty && !$v.hotel_entity.required">Поле 'Наименование юридического лица' обязателен к заполнению</div>
+                        </div>
 
+                        <div class="input__block">
+                            <label for="region">
+                                Область <span>*</span>
+                            </label>
+                            <select 
+                                v-model.trim="region" 
+                                id="region"
+                                @change="getDistrict"
+                            >
+                                <option value="" disabled>Область</option>
+                                <option 
+                                    v-for="item_region in region__array"
+                                    :key="item_region.value"
+                                    :value="item_region.value"
+                                >
+                                    {{item_region.label}}
+                                </option>
+                            </select>
+                            <div class="error__text" v-if="$v.region.$dirty && !$v.region.required">Поле 'Область' обязателен к заполнению</div>
+                        </div>
 
-                    <div class="input__block">
-                        <label for="document_number">
-                            Номер документа <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="document_number" id="document_number">
-                        <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.document_number.numeric">Поле 'Номер документа' введите только цифры</div>
+                        <div class="input__block">
+                            <label for="district">
+                                Район <span>*</span>
+                            </label>
+                            <select 
+                                v-model.trim="district" 
+                                id="district"
+                                @change="getLocality"
+                            >
+                                <option value="" disabled>Район</option>
+                                <option 
+                                    v-for="item_district in district__array"
+                                    :key="item_district.value"
+                                    :value="item_district.value"
+                                >
+                                    {{item_district.label}}
+                                </option>
+                            </select>
+                            <div class="error__text" v-if="$v.district.$dirty && !$v.district.required">Поле 'Район' обязателен к заполнению</div>
+                        </div>
+
+                        <div class="input__block">
+                            <label for="locality">
+                                Населенный пункт 
+                            </label>
+                            <select v-model.trim="locality" id="locality">
+                                <option value="" disabled>Населенный пункт</option>
+                                <option 
+                                    v-for="item_locality in locality__array"
+                                    :key="item_locality.value"
+                                    :value="item_locality.value"
+                                >
+                                    {{item_locality.label}}
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <div class="input__block">
+                            <label for="address">
+                                Адрес <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="address" id="address">
+                            <div class="error__text" v-if="$v.address.$dirty && !$v.address.required">Поле 'Адрес' обязателен к заполнению</div>
+                        </div>
+
+                        <div class="input__block__child">
+                            <label for="house_number">
+                                Номер дома <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="house_number" id="house_number">    
+                            <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div>
+                            <div class="error__text" v-if="!$v.house_number.numeric">Поле 'Номер дома' введите только цифры</div>
+                        </div>
+
+                        <div class="input__block">
+                            <label for="hotel_pms">
+                                PMS <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="hotel_pms" id="hotel_pms">
+                            <div class="error__text" v-if="$v.hotel_pms.$dirty && !$v.hotel_pms.required">Поле 'PMS' обязателен к заполнению</div>
+                        </div>
+
+                        <div class="input__block">
+                            <label for="hotel_site">
+                                Сайт <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="hotel_site" id="hotel_site">
+                            <div class="error__text" v-if="$v.hotel_site.$dirty && !$v.hotel_site.required">Поле 'Сайт' обязателен к заполнению</div>
+                        </div>
+                        <div class="input__block">
+                            <label for="hotel_booking">
+                                Booking <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="hotel_booking" id="hotel_booking">
+                            <div class="error__text" v-if="$v.hotel_booking.$dirty && !$v.hotel_booking.required">Поле 'Booking' обязателен к заполнению</div>
+                        </div>
+                        <div class="input__block">
+                            <label for="hotel_tripadvisor">
+                                Tripadvisor <span>*</span>
+                            </label>
+                            <input type="text" v-model.trim="hotel_tripadvisor" id="hotel_tripadvisor">
+                            <div class="error__text" v-if="$v.hotel_tripadvisor.$dirty && !$v.hotel_tripadvisor.required">Поле 'Tripadvisor' обязателен к заполнению</div>
+                        </div>
 
                     </div>
-
-                    <div class="input__block__child">
-                        <label for="iin">
-                            ИИН <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="iin" id="iin">    
-                        <div class="error__text" v-if="$v.iin.$dirty && !$v.iin.required">Поле 'ИИН' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.iin.numeric">Поле 'ИИН' введите только цифры</div>
-                        <div class="error__text" v-if="!$v.iin.minLength">Минимальное количество символов 12</div>
-                        <div class="error__text" v-if="!$v.iin.maxLength">Максимальное количество символов 12</div>
-                    </div>
-                    <div class="input__block">
-                        <label for="email">
-                            Роль <span>*</span>
-                        </label>
-                        <select 
-                            v-model.trim="role" 
-                        >
-                            <option value="" disabled>Выберите роль</option>
-                            <option value="admin">Администартор</option>
-                            <option value="user">Пользователь</option>
-                        </select>
-                        <div class="error__text" v-if="$v.role.$dirty && !$v.role.required">Поле 'Роль' обязателен к заполнению</div>
-                    </div>
-                    <div class="input__block__child">
-                        <label for="phone">
-                            Телефон <span>*</span>
-                        </label>
-                        <masked-input v-model.trim="phone" id="phone" mask="\+\7 (111) 111-11-11" />
-                        <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
-                    </div>
-                    <div class="input__block__child">
-                        <label for="email">
-                            E-mail <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="email" id="email">    
-                        <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
-                    </div>
-                    <div class="input__block__child">
-                        <label for="bin">
-                            БИН места размещения <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="bin" id="bin">    
-                        <div class="error__text" v-if="$v.bin.$dirty && !$v.bin.required">Поле 'БИН места размещения' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.bin.numeric">Поле 'БИН места размещения' введите только цифры</div>
-                        <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
-                        <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
-                    </div>
+                    <button @click="registarations">РЕГИСТРАЦИЯ</button>
                 </div>
-
-                <div v-if="additional_fields == true" class="registrations__form">
-                    <div class="input__block">
-                        <label for="hotel_name">
-                            Наименование места размещения <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="hotel_name" id="hotel_name">
-                        <div class="error__text" v-if="$v.hotel_name.$dirty && !$v.hotel_name.required">Поле 'Наименование места размещения' обязателен к заполнению</div>
-                    </div>
-
-                    <div class="input__block">
-                        <label for="hotel_entity">
-                            Наименование юридического лица <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="hotel_entity" id="hotel_entity">
-                        <div class="error__text" v-if="$v.hotel_entity.$dirty && !$v.hotel_entity.required">Поле 'Наименование юридического лица' обязателен к заполнению</div>
-                    </div>
-
-                    <div class="input__block">
-                        <label for="region">
-                            Область <span>*</span>
-                        </label>
-                        <select 
-                            v-model.trim="region" 
-                            id="region"
-                            @change="getDistrict"
-                        >
-                            <option value="" disabled>Область</option>
-                            <option 
-                                v-for="item_region in region__array"
-                                :key="item_region.value"
-                                :value="item_region.value"
-                            >
-                                {{item_region.label}}
-                            </option>
-                        </select>
-                        <div class="error__text" v-if="$v.region.$dirty && !$v.region.required">Поле 'Область' обязателен к заполнению</div>
-                    </div>
-
-                    <div class="input__block">
-                        <label for="district">
-                            Район <span>*</span>
-                        </label>
-                        <select 
-                            v-model.trim="district" 
-                            id="district"
-                            @change="getLocality"
-                        >
-                            <option value="" disabled>Район</option>
-                            <option 
-                                v-for="item_district in district__array"
-                                :key="item_district.value"
-                                :value="item_district.value"
-                            >
-                                {{item_district.label}}
-                            </option>
-                        </select>
-                        <div class="error__text" v-if="$v.district.$dirty && !$v.district.required">Поле 'Район' обязателен к заполнению</div>
-                    </div>
-
-                    <div class="input__block">
-                        <label for="locality">
-                            Населенный пункт 
-                        </label>
-                        <select v-model.trim="locality" id="locality">
-                            <option value="" disabled>Населенный пункт</option>
-                            <option 
-                                v-for="item_locality in locality__array"
-                                :key="item_locality.value"
-                                :value="item_locality.value"
-                            >
-                                {{item_locality.label}}
-                            </option>
-                        </select>
-                    </div>
-                    
-                    <div class="input__block">
-                        <label for="address">
-                            Адрес <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="address" id="address">
-                        <div class="error__text" v-if="$v.address.$dirty && !$v.address.required">Поле 'Адрес' обязателен к заполнению</div>
-                    </div>
-
-                    <div class="input__block__child">
-                        <label for="house_number">
-                            Номер дома <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="house_number" id="house_number">    
-                        <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.house_number.numeric">Поле 'Номер дома' введите только цифры</div>
-                    </div>
-
-                    <div class="input__block">
-                        <label for="hotel_pms">
-                            PMS <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="hotel_pms" id="hotel_pms">
-                        <div class="error__text" v-if="$v.hotel_pms.$dirty && !$v.hotel_pms.required">Поле 'PMS' обязателен к заполнению</div>
-                    </div>
-
-                    <div class="input__block">
-                        <label for="hotel_site">
-                            Сайт <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="hotel_site" id="hotel_site">
-                        <div class="error__text" v-if="$v.hotel_site.$dirty && !$v.hotel_site.required">Поле 'Сайт' обязателен к заполнению</div>
-                    </div>
-                    <div class="input__block">
-                        <label for="hotel_booking">
-                            Booking <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="hotel_booking" id="hotel_booking">
-                        <div class="error__text" v-if="$v.hotel_booking.$dirty && !$v.hotel_booking.required">Поле 'Booking' обязателен к заполнению</div>
-                    </div>
-                    <div class="input__block">
-                        <label for="hotel_tripadvisor">
-                            Tripadvisor <span>*</span>
-                        </label>
-                        <input type="text" v-model.trim="hotel_tripadvisor" id="hotel_tripadvisor">
-                        <div class="error__text" v-if="$v.hotel_tripadvisor.$dirty && !$v.hotel_tripadvisor.required">Поле 'Tripadvisor' обязателен к заполнению</div>
-                    </div>
-
-                </div>
-                <button @click="registarations">РЕГИСТРАЦИЯ</button>
             </div>
         </div>
 
@@ -264,16 +264,18 @@ export default {
             surname: null,
             document_number: null,
             middle_name: null,
-            iin: null,
             phone: null,
             email: null,
+            bin: null,
+            role: null,
+            token_pki: null,
+
+            // additional_fields 
             region: null,
             district: null,
             address: null,
             house_number: null,
             locality: null,
-            role: null,
-            bin: null,
             hotel_name: null,
             hotel_entity: null,
             hotel_pms: null,
@@ -286,6 +288,8 @@ export default {
             district__array: [],
             locality__array: [],
             additional_fields: false,
+
+            showEdsForm: false,
 
             // websocked
             connection: null,
@@ -304,12 +308,6 @@ export default {
             required, 
             numeric,
         },
-        iin: {
-            required, 
-            numeric,
-            minLength: minLength(12),
-            maxLength: maxLength(12)
-        },
         bin: {
             required, 
             numeric,
@@ -326,37 +324,38 @@ export default {
         role: {
             required, 
         },
-        region: {
-            required, 
-        },
-        district: {
-            required, 
-        },
-        address: {
-            required, 
-        },
-        house_number: {
-            required,
-            numeric 
-        },
-        hotel_name: {
-            required,
-        },
-        hotel_entity: {
-            required
-        },
-        hotel_pms: {
-            required
-        },
-        hotel_site: {
-            required
-        },
-        hotel_booking: {
-            required
-        },
-        hotel_tripadvisor: {
-            required
-        }
+
+        // region: {
+        //     required, 
+        // },
+        // district: {
+        //     required, 
+        // },
+        // address: {
+        //     required, 
+        // },
+        // house_number: {
+        //     required,
+        //     numeric 
+        // },
+        // hotel_name: {
+        //     required,
+        // },
+        // hotel_entity: {
+        //     required
+        // },
+        // hotel_pms: {
+        //     required
+        // },
+        // hotel_site: {
+        //     required
+        // },
+        // hotel_booking: {
+        //     required
+        // },
+        // hotel_tripadvisor: {
+        //     required
+        // }
     },
     components: {
         Nav,
@@ -374,49 +373,48 @@ export default {
             } else {
                 this.$axios({ 
                     method: 'post',
-                    url: this.$API_URL + this.$API_VERSION_2 + 'register/request',
+                    url: this.$API_URL + this.$API_VERSION_2 + 'register/pki/step2',
                     data: {
+                        token: this.token_pki,
                         first_name: this.name,
                         last_name: this.surname,
                         middle_name: this.surname,
                         document_number: this.document_number,
-                        iin: this.iin,
                         email: this.email,
                         phone: this.phone,   
-                        region_id: this.region,
-                        area_id: this.district,
-                        locality_id: this.locality,
-                        hotel_address: this.address,
-                        hotel_house: this.house_number,
+                        role: this.role,
+                        bin: this.bin,
                     }
                 })
                 .then((response) => {
-                    if (response.data.msg == "success register") {
-                        this.modal = true
-                        this.name = null
-                        this.surname = null
-                        this.document_number = null
-                        this.middle_name = null
-                        this.iin = null
-                        this.phone = null
-                        this.email = null
-                        this.region = null
-                        this.district = null
-                        this.address = null
-                        this.house_number = null
-                        this.locality = null
-                    }
+                    this.modal = true
+                    this.name = null
+                    this.surname = null
+                    this.middle_name = null
+                    this.document_number = null
+                    this.email = null
+                    this.phone = null
+                    this.bin = null
+                    this.role = null
+                    this.showEdsForm = false
+                    console.log(response)
+
+                    this.$toast.open({
+                        message: response.data.message,
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
                 })  
                 .catch((error) => {
-                    if (error.response.status == 400) {
-                        this.$toast.open({
-                            message: error.response.data.msg,
-                            type: 'error',
-                            position: 'bottom',
-                            duration: 1500,
-                            queue: true
-                        });
-                    }
+                    this.$toast.open({
+                        message: error.response.data.message,
+                        type: 'error',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
                 });              
             }
         },
@@ -461,7 +459,6 @@ export default {
                 console.log(error);
             });
         },
-
         getLocality () {
             this.$axios({ 
                 method: 'post',
@@ -480,13 +477,31 @@ export default {
         sendEsp () {
             this.$axios({ 
                 method: 'post',
-                url: this.$API_URL + this.$API_VERSION + 'guest/loginwithecp/bar',
+                url: this.$API_URL + this.$API_VERSION_2 + 'register/pki',
                 data: {
                     data: this.esp__array,
                 }
             })
             .then((response) => {
                 console.log(response)
+                if (Object.keys(response.data.filled_data).length !== 0) {
+                    this.name = response.data.filled_data.last_name
+                    this.surname = response.data.filled_data.first_name
+                    this.bin = response.data.filled_data.hotel_bin
+                    this.role = response.data.filled_data.role
+                    this.email = response.data.filled_data.email
+                    this.token_pki = response.data.token
+                    this.showEdsForm = true
+                    this.$toast.open({
+                        message: response.data.message,
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
+                } else {
+                    this.showEdsForm = false
+                }
             })  
             .catch((error) => {
                 console.log(error)
@@ -656,6 +671,16 @@ export default {
                         border: 2px solid #000000;
                         margin-bottom: 10px;
                     }
+                    .input {
+                        width: 100%;
+                        height: 46px;
+                        background: #fff;
+                        border-radius: 10px;
+                        outline: none;
+                        border: 2px solid #000000;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                    }
                     input {
                         width: 100%;
                         height: 46px;
@@ -682,6 +707,16 @@ export default {
                     }
                     span {
                         color: red;
+                    }
+                    .input {
+                        width: 100%;
+                        height: 46px;
+                        background: #fff;
+                        border-radius: 10px;
+                        outline: none;
+                        border: 2px solid #000000;
+                        padding: 10px;
+                        margin-bottom: 10px;
                     }
                     input {
                         width: 100%;

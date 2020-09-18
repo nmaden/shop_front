@@ -6,7 +6,20 @@
         </h1>
 
         <p>
-            Возможности
+            О ситстеме eQonaq
+        </p>
+        
+        <div class="description">
+            <p>
+                «eQonaq» –  информационная система по сбору и обработке единого реестра мест размещения туристов,  туристического потока, а также контроль над соблюдением миграционного законодательства РК посредством  уведомления государственных органов о прибытии туристов. 
+            </p>
+            <p>
+                Система создана в рамках реализации государственной программы развития туристической отрасли Министерством Культуры и Спорта при содействии Министерства Внутренних дел и Комитета Национальной безопасности Республики Казахстан.
+            </p>
+        </div>
+
+        <p>
+            Основные задачи
         </p>
 
         <div class="service__type">
@@ -16,9 +29,6 @@
                 :key="service_item.title"
             >
                 <img :src="service_item.img" alt="">
-                <h3>
-                    {{service_item.title}}
-                </h3>
                 <p>
                     {{service_item.text}}
                 </p>
@@ -33,19 +43,28 @@ export default {
       return {
         service: [
             {
-                title: 'Листы прибытия',
-                img: require('../../assets/icons/arrival_sheet.svg'),
-                text: 'Заполяйте листы прибытия быстро и без ошибок. Используйсте функции сканирования документов, автозаполнения и группового заезда.'
+                img: require('../../assets/icons/1.svg'),
+                text: 'Создание единого реестра мест размещения.'
             },
             {
-                title: 'Справочник',
-                img: require('../../assets/icons/directory.svg'),
-                text: 'Просмотрите актуальные миграционные правила для страны проживания вашего гостя.'
+                img: require('../../assets/icons/2.svg'),
+                text: 'Учет и контроль прибытия и убытия туристов.'
             },
             {
-                title: 'Миграционная служба',
-                img: require('../../assets/icons/service.png'),
-                text: 'Отправляйте уведомления в МВД РК обо всех прибывающих иностранных гостях онлайн.'
+                img: require('../../assets/icons/3.svg'),
+                text: 'Аналитика туристического потока и портрета туриста.'
+            },
+            {
+                img: require('../../assets/icons/4.svg'),
+                text: 'Инфраструктура для учета туристического сбора.'
+            },
+            {
+                img: require('../../assets/icons/5.svg'),
+                text: 'Предоставление различных сервисов для повышения качества пребывания туристов.'
+            },
+            {
+                img: require('../../assets/icons/6.svg'),
+                text: 'Уведомление МВД РК о прибытии иностранных туристов.'
             },
         ]
       }
@@ -61,6 +80,24 @@ export default {
     margin-top: 40px;
     @media (max-width: @mobile) {
         margin-top: 25px;
+    }
+    .description {
+        width: 100%;
+        p {
+            font-weight: 600;
+            font-family: 'MediumExtraLight';
+            font-style: normal;
+            font-size: 20px;
+            line-height: 25px;
+            margin: 0;
+            color: #000000;
+            margin-bottom: 15px;
+            @media (max-width: @mobile) {
+                font-size: 14px;
+                line-height: 16px;
+                margin-bottom: 5px;
+            }
+        }
     }
     h1 {
         font-weight: bold;
@@ -100,7 +137,7 @@ export default {
             margin-top: 20px;
         }
         .service__type__block {
-            width: 32%;
+            width: 27%;
             margin-bottom: 20px;
             margin-right: 16px;
             @media (max-width: @mobile) {
@@ -112,19 +149,7 @@ export default {
                     width: 24%;
                 }
             }
-            h3 {
-                font-weight: bold;
-                font-size: 20px;
-                margin-top: 15px;
-                font-family: 'MontserratBold';
-                font-style: normal;
-                line-height: 25px;
-                color: #000000;
-                @media (max-width: @mobile) {
-                    font-size: 14px;
-                    margin-top: 0px;
-                }
-            }
+            
             p {
                 margin-top: 15px;
                 font-weight: 600;

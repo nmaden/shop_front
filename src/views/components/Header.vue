@@ -75,7 +75,7 @@
                     v-for="menu_item in menu"
                     :key="menu_item.name"
                     ref="menu__item"
-                    @click="route(menu_item.to)"
+                    @click="route(menu_item.to, menu_item.url)"
                 >
                     {{menu_item.name}}
                 </a>
@@ -145,27 +145,78 @@ export default {
         menu: [
             {
                 name: 'главная',
-                to: '/'
+                to: '/',
+                url: false
             },
             {
                 name: 'номера телефонов',
-                to: '/telephones'
+                to: '/telephones',
+                url: false
             },
             {
                 name: 'Связь',
-                to: '/connection'
+                to: '/connection',
+                url: false
             },
             {
                 name: 'МИГРАЦИОННЫЙ СПРАВОЧНИК',
-                to: '/migration'
+                to: '/migration',
+                url: false
             },
             {
                 name: 'ВАЛЮТА',
-                to: '/currency'
+                to: '/currency',
+                url: false
             },
             {
                 name: 'ГОСТИНИЦЫ',
-                to: 'https://api.eqonaq.kz/hotels'
+                to: 'https://api.eqonaq.kz/hotels',
+                url: true,
+            },
+            {
+                name: '3D - туры о Казахстане',
+                to: 'https://kazakhstan.travel/threedtours',
+                url: true,
+            },
+            {
+                name: 'Маршруты',
+                to: 'https://kazakhstan.travel/tours',
+                url: true,
+            },
+            {
+                name: 'О визе в Казахстан',
+                to: 'https://kazakhstan.travel/tourist-help/ru/documents',
+                url: true,
+            },
+            {
+                name: 'Часовые пояса',
+                to: 'https://kazakhstan.travel/tourist-help/ru/time_zones',
+                url: true,
+            },
+            {
+                name: 'О Погоде',
+                to: 'https://kazakhstan.travel/tourist-help/ru/weather',
+                url: true,
+            },
+            {
+                name: 'Языковой справочник',
+                to: 'https://kazakhstan.travel/tourist-help/ru/language',
+                url: true,
+            },
+            {
+                name: 'Транспорт',
+                to: 'https://kazakhstan.travel/tourist-help/ru/transport',
+                url: true,
+            },
+            {
+                name: 'Полезные ресурсы',
+                to: 'https://kazakhstan.travel/tourist-help/ru/resources',
+                url: true,
+            },
+            {
+                name: 'Публикации о Казахстане',
+                to: 'https://kazakhstan.travel/tourist-help/ru/phones',
+                url: true,
             },
         ],
         show_menu: false,
@@ -178,8 +229,8 @@ export default {
             this.view__langs = !this.view__langs
         },
         
-        route (to) {
-            if (to == 'https://api.eqonaq.kz/hotels') {
+        route (to, url) {
+            if (url == true) {
                 window.location.href = to
             } else {
                 this.$router.push(to)
@@ -462,7 +513,9 @@ export default {
                 display: flex;
                 justify-content: flex-start;
                 flex-wrap: wrap;
-                margin-top: 30px;
+                margin-top: 7px;
+                height: 50%;
+                overflow-y: scroll;
                 .mobile__menu__list__flex__block {
                     padding: 7px 14px;
                     border-radius: 30px;

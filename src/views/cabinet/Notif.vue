@@ -32,7 +32,7 @@
                 
                 <div class="registrations__form">
                     <button class="capture__photo__desktop" @click="onCapture">Сканировать документ</button>
-                    <button  @click="runGetPhoto">Загрузить документ</button>
+                    <button @click="runGetPhoto">Загрузить документ</button>
                     <input type="file" id="get__file" @change="changePhoto">
                 </div>
                 
@@ -114,13 +114,20 @@
                         <div class="error__text" v-if="$v.floor.$dirty && !$v.floor.required">Поле 'Пол' обязателен к заполнению</div>
                     </div>
                 </div>
-
+                
                 <div class="registrations__form">
                     <div class="input__block">
-                        <label for="phone">
-                            Телефон  <span>*</span>
+                        <label>
+                            Телефон <span>*</span>
                         </label>
-                        <masked-input class="input" v-model.trim="phone" id="phone" mask="\+\7 (111) 111-11-11" />
+                        <vue-tel-input 
+                            v-model="phone"
+                            placeholder=""
+                            :enabledCountryCode="true"
+                            class="input"
+                            v-on:country-changed="countryChanged"
+                        ></vue-tel-input>
+                        <div class="error__text" v-if="!$v.phone.numeric">Поле 'Телефон' введите только цифры</div>
                         <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
                     </div>
                     <div class="input__block">
@@ -294,6 +301,7 @@
                     v-model="date_birth"
                     color="#FFCC47"
                     @change="date_birth_picker = false"
+                    :max="max_date"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
@@ -441,14 +449,14 @@
 
 <script>
 import Nav from '../components/NavHeader'
-import MaskedInput from 'vue-masked-input'
 import { required, email, numeric } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
+import { VueTelInput } from 'vue-tel-input'
 
 export default {
     components: {
         Nav, 
-        MaskedInput, 
+        VueTelInput
     },
     validations: {
         picker: {
@@ -470,7 +478,8 @@ export default {
             required
         },
         phone: {
-            required
+            required,
+            numeric
         },
         email: {
             required,
@@ -545,6 +554,7 @@ export default {
             floor: null,
             citizenship: null,
             phone: null,
+            country_code: null,
             date_birth: null,
             type_document: null,
             date_issuing: null,
@@ -561,7 +571,8 @@ export default {
             check_in_time: null,
             check_out_time: null,
             status: null,
-            uplodaImgBs64: []
+
+            max_date: null,
         }
     },
     mounted() {
@@ -572,18 +583,17 @@ export default {
         this.getStatus()
     },
     methods: {
+        countryChanged(country) {
+            this.country_code = country.dialCode
+        },
         runGetPhoto () {
             document.getElementById('get__file').click();
         },
         changePhoto (e) {
             let file = e.target.files[0]
             this.readFile(file,  (e) => {
-                this.uplodaImgBs64.push({
-                    bs64: e.target.result
-                })
+               this.sendBase64Uplodaded(e.target.result)
             })
-            // this.sendBase64(e.target.result)
-            console.log(this.uplodaImgBs64)
         },
 
         readFile(file, callback){
@@ -747,10 +757,14 @@ export default {
             return i;
         },
         getDate () {
-            let d = new Date();
-            let h = this.addZero(d.getHours());
-            let m = this.addZero(d.getMinutes());
-            this.check_in_time = h + ":" + m 
+            let date = new Date();
+            let year = date.getFullYear()
+            let mounth = this.addZero(date.getMonth() + 1)
+            let day = this.addZero(date.getDate())
+            let hour = this.addZero(date.getHours());
+            let mimutes = this.addZero(date.getMinutes());
+            this.check_in_time = hour + ":" + mimutes 
+            this.max_date = year + '-' + mounth + '-' + day
         },
         changeDateArrival () {
             this.date_arrival = false
@@ -777,7 +791,7 @@ export default {
             canvas.height = height
             context = canvas.getContext('2d')
             context.drawImage(this.$refs.webcam, 0, 0, width, height)
-            this.sendBase64(canvas.toDataURL('image/png'))
+            this.sendBase64Capture(canvas.toDataURL('image/png'))
         },
         onCapture() {
             let constraints = { audio: false, video: { front: "user", width: 550, height: 400 } }; 
@@ -794,7 +808,59 @@ export default {
                  this.capturePhoto()
             }, 2000)
         },
-        sendBase64(img) {
+        sendBase64Capture(img) {
+            this.loader_scan = true
+            this.$axios({ 
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'regula',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+                data: {
+                    image: img
+                }
+            })
+            .then(response => {
+                this.loader_scan = false
+                if (response.data.Empty == 1) {
+                    if (this.scan_photo_picker == true) {
+                        setTimeout(() => {
+                            this.capturePhoto()
+                        }, 1000);
+                    }
+                    this.default_style = false
+                    this.error_style = true
+                    this.success_style = false
+                } else {
+                    this.default_style = false
+                    this.error_style = false
+                    this.success_style = true
+
+                    this.closeScanDocument()
+
+                    this.floor = response.data.Gender
+                    this.document_number = response.data.DocNumber
+                    this.name = response.data.FirstName
+                    this.surname = response.data.LastName
+                    this.date_birth = response.data.Birthday
+                    this.date_issuing = response.data.Issue
+                    this.date_endings = response.data.Valid
+                    this.citizenship = response.data.Country_id
+
+                    this.$toast.open({
+                        message: "Данные успешно получены!",
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                    })
+                }
+            })
+            .catch(e => {
+                console.log(e)
+                this.capturePhoto()
+            })
+        },
+        sendBase64Uplodaded(img) {
             this.loader_scan = true
             this.$axios({ 
                 method: 'post',
@@ -808,38 +874,30 @@ export default {
             })
             .then(response => {
                 console.log(response)
-                this.loader_scan = false
-                // if (response.data.Empty == 1) {
-                //     if (this.scan_photo_picker == true) {
-                //         setTimeout(() => {
-                //             this.capturePhoto()
-                //         }, 1000);
-                //     }
-                //     this.default_style = false
-                //     this.error_style = true
-                //     this.success_style = false
-                // } else {
-                //     this.default_style = false
-                //     this.error_style = false
-                //     this.success_style = true
+                if (response.data.Empty == 1) {
+                    this.$toast.open({
+                        message: "Загрузите фото документа!",
+                        type: 'error',
+                        position: 'bottom',
+                        duration: 1500,
+                    })
+                } else {
+                    this.floor = response.data.Gender
+                    this.document_number = response.data.DocNumber
+                    this.name = response.data.FirstName
+                    this.surname = response.data.LastName
+                    this.date_birth = response.data.Birthday
+                    this.date_issuing = response.data.Issue
+                    this.date_endings = response.data.Valid
+                    this.citizenship = response.data.Country_id
 
-                //     this.closeScanDocument()
-
-                //     this.floor = response.data.Gender
-                //     this.document_number = response.data.DocNumber
-                //     this.name = response.data.FirstName
-                //     this.surname = response.data.LastName
-                //     this.date_birth = response.data.Birthday
-                //     this.date_issuing = response.data.Issue
-                //     this.date_endings = response.data.Valid
-
-                //     this.$toast.open({
-                //         message: "Данные успешно получены!",
-                //         type: 'success',
-                //         position: 'bottom',
-                //         duration: 1500,
-                //     })
-                // }
+                    this.$toast.open({
+                        message: "Данные успешно получены!",
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                    })
+                }
             })
             .catch(e => {
                 console.log(e)
