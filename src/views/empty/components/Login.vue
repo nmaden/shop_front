@@ -46,6 +46,13 @@ export default {
         ]),
         login () {
             if (this.$v.$invalid) {
+                this.$toast.open({
+                    message: 'Заполните необходимые поля',
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 1500,
+                    queue: true
+                });
                 this.$v.$touch()
                 return 
             } else {

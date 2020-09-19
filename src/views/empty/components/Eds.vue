@@ -74,7 +74,6 @@ export default {
     created () {
         this.connection = new WebSocket("wss://127.0.0.1:13579/")
         this.connection.onopen = () => {
-            console.log("Connection success");
             this.ready = true
         }
         this.connection.onmessage = (e) => {

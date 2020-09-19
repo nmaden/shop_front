@@ -62,7 +62,7 @@
                                     role == "admin" ?
                                     'Администартор'
                                     :
-                                    'Пользователь'
+                                    ''
                                 }}
                             </div>
                             <div class="error__text" v-if="$v.role.$dirty && !$v.role.required">Поле 'Роль' обязателен к заполнению</div>
@@ -190,18 +190,16 @@
 
                         <div class="input__block">
                             <label for="hotel_pms">
-                                PMS <span>*</span>
+                                PMS 
                             </label>
                             <input type="text" v-model.trim="hotel_pms" id="hotel_pms">
-                            <div class="error__text" v-if="$v.hotel_pms.$dirty && !$v.hotel_pms.required">Поле 'PMS' обязателен к заполнению</div>
                         </div>
 
                         <div class="input__block">
                             <label for="hotel_site">
-                                Сайт <span>*</span>
+                                Сайт 
                             </label>
                             <input type="text" v-model.trim="hotel_site" id="hotel_site">
-                            <div class="error__text" v-if="$v.hotel_site.$dirty && !$v.hotel_site.required">Поле 'Сайт' обязателен к заполнению</div>
                         </div>
                         <div class="input__block">
                             <label for="hotel_booking">
@@ -255,7 +253,7 @@
 <script>
 import Nav from '../components/NavHeader'
 import MaskedInput from 'vue-masked-input'
-import { required, numeric, email, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, numeric, email, requiredUnless, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
     data () {
@@ -288,13 +286,20 @@ export default {
             district__array: [],
             locality__array: [],
             additional_fields: false,
+            additinal__validation: false,
 
             showEdsForm: false,
-
+            sendObj: null,
             // websocked
             connection: null,
             ready: false,
-            esp__array: null
+            esp__array: null,
+
+        }
+    },
+    computed: {
+        additinal__fuilds () {
+            return this.additinal__validation  
         }
     },
     validations: {
@@ -325,37 +330,31 @@ export default {
             required, 
         },
 
-        // region: {
-        //     required, 
-        // },
-        // district: {
-        //     required, 
-        // },
-        // address: {
-        //     required, 
-        // },
-        // house_number: {
-        //     required,
-        //     numeric 
-        // },
-        // hotel_name: {
-        //     required,
-        // },
-        // hotel_entity: {
-        //     required
-        // },
-        // hotel_pms: {
-        //     required
-        // },
-        // hotel_site: {
-        //     required
-        // },
-        // hotel_booking: {
-        //     required
-        // },
-        // hotel_tripadvisor: {
-        //     required
-        // }
+        region: {
+            required: requiredUnless('additinal__fuilds'), 
+        },
+        district: {
+            required: requiredUnless('additinal__fuilds'), 
+        },
+        address: {
+            required: requiredUnless('additinal__fuilds'), 
+        },
+        house_number: {
+            required: requiredUnless('additinal__fuilds'),
+            numeric 
+        },
+        hotel_name: {
+            required: requiredUnless('additinal__fuilds'),
+        },
+        hotel_entity: {
+            required: requiredUnless('additinal__fuilds')
+        },
+        hotel_booking: {
+            required: requiredUnless('additinal__fuilds')
+        },
+        hotel_tripadvisor: {
+            required: requiredUnless('additinal__fuilds')
+        }
     },
     components: {
         Nav,
@@ -368,13 +367,41 @@ export default {
     methods: {
         registarations () {
             if (this.$v.$invalid) {
+                this.$toast.open({
+                    message: 'Заполните необходимые поля',
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 1500,
+                    queue: true
+                });
                 this.$v.$touch()
                 return 
             } else {
-                this.$axios({ 
-                    method: 'post',
-                    url: this.$API_URL + this.$API_VERSION_2 + 'register/pki/step2',
-                    data: {
+                if (this.additional_fields == true) {
+                    this.sendObj = {
+                        token: this.token_pki,
+                        first_name: this.name,
+                        last_name: this.surname,
+                        middle_name: this.surname,
+                        document_number: this.document_number,
+                        email: this.email,
+                        phone: this.phone,   
+                        role: this.role,
+                        bin: this.bin,
+                        hotel_name: this.hotel_name,
+                        hotel_entity_name: this.hotel_entity,    
+                        hotel_region_id: this.region,    
+                        hotel_locality_id: this.district,
+                        hotel_area_id: this.locality,
+                        hotel_address: this.address,
+                        hotel_house: this.house_number,
+                        hotel_pms: this.hotel_pms,
+                        hotel_site: this.hotel_site,
+                        hotel_booking: this.hotel_booking,
+                        hotel_tripadvisor: this.hotel_tripadvisor,
+                    }
+                } else {
+                    this.sendObj = {
                         token: this.token_pki,
                         first_name: this.name,
                         last_name: this.surname,
@@ -385,6 +412,11 @@ export default {
                         role: this.role,
                         bin: this.bin,
                     }
+                }
+                this.$axios({ 
+                    method: 'post',
+                    url: this.$API_URL + this.$API_VERSION_2 + 'register/pki/step2',
+                    data: this.sendObj
                 })
                 .then((response) => {
                     this.modal = true
@@ -483,7 +515,6 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
                 if (Object.keys(response.data.filled_data).length !== 0) {
                     this.name = response.data.filled_data.last_name
                     this.surname = response.data.filled_data.first_name
@@ -492,6 +523,13 @@ export default {
                     this.email = response.data.filled_data.email
                     this.token_pki = response.data.token
                     this.showEdsForm = true
+                    if (typeof(response.data.need_fill_data.hotel_entity_name) !== 'undefined') {
+                        this.additional_fields = true
+                        this.additinal__validation = false
+                    } else {
+                        this.additional_fields = false
+                        this.additinal__validation = true
+                    }
                     this.$toast.open({
                         message: response.data.message,
                         type: 'success',
@@ -512,7 +550,6 @@ export default {
     created () {
         this.connection = new WebSocket("wss://127.0.0.1:13579/")
         this.connection.onopen = () => {
-            console.log("Connection success");
             this.ready = true
         }
         this.connection.onmessage = (e) => {

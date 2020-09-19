@@ -290,6 +290,13 @@ export default {
     methods: {
         registarations () {
             if (this.$v.$invalid) {
+                this.$toast.open({
+                    message: 'Заполните необходимые поля',
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 1500,
+                    queue: true
+                });
                 this.$v.$touch()
                 return 
             } else {
@@ -446,7 +453,6 @@ export default {
     created () {
         this.connection = new WebSocket("wss://127.0.0.1:13579/")
         this.connection.onopen = () => {
-            console.log("Connection success");
             this.ready = true
         }
         this.connection.onmessage = (e) => {
