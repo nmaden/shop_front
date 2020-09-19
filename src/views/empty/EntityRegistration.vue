@@ -516,8 +516,8 @@ export default {
             })
             .then((response) => {
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    this.name = response.data.filled_data.last_name
-                    this.surname = response.data.filled_data.first_name
+                    this.name = response.data.filled_data.first_name
+                    this.surname = response.data.filled_data.last_name
                     this.bin = response.data.filled_data.hotel_bin
                     this.role = response.data.filled_data.role
                     this.email = response.data.filled_data.email

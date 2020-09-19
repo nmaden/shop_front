@@ -421,8 +421,8 @@ export default {
             })
             .then((response) => {
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    this.name = response.data.filled_data.last_name
-                    this.surname = response.data.filled_data.first_name
+                    this.name = response.data.filled_data.first_name 
+                    this.surname = response.data.filled_data.last_name
                     this.iin = response.data.filled_data.iin
                     this.email = response.data.filled_data.email
                     this.token_pki = response.data.token
