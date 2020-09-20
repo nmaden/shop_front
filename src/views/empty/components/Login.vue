@@ -68,7 +68,7 @@ export default {
                     if (response.status == 200) {
                         if (response.data.is_entity == 1) {
                             document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz; max-age=30"
-                            window.location.href = 'https://cabinet.stage.eqonaq.kz'
+                            window.location.href = 'https://cabinet.eqonaq.kz'
                         } else {
                             this.SIGN_IN_USER(response.data.token)
                             this.$router.push('/profile')
