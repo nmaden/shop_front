@@ -312,9 +312,9 @@ export default {
                         iin: this.iin,
                         email: this.email,
                         phone: this.phone,   
-                        region_id: this.region,
-                        area_id: this.district,
-                        locality_id: this.locality,
+                        hotel_region_id: this.region,
+                        hotel_area_id: this.district,
+                        hotel_locality_id: this.locality,
                         hotel_address: this.address,
                         hotel_house: this.house_number,
                         hotel_apartment: this.apartment_number
