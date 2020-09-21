@@ -452,7 +452,13 @@ export default {
         },
         handleSend () {
             if (this.ready == false) {
-                console.log('Убедитесь, что программа NCALayer запущена')
+                this.$toast.open({
+                    message: 'Убедитесь, что программа NCALayer запущена',
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 2500,
+                    queue: true
+                });
             } else {
                 const data = {
                     module: 'kz.gov.pki.knca.commonUtils',

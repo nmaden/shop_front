@@ -12,8 +12,8 @@
                 
                 <div class="languages">
                     <select>
-                        <option value="">РУС</option>
                         <option value="">ҚАЗ</option>
+                        <option value="">РУС</option>
                         <option value="">ENG</option>
                     </select>
                 </div>
@@ -141,7 +141,7 @@ export default {
     data () {
       return {
         flag_uri: require('../../assets/flags/russia.svg'),
-        langs: ['РУС', 'ҚАЗ', 'ENG'],
+        langs: ['ҚАЗ', 'РУС', 'ENG'],
         menu: [
             {
                 name: 'главная',
@@ -221,7 +221,8 @@ export default {
         ],
         show_menu: false,
         menu_count: 0,
-        show_mobile_menu: false
+        show_mobile_menu: false,
+        scrollInteval: 60,
       }
     },
     methods: {
@@ -256,13 +257,13 @@ export default {
             } else {
                 if (margin__left__menu > offset__width) {
                     if (delta < 0) {
-                        this.menu_count += 20
+                        this.menu_count += this.scrollInteval
                     } 
                 } else {
                     if (this.menu_count > -1) {
-                        delta > 0 ? this.menu_count -= 20 : this.menu_count = 0;
+                        delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count = 0;
                     } else {
-                        delta > 0 ? this.menu_count -= 20 : this.menu_count += 20;
+                        delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count += this.scrollInteval;
                     }
                 }
             }

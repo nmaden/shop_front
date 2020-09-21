@@ -62,21 +62,22 @@ export default {
     data () {
       return {
         menu_count: 0,
+        scrollInteval: 60,
         applications: [
             {
                 title: 'AstraBus',
-                img: require('../../assets/logo/astrabus.svg'),
+                img: require('../../assets/logo/astrabus.webp'),
                 uri: 'https://play.google.com/store/apps/details?id=kz.itsolutions.businformator'
             },
             {
                 title: 'ONAY',
-                img: require('../../assets/logo/onay.svg'),
+                img: require('../../assets/logo/onay.webp'),
                 uri: 'https://play.google.com/store/apps/details?id=kz.onay'
             },
             {
                 title: '2GIS',
-                img: require('../../assets/logo/2gis.svg'),
-                uri: 'https://play.google.com/store/apps/details?id=kz.citysoft.smartastana'
+                img: require('../../assets/logo/2gis.webp'),
+                uri: 'https://play.google.com/store/apps/details?id=ru.dublgis.dgismobile'
             },
             {
                 title: 'Yandex GO',
@@ -114,13 +115,13 @@ export default {
             } else {
                 if (margin__left__menu > offset__width) {
                     if (delta < 0) {
-                        this.menu_count += 20
+                        this.menu_count += this.scrollInteval
                     } 
                 } else {
                     if (this.menu_count > -1) {
-                        delta > 0 ? this.menu_count -= 20 : this.menu_count = 0;
+                        delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count = 0;
                     } else {
-                        delta > 0 ? this.menu_count -= 20 : this.menu_count += 20;
+                        delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count += this.scrollInteval;
                     }
                 }
             }
@@ -269,12 +270,13 @@ export default {
                     align-items: center;
                     border-bottom: 1px solid #E8E8E8;
                     img {
-                        width: 70px;
+                        width: 60px;
                     }
                 }
                 .text__block {
                     width: 85%;
                     margin: 0 auto;
+                    text-align: center;
                     h5 {
                         color: #000;
                         font-style: normal;

@@ -142,7 +142,7 @@
                             </div>
                         </div>
                     </v-menu>
-                    <a href="https://eqonaq.kz/hotels" target="_blank">
+                    <a href="https://kazakhstan.travel/hotels" target="_blank">
                         Проверить цены
                     </a>
                 </div>
@@ -164,8 +164,8 @@ export default {
 
         arrival: 'Заезд',
         departure: 'Отъезд',
-        adults: 0,
-        numbers: 0,
+        adults: 1,
+        numbers: 1,
         region: [],
         region_id: null,
         region_label: 'Куда вы хотите поехать? ',

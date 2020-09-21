@@ -3,28 +3,38 @@
         <div class="footer__top">
             <div class="footer__top__margin">
                 <div class="footer__top__l">
-                    <div class="footer__top__l_left">
-                        <h4>
-                            ЗАРЕГИСТРИРОВАТЬ ГОСТЯ
-                        </h4>
-                    </div>
-                    <div class="footer__top__l__right">
-                        <img src="../../assets/icons/mail.svg" alt="mail">
-                        <p>
-                            Отправить уведомление 
-                            о прибытии гостя
-                        </p>
+                    <div class="withSupport__type">
+                        <div 
+                            class="withSupport__type__block"
+                            v-for="withSupport_item in withSupport"
+                            :key="withSupport_item.title"
+                        >   
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on, attrs }">
+                                    <img 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        :src="withSupport_item.img"
+                                    >
+                                </template>
+                                <p>{{withSupport_item.hover_text}}</p>
+                            </v-tooltip>
+                        </div>
                     </div>
                 </div>
                 <div class="footer__top__c">
-                    <p>
-                        ЗАРЕГИСТРИРОВАТЬСЯ
-                    </p>
+                    <router-link to="/login">
+                        <p>
+                            ЗАРЕГИСТРИРОВАТЬСЯ
+                        </p>
+                    </router-link>
                 </div>
                 <div class="footer__top__r">
-                    <p>
-                        АВТОРИЗОВАТЬСЯ
-                    </p>
+                    <router-link to="/login">
+                        <p>
+                            АВТОРИЗОВАТЬСЯ
+                        </p>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -33,9 +43,7 @@
             <div class="footer__bottom__l">
                 <div class="footer__bottom__l__left">
                     <img class="logo__footer" src="../../assets/logo/logo.svg" alt="logo">
-                    <p>
-                        EQONAQ 2020
-                    </p>
+                     
                     <div class="footer__bottom__l__left__flex">
                         <img src="../../assets/icons/appstore.svg" alt="appstore">
                         <img src="../../assets/icons/playmarket.svg" alt="playmarket">
@@ -45,31 +53,24 @@
                     <h5>
                         ИНФОРМАЦИЯ
                     </h5>
-                    <p
-                        v-for="item_info in info"
-                        :key="item_info.name"
-                    >
-                        {{item_info.name}}
-                    </p>
-                </div>
-            </div>
-            <div class="footer__bottom__r">
-                <h5>
-                    ДОПОЛНИТЕЛЬНО
-                </h5>
-                <div class="footer__bottom__r__flex__p">
-                    <div 
-                        class="footer__bottom__r__text__block"
-                        v-for="item_additionally in additionally"
-                        :key="item_additionally.name"
-                    >
-                        <p>
-                            {{item_additionally.name}}
-                        </p>
+                    <div
+                        class="footer__bottom__l__right__flex"
+                    > 
+                        <div 
+                            class="footer__bottom__l__right__block"
+                            v-for="item_info in info"
+                            :key="item_info.name"
+                            @click="route(item_info.to, item_info.type_route)"
+                        >
+                            <p>
+                                {{item_info.name}}
+                            </p>
+                        </div>
                     </div>
+                    
                 </div>
-                
             </div>
+             
         </div>
     </div>
 </template>
@@ -78,46 +79,74 @@
 export default {
     data () {
         return {
-            info: [
+            withSupport: [
                 {
-                    name: 'О системе'
+                    img: require('../../assets/logo/2.png'),
+                    hover_text: 'Министерство культуры и спорта Республики Казахстан',
                 },
                 {
-                    name: 'Основные задачи'
+                    img: require('../../assets/logo/1.png'),
+                    hover_text: 'Министерство внутренних дел Республики Казахстан',
                 },
                 {
-                    name: 'Интересные места'
-                },
-                {
-                    name: 'Забронировать отель'
-                },
-                {
-                    name: 'Полезные приложения'
+                    img: require('../../assets/logo/3.png'),
+                    hover_text: 'АО «НК «Kazakh Tourism» ',
                 },
             ],
-            additionally: [
+            info: [
                 {
-                    name: 'Номера телефонов'
+                    name: 'О системе',
+                    to: '',
+                    type_route: 'on_page',
                 },
                 {
-                    name: 'Связь'
+                    name: 'Номера телефонов',
+                    to: '/telephones',
+                    type_route: 'on_site',
                 },
                 {
-                    name: 'Миграционный справочник'
+                    name: 'Связь',
+                    to: '/connection',
+                    type_route: 'on_site',
                 },
                 {
-                    name: 'Валюта'
+                    name: 'Миграционный справочник',
+                    to: '/migration',
+                    type_route: 'on_site',
                 },
                 {
-                    name: 'Гостиницы'
+                    name: 'Валюта',
+                    to: '/currency',
+                    type_route: 'on_site',
                 },
-            ]
+                {
+                    name: 'Гостиницы',
+                    to: 'https://api.eqonaq.kz/hotels',
+                    type_route: 'on_new_site',
+                },
+            ],
         }
+    },
+    methods: {
+        route (to, type_route) {
+            if (type_route == 'on_site') {
+                this.$router.push(to)
+            } else if (type_route == 'on_new_site') {
+                window.open(to, '_blank')
+            } else if (type_route == 'on_page') {
+                window.scroll({
+                    behavior: 'smooth',
+                    left: 0,
+                    top: document.querySelector('.service').offsetTop
+                });
+            } 
+        } 
     }
 }
 </script>
 
 <style lang="less" scoped>
+@mobile: 900px;
 
 .footer {
     background: #141414;
@@ -137,33 +166,25 @@ export default {
                 justify-content: space-between;
                 align-items: center;
                 padding: 35px 0;
-                .footer__top__l_left {
-                    width: 40%;
-                    h4 {
-                        margin: 0;
-                        font-weight: 750;
-                        font-size: 23px;
-                        line-height: 29px;
-                        color: #FFFFFF;
-                        cursor: pointer;
-                        user-select: none;
-                    }
-                }
-                .footer__top__l__right {
-                    width: 60%;
+                .withSupport__type {
+                    width: 100%;
                     display: flex;
-                    justify-content: space-around;
-                    p {
-                        margin: 0;
-                        width: 185px;
-                        font-style: normal;
-                        font-weight: 600;
-                        font-size: 14px;
-                        line-height: 17px;
-                        letter-spacing: -0.05em;
-                        color: #AFAFAF;
-                        user-select: none;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+
+                    .withSupport__type__block {
+                        width: 173px;
+                        margin-right: 10px;
                         cursor: pointer;
+                        overflow: hidden;
+                        text-align: center;
+                        img {
+                            width: 100%;
+                        }
+                        @media (max-width: @mobile) {
+                            width: 132px;
+                            display: inline-block;
+                        }
                     }
                 }
             }
@@ -174,6 +195,9 @@ export default {
                 justify-content: center;
                 align-items: center;
                 padding: 35px 0;
+                a {
+                    text-decoration: none;
+                }
                 p {
                     margin: 0;
                     user-select: none;
@@ -189,6 +213,9 @@ export default {
                 justify-content: center;
                 align-items: center;
                 padding: 35px 0;
+                a {
+                    text-decoration: none;
+                }
                 p {
                     margin: 0;
                     user-select: none;
@@ -208,34 +235,30 @@ export default {
         margin-top: 30px;
         margin-bottom: 30px;
         .footer__bottom__l {
-            width: 45%;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             .footer__bottom__l__left {
+                width: 50%;
                 .logo__footer {
                     width: 230px;
                 }
-                p {
-                    font-style: normal;
-                    font-weight: 750;
-                    font-size: 14px;
-                    line-height: 17px;
-                    color: #FFFFFF;
-                    margin: 0;
-                    margin-bottom: 15px;
-                    margin-top: 15px;
-                }
+                
                 .footer__bottom__l__left__flex {
                     width: 100%;
                     display: flex;
                     justify-content: flex-start;
+                    margin-top: 20px;
                     img {
                         margin-right: 20px;
+                        width: 105px;
                         cursor: pointer;
                     }
                 }
             }
             .footer__bottom__l__right {
+                width: 50%;
+
                 h5 {
                     font-size: 14px;
                     line-height: 17px;
@@ -243,49 +266,31 @@ export default {
                     margin: 0;
                     margin-bottom: 23px;
                 }
-                p {
-                    font-style: normal;
-                    cursor: pointer;
-                    user-select: none;
-                    font-weight: 600;
-                    margin: 0;
-                    font-size: 14px;
-                    line-height: 17px;
-                    color: #AFAFAF;
-                    margin-bottom: 10px;
-                }
-            }
-        }
-        .footer__bottom__r {
-            width: 45%;
-            h5 {
-                font-size: 14px;
-                line-height: 17px;
-                color: #FFFFFF;
-                margin: 0;
-                margin-bottom: 23px;
-            }
-            .footer__bottom__r__flex__p {
-                width: 70%;
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                .footer__bottom__r__text__block {
-                    width: 45%;
-                    p {
-                        font-style: normal;
-                        cursor: pointer;
-                        user-select: none;
-                        font-weight: 600;
-                        margin: 0;
-                        font-size: 14px;
-                        line-height: 17px;
-                        color: #AFAFAF;
-                        margin-bottom: 10px;
+                .footer__bottom__l__right__flex {
+                    width: 65%;
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    .footer__bottom__l__right__block {
+                        width: 50%;
+                        p {
+                            font-style: normal;
+                            cursor: pointer;
+                            user-select: none;
+                            font-weight: 600;
+                            margin: 0;
+                            font-size: 14px;
+                            line-height: 17px;
+                            color: #AFAFAF;
+                            margin-bottom: 10px;
+                        }
                     }
+                    
                 }
-            }   
+                
+            }
         }
+        
     }
 }
 </style>

@@ -28,11 +28,12 @@
                         </label>
                         <input v-model.trim="check_in_time" class="input" :disabled="true" type="text" id="check_in_time">
                     </div>
+                    
                 </div>
                 
                 <div class="registrations__form">
                     <button class="capture__photo__desktop" @click="onCapture">Сканировать документ</button>
-                    <button @click="runGetPhoto">Загрузить документ</button>
+                    <button class="get__file__button" @click="runGetPhoto">Загрузить документ</button>
                     <input type="file" id="get__file" @change="changePhoto">
                 </div>
                 
@@ -117,18 +118,10 @@
                 
                 <div class="registrations__form">
                     <div class="input__block">
-                        <label>
-                            Телефон <span>*</span>
+                        <label for="phone">
+                            Телефон 
                         </label>
-                        <vue-tel-input 
-                            v-model="phone"
-                            placeholder=""
-                            :enabledCountryCode="true"
-                            class="input"
-                            v-on:country-changed="countryChanged"
-                        ></vue-tel-input>
-                        <div class="error__text" v-if="!$v.phone.numeric">Поле 'Телефон' введите только цифры</div>
-                        <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
+                        <input class="input" v-model.trim="phone" type="text" id="phone">
                     </div>
                     <div class="input__block">
                         <label for="email">
@@ -172,11 +165,9 @@
                     </div>
                     <div class="input__block__child">
                         <label for="series_documents">
-                            Серия документа <span>*</span>
+                            Серия документа 
                         </label>
                         <input class="input" v-model.trim="series_documents" type="text" id="series_documents">
-                        <div class="error__text" v-if="$v.series_documents.$dirty && !$v.series_documents.required">Поле 'Серия документа' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.series_documents.numeric">Поле 'Серия документа' введите только цифры</div>
                     </div>
                 </div>
 
@@ -250,17 +241,18 @@
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="comment">
-                            Дополнительные сведения <span>*</span>
+                            Дополнительные сведения
                         </label>
                         <textarea class="textarea" v-model.trim="comment" id="comment"></textarea>
-                        <div class="error__text" v-if="$v.comment.$dirty && !$v.comment.required">Поле 'Дополнительные сведения' обязателен к заполнению</div>
                     </div>
                 </div>
                 
                 <v-checkbox
+                    v-if="checkbox_notify_mvd == true"
                     v-model="checkbox_notify_mvd"
                     color="#FFCC47"
                     :hide-details="true"
+                    :disabled="true"
                     label="Отправить уведомление в МВД РК о прибытии иностранного постояльца."
                 ></v-checkbox>
                 <v-checkbox
@@ -287,6 +279,9 @@
                     color="#FFCC47"
                     range
                     @change="changeDateArrival"
+                    @input="checkDateArrival"
+                    :max="max_date_arrival"
+                    :min="min_date_arrival"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
@@ -301,7 +296,7 @@
                     v-model="date_birth"
                     color="#FFCC47"
                     @change="date_birth_picker = false"
-                    :max="max_date"
+                    :max="max_date_birth_picker"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
@@ -316,6 +311,7 @@
                     color="#FFCC47"
                     v-model="date_issuing"
                     @change="date_issuing_picker = false"
+                    :max="max_date_issuing_picker"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
@@ -330,6 +326,7 @@
                     color="#FFCC47"
                     v-model="date_endings"
                     @change="date_endings_picker = false"
+                    :min="max_date_issuing_picker"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
@@ -344,6 +341,7 @@
                     color="#FFCC47"
                     v-model="start_check_date"
                     @change="date_start_picker = false"
+                    :max="max_date_issuing_picker"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
@@ -358,6 +356,7 @@
                     color="#FFCC47"
                     v-model="end_check_date"
                     @change="date_end_picker = false"
+                    :min="max_date_issuing_picker"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
@@ -433,7 +432,7 @@
             <v-card>
                 <div class="type__notif">
                     <h2>
-                        Изменения сохранены успешно
+                        Лист прибытия успешно создан
                     </h2>
                     <div class="type__notif__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
@@ -451,12 +450,11 @@
 import Nav from '../components/NavHeader'
 import { required, email, numeric } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
-import { VueTelInput } from 'vue-tel-input'
+ 
 
 export default {
     components: {
-        Nav, 
-        VueTelInput
+        Nav,
     },
     validations: {
         picker: {
@@ -477,10 +475,6 @@ export default {
         floor: {
             required
         },
-        phone: {
-            required,
-            numeric
-        },
         email: {
             required,
             email
@@ -489,10 +483,6 @@ export default {
             required
         },
         document_number: {
-            required,
-            numeric
-        },
-        series_documents: {
             required,
             numeric
         },
@@ -511,9 +501,6 @@ export default {
         end_check_date: {
             required
         },
-        comment: {
-            required
-        }
     },
     data () {
         return {
@@ -572,7 +559,9 @@ export default {
             check_out_time: null,
             status: null,
 
-            max_date: null,
+            max_date_arrival: null,
+            min_date_arrival: null,
+            max_date_birth_picker: null,
         }
     },
     mounted() {
@@ -761,10 +750,15 @@ export default {
             let year = date.getFullYear()
             let mounth = this.addZero(date.getMonth() + 1)
             let day = this.addZero(date.getDate())
+            let dayMin = this.addZero(date.getDate()-2)
             let hour = this.addZero(date.getHours());
             let mimutes = this.addZero(date.getMinutes());
             this.check_in_time = hour + ":" + mimutes 
-            this.max_date = year + '-' + mounth + '-' + day
+            
+            this.max_date_arrival = year + '-' + mounth + '-' + day
+            this.min_date_arrival = year + '-' + mounth + '-' + dayMin
+            this.max_date_birth_picker = year + '-' + mounth + '-' + day
+            this.max_date_issuing_picker = year + '-' + mounth + '-' + day
         },
         changeDateArrival () {
             this.date_arrival = false
@@ -772,7 +766,16 @@ export default {
             this.departure = this.picker[1]
         },
 
-        
+        checkDateArrival () {
+            if (typeof this.picker[0] !== 'undefined') {
+                this.max_date_arrival = null
+            } 
+            if (typeof this.picker[1] !== 'undefined') {
+                this.getDate()
+                console.log('getDate')
+            }
+        },
+
         closeScanDocument () {
             this.scan_photo_picker = false
             const stream = this.$refs.webcam.srcObject;
@@ -861,7 +864,6 @@ export default {
             })
         },
         sendBase64Uplodaded(img) {
-            this.loader_scan = true
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION + 'regula',
@@ -873,7 +875,6 @@ export default {
                 }
             })
             .then(response => {
-                console.log(response)
                 if (response.data.Empty == 1) {
                     this.$toast.open({
                         message: "Загрузите фото документа!",
@@ -1172,6 +1173,12 @@ export default {
             .capture__photo__desktop {
                 display: block;
                 margin-right: 15px;
+                @media (max-width: @mobile) {
+                    display: none;
+                }
+            }
+            .get__file__button {
+                display: block;
                 @media (max-width: @mobile) {
                     display: none;
                 }
