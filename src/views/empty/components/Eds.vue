@@ -47,6 +47,7 @@ export default {
             }
         },
         sendEsp () {
+            this.$Progress.start()
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION_2 + 'login/pki',
@@ -55,6 +56,7 @@ export default {
                 }
             })
             .then((response) => {
+                this.$Progress.finish()
                 if (response.data.is_entity == true) {
                     document.cookie = "token="+ response.data.access_token + "; domain=.eqonaq.kz; max-age=30"
                     window.location.href = 'https://cabinet.eqonaq.kz'
@@ -64,6 +66,7 @@ export default {
                 }
             })  
             .catch((error) => {
+                this.$Progress.fail()
                 if (error.response.status == 400) {
                     this.$toast.open({
                         message: 'Пользователь не существует в системе! Обратитесь администратору!',

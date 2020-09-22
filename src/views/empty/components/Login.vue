@@ -56,6 +56,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
+                this.$Progress.start()
                 this.$axios({ 
                     method: 'post',
                     url: this.$API_URL + this.$API_VERSION_2 + 'login',
@@ -65,6 +66,7 @@ export default {
                     }
                 })
                 .then((response) => {
+                    this.$Progress.finish()
                     if (response.status == 200) {
                         if (response.data.is_entity == 1) {
                             document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz; max-age=30"
@@ -76,6 +78,7 @@ export default {
                     }
                 })  
                 .catch((error) => {
+                    this.$Progress.fail()
                     if (error.response.status == 401) {
                         this.$toast.open({
                             message: 'неверный логин или пароль!',

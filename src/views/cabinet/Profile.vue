@@ -35,7 +35,7 @@
                             Адрес:
                         </p>
                         <h4>
-                            {{region}}, {{area}}, {{locality}}, {{street}} {{house}}
+                            {{region}} {{area}} {{locality}} {{street}} {{house}}
                         </h4>
                     </div>
                 </div>
@@ -70,11 +70,27 @@ export default {
     },
     mounted() {
         this.getUser()
+        // this.getUsers()
     },
     methods: {
         ...mapActions([
             'USER_DATA',
         ]),
+        getUsers () {
+            this.$axios({ 
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + 'clients',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                 console.log(response)
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
         getUser () {
             this.$axios({ 
                 method: 'post',

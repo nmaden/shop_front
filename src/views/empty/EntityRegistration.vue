@@ -377,6 +377,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
+                this.$Progress.start()
                 if (this.additional_fields == true) {
                     this.sendObj = {
                         token: this.token_pki,
@@ -419,6 +420,7 @@ export default {
                     data: this.sendObj
                 })
                 .then((response) => {
+                    this.$Progress.finish()
                     this.modal = true
                     this.name = null
                     this.surname = null
@@ -440,6 +442,7 @@ export default {
                     });
                 })  
                 .catch((error) => {
+                    this.$Progress.fail()
                     this.$toast.open({
                         message: error.response.data.message,
                         type: 'error',
@@ -513,6 +516,7 @@ export default {
             });
         },
         sendEsp () {
+            this.$Progress.start()
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION_2 + 'register/pki',
@@ -521,8 +525,9 @@ export default {
                 }
             })
             .then((response) => {
+                this.$Progress.finish()
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    if (typeof(response.data.need_fill_data.hotel_bin) == 'undefined') {
+                    if (typeof(response.data.filled_data.hotel_bin) == 'undefined') {
                          this.$toast.open({
                             message: 'Выберите сертификат юридического лица',
                             type: 'error',
@@ -558,10 +563,16 @@ export default {
                 }
             })  
             .catch((error) => {
-                console.log(error)
+                this.$Progress.fail()
+                this.$toast.open({
+                    message: error.response.data.message,
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 1500,
+                    queue: true
+                });
             });    
         }
-        
     },
     created () {
         this.connection = new WebSocket("wss://127.0.0.1:13579/")

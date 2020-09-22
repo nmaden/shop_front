@@ -8,7 +8,25 @@ import Vuelidate from 'vuelidate'
 import Moment from 'vue-moment'
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css';
+import VueProgressBar from 'vue-progressbar'
+
+// options -------------------
+
+const options = {
+  color: '#ffcc47',
+  failedColor: 'red',
+  thickness: '5px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300
+  },
+  autoRevert: true,
+  location: 'top',
+  inverse: false
+}
  
+
 // variables -------------------
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
@@ -20,6 +38,7 @@ Vue.prototype.$API_URL = 'https://api.eqonaq.kz/api/';
 Vue.use(Vuelidate)
 Vue.use(VueToast)
 Vue.use(Moment)
+Vue.use(VueProgressBar, options)
 
 // main config -----------------
 

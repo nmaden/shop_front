@@ -600,6 +600,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {  
+                this.$Progress.start()
                 this.$axios({ 
                     method: 'post',
                     url: this.$API_URL + this.$API_VERSION + 'registry/create',
@@ -634,6 +635,7 @@ export default {
                     }
                 })
                 .then((response) => {
+                    this.$Progress.finish()
                     this.arrival = 'заезд'
                     this.departure = 'выезд'
                     this.name = null
@@ -654,22 +656,17 @@ export default {
                     this.document_number = null
                     this.series_documents = null
 
-                    if (response.data.success == "Успешно зарегистрирован пользователь") {
-                        this.modal_success = true
-                        return false
-                    }
-                    if (response.data.success == "Успешно зарегистрирован ранее зарегистрированный пользователь") {
-                        this.$toast.open({
-                            message: response.data.success,
-                            type: 'success',
-                            position: 'bottom',
-                            duration: 1500,
-                            queue: true
-                        });
-                        return false
-                    }
+                    this.modal_success = true
+                    this.$toast.open({
+                        message: response.data.success,
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
                 })  
                 .catch((error) => {
+                    this.$Progress.fail()
                     this.$toast.open({
                         message: error.response.data.message,
                         type: 'error',
@@ -865,6 +862,7 @@ export default {
             })
         },
         sendBase64Uplodaded(img) {
+            this.$Progress.start()
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION + 'regula',
@@ -900,11 +898,13 @@ export default {
                         duration: 1500,
                     })
                     this.checkCountry()
+                    this.$Progress.finish()
                 }
             })
             .catch(e => {
                 console.log(e)
                 this.capturePhoto()
+                this.$Progress.fail()
             })
         },
     },

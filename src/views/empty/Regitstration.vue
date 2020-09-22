@@ -300,6 +300,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
+                this.$Progress.start()
                 this.$axios({ 
                     method: 'post',
                     url: this.$API_URL + this.$API_VERSION_2 + 'register/pki/step2',
@@ -321,6 +322,7 @@ export default {
                     }
                 })
                 .then((response) => {
+                    this.$Progress.finish()
                     this.modal = true
                     this.name = null
                     this.surname = null
@@ -344,6 +346,7 @@ export default {
                     });
                 })  
                 .catch((error) => {
+                    this.$Progress.fail()
                     this.$toast.open({
                         message: error.response.data.message,
                         type: 'error',
@@ -401,7 +404,6 @@ export default {
                 console.log(error);
             });
         },
-
         getLocality () {
             this.$axios({ 
                 method: 'post',
@@ -418,6 +420,7 @@ export default {
             });
         },
         sendEsp () {
+            this.$Progress.start()
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION_2 + 'register/pki',
@@ -426,9 +429,9 @@ export default {
                 }
             })
             .then((response) => {
-                console.log(response)
+                this.$Progress.finish()
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    if (typeof(response.data.need_fill_data.iin) == 'undefined') {
+                    if (typeof(response.data.filled_data.iin) == 'undefined') {
                          this.$toast.open({
                             message: 'Выберите сертификат физического лица',
                             type: 'error',
@@ -456,6 +459,7 @@ export default {
                 }
             })  
             .catch((error) => {
+                this.$Progress.fail()
                 this.$toast.open({
                     message: error.response.data.message,
                     type: 'error',
@@ -465,7 +469,6 @@ export default {
                 });
             });    
         }
-        
     },
     created () {
         this.connection = new WebSocket("wss://127.0.0.1:13579/")
