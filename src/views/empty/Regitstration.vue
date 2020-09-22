@@ -426,20 +426,31 @@ export default {
                 }
             })
             .then((response) => {
+                console.log(response)
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    this.name = response.data.filled_data.first_name 
-                    this.surname = response.data.filled_data.last_name
-                    this.iin = response.data.filled_data.iin
-                    this.email = response.data.filled_data.email
-                    this.token_pki = response.data.token
-                    this.showEdsForm = true
-                    this.$toast.open({
-                        message: response.data.message,
-                        type: 'success',
-                        position: 'bottom',
-                        duration: 1500,
-                        queue: true
-                    });
+                    if (typeof(response.data.need_fill_data.iin) == 'undefined') {
+                         this.$toast.open({
+                            message: 'Выберите сертификат физического лица',
+                            type: 'error',
+                            position: 'bottom',
+                            duration: 1500,
+                            queue: true
+                        });
+                    } else {
+                        this.name = response.data.filled_data.first_name 
+                        this.surname = response.data.filled_data.last_name
+                        this.iin = response.data.filled_data.iin
+                        this.email = response.data.filled_data.email
+                        this.token_pki = response.data.token
+                        this.showEdsForm = true
+                        this.$toast.open({
+                            message: response.data.message,
+                            type: 'success',
+                            position: 'bottom',
+                            duration: 1500,
+                            queue: true
+                        });
+                    }
                 } else {
                     this.showEdsForm = false
                 }

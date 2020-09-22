@@ -562,6 +562,7 @@ export default {
             max_date_arrival: null,
             min_date_arrival: null,
             max_date_birth_picker: null,
+            max_date_issuing_picker: null
         }
     },
     mounted() {
@@ -898,6 +899,7 @@ export default {
                         position: 'bottom',
                         duration: 1500,
                     })
+                    this.checkCountry()
                 }
             })
             .catch(e => {

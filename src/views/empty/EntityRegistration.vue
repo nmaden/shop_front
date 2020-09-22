@@ -522,27 +522,37 @@ export default {
             })
             .then((response) => {
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    this.name = response.data.filled_data.first_name
-                    this.surname = response.data.filled_data.last_name
-                    this.bin = response.data.filled_data.hotel_bin
-                    this.role = response.data.filled_data.role
-                    this.email = response.data.filled_data.email
-                    this.token_pki = response.data.token
-                    this.showEdsForm = true
-                    if (typeof(response.data.need_fill_data.hotel_entity_name) !== 'undefined') {
-                        this.additional_fields = true
-                        this.additinal__validation = false
+                    if (typeof(response.data.need_fill_data.hotel_bin) == 'undefined') {
+                         this.$toast.open({
+                            message: 'Выберите сертификат юридического лица',
+                            type: 'error',
+                            position: 'bottom',
+                            duration: 1500,
+                            queue: true
+                        });
                     } else {
-                        this.additional_fields = false
-                        this.additinal__validation = true
+                        this.name = response.data.filled_data.first_name
+                        this.surname = response.data.filled_data.last_name
+                        this.bin = response.data.filled_data.hotel_bin
+                        this.role = response.data.filled_data.role
+                        this.email = response.data.filled_data.email
+                        this.token_pki = response.data.token
+                        this.showEdsForm = true
+                        if (typeof(response.data.need_fill_data.hotel_entity_name) !== 'undefined') {
+                            this.additional_fields = true
+                            this.additinal__validation = false
+                        } else {
+                            this.additional_fields = false
+                            this.additinal__validation = true
+                        }
+                        this.$toast.open({
+                            message: response.data.message,
+                            type: 'success',
+                            position: 'bottom',
+                            duration: 1500,
+                            queue: true
+                        });
                     }
-                    this.$toast.open({
-                        message: response.data.message,
-                        type: 'success',
-                        position: 'bottom',
-                        duration: 1500,
-                        queue: true
-                    });
                 } else {
                     this.showEdsForm = false
                 }
