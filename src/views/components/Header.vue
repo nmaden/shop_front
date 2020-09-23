@@ -9,7 +9,6 @@
                 <router-link to="/">
                     <img src="../../assets/logo/logo.svg" alt="logo">
                 </router-link>
-                
                 <div class="languages">
                     <select>
                         <option value="">ҚАЗ</option>
@@ -36,7 +35,20 @@
                     ></v-select>
                 </div>
                 <div class="user">
-                    <img  v-if="GET_TOKEN.length == 0" @click="route('/login')" src="../../assets/icons/person_default.svg" alt="person_default">
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                            <img  
+                                v-bind="attrs"
+                                v-on="on"
+                                v-if="GET_TOKEN.length == 0" 
+                                @click="route('/login')" 
+                                src="../../assets/icons/person_default.svg" 
+                                alt="person_default"
+                            >
+                        </template>
+                        <span>Вход/регистрация</span>
+                    </v-tooltip>
+                    
                     <div class="main__header__menu__user" @mouseleave="show_menu = false" @mouseover="show_menu = true" v-if="GET_TOKEN.length !== 0">
                         <div class="header__menu__user">
                             <p>
@@ -229,7 +241,6 @@ export default {
         getLocale () {
             this.view__langs = !this.view__langs
         },
-        
         route (to, url) {
             if (url == true) {
                 window.location.href = to
@@ -369,6 +380,8 @@ export default {
         }
         .user {
             margin-left: 15px;
+            z-index: 99;
+
             .main__header__menu__user {
                 position: relative;
                 z-index: 9999;

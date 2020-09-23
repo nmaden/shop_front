@@ -26,7 +26,18 @@
                         <label for="check_in_time">
                             Время заезда <span>*</span>
                         </label>
-                        <input v-model.trim="check_in_time" class="input" :disabled="true" type="text" id="check_in_time">
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <div
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    class="data_input_block"
+                                >
+                                     {{check_in_time}} 
+                                </div>
+                            </template>
+                            <span>Невозможно изменить время заезда</span>
+                        </v-tooltip>
                     </div>
                     
                 </div>
@@ -122,13 +133,13 @@
                             Телефон 
                         </label>
                         <input class="input" v-model.trim="phone" type="text" id="phone">
+                        <div class="error__text" v-if="!$v.phone.numeric">Поле 'Номер документа' введите только цифры</div>
                     </div>
                     <div class="input__block">
                         <label for="email">
-                            E-mail <span>*</span>
+                            E-mail
                         </label>
                         <input class="input" v-model.trim="email" type="text" id="email">
-                        <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
                         <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                     </div>
                 </div>
@@ -194,56 +205,58 @@
                     </div>
                 </div>
 
-                <h3>Данные о пребывании</h3>
+                <div v-if="checkbox_notify_mvd == true">
+                    <h3>Данные о пребывании</h3>
 
-                <div class="registrations__form">
-                    <div class="input__block select__input">
-                        <label>
-                            Цель визита <span>*</span>
-                        </label>
-                        <div class="data_input_block">
-                            <v-autocomplete
-                                v-model.trim="target"
-                                :items="targets"
-                                item-text="label"
-                                dense
-                                filled
-                                :hide-details="true"
-                                no-data-text="Нечего не найдено"
-                                background-color="transparent"
-                                :single-line="true"
-                            ></v-autocomplete>
+                    <div class="registrations__form">
+                        <div class="input__block select__input">
+                            <label>
+                                Цель визита <span>*</span>
+                            </label>
+                            <div class="data_input_block">
+                                <v-autocomplete
+                                    v-model.trim="target"
+                                    :items="targets"
+                                    item-text="label"
+                                    dense
+                                    filled
+                                    :hide-details="true"
+                                    no-data-text="Нечего не найдено"
+                                    background-color="transparent"
+                                    :single-line="true"
+                                ></v-autocomplete>
+                            </div>
+                            <div class="error__text" v-if="$v.target.$dirty && !$v.target.required">Поле 'Цель визита' обязателен к заполнению</div>
                         </div>
-                        <div class="error__text" v-if="$v.target.$dirty && !$v.target.required">Поле 'Цель визита' обязателен к заполнению</div>
-                    </div>
-                    <div class="input__block__child">
-                        <label>
-                            Дата начала <span>*</span>
-                        </label>
-                        <div @click="date_start_picker = true" class="data_input_block">
-                            <p>{{start_check_date | moment("DD.MM.YYYY")}}</p>
-                            <img src="../../assets/icons/date.png" alt="date">
+                        <div class="input__block__child">
+                            <label>
+                                Дата начала <span>*</span>
+                            </label>
+                            <div @click="date_start_picker = true" class="data_input_block">
+                                <p>{{start_check_date | moment("DD.MM.YYYY")}}</p>
+                                <img src="../../assets/icons/date.png" alt="date">
+                            </div>
+                            <div class="error__text" v-if="$v.start_check_date.$dirty && !$v.start_check_date.required">Поле 'Дата начала' обязателен к заполнению</div>
                         </div>
-                        <div class="error__text" v-if="$v.start_check_date.$dirty && !$v.start_check_date.required">Поле 'Дата начала' обязателен к заполнению</div>
-                    </div>
-                    <div class="input__block__child">
-                        <label>
-                            Дата окончания <span>*</span>
-                        </label>
-                        <div @click="date_end_picker = true" class="data_input_block">
-                            <p>{{end_check_date | moment("DD.MM.YYYY")}}</p>
-                            <img src="../../assets/icons/date.png" alt="date">
+                        <div class="input__block__child">
+                            <label>
+                                Дата окончания <span>*</span>
+                            </label>
+                            <div @click="date_end_picker = true" class="data_input_block">
+                                <p>{{end_check_date | moment("DD.MM.YYYY")}}</p>
+                                <img src="../../assets/icons/date.png" alt="date">
+                            </div>
+                            <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.required">Поле 'Дата окончания' обязателен к заполнению</div>
                         </div>
-                        <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.required">Поле 'Дата окончания' обязателен к заполнению</div>
                     </div>
-                </div>
 
-                <div class="registrations__form">
-                    <div class="input__block">
-                        <label for="comment">
-                            Дополнительные сведения
-                        </label>
-                        <textarea class="textarea" v-model.trim="comment" id="comment"></textarea>
+                    <div class="registrations__form">
+                        <div class="input__block">
+                            <label for="comment">
+                                Дополнительные сведения
+                            </label>
+                            <textarea class="textarea" v-model.trim="comment" id="comment"></textarea>
+                        </div>
                     </div>
                 </div>
                 
@@ -252,7 +265,7 @@
                     v-model="checkbox_notify_mvd"
                     color="#FFCC47"
                     :hide-details="true"
-                    :disabled="true"
+                    :readonly="true"
                     label="Отправить уведомление в МВД РК о прибытии иностранного постояльца."
                 ></v-checkbox>
                 <v-checkbox
@@ -476,11 +489,13 @@ export default {
             required
         },
         email: {
-            required,
             email
         },
         type_document: {
             required
+        },
+        phone: {
+            numeric
         },
         document_number: {
             required,
@@ -571,6 +586,7 @@ export default {
         this.getDoctypes()
         this.getTargets()
         this.getStatus()
+        setInterval(this.getTime, 1000)
     },
     methods: {
         countryChanged(country) {
@@ -744,36 +760,43 @@ export default {
             return i;
         },
         getDate () {
-            let date = new Date();
-            let year = date.getFullYear()
-            let mounth = this.addZero(date.getMonth() + 1)
-            let day = this.addZero(date.getDate())
-            let dayMin = this.addZero(date.getDate()-2)
-            let hour = this.addZero(date.getHours());
-            let mimutes = this.addZero(date.getMinutes());
-            this.check_in_time = hour + ":" + mimutes 
+            let date = new Date(),
+            year = date.getFullYear(),
+            mounth = this.addZero(date.getMonth() + 1),
+            day = this.addZero(date.getDate()),
+            dayMin = this.addZero(date.getDate()-2)
             
+            let hour = this.addZero(date.getHours())
+            let mimutes = this.addZero(date.getMinutes())
+            let seconds = this.addZero(date.getSeconds() + 1)
+            this.check_in_time = hour + ":" + mimutes + ":" + seconds
+
             this.max_date_arrival = year + '-' + mounth + '-' + day
             this.min_date_arrival = year + '-' + mounth + '-' + dayMin
             this.max_date_birth_picker = year + '-' + mounth + '-' + day
             this.max_date_issuing_picker = year + '-' + mounth + '-' + day
+        },
+        getTime(){
+            var date = new Date(),
+            hour = this.addZero(date.getHours()),
+            mimutes = this.addZero(date.getMinutes()),
+            seconds = this.addZero(date.getSeconds() + 1)
+            this.check_in_time = hour + ":" + mimutes + ":" + seconds
         },
         changeDateArrival () {
             this.date_arrival = false
             this.arrival = this.picker[0]
             this.departure = this.picker[1]
         },
-
         checkDateArrival () {
             if (typeof this.picker[0] !== 'undefined') {
                 this.max_date_arrival = null
+                this.min_date_arrival = this.picker[0]
             } 
             if (typeof this.picker[1] !== 'undefined') {
                 this.getDate()
-                console.log('getDate')
             }
         },
-
         closeScanDocument () {
             this.scan_photo_picker = false
             const stream = this.$refs.webcam.srcObject;
