@@ -17,6 +17,7 @@ deploy to prod server:
     - echo "$SSH_PRIVATE_KEY" >> key.pem
     - chmod 400 key.pem
   script:
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "cd /home/eqonaq/www/guest.eqonaq && git checkout ."
     - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "git -C /home/eqonaq/www/guest.eqonaq pull origin master"
     - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "docker exec -i php-fpm_prod bash -c \"cd guest.eqonaq && npm run build\""
   after_script:
@@ -31,6 +32,7 @@ deploy to stage server:
     - echo "$SSH_PRIVATE_KEY_BETA" >> key.pem
     - chmod 400 key.pem
   script:
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 "cd /home/eqonaq/www/guest.stage.eqonaq.kz && git checkout ."
     - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 "git -C /home/eqonaq/www/guest.stage.eqonaq.kz pull origin master"
     - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 "cd /home/eqonaq/www/guest.stage.eqonaq.kz && npm install && npm run build"
   after_script:
