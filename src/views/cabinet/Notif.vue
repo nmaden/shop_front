@@ -461,7 +461,7 @@
 
 <script>
 import Nav from '../components/NavHeader'
-import { required, email, numeric } from 'vuelidate/lib/validators'
+import { required, email, requiredUnless, numeric } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
  
 
@@ -508,13 +508,13 @@ export default {
             required
         },
         target: {
-            required
+            required: requiredUnless('additinal__fuilds')
         },
         start_check_date: {
-            required
+            required: requiredUnless('additinal__fuilds')
         },
         end_check_date: {
-            required
+            required: requiredUnless('additinal__fuilds')
         },
     },
     data () {
@@ -577,7 +577,9 @@ export default {
             max_date_arrival: null,
             min_date_arrival: null,
             max_date_birth_picker: null,
-            max_date_issuing_picker: null
+            max_date_issuing_picker: null,
+
+            additinal__validation: false,
         }
     },
     mounted() {
@@ -609,7 +611,14 @@ export default {
         },
 
         checkCountry () {
-            this.citizenship == 216 ? this.checkbox_notify_mvd = false : this.checkbox_notify_mvd = true
+            if (this.citizenship == 216) {
+                this.checkbox_notify_mvd = false
+                this.additinal__validation = true
+
+            } else {
+                this.checkbox_notify_mvd = true
+                this.additinal__validation = false
+            }
         },
         sendNotif () {
             if (this.$v.$invalid) {
@@ -619,7 +628,7 @@ export default {
                 this.$Progress.start()
                 this.$axios({ 
                     method: 'post',
-                    url: this.$API_URL + this.$API_VERSION + 'registry/create',
+                    url: this.$API_URL + this.$API_VERSION_2 + 'client',
                     headers: {
                         'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
                     },
@@ -635,7 +644,7 @@ export default {
                         series_documents: this.series_documents,
                         date_issue: this.date_issuing,
                         valid_until: this.date_endings,
-                        notify_mvd: this.checkbox_notify_mvd,
+                        notification_on_mvd: this.checkbox_notify_mvd,
                         gender_id: this.floor,
                         start_check_date: this.start_check_date,
                         end_check_date: this.end_check_date,
@@ -651,6 +660,7 @@ export default {
                     }
                 })
                 .then((response) => {
+                    console.log(response)
                     this.$Progress.finish()
                     this.arrival = 'заезд'
                     this.departure = 'выезд'
@@ -674,7 +684,7 @@ export default {
 
                     this.modal_success = true
                     this.$toast.open({
-                        message: response.data.success,
+                        message: response.data.message,
                         type: 'success',
                         position: 'bottom',
                         duration: 1500,
@@ -933,6 +943,9 @@ export default {
     },
     computed: {
         ...mapGetters(['GET_TOKEN']),
+        additinal__fuilds () {
+            return this.additinal__validation  
+        }
     }
 }
 </script>

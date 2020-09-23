@@ -24,8 +24,12 @@
                         <p>
                             Почта:
                         </p>
-                        <h4>
+                        
+                        <h4 v-if="this.user.email !== null">
                             {{this.user.email}}
+                        </h4>
+                        <h4 v-else>
+                            не добавлен
                         </h4>
                     </div>
                 </div>
@@ -35,7 +39,7 @@
                             Адрес:
                         </p>
                         <h4>
-                            {{region}} {{area}} {{locality}} {{street}} {{house}}
+                            {{region}} {{area}} {{locality}} 
                         </h4>
                     </div>
                 </div>
@@ -64,61 +68,64 @@ export default {
             region: null,
             area: null,
             locality: null,
-            street: null,
-            house: null,
+
+            address: [],
         }
     },
     mounted() {
         this.getUser()
-        // this.getUsers()
+        this.getAddress()
     },
     methods: {
         ...mapActions([
             'USER_DATA',
         ]),
-        getUsers () {
+        getUser () {
             this.$axios({ 
-                method: 'get',
-                url: this.$API_URL + this.$API_VERSION_2 + 'clients',
+                method: 'GET',
+                url: this.$API_URL + this.$API_VERSION_2 + 'profile',
                 headers: {
                     'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
                 },
             })
             .then((response) => {
-                 console.log(response)
+                this.USER_DATA(response.data.profile.name)
+                this.user = response.data.profile
             })  
             .catch((error) => {
                 console.log(error);
             }); 
         },
-        getUser () {
-            this.$axios({ 
-                method: 'post',
-                url: this.$API_URL + this.$API_VERSION + 'user/me',
-                headers: {
+        getAddress () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + 'placement',
+                 headers: {
                     'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
                 },
-                data: {}
             })
             .then((response) => {
-                this.USER_DATA(response.data.name)
-                this.user = response.data
-                this.street = response.data.responsible[0].street
-                this.house = response.data.responsible[0].house
-                this.getRegion()
-                this.getDistrict()
-                this.getLocality()
+                this.address = response.data.placement
+                if (response.data.placement.region_id !== null) {
+                    this.getRegion()
+                }
+                if (response.data.placement.area_id !== null) {
+                    this.getDistrict()
+                } 
+                if (response.data.placement.locality_id !== null) {
+                    this.getLocality()
+                }
             })  
             .catch((error) => {
                 console.log(error);
-            }); 
+            });
         },
         getRegion () {
             this.$axios({
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
                 data: {
-                    id: this.user.responsible[0].region_id
+                    id: this.address.region_id
                 }
             })
             .then((response) => {
@@ -133,7 +140,7 @@ export default {
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
                 data: {
-                    id: this.user.responsible[0].area_id
+                    id: this.address.area_id
                 }
             })
             .then((response) => {
@@ -148,7 +155,7 @@ export default {
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
                 data: {
-                    id: this.user.responsible[0].locality_id
+                    id: this.address.locality_id
                 }
             })
             .then((response) => {

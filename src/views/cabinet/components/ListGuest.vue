@@ -46,8 +46,37 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
+    data () {
+        return {
+
+        }
+    },
+    mounted () {
+        // this.getUsers()
+    },
+    methods: {
+        getUsers () {
+            this.$axios({ 
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + 'clients',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                 console.log(response)
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
+    },
+    computed: {
+        ...mapGetters(['GET_TOKEN']),
+    }
 }
 </script>
 
