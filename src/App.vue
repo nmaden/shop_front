@@ -11,7 +11,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @font-face {
   font-family: "MontserratBold";
   src: url('./font/Montserrat-Bold.ttf');
@@ -23,6 +23,10 @@ export default {
 @font-face {
   font-family: "MediumMedium";
   src: url('./font/Montserrat-Medium.ttf');
+}
+
+.v-notices .v-toast .v-toast-text {
+    font-family: "MontserratBold";
 }
 
 </style>
