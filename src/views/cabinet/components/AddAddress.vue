@@ -102,6 +102,7 @@
 </template>
 <script>
 import { required, numeric } from 'vuelidate/lib/validators'
+import { mapGetters } from 'vuex'
 
 export default {
     validations: {
@@ -194,7 +195,29 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
-                console.log('ok')
+                this.$Progress.start()
+                this.$axios({ 
+                    method: 'put',
+                    url: this.$API_URL + this.$API_VERSION_2 + 'placement',
+                    headers: {
+                        'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                    },
+                    data: {
+                        region_id: this.region,
+                        area_id: this.district,
+                        locality_id: this.locality,
+                        street: this.address,
+                        house: this.apartment_number
+                    }
+                })
+                .then((response) => {
+                    this.$Progress.finish()
+                    console.log(response)
+                })  
+                .catch((error) => {
+                    this.$Progress.fail()
+                    console.log(error)
+                });    
             }
         }
     },
@@ -204,6 +227,9 @@ export default {
                 this.modal = value.view
           }
       })
+    },
+    computed: {
+        ...mapGetters(['GET_TOKEN']),
     }
 }
 </script>

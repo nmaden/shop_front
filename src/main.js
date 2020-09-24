@@ -11,7 +11,6 @@ import 'vue-toast-notification/dist/theme-default.css';
 import VueProgressBar from 'vue-progressbar'
 
 // options -------------------
-
 const options = {
   color: '#ffcc47',
   failedColor: 'red',
@@ -25,7 +24,6 @@ const options = {
   location: 'top',
   inverse: false
 }
- 
 
 // variables -------------------
 Vue.config.productionTip = false
@@ -33,8 +31,8 @@ Vue.prototype.$axios = axios;
 Vue.prototype.$API_VERSION = 'v1/';
 Vue.prototype.$API_VERSION_2 = 'v2/';
 Vue.prototype.$API_URL = 'https://api.eqonaq.kz/api/';
-// events ----------------------
 
+// events ----------------------
 Vue.prototype.$modal = new Vue()
 
 // vue use ---------------------
