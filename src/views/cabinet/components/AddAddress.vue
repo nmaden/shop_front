@@ -1,0 +1,294 @@
+<template>
+    <v-dialog
+        v-model="modal"
+        max-width="760"
+    >
+        <v-card>
+            <div class="change__address">
+                 <h3>
+                     Добавить адрес
+                 </h3>
+                 <div class="registrations__form">
+                    <div class="input__block">
+                        <label for="region">
+                            Область <span>*</span>
+                        </label>
+                        <select 
+                            v-model.trim="region" 
+                            id="region"
+                            @change="getDistrict"
+                        >
+                            <option value="" disabled>Область</option>
+                            <option 
+                                v-for="item_region in region__array"
+                                :key="item_region.value"
+                                :value="item_region.value"
+                            >
+                                {{item_region.label}}
+                            </option>
+                        </select>
+                        <div class="error__text" v-if="$v.region.$dirty && !$v.region.required">Поле 'Область' обязателен к заполнению</div>
+                    </div>
+
+                    <div class="input__block">
+                        <label for="district">
+                            Район <span>*</span>
+                        </label>
+                        <select 
+                            v-model.trim="district" 
+                            id="district"
+                            @change="getLocality"
+                        >
+                            <option value="" disabled>Район</option>
+                            <option 
+                                v-for="item_district in district__array"
+                                :key="item_district.value"
+                                :value="item_district.value"
+                            >
+                                {{item_district.label}}
+                            </option>
+                        </select>
+                        <div class="error__text" v-if="$v.district.$dirty && !$v.district.required">Поле 'Район' обязателен к заполнению</div>
+                    </div>
+
+                    <div class="input__block">
+                        <label for="locality">
+                            Населенный пункт 
+                        </label>
+                        <select v-model.trim="locality" id="locality">
+                            <option value="" disabled>Населенный пункт</option>
+                            <option 
+                                v-for="item_locality in locality__array"
+                                :key="item_locality.value"
+                                :value="item_locality.value"
+                            >
+                                {{item_locality.label}}
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="input__block">
+                        <label for="address">
+                            Адрес <span>*</span>
+                        </label>
+                        <input type="text" v-model.trim="address" id="address">
+                        <div class="error__text" v-if="$v.address.$dirty && !$v.address.required">Поле 'Адрес' обязателен к заполнению</div>
+                    </div>
+
+                    <div class="input__block">
+                        <label for="house_number">
+                            Номер дома <span>*</span>
+                        </label>
+                        <input type="text" v-model.trim="house_number" id="house_number">    
+                        <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div>
+                        <div class="error__text" v-if="!$v.house_number.numeric">Поле 'Номер дома' введите только цифры</div>
+                    </div>
+
+                    <div class="input__block">
+                        <label for="apartment_number">
+                            Номер квартиры <span>*</span>
+                        </label>
+                        <input type="text"  v-model.trim="apartment_number"  id="apartment_number">
+                        <div class="error__text" v-if="$v.apartment_number.$dirty && !$v.apartment_number.required">Поле 'Номер квартиры' обязателен к заполнению</div>
+                        <div class="error__text" v-if="!$v.apartment_number.numeric">Поле 'Номер квартиры' введите только цифры</div>
+                    </div>
+                    <div class="input__block">
+                        <button @click="addAddress">Сохранить</button>
+                    </div>
+                </div>   
+            </div>
+        </v-card>
+    </v-dialog>
+</template>
+<script>
+import { required, numeric } from 'vuelidate/lib/validators'
+
+export default {
+    validations: {
+        region: {
+            required, 
+        },
+        district: {
+            required, 
+        },
+        address: {
+            required, 
+        },
+        house_number: {
+            required,
+            numeric 
+        },
+        apartment_number: {
+            required, 
+            numeric
+        }
+    },
+    data () {
+        return {
+            modal: false,
+
+            region: null,
+            district: null,
+            address: null,
+            house_number: null,
+            apartment_number: null,
+            locality: null,
+
+            region__array: [],
+            district__array: [],
+            locality__array: [],
+        }
+    },
+    mounted () {
+        this.getLocal()
+    },
+    methods: {
+        getLocal () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION + 'kato/region',
+            })
+            .then((response) => {
+                this.region__array = response.data
+            }); 
+        },
+        getDistrict () {
+            this.$axios({
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'kato/area',
+                data: {
+                    parent_id: this.region
+                }
+            })
+            .then((response) => {
+                this.district__array = response.data
+            })  
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        getLocality () {
+            this.$axios({ 
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION + 'kato/areas',
+                data: {
+                    parent_id: this.district
+                }
+            })
+            .then((response) => {
+                this.locality__array = response.data
+            })  
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        addAddress () {
+            if (this.$v.$invalid) {
+                this.$toast.open({
+                    message: 'Заполните необходимые поля',
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 1500,
+                    queue: true
+                });
+                this.$v.$touch()
+                return 
+            } else {
+                console.log('ok')
+            }
+        }
+    },
+    created () {
+      this.$modal.$on('modal',  (value) => {
+          if (value.type == 'address') {
+                this.modal = value.view
+          }
+      })
+    }
+}
+</script>
+<style lang="less" scoped>
+@mobile: 900px;
+
+.change__address {
+    width: 100%;
+    background: #fff;
+    padding: 50px;
+    text-align: center;
+    @media (max-width: @mobile) {
+        padding: 10px;
+    }
+    h3 {
+        margin-bottom: 20px;
+        font-size: 30px;
+        @media (max-width: @mobile) {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    }
+    .registrations__form {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        text-align: left;
+        
+        .input__block {
+            width: 314px;
+            margin-bottom: 10px;
+            @media (max-width: @mobile) {
+                width: 100%;
+            }
+            .error__text {
+                color: red;
+                font-size: 12px;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+            span {
+                color: red;
+            }
+            select {
+                width: 100%;
+                height: 46px;
+                padding: 10px;
+                background: #fff;
+                border-radius: 10px;
+                outline: none;
+                border: 2px solid #000000;
+            } 
+            
+            button {
+                height: 46px;
+                width: 100%;
+                background: #FDE88D;
+                border: 3px solid #FDE88D;
+                box-sizing: border-box;
+                border-radius: 10px;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                text-transform: uppercase;
+                line-height: 25px;
+                color: #000;
+                outline: none;
+                margin-top: 5px;
+            }
+            input {
+                width: 100%;
+                height: 46px;
+                background: #fff;
+                border-radius: 10px;
+                outline: none;
+                border: 2px solid #000000;
+                padding: 10px;
+            }
+            label {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+            }
+        }
+    }
+}
+</style>

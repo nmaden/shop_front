@@ -47,20 +47,30 @@
         </div>
         <div class="main__base__margin">
             <button @click="router('/notif')">Отправить уведомление о прибытии гостя</button>
+            <button @click="modal('password')">Изменить пароль</button>
+            <button @click="modal('address')">Добавить адрес</button>
             <ListGuest />
         </div>
+
+        <!-- modals -->
+        <ChangePasswordModal />
+        <AddAddress />
     </div>
 </template>
 
 <script>
 import ListGuest from './components/ListGuest'
 import Header from '../components/Header'
+import ChangePasswordModal from './components/ChangePasswordModal'
+import AddAddress from './components/AddAddress'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
     components: {
         ListGuest,
         Header,
+        ChangePasswordModal,
+        AddAddress
     },
     data () {
         return {
@@ -80,6 +90,12 @@ export default {
         ...mapActions([
             'USER_DATA',
         ]),
+        modal (type) {
+            this.$modal.$emit('modal', {
+                view: true,
+                type
+            });
+        },
         router (to) {
             this.$router.push(to)
         },
@@ -210,6 +226,7 @@ export default {
             font-weight: bold;
             font-size: 16px;
             border-radius: 30px;
+            margin-right: 10px;
             &:hover {
                 opacity: 0.7;
             }
@@ -219,6 +236,7 @@ export default {
                 font-size: 14px;
                 margin-top: 0px;
                 width: 100%;
+                margin-bottom: 10px;
             }
         }
     }

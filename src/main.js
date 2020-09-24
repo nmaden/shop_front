@@ -33,6 +33,9 @@ Vue.prototype.$axios = axios;
 Vue.prototype.$API_VERSION = 'v1/';
 Vue.prototype.$API_VERSION_2 = 'v2/';
 Vue.prototype.$API_URL = 'https://api.eqonaq.kz/api/';
+// events ----------------------
+
+Vue.prototype.$modal = new Vue()
 
 // vue use ---------------------
 Vue.use(Vuelidate)
