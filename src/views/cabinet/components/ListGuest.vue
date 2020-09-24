@@ -1,44 +1,67 @@
 <template>
     <div>
         <div class="main__base__margin">
-            <h2>
+            <h2 
+                v-if="users.length !== 0"
+            >
                 Список моих гостей
             </h2>
+
+            <h2 
+                v-if="users.length == 0"
+            >
+                У вас нет списока моих гостей
+            </h2>
             
-            <div class="quest__list__margin">
-                <div class="quest__list">
+            <div 
+                v-if="users.length !== 0"
+                class="quest__list__margin"
+            >
+
+                <div 
+                    class="quest__list"
+                    v-for="item in users"
+                    :key="item.id"
+                >
                     <div class="quest__list__l">
                         <div class="quest__list__l__header">
                             <h4>
-                                Малика К. М.
-                            </h4>
-                            <img src="../../../assets/icons/russia.png" alt="country">
+                                {{item.clients.name}} {{item.clients.surname}}  
+                            </h4> 
+                            <img :src="item.clients.citizenship.flag" alt="country">
                         </div>
-                        <p>
+                        <p v-if="item.start_check_date !== null">
                             <span>
-                                даты прибывания
+                                {{item.start_check_date}}
                             </span>
                         </p>
-                        <p>
+                        <p v-if="item.check_in !== null">
                             <b>
-                                29.07.2020 - 29.07.2020
+                                {{item.check_in}} - {{item.check_out}}
                             </b>
                         </p>
                     </div>
                     <div class="quest__list__r">
-                        <img src="../../../assets/icons/edit.png" alt="edit">
+                        <!-- <img src="../../../assets/icons/edit.png" alt="edit"> -->
                         <p>
                             <span>
                                 статус
                             </span>
                         </p>
                         <p>
-                            <b>
-                                На рассмотрении
+                            <b v-if="item.statuses_id == 1">
+                                заезд
+                            </b>
+                            <b v-else-if="item.statuses_id == 2">
+                                проживание
+                            </b>
+                            <b v-else>
+                                выезд
                             </b>
                         </p>
                     </div>
                 </div>
+                
             </div>
         </div>
          
@@ -51,11 +74,11 @@ import { mapGetters } from 'vuex'
 export default {
     data () {
         return {
-
+            users: []
         }
     },
     mounted () {
-        // this.getUsers()
+        this.getUsers()
     },
     methods: {
         getUsers () {
@@ -67,7 +90,7 @@ export default {
                 },
             })
             .then((response) => {
-                 console.log(response)
+                 this.users = response.data.data
             })  
             .catch((error) => {
                 console.log(error);
@@ -114,6 +137,7 @@ export default {
             border-radius: 5px;
             padding: 15px;
             display: flex;
+            margin-bottom: 15px;
             justify-content: space-between;
             @media (max-width: @mobile) {
                 width: 100%;
@@ -137,6 +161,9 @@ export default {
                             font-size: 13px;
                             margin-right: 5px;
                         }
+                    }
+                    img {
+                        width: 25px;
                     }
                 }
                 p {

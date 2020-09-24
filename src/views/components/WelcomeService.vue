@@ -123,7 +123,7 @@ export default {
         color: #000000;
         @media (max-width: @mobile) {
             font-size: 17px;
-            margin-top: 0;
+            margin-top: 25px;
         }
     }
 
@@ -141,7 +141,7 @@ export default {
             margin-bottom: 20px;
             margin-right: 16px;
             @media (max-width: @mobile) {
-                width: 100%;
+                width: 47%;
                 margin-right: 0;
             }
             img {

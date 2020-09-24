@@ -449,7 +449,7 @@
                     </h2>
                     <div class="type__notif__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
-                        <button @click="modal_success = false">
+                        <button @click="router('/')">
                             ЗАКРЫТЬ
                         </button>
                     </div>
@@ -603,7 +603,9 @@ export default {
                this.sendBase64Uplodaded(e.target.result)
             })
         },
-
+        router (to) {
+            this.$router.push(to)
+        },
         readFile(file, callback){
             let reader = new FileReader();
             reader.onload = callback
@@ -614,10 +616,11 @@ export default {
             if (this.citizenship == 216) {
                 this.checkbox_notify_mvd = false
                 this.additinal__validation = true
-
+                this.target = null
             } else {
                 this.checkbox_notify_mvd = true
                 this.additinal__validation = false
+                this.target = 3
             }
         },
         sendNotif () {
@@ -660,7 +663,6 @@ export default {
                     }
                 })
                 .then((response) => {
-                    console.log(response)
                     this.$Progress.finish()
                     this.arrival = 'заезд'
                     this.departure = 'выезд'

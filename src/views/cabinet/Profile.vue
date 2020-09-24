@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="main__base__margin">
-            <button>РЕДАКТИРОВАТЬ</button>
+            <button @click="router('/notif')">Отправить уведомление о прибытии гостя</button>
             <ListGuest />
         </div>
     </div>
@@ -80,6 +80,9 @@ export default {
         ...mapActions([
             'USER_DATA',
         ]),
+        router (to) {
+            this.$router.push(to)
+        },
         getUser () {
             this.$axios({ 
                 method: 'GET',
