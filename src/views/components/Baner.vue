@@ -20,18 +20,18 @@
                 
                 <div class="desktop">
                     <button v-if="GET_TOKEN.length !== 0" @click="route">
-                        Отправить уведомление о прибытии гостя
+                        {{$t('notif_button')}}
                     </button>
                     <button v-else @click="modal = true">
-                        Отправить уведомление о прибытии гостя
+                        {{$t('notif_button')}}
                     </button>
                 </div>
                 <div class="mobile">
                     <button v-if="GET_TOKEN.length !== 0" @click="route">
-                        Отправить уведомление  
+                        {{$t('notif_button_mobile')}}
                     </button>
                     <button v-else @click="modal = true">
-                        Отправить уведомление 
+                        {{$t('notif_button_mobile')}}
                     </button>
                 </div>
             </div>

@@ -7,8 +7,9 @@ import vuetify from './plugins/vuetify'
 import Vuelidate from 'vuelidate'
 import Moment from 'vue-moment'
 import VueToast from 'vue-toast-notification'
-import 'vue-toast-notification/dist/theme-default.css';
+import 'vue-toast-notification/dist/theme-default.css'
 import VueProgressBar from 'vue-progressbar'
+import { i18n } from './plugins/i18n'
 
 // options -------------------
 const options = {
@@ -46,6 +47,7 @@ Vue.use(VueProgressBar, options)
 new Vue({
   router,
   store,
+  i18n,
   vuetify,
   render: h => h(App)
 }).$mount('#app')

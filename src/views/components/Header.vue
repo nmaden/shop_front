@@ -10,10 +10,17 @@
                     <img src="../../assets/logo/logo.svg" alt="logo">
                 </router-link>
                 <div class="languages">
-                    <select>
-                        <option value="">ҚАЗ</option>
-                        <option value="">РУС</option>
-                        <option value="">ENG</option>
+                    <select
+                        v-model="lang"
+                        @change="sendLocale"
+                    >
+                        <option 
+                            v-for="lang in langs"
+                            :key="lang.type"
+                            :value="lang.type"
+                        >
+                            {{lang.label}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -24,14 +31,17 @@
                     </router-link>
                 </div>
                 <div class="lang">
-                     <v-select
+                    <v-select
                         :items="langs"
                         :hide-details="true"
                         dense
                         :flat="true"
-                        label="Язык"
+                        item-text="label"
+                        item-value="type"
                         item-color="#000"
                         solo
+                        v-model="lang"
+                        @change="sendLocale"
                     ></v-select>
                 </div>
                 <div class="user">
@@ -153,7 +163,21 @@ export default {
     data () {
       return {
         flag_uri: require('../../assets/flags/russia.svg'),
-        langs: ['ҚАЗ', 'РУС', 'ENG'],
+        langs: [
+            {
+                type: 'ru',
+                label: 'РУС',
+            },
+            {
+                type: 'kz',
+                label: 'ҚАЗ',
+            },
+            {
+                type: 'en',
+                label: 'ENG',
+            },
+        ],
+        lang: 'ru',
         menu: [
             {
                 name: 'главная',
@@ -285,6 +309,14 @@ export default {
         },
         scrollBodyLeave () {
             disableScroll.off()
+        },
+        sendLocale () {
+            console.log(this.lang)
+            import(`../../localization/${this.lang}.json`)
+            .then((msg) => {
+                this.$i18n.setLocaleMessage(this.lang, msg)
+                this.$i18n.locale = this.lang
+            })
         }
     },
     computed: {
