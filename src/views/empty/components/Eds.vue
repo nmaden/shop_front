@@ -62,7 +62,6 @@ export default {
                     window.location.href = 'https://cabinet.eqonaq.kz'
                 } else {
                     this.SIGN_IN_USER(response.data.access_token)
-                    this.$router.push('/profile')
                 }
             })  
             .catch((error) => {

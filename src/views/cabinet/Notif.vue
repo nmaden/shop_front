@@ -611,7 +611,6 @@ export default {
             reader.onload = callback
             reader.readAsDataURL(file);
         },
-
         checkCountry () {
             if (this.citizenship == 216) {
                 this.checkbox_notify_mvd = false
@@ -798,7 +797,9 @@ export default {
         changeDateArrival () {
             this.date_arrival = false
             this.arrival = this.picker[0]
+            this.start_check_date = this.picker[0]
             this.departure = this.picker[1]
+            this.end_check_date = this.picker[1]
         },
         checkDateArrival () {
             if (typeof this.picker[0] !== 'undefined') {
@@ -883,6 +884,7 @@ export default {
                     this.date_issuing = response.data.Issue
                     this.date_endings = response.data.Valid
                     this.citizenship = response.data.Country_id
+                    this.middle_name = response.data.Patronymic
 
                     this.$toast.open({
                         message: "Данные успешно получены!",
@@ -929,6 +931,7 @@ export default {
                     this.date_issuing = response.data.Issue
                     this.date_endings = response.data.Valid
                     this.citizenship = response.data.Country_id
+                    this.middle_name = response.data.Patronymic
 
                     this.$toast.open({
                         message: "Данные успешно получены!",

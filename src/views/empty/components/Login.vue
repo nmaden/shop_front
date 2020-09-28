@@ -67,16 +67,15 @@ export default {
                 })
                 .then((response) => {
                     this.$Progress.finish()
-                    if (response.status == 200) {
-                        if (response.data.is_entity == 1) {
-                            document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz; max-age=30"
-                            window.location.href = 'https://cabinet.eqonaq.kz'
-                        } else {
-                            this.SIGN_IN_USER(response.data.token)
-                            this.$router.push('/profile')
-                        }
+                    this.is_entity = response.data.is_entity
+                    console.log(response)
+                    if (response.data.is_entity == 1) {
+                        document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz; max-age=30"
+                        window.location.href = 'https://cabinet.eqonaq.kz'
+                    } else {
+                        this.SIGN_IN_USER(response.data.token)
                     }
-                })  
+                })
                 .catch((error) => {
                     this.$Progress.fail()
                     if (error.response.status == 401) {

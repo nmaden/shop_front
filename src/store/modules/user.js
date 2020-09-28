@@ -1,3 +1,6 @@
+import axios from 'axios'
+import router from '../../router'
+
 export default {
     state: {
         user_name: '',
@@ -8,8 +11,21 @@ export default {
         },
     },
     actions: {
-        USER_DATA({commit}, user) {
-            commit('USER', user)
+        USER_DATA({commit}) {
+            axios({ 
+                method: 'GET',
+                url: process.env.VUE_APP_API_URL + process.env.VUE_APP_API_VERSION_2 + 'profile',
+                headers: {
+                    'Authorization': `Bearer ${this.getters.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+               commit('USER', response.data.profile)
+               router.push('/profile')
+            })  
+            .catch((error) => {
+                console.log(error);
+            })
         },
     },
     getters: {

@@ -3,7 +3,7 @@
         <Header />
         <div class="main__base__margin">
             <h1>
-                {{this.user.name}} {{this.user.surname}}
+                {{GET_USER_DATA.name}} {{GET_USER_DATA.surname}}
             </h1>
         </div>
         <div class="profile__data">
@@ -13,8 +13,8 @@
                         <p>
                             ИИН:
                         </p>
-                        <h4 v-if="this.user.iin !== null">
-                            {{this.user.iin}}
+                        <h4 v-if="GET_USER_DATA.iin !== null">
+                            {{GET_USER_DATA.iin}}
                         </h4>
                         <h4 v-else>
                             не добавлен
@@ -25,8 +25,8 @@
                             Почта:
                         </p>
                         
-                        <h4 v-if="this.user.email !== null">
-                            {{this.user.email}}
+                        <h4 v-if="GET_USER_DATA.email !== null">
+                            {{GET_USER_DATA.email}}
                         </h4>
                         <h4 v-else>
                             не добавлен
@@ -63,7 +63,7 @@ import ListGuest from './components/ListGuest'
 import Header from '../components/Header'
 import ChangePasswordModal from './components/ChangePasswordModal'
 import AddAddress from './components/AddAddress'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
     components: {
@@ -82,14 +82,10 @@ export default {
             address: [],
         }
     },
-    mounted() {
-        this.getUser()
+    mounted () {
         this.getAddress()
     },
     methods: {
-        ...mapActions([
-            'USER_DATA',
-        ]),
         modal (type) {
             this.$modal.$emit('modal', {
                 view: true,
@@ -98,22 +94,6 @@ export default {
         },
         router (to) {
             this.$router.push(to)
-        },
-        getUser () {
-            this.$axios({ 
-                method: 'GET',
-                url: this.$API_URL + this.$API_VERSION_2 + 'profile',
-                headers: {
-                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
-                },
-            })
-            .then((response) => {
-                this.USER_DATA(response.data.profile.name)
-                this.user = response.data.profile
-            })  
-            .catch((error) => {
-                console.log(error);
-            }); 
         },
         getAddress () {
             this.$axios({
@@ -186,7 +166,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['GET_TOKEN']),
+        ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
     }
 }
 </script>

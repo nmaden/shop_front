@@ -10,6 +10,7 @@ export default {
     actions: {
         SIGN_IN_USER({commit}, token) {
             commit('SIGN_IN', token)
+            this.dispatch('USER_DATA')
         },
     },
     getters: {

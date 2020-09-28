@@ -3,7 +3,11 @@
         <div class="header">
             <div class="header__l">
                 <div class="icon__mobile">
-                    <img @click="show_mobile_menu = true" src="../../assets/icons/menu_icon_mobile.svg" alt="menu">
+                    <img 
+                        @click="show_mobile_menu = true" 
+                        src="../../assets/icons/menu_icon_mobile.svg" 
+                        alt="menu"
+                    />
                 </div>
 
                 <router-link to="/">
@@ -58,19 +62,23 @@
                         </template>
                         <span>Вход/регистрация</span>
                     </v-tooltip>
-                    
-                    <div class="main__header__menu__user" @mouseleave="show_menu = false" @mouseover="show_menu = true" v-if="GET_TOKEN.length !== 0">
+                    <div 
+                        class="main__header__menu__user" 
+                        @mouseleave="show_menu = false" 
+                        @mouseover="show_menu = true" 
+                        v-if="GET_TOKEN.length !== 0"
+                    >
                         <div class="header__menu__user">
                             <p>
-                                {{GET_USER_DATA}} 
+                                {{GET_USER_DATA.name}} 
                             </p>
                             <img src="../../assets/icons/person_default.svg" alt="person_default">
                         </div>
                         <div v-show="show_menu == true" class="header__menu__user__hover">
                             <div class="header__menu__user__hover__after">
-                                <div v-if="currentRouteName !== 'Profile'" @click="route('/profile')" class="header__menu__user__hover__after__block">
+                                <div @click="route('/profile')" class="header__menu__user__hover__after__block">
                                     <p>
-                                        Личный кабинет 
+                                        Личный кабинет / {{GET_USER_DATA.name}} {{GET_USER_DATA.surname}}
                                     </p>
                                 </div>
                                 <div @click="sign_out" class="header__menu__user__hover__after__block">
@@ -81,7 +89,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -106,11 +113,18 @@
 
         <!-- mobile menu -->
 
-        <div v-show="show_mobile_menu == true" class="mobile__menu">
+        <div 
+            v-show="show_mobile_menu == true" 
+            class="mobile__menu"
+        >
             <div class="mobile__menu__position">
                 <div class="mobile__menu__list">
                     <div class="mobile__menu__list__header">
-                        <img @click="show_mobile_menu = false" src="../../assets/all/back__white.svg" alt="">
+                        <img 
+                            @click="show_mobile_menu = false" 
+                            src="../../assets/all/back__white.svg" 
+                            alt=""
+                        >
                     </div>
                     <div class="mobile__menu__list__header">
                         <img src="../../assets/logo/logo__white.svg" alt="">
@@ -127,25 +141,35 @@
                             </p>
                         </div>
                     </div>
-             
-                    <div v-if="GET_TOKEN.length == 0" @click="route('/login')" class="cabinet__block">
+                    <div 
+                        v-if="GET_TOKEN.length == 0" 
+                        @click="route('/login')" 
+                        class="cabinet__block"
+                    >
                         <img src="../../assets/icons/person_default.svg" alt="person_default">
                         <p>
                             Личный кабинет
                         </p>
                     </div>
-                    <div v-if="GET_TOKEN.length !== 0" @click="route('/profile')" class="cabinet__block__user">
+                    <div 
+                        v-if="GET_TOKEN.length !== 0" 
+                        @click="route('/profile')" 
+                        class="cabinet__block__user"
+                    >
                         <img src="../../assets/icons/person_default.svg" alt="person_default">
                         <p>
                             Личный кабинет
                         </p>
                     </div>
-                    <div v-if="GET_TOKEN.length !== 0" @click="sign_out" class="cabinet__block">
+                    <div 
+                        v-if="GET_TOKEN.length !== 0"
+                        @click="sign_out" 
+                        class="cabinet__block"
+                    >
                         <p>
                             Выход
                         </p>
                     </div>
-                  
                 </div>
                 <div class="mobile__menu__img">
                     <img src="../../assets/all/hotpng__black.svg" alt="hotpng__black">
@@ -311,7 +335,6 @@ export default {
             disableScroll.off()
         },
         sendLocale () {
-            console.log(this.lang)
             import(`../../localization/${this.lang}.json`)
             .then((msg) => {
                 this.$i18n.setLocaleMessage(this.lang, msg)
@@ -320,9 +343,6 @@ export default {
         }
     },
     computed: {
-        currentRouteName () {
-            return this.$route.name;
-        },
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
     }
 }
