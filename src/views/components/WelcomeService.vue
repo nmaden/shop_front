@@ -76,7 +76,6 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
-
 .service {
     width: 100%;
     margin-top: 40px;
@@ -96,7 +95,7 @@ export default {
             margin-bottom: 15px;
             @media (max-width: @mobile) {
                 font-size: 14px;
-                line-height: 16px;
+                line-height: 20px;
                 margin-bottom: 5px;
             }
         }
@@ -126,6 +125,7 @@ export default {
         @media (max-width: @mobile) {
             font-size: 17px;
             margin-top: 25px;
+            margin-bottom: 5px;
         }
     }
 
@@ -145,6 +145,7 @@ export default {
             @media (max-width: @mobile) {
                 width: 47%;
                 margin-right: 0;
+                text-align: center;
             }
             .service__type__block__img {
                 height: 76px;
@@ -169,7 +170,7 @@ export default {
                 @media (max-width: @mobile) {
                     margin-top: 0px;
                     font-size: 12px;
-                    line-height: 14px;
+                    line-height: 18px;
                 }
             }
         }

@@ -155,7 +155,7 @@ export default {
         margin-top: 30px;
         @media (max-width: @mobile) {
             font-size: 17px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
     }
 

@@ -41,7 +41,7 @@
         
         <div class="footer__bottom">
             <div class="footer__bottom__l">
-                <div class="footer__bottom__l__left">
+                <div class="footer__bottom__l__left__pc">
                     <img class="logo__footer" src="../../assets/logo/logo.svg" alt="logo">
                      
                     <div class="footer__bottom__l__left__flex">
@@ -67,7 +67,14 @@
                             </p>
                         </div>
                     </div>
-                    
+                </div>
+                <div class="footer__bottom__l__left__mobile">
+                    <img class="logo__footer" src="../../assets/logo/logo.svg" alt="logo">
+                     
+                    <div class="footer__bottom__l__left__flex">
+                        <img src="../../assets/icons/appstore.svg" alt="appstore">
+                        <img src="../../assets/icons/playmarket.svg" alt="playmarket">
+                    </div>
                 </div>
             </div>
              
@@ -152,8 +159,14 @@ export default {
     background: #141414;
     overflow: hidden;
     width: 100%;
+    @media (max-width: @mobile) {
+        padding: 10px;
+    }
     .footer__top {
         border-bottom: 1px solid #3D3526;
+        @media (max-width: @mobile) {
+            display: none;
+        }
         .footer__top__margin {
             width: 1200px;
             margin: 0 auto;
@@ -269,16 +282,14 @@ export default {
             @media (max-width: @mobile) {
                 flex-wrap: wrap;
             }
-            .footer__bottom__l__left {
+            .footer__bottom__l__left__pc {
                 width: 50%;
+                display: block;
                 @media (max-width: @mobile) {
-                    width: 100%;
+                    display: none;
                 }
                 .logo__footer {
                     width: 230px;
-                    @media (max-width: @mobile) {
-                        width: 190px;
-                    }
                 }
                 
                 .footer__bottom__l__left__flex {
@@ -286,16 +297,43 @@ export default {
                     display: flex;
                     justify-content: flex-start;
                     margin-top: 20px;
+                    img {
+                        margin-right: 20px;
+                        width: 150px;
+                        cursor: pointer;
+                        border: 1px solid #3D3526;
+                        border-radius: 5px;
+                    }
+                }
+            }
+            .footer__bottom__l__left__mobile {
+                display: none;
+                @media (max-width: @mobile) {
+                    width: 100%;
+                    display: block;
+                }
+                .logo__footer {
+                    width: 230px;
+                    @media (max-width: @mobile) {
+                        display: none;
+                    }
+                }
+                
+                .footer__bottom__l__left__flex {
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-start;
                     @media (max-width: @mobile) {
                         margin-top: 5px;
                         margin-bottom: 10px;
                     }
                     img {
                         margin-right: 20px;
-                        width: 105px;
                         cursor: pointer;
                         @media (max-width: @mobile) {
-                            width: 80px;
+                            width: 99px;
+                            border: 1px solid #3D3526;
+                            border-radius: 5px;
                         }
                     }
                 }

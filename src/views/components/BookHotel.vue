@@ -335,7 +335,7 @@ export default {
         font-family: 'MontserratBold';
         @media (max-width: @mobile) {
             font-size: 17px;
-            margin-top: 10px;
+            margin-top: 20px;
             line-height: 18px;
         }
     }
