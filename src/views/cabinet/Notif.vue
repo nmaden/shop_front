@@ -42,13 +42,14 @@
                     
                 </div>
                 
-                <div class="registrations__form">
-                    <button class="capture__photo__desktop" @click="onCapture">Сканировать документ</button>
-                    <button class="get__file__button" @click="runGetPhoto">Загрузить документ</button>
-                    <input type="file" id="get__file" @change="changePhoto">
+                <div class="buttons__mobile__capture">
+                    <div class="registrations__form">
+                        <button class="capture__photo__desktop" @click="onCapture">Сканировать документ</button>
+                        <button class="get__file__button" @click="runGetPhoto">Загрузить документ</button>
+                        <input type="file" id="get__file" @change="changePhoto">
+                    </div>
                 </div>
                 
-
                 <h3>Данные гостя</h3>
 
                 <div class="registrations__form">
@@ -1217,6 +1218,7 @@ export default {
             @media (max-width: @mobile) {
                 margin-top: 15px;
             }
+           
             .capture__photo__desktop {
                 display: block;
                 margin-right: 15px;
@@ -1238,6 +1240,7 @@ export default {
                 @media (max-width: @mobile) {
                     font-size: 20px;
                     line-height: 25px;
+                    margin-bottom: 20px;
                 }
             }
             h3 {
@@ -1263,11 +1266,20 @@ export default {
                 margin-bottom: 20px;
                 font-size: 16px;
                 border-radius: 30px;
+                @media (max-width: @mobile) {
+                    width: 100%;
+                    padding: 10px;
+                }
                 &:hover {
                     opacity: 0.7;
                 }
             }
-        
+            .buttons__mobile__capture {
+                display: block;
+                @media (max-width: @mobile) {
+                    display: none;
+                }
+            }
             .registrations__form {
                 width: 100%;
                 display: flex;
@@ -1286,6 +1298,10 @@ export default {
                 .input__block {
                     width: 345px;
                     margin-right: 10px;
+                    @media (max-width: @mobile) {
+                        margin-right: 0;
+                        width: 100%;
+                    }
                     span {
                         color: red;
                     }
@@ -1362,6 +1378,10 @@ export default {
                 .input__block__child {
                     width: 201px;
                     margin-right: 10px;
+                    @media (max-width: @mobile) {
+                        margin-right: 0;
+                        width: 100%;
+                    }
                     .error__text {
                         color: red;
                         font-size: 12px;

@@ -66,32 +66,32 @@ export default {
         applications: [
             {
                 title: 'AstraBus',
-                img: require('../../assets/logo/astrabus.webp'),
+                img: require('../../assets/logo/astrabus.png'),
                 uri: 'https://play.google.com/store/apps/details?id=kz.itsolutions.businformator'
             },
             {
                 title: 'ONAY',
-                img: require('../../assets/logo/onay.webp'),
+                img: require('../../assets/logo/onay.png'),
                 uri: 'https://play.google.com/store/apps/details?id=kz.onay'
             },
             {
                 title: '2GIS',
-                img: require('../../assets/logo/2gis.webp'),
+                img: require('../../assets/logo/2gis.png'),
                 uri: 'https://play.google.com/store/apps/details?id=ru.dublgis.dgismobile'
             },
             {
                 title: 'Yandex GO',
-                img: require('../../assets/logo/yandex.webp'),
+                img: require('../../assets/logo/yandex.png'),
                 uri: 'https://play.google.com/store/apps/details?id=ru.yandex.taxi&hl=ru'
             },
             {
                 title: 'Smart Astana',
-                img: require('../../assets/logo/smartAstana.webp'),
+                img: require('../../assets/logo/smartAstana.png'),
                 uri: 'https://play.google.com/store/apps/details?id=kz.citysoft.smartastana&hl=ru'
             },
             {
                 title: 'Рахмет',
-                img: require('../../assets/logo/rahmet.webp'),
+                img: require('../../assets/logo/rahmet.png'),
                 uri: 'https://play.google.com/store/apps/details?id=kz.rahmet.app&hl=ru'
             },
         ]

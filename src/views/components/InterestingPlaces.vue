@@ -270,6 +270,8 @@ export default {
                     position: relative;
                     cursor: pointer;
                     background-size: cover;
+                    transition: .7s;
+
                     &:hover {
                         transition: .7s;
                         transform: scale(1.04);
