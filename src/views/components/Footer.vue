@@ -331,7 +331,7 @@ export default {
                         margin-right: 20px;
                         cursor: pointer;
                         @media (max-width: @mobile) {
-                            width: 99px;
+                            width: 120px;
                             border: 1px solid #3D3526;
                             border-radius: 5px;
                         }
