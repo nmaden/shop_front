@@ -27,8 +27,10 @@
                 class="service__type__block"
                 v-for="service_item in service"
                 :key="service_item.title"
-            >
-                <img :src="service_item.img" alt="">
+            >   
+                <div class="service__type__block__img">
+                    <img :src="service_item.img" alt="">
+                </div>
                 <p>
                     {{service_item.text}}
                 </p>
@@ -144,9 +146,15 @@ export default {
                 width: 47%;
                 margin-right: 0;
             }
+            .service__type__block__img {
+                height: 76px;
+                @media (max-width: @mobile) {
+                    height: 50px;
+                }
+            }
             img {
                 @media (max-width: @mobile) {
-                    width: 24%;
+                    width: 50px;
                 }
             }
             

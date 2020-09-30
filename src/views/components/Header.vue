@@ -189,12 +189,12 @@ export default {
         flag_uri: require('../../assets/flags/russia.svg'),
         langs: [
             {
-                type: 'ru',
-                label: 'РУС',
-            },
-            {
                 type: 'kz',
                 label: 'ҚАЗ',
+            },
+            {
+                type: 'ru',
+                label: 'РУС',
             },
             {
                 type: 'en',
