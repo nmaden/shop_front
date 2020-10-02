@@ -90,6 +90,7 @@ export default {
                 },
             })
             .then((response) => {
+                console.log(response)
                  this.users = response.data.data
             })  
             .catch((error) => {

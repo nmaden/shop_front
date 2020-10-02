@@ -24,6 +24,8 @@
                         <input type="password" v-model.trim="new__password" id="new__password">    
                         <div class="error__text" v-if="$v.new__password.$dirty && !$v.new__password.required">Поле 'Новый пароль' обязателен к заполнению</div>
                         <div class="error__text" v-if="!$v.new__password__repeat.sameAs">Пароли не совпадают</div>
+                        <div class="error__text" v-if="!$v.new__password.minLength">Минимальная длина пароля 8 символов</div>
+                        <div class="error__text" v-if="!$v.new__password.maxLength">Максимальная длина пароля 42 символа</div>
                     </div>
 
                     <div class="input__block">
@@ -33,6 +35,8 @@
                         <input type="password"  v-model.trim="new__password__repeat"  id="new__password__repeat">
                         <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.required">Поле 'Повторить новый пароль' обязателен к заполнению</div>
                         <div class="error__text" v-if="!$v.new__password__repeat.sameAs">Пароли не совпадают</div>
+                        <div class="error__text" v-if="!$v.new__password__repeat.maxLength">Максимальная длина пароля 42 символа</div>
+                        <div class="error__text" v-if="!$v.new__password__repeat.minLength">Минимальная длина пароля 8 символов</div>
                     </div>
                     <div class="input__block">
                         <button @click="changePassword">Сохранить</button>
@@ -43,7 +47,8 @@
     </v-dialog>
 </template>
 <script>
-import { required, sameAs } from 'vuelidate/lib/validators'
+import { required, sameAs, minLength, maxLength } from 'vuelidate/lib/validators'
+import { mapGetters } from 'vuex'
 
 export default {
     validations: {
@@ -52,10 +57,14 @@ export default {
         },
         new__password: {
             required,
+            minLength: minLength(8),
+            maxLength: maxLength(42),
         },
         new__password__repeat: {
             required, 
-            sameAs: sameAs('new__password')
+            sameAs: sameAs('new__password'),
+            minLength: minLength(8),
+            maxLength: maxLength(42),
         }
     },
     data () {
@@ -79,7 +88,42 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
-                console.log('ok')
+                this.$axios({ 
+                    method: 'put',
+                    url: this.$API_URL + this.$API_VERSION_2 + 'profile',
+                    headers: {
+                        'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                    },
+                    data: {
+                        password: this.new__password
+                    }
+                })
+                .then((response) => {
+                    this.$Progress.finish()
+                        // qwe123456789
+                    if (Object.prototype.hasOwnProperty.call(response.data, 'password') == true) {
+                        this.$toast.open({
+                            message: 'Минимальная длина пароля 8 символов максимальная 42 символа',
+                            type: 'error',
+                            position: 'bottom',
+                            duration: 2000,
+                            queue: true
+                        });
+                    } else {
+                        this.$toast.open({
+                            message: response.data.message,
+                            type: 'success',
+                            position: 'bottom',
+                            duration: 1500,
+                            queue: true
+                        });
+                    }
+                })  
+                .catch((error) => {
+                    this.$Progress.fail()
+                    console.log(error)
+                });  
+                
             }
         }
     },
@@ -89,6 +133,9 @@ export default {
                 this.modal = value.view
           }
       })
+    },
+    computed: {
+        ...mapGetters(['GET_TOKEN']),
     }
 }
 </script>
