@@ -310,20 +310,17 @@ export default {
             let style__last__menu__item = window.getComputedStyle(last__menu__item)
             let offset__width = last__menu__item.offsetLeft + parseInt(style__last__menu__item.width.replace('px', ''))
             let margin__left__menu = Number(String(this.menu_count).replace('-', '')) + 1200
-
-            if (offset__width < 1200) {
-                return false
+             
+            if (margin__left__menu > offset__width) {
+                if (delta < 0) {
+                    this.menu_count += this.scrollInteval
+                } 
+                this.scrollBodyLeave()
             } else {
-                if (margin__left__menu > offset__width) {
-                    if (delta < 0) {
-                        this.menu_count += this.scrollInteval
-                    } 
+                if (this.menu_count > -1) {
+                    delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count = 0;
                 } else {
-                    if (this.menu_count > -1) {
-                        delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count = 0;
-                    } else {
-                        delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count += this.scrollInteval;
-                    }
+                    delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count += this.scrollInteval;
                 }
             }
         },

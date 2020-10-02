@@ -30,14 +30,14 @@
                             </h4> 
                             <img :src="item.clients.citizenship.flag" alt="country">
                         </div>
-                        <p v-if="item.start_check_date !== null">
+                        <p>
                             <span>
                                 {{item.start_check_date}}
                             </span>
                         </p>
-                        <p v-if="item.check_in !== null">
+                        <p>
                             <b>
-                                {{item.check_in}} - {{item.check_out}}
+                                {{item.start_check_date}} - {{item.end_check_date}}
                             </b>
                         </p>
                     </div>
@@ -91,7 +91,7 @@ export default {
             })
             .then((response) => {
                 console.log(response)
-                 this.users = response.data.data
+                this.users = response.data.data
             })  
             .catch((error) => {
                 console.log(error);
