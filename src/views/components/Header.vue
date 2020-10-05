@@ -230,7 +230,7 @@ export default {
             },
             {
                 name: 'ГОСТИНИЦЫ',
-                to: 'https://api.eqonaq.kz/hotels',
+                to: 'https://kazakhstan.travel/hotels',
                 url: true,
             },
             {

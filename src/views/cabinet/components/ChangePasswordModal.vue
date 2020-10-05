@@ -116,6 +116,10 @@ export default {
                             duration: 1500,
                             queue: true
                         });
+                        this.modal = false
+                        this.old__password = null
+                        this.new__password = null
+                        this.new__password__repeat = null
                     }
                 })  
                 .catch((error) => {
