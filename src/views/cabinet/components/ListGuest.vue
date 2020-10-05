@@ -14,7 +14,7 @@
             </h2>
             
             <div 
-                v-if="users.length !== 0"
+                v-else
                 class="quest__list__margin"
             >
 
@@ -42,7 +42,7 @@
                         </p>
                     </div>
                     <div class="quest__list__r">
-                        <!-- <img src="../../../assets/icons/edit.png" alt="edit"> -->
+                        <img src="../../../assets/icons/edit.svg" alt="edit">
                         <p>
                             <span>
                                 статус
@@ -90,8 +90,7 @@ export default {
                 },
             })
             .then((response) => {
-                console.log(response)
-                this.users = response.data.data
+                response.data.data == undefined ? this.users = [] : this.users = response.data.data
             })  
             .catch((error) => {
                 console.log(error);

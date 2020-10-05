@@ -22,6 +22,19 @@
                     </div>
                     <div class="profile__data__text"> 
                         <p>
+                            Адрес:
+                        </p>
+                        
+                        <router-link tag="a" to="/address">
+                            <h4>
+                                Просмотреть все адреса
+                            </h4>
+                        </router-link>
+                    </div>
+                </div>
+                <div class="profile__data__flex">
+                    <div class="profile__data__text"> 
+                        <p>
                             Почта:
                         </p>
                         
@@ -30,16 +43,6 @@
                         </h4>
                         <h4 v-else>
                             не добавлен
-                        </h4>
-                    </div>
-                </div>
-                <div class="profile__data__flex">
-                    <div class="profile__data__text"> 
-                        <p>
-                            Адрес:
-                        </p>
-                        <h4>
-                            {{region}} {{area}} {{locality}} 
                         </h4>
                     </div>
                 </div>
@@ -72,19 +75,6 @@ export default {
         ChangePasswordModal,
         AddAddress
     },
-    data () {
-        return {
-            user: [],
-            region: null,
-            area: null,
-            locality: null,
-
-            address: [],
-        }
-    },
-    mounted () {
-        this.getAddress()
-    },
     methods: {
         modal (type) {
             this.$modal.$emit('modal', {
@@ -95,78 +85,9 @@ export default {
         router (to) {
             this.$router.push(to)
         },
-        getAddress () {
-            this.$axios({
-                method: 'get',
-                url: this.$API_URL + this.$API_VERSION_2 + 'placement',
-                 headers: {
-                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
-                },
-            })
-            .then((response) => {
-                this.address = response.data.placement
-                if (response.data.placement.region_id !== null) {
-                    this.getRegion()
-                }
-                if (response.data.placement.area_id !== null) {
-                    this.getDistrict()
-                } 
-                if (response.data.placement.locality_id !== null) {
-                    this.getLocality()
-                }
-            })  
-            .catch((error) => {
-                console.log(error);
-            });
-        },
-        getRegion () {
-            this.$axios({
-                method: 'post',
-                url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
-                data: {
-                    id: this.address.region_id
-                }
-            })
-            .then((response) => {
-                this.region = response.data.user_region.name_rus
-            })  
-            .catch((error) => {
-                console.log(error);
-            });
-        },
-        getDistrict () {
-            this.$axios({
-                method: 'post',
-                url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
-                data: {
-                    id: this.address.area_id
-                }
-            })
-            .then((response) => {
-                this.area = response.data.user_region.name_rus
-            })  
-            .catch((error) => {
-                console.log(error);
-            });
-        },
-        getLocality () {
-            this.$axios({
-                method: 'post',
-                url: this.$API_URL + this.$API_VERSION + 'kato/user-region',
-                data: {
-                    id: this.address.locality_id
-                }
-            })
-            .then((response) => {
-                this.locality = response.data.user_region.name_rus
-            })  
-            .catch((error) => {
-                console.log(error);
-            });
-        },
     },
     computed: {
-        ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
+        ...mapGetters(['GET_USER_DATA']),
     }
 }
 </script>
@@ -245,6 +166,9 @@ export default {
 
                 .profile__data__text {
                     margin-bottom: 15px;
+                    a {
+                        color: #000;
+                    }
                     p {
                         margin: 0;
                         font-style: normal;

@@ -39,6 +39,27 @@
                             <span>Невозможно изменить время заезда</span>
                         </v-tooltip>
                     </div>
+
+                     <div class="input__block select__input">
+                        <label>
+                            Адрес прибывания <span>*</span>
+                        </label>
+                        <div class="data_input_block">
+                            <v-autocomplete
+                                v-model.trim="arrival_address"
+                                :items="hotels"
+                                item-text="label"
+                                dense
+                                filled
+                                :hide-details="true"
+                                no-data-text="Нечего не найдено"
+                                background-color="transparent"
+                                :single-line="true"
+                                @change="checkCountry"
+                            ></v-autocomplete>
+                        </div>
+                        <div class="error__text" v-if="$v.arrival_address.$dirty && !$v.arrival_address.required">Поле 'Адрес прибывания' обязателен к заполнению</div>
+                    </div>
                     
                 </div>
                 
@@ -480,6 +501,9 @@ export default {
         surname: {
             required
         },
+        arrival_address: {
+            required
+        },
         citizenship: {
             required
         },
@@ -548,6 +572,7 @@ export default {
             targets: [],
             doctypes: [],
             countries: [],
+            hotels: [],
 
             arrival: 'заезд',
             departure: 'выезд',
@@ -555,6 +580,7 @@ export default {
             surname: null,
             middle_name: null,
             floor: null,
+            arrival_address: null,
             citizenship: null,
             phone: null,
             country_code: null,
@@ -588,6 +614,7 @@ export default {
         this.getCountries()
         this.getDoctypes()
         this.getTargets()
+        this.getAddress()
         this.getStatus()
         setInterval(this.getTime, 1000)
     },
@@ -639,6 +666,7 @@ export default {
                         surname: this.surname,
                         name: this.name,
                         patronymic: this.middle_name,
+                        hotel_id: this.arrival_address,
                         date_birth: this.date_birth,
                         email: this.email,
                         phone: this.phone,
@@ -668,6 +696,7 @@ export default {
                     this.departure = 'выезд'
                     this.name = null
                     this.surname = null
+                    this.arrival_address = null
                     this.middle_name = null
                     this.floor = null
                     this.citizenship = null
@@ -741,6 +770,32 @@ export default {
                 this.countries = arr
             }); 
         },
+
+        getAddress () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + 'placement',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                let obj;
+                let arr = []
+                for (let index = 0; index < response.data.hotels.length; index++) {
+                    obj = {
+                        label: response.data.hotels[index].region.name_rus + ' ул ' + response.data.hotels[index].street + ' ' + response.data.hotels[index].house,
+                        value: response.data.hotels[index].id
+                    }
+                    arr.push(obj)
+                }
+                this.hotels = arr
+            })  
+            .catch((error) => {
+                console.warn(error);
+            });
+        },
+
         getDoctypes () {
             this.$axios({
                 method: 'get',

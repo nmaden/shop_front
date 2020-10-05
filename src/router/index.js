@@ -36,6 +36,12 @@ const routes = [
     meta: {layout: 'authorized', auth: true},
   },
   {
+    path: '/address',
+    name: 'AddressList',
+    component: () => import('../views/cabinet/components/AddressList.vue'),
+    meta: {layout: 'authorized', auth: true},
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/cabinet/Profile.vue'),

@@ -100,7 +100,6 @@ export default {
                 })
                 .then((response) => {
                     this.$Progress.finish()
-                        // qwe123456789
                     if (Object.prototype.hasOwnProperty.call(response.data, 'password') == true) {
                         this.$toast.open({
                             message: 'Минимальная длина пароля 8 символов максимальная 42 символа',
@@ -152,6 +151,7 @@ export default {
     }
     h3 {
         margin-bottom: 20px;
+        font-family: "MontserratBold";
         font-size: 30px;
         @media (max-width: @mobile) {
             font-size: 20px;
@@ -186,6 +186,7 @@ export default {
                 border-radius: 10px;
                 font-style: normal;
                 font-weight: 600;
+                font-family: "MontserratBold";
                 font-size: 16px;
                 text-transform: uppercase;
                 line-height: 25px;
@@ -205,6 +206,7 @@ export default {
             label {
                 font-style: normal;
                 font-weight: 500;
+                font-family: "MediumMedium";
                 font-size: 14px;
             }
         }

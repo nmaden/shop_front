@@ -77,6 +77,7 @@
                                 locale="ru-in"
                                 :full-width="true"
                                 range
+                                color="#ffce03"
                             >
                             </v-date-picker>
                         </div>
@@ -184,8 +185,8 @@ export default {
             if (type == 'plus') {
                 this.adults++
             } else {
-                if (this.adults == 0) {
-                    this.adults = 0
+                if (this.adults == 1) {
+                    this.adults = 1
                 } else {
                     this.adults--
                 }
@@ -195,8 +196,8 @@ export default {
             if (type == 'plus') {
                 this.numbers++
             } else {
-                if (this.numbers == 0) {
-                    this.numbers = 0
+                if (this.numbers == 1) {
+                    this.numbers = 1
                 } else {
                     this.numbers--
                 }
@@ -313,6 +314,9 @@ export default {
                 cursor: pointer;
                 user-select: none;
                 font-size: 26px;
+                &:hover {
+                    background: #FFCE03;
+                }
                 @media (max-width: @mobile) {
                     font-size: 12px;
                     width: 30px;

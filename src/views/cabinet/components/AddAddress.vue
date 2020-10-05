@@ -5,8 +5,11 @@
     >
         <v-card>
             <div class="change__address">
-                 <h3>
-                     Добавить адрес
+                 <h3 v-if="addAddressModal == true">
+                    Добавить адрес
+                 </h3>
+                 <h3 v-else>
+                    Редактировать адрес
                  </h3>
                  <div class="registrations__form">
                     <div class="input__block">
@@ -86,14 +89,15 @@
 
                     <div class="input__block">
                         <label for="apartment_number">
-                            Номер квартиры <span>*</span>
+                            Номер квартиры
                         </label>
                         <input type="text"  v-model.trim="apartment_number"  id="apartment_number">
-                        <div class="error__text" v-if="$v.apartment_number.$dirty && !$v.apartment_number.required">Поле 'Номер квартиры' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.apartment_number.numeric">Поле 'Номер квартиры' введите только цифры</div>
                     </div>
-                    <div class="input__block">
-                        <button @click="addAddress">Сохранить</button>
+                    <div v-if="addAddressModal == true" class="input__block">
+                        <button @click="addAddress">Добавить</button>
+                    </div>
+                    <div v-else class="input__block">
+                        <button @click="editAddress">Редактировать</button>
                     </div>
                 </div>   
             </div>
@@ -119,10 +123,6 @@ export default {
             required,
             numeric 
         },
-        apartment_number: {
-            required, 
-            numeric
-        }
     },
     data () {
         return {
@@ -134,10 +134,12 @@ export default {
             house_number: null,
             apartment_number: null,
             locality: null,
+            id: null,
 
             region__array: [],
             district__array: [],
             locality__array: [],
+            addAddressModal: null
         }
     },
     mounted () {
@@ -197,7 +199,7 @@ export default {
             } else {
                 this.$Progress.start()
                 this.$axios({ 
-                    method: 'put',
+                    method: 'post',
                     url: this.$API_URL + this.$API_VERSION_2 + 'placement',
                     headers: {
                         'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
@@ -207,16 +209,80 @@ export default {
                         area_id: this.district,
                         locality_id: this.locality,
                         street: this.address,
-                        house: this.apartment_number
+                        house: this.house_number
                     }
                 })
                 .then((response) => {
                     this.$Progress.finish()
-                    console.log(response)
+                    this.modal = false
+                    this.$toast.open({
+                        message: response.data.message,
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    })
                 })  
                 .catch((error) => {
                     this.$Progress.fail()
-                    console.log(error)
+                    this.$toast.open({
+                        message: error.response.data.message,
+                        type: 'error',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
+                });    
+            }
+        },
+        editAddress () {
+            if (this.$v.$invalid) {
+                this.$toast.open({
+                    message: 'Заполните необходимые поля',
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 1500,
+                    queue: true
+                });
+                this.$v.$touch()
+                return 
+            } else {
+                this.$Progress.start()
+                this.$axios({ 
+                    method: 'PUT',
+                    url: this.$API_URL + this.$API_VERSION_2 + 'placement/' + this.id,
+                    headers: {
+                        'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                    },
+                    data: {
+                        region_id: this.region,
+                        area_id: this.district,
+                        locality_id: this.locality,
+                        street: this.address,
+                        house: this.house_number
+                    }
+                })
+                .then((response) => {
+                    this.$Progress.finish()
+                    this.modal = false
+                    this.$toast.open({
+                        message: response.data.message,
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    })
+                    this.$emit('update__address')
+                })  
+                .catch((error) => {
+                    this.$Progress.fail()
+                    this.$toast.open({
+                        message: error.response.data.message,
+                        type: 'error',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
                 });    
             }
         }
@@ -225,6 +291,23 @@ export default {
       this.$modal.$on('modal',  (value) => {
           if (value.type == 'address') {
                 this.modal = value.view
+                this.house_number = null
+                this.address = null
+                this.addAddressModal = true
+          }
+          if (value.type == 'edit') {
+                this.modal = value.view
+                this.addAddressModal = false
+                this.house_number = value.edit_data.house
+                this.address = value.edit_data.street
+
+                this.region = value.edit_data.region_id
+                this.district = value.edit_data.area_id
+                this.locality = value.edit_data.locality_id
+                this.id = value.edit_data.id
+
+                this.getDistrict()
+                this.getLocality()
           }
       })
     },
@@ -235,7 +318,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @mobile: 900px;
-
+ 
 .change__address {
     width: 100%;
     background: #fff;
@@ -247,6 +330,8 @@ export default {
     h3 {
         margin-bottom: 20px;
         font-size: 30px;
+        font-family: "MontserratBold";
+
         @media (max-width: @mobile) {
             font-size: 20px;
             margin-bottom: 10px;
@@ -298,6 +383,7 @@ export default {
                 line-height: 25px;
                 color: #000;
                 outline: none;
+                font-family: "MontserratBold";
                 margin-top: 5px;
             }
             input {
@@ -313,6 +399,7 @@ export default {
                 font-style: normal;
                 font-weight: 500;
                 font-size: 14px;
+                font-family: "MediumMedium";
             }
         }
     }
