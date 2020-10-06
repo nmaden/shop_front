@@ -1,14 +1,13 @@
 <template>
     <div class="address">
-        <Header />
         <div class="main__base__margin">
+            <Nav />
             <h1>
                 Мои адреса
             </h1>
         </div>
         <div class="address__list__data">
             <div class="address__list__data__margin">
-
                 <div 
                     class="address__list"
                     v-for="item_address in address"
@@ -83,13 +82,13 @@
 </template>
 
 <script>
-import Header from '../../components/Header'
 import { mapGetters } from 'vuex'
 import AddAddress from './AddAddress'
+import Nav from '../../components/NavHeader'
 
 export default {
     components: {
-        Header, AddAddress
+       AddAddress, Nav
     },
     data () {
         return {
@@ -185,7 +184,7 @@ export default {
     .main__base__margin {
         width: 1200px;
         margin: 0 auto;
-        margin-top: 65px;
+        margin-top: 40px;
         @media (max-width: @mobile) {
             width: 95%;
             margin-top: 10px;
@@ -194,6 +193,8 @@ export default {
             font-style: normal;
             font-weight: 500;
             font-size: 48px;
+            margin-top: 40px;
+
             @media (max-width: @mobile) {
                 font-size: 20px;
             }
@@ -230,21 +231,41 @@ export default {
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: 10px;
+                @media (max-width: @mobile) {
+                    width: 100%;
+                    padding: 10px;
+                    flex-wrap: wrap;
+                }
                 .address__list__title {
                     width: 90%;
+                    @media (max-width: @mobile) {
+                        width: 100%;
+                    }
                     p {
                         margin: 0;
                         font-size: 18px;
+                        @media (max-width: @mobile) {
+                            font-size: 12px;
+                        }
                     }
                 }
                 .address__list__button {
                     width: 10%;
                     display: flex;
                     justify-content: flex-end;
+                    @media (max-width: @mobile) {
+                        width: 100%;
+                        justify-content: flex-end;
+                        margin-top: 10px;
+                    }
                     img {
                         margin-left: 23px;
                         width: 20px;
                         cursor: pointer;
+                        @media (max-width: @mobile) {
+                            margin-left: 10px;
+                            width: 15px;
+                        }
                     }
                 }
             }

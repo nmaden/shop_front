@@ -25,10 +25,21 @@
                             Адрес:
                         </p>
                         
-                        <router-link tag="a" to="/address">
-                            <h4>
+                        <h4 
+                            v-for="item_address in address"
+                            :key="item_address.id"
+                        >
+                            {{item_address.region.name_rus}}, 
+                            {{item_address.area.name_rus}},
+                            <span v-if="item_address.locality !== null">{{item_address.locality.name_rus}},</span> 
+                            {{item_address.street}} 
+                            {{item_address.house}}
+                        </h4>
+
+                        <router-link v-if="addressStatus.length > 1" tag="a" to="/address">
+                            <h5>
                                 Просмотреть все адреса
-                            </h4>
+                            </h5>
                         </router-link>
                     </div>
                 </div>
@@ -57,7 +68,7 @@
 
         <!-- modals -->
         <ChangePasswordModal />
-        <AddAddress />
+        <AddAddress @update__address="uodateList" />
     </div>
 </template>
 
@@ -75,6 +86,12 @@ export default {
         ChangePasswordModal,
         AddAddress
     },
+    data () {
+        return {
+            addressStatus: [],
+            address: []
+        }
+    },
     methods: {
         modal (type) {
             this.$modal.$emit('modal', {
@@ -85,9 +102,40 @@ export default {
         router (to) {
             this.$router.push(to)
         },
+        uodateList () {
+            this.getAddress()
+        },
+        getAddress () {
+            this.$axios({
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + 'placement',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                if (response.data == undefined) {
+                    this.addressStatus = []
+                    this.address = []
+                } else {
+                    let obj = response.data.hotels[0]
+                    let arr = []
+                    arr.push(obj)
+                    this.addressStatus = response.data.hotels
+                    this.address = arr
+                }
+                
+            })  
+            .catch((error) => {
+                console.warn(error);
+            });
+        },
+    },
+    mounted () {
+        this.getAddress()
     },
     computed: {
-        ...mapGetters(['GET_USER_DATA']),
+        ...mapGetters(['GET_USER_DATA', 'GET_TOKEN']),
     }
 }
 </script>
@@ -184,6 +232,16 @@ export default {
                         color: #000;
                         @media (max-width: @mobile) {
                             font-size: 13px;
+                        }
+                    }
+                    h5 {
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 17px;
+                        color: #000;
+                        margin-top: 5px;
+                        @media (max-width: @mobile) {
+                            font-size: 12px;
                         }
                     }
                 }

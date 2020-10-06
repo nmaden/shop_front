@@ -155,7 +155,7 @@
                             Телефон 
                         </label>
                         <input class="input" v-model.trim="phone" type="text" id="phone">
-                        <div class="error__text" v-if="!$v.phone.numeric">Поле 'Номер документа' введите только цифры</div>
+                        <div class="error__text" v-if="!$v.phone.numeric">Введите корректный номер телефона</div>
                     </div>
                     <div class="input__block">
                         <label for="email">
@@ -467,7 +467,7 @@
             <v-card>
                 <div class="type__notif">
                     <h2>
-                        Лист прибытия успешно создан
+                        Гость зарегистрирован уведомление успешно отправлено
                     </h2>
                     <div class="type__notif__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
@@ -485,7 +485,8 @@
 import Nav from '../components/NavHeader'
 import { required, email, requiredUnless, numeric } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
- 
+import { helpers } from 'vuelidate/lib/validators'
+const alpha = helpers.regex('numeric', /^[0-9,+,(), «»]*$/)
 
 export default {
     components: {
@@ -520,7 +521,7 @@ export default {
             required
         },
         phone: {
-            numeric
+            numeric: alpha
         },
         document_number: {
             required,
@@ -790,6 +791,7 @@ export default {
                     arr.push(obj)
                 }
                 this.hotels = arr
+                this.arrival_address = response.data.hotels[0].id
             })  
             .catch((error) => {
                 console.warn(error);

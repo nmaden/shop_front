@@ -222,6 +222,7 @@ export default {
                         duration: 1500,
                         queue: true
                     })
+                    this.$emit('update__address')
                 })  
                 .catch((error) => {
                     this.$Progress.fail()

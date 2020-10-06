@@ -4,7 +4,7 @@
             <Nav />
             <div class="registrations">
                 <h2>
-                    Регистрация юридических лиц
+                    Регистрация для юридических лиц
                 </h2>
                 <div class="eds__desktop">
                     <div class="registrations__form">
@@ -185,7 +185,6 @@
                             </label>
                             <input type="text" v-model.trim="house_number" id="house_number">    
                             <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div>
-                            <div class="error__text" v-if="!$v.house_number.numeric">Поле 'Номер дома' введите только цифры</div>
                         </div>
 
                         <div class="input__block">
@@ -235,9 +234,9 @@
                     </h2>
                     <div class="type__registration__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
-                        <!-- <p>
+                        <p>
                             Вам на почту отправлено письмо с вашим паролем для авторизации в системе.
-                        </p> -->
+                        </p>
                         <router-link to="/login">
                             <button>
                                 ПОНЯТНО
@@ -341,7 +340,6 @@ export default {
         },
         house_number: {
             required: requiredUnless('additinal__fuilds'),
-            numeric 
         },
         hotel_name: {
             required: requiredUnless('additinal__fuilds'),
