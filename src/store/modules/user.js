@@ -21,7 +21,9 @@ export default {
             })
             .then((response) => {
                commit('USER', response.data.profile)
-               router.push('/profile')
+               if (this.getters.GET_REDIRECT == true) {
+                  router.push('/profile')
+               }
             })  
             .catch((error) => {
                 console.log(error);

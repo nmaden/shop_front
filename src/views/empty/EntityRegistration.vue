@@ -43,16 +43,6 @@
                             </div>
                         </div>
 
-
-                        <div class="input__block">
-                            <label for="document_number">
-                                Номер документа <span>*</span>
-                            </label>
-                            <input type="text" v-model.trim="document_number" id="document_number">
-                            <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателен к заполнению</div>
-                            <div class="error__text" v-if="!$v.document_number.numeric">Поле 'Номер документа' введите только цифры</div>
-                        </div>
-
                         <div class="input__block">
                             <label for="email">
                                 Роль <span>*</span>
@@ -155,7 +145,7 @@
                             <div class="error__text" v-if="$v.district.$dirty && !$v.district.required">Поле 'Район' обязателен к заполнению</div>
                         </div>
 
-                        <div class="input__block">
+                        <div  v-if="locality__array.length !== 0" class="input__block">
                             <label for="locality">
                                 Населенный пункт 
                             </label>
@@ -202,17 +192,15 @@
                         </div>
                         <div class="input__block">
                             <label for="hotel_booking">
-                                Booking <span>*</span>
+                                Booking  
                             </label>
                             <input type="text" v-model.trim="hotel_booking" id="hotel_booking">
-                            <div class="error__text" v-if="$v.hotel_booking.$dirty && !$v.hotel_booking.required">Поле 'Booking' обязателен к заполнению</div>
                         </div>
                         <div class="input__block">
                             <label for="hotel_tripadvisor">
-                                Tripadvisor <span>*</span>
+                                Tripadvisor
                             </label>
                             <input type="text" v-model.trim="hotel_tripadvisor" id="hotel_tripadvisor">
-                            <div class="error__text" v-if="$v.hotel_tripadvisor.$dirty && !$v.hotel_tripadvisor.required">Поле 'Tripadvisor' обязателен к заполнению</div>
                         </div>
 
                     </div>
@@ -259,7 +247,6 @@ export default {
         return {
             name: null,
             surname: null,
-            document_number: null,
             middle_name: null,
             phone: null,
             email: null,
@@ -308,10 +295,6 @@ export default {
         surname: {
             required, 
         },
-        document_number: {
-            required, 
-            numeric,
-        },
         bin: {
             required, 
             numeric,
@@ -346,12 +329,6 @@ export default {
         },
         hotel_entity: {
             required: requiredUnless('additinal__fuilds')
-        },
-        hotel_booking: {
-            required: requiredUnless('additinal__fuilds')
-        },
-        hotel_tripadvisor: {
-            required: requiredUnless('additinal__fuilds')
         }
     },
     components: {
@@ -382,7 +359,6 @@ export default {
                         first_name: this.name,
                         last_name: this.surname,
                         middle_name: this.surname,
-                        document_number: this.document_number,
                         email: this.email,
                         phone: this.phone,   
                         role: this.role,
@@ -405,7 +381,6 @@ export default {
                         first_name: this.name,
                         last_name: this.surname,
                         middle_name: this.surname,
-                        document_number: this.document_number,
                         email: this.email,
                         phone: this.phone,   
                         role: this.role,
@@ -417,27 +392,17 @@ export default {
                     url: this.$API_URL + this.$API_VERSION_2 + 'register/pki/step2',
                     data: this.sendObj
                 })
-                .then((response) => {
+                .then(() => {
                     this.$Progress.finish()
+                    this.showEdsForm = false
                     this.modal = true
                     this.name = null
                     this.surname = null
                     this.middle_name = null
-                    this.document_number = null
                     this.email = null
                     this.phone = null
                     this.bin = null
                     this.role = null
-                    this.showEdsForm = false
-                    console.log(response)
-
-                    this.$toast.open({
-                        message: response.data.message,
-                        type: 'success',
-                        position: 'bottom',
-                        duration: 1500,
-                        queue: true
-                    });
                 })  
                 .catch((error) => {
                     this.$Progress.fail()

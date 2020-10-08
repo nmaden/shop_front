@@ -73,7 +73,11 @@ export default {
                         document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz; max-age=30"
                         window.location.href = 'https://cabinet.eqonaq.kz'
                     } else {
-                        this.SIGN_IN_USER(response.data.token)
+                        let data__profile = {
+                            token: response.data.token,
+                            type: true,
+                        }
+                        this.SIGN_IN_USER(data__profile)
                     }
                 })
                 .catch((error) => {

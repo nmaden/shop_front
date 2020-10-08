@@ -44,16 +44,6 @@
                         </div>
 
 
-                        <div class="input__block">
-                            <label for="document_number">
-                                Номер документа <span>*</span>
-                            </label>
-                            <input type="text" v-model.trim="document_number" id="document_number">
-                            <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателен к заполнению</div>
-                            <div class="error__text" v-if="!$v.document_number.numeric">Поле 'Номер документа' введите только цифры</div>
-
-                        </div>
-
                         <div class="input__block__child">
                             <label for="iin">
                                 ИИН <span>*</span>
@@ -125,8 +115,7 @@
                             </select>
                             <div class="error__text" v-if="$v.district.$dirty && !$v.district.required">Поле 'Район' обязателен к заполнению</div>
                         </div>
-
-                        <div class="input__block">
+                        <div v-if="locality__array.length !== 0" class="input__block">
                             <label for="locality">
                                 Населенный пункт 
                             </label>
@@ -188,7 +177,7 @@
                         <p>
                             Вам на почту отправлено письмо с вашим паролем для авторизации в системе.
                         </p>
-                        <router-link to="/login">
+                        <router-link to="/profile">
                             <button>
                                 ПОНЯТНО
                             </button>
@@ -204,13 +193,13 @@
 import Nav from '../components/NavHeader'
 import MaskedInput from 'vue-masked-input'
 import { required, numeric, email, minLength, maxLength } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex'
 
 export default {
     data () {
         return {
             name: null,
             surname: null,
-            document_number: null,
             middle_name: null,
             iin: null,
             phone: null,
@@ -233,7 +222,7 @@ export default {
             // websocked
             connection: null,
             ready: false,
-            esp__array: null
+            esp__array: null,
         }
     },
     validations: {
@@ -242,10 +231,6 @@ export default {
         },
         surname: {
             required, 
-        },
-        document_number: {
-            required, 
-            numeric,
         },
         iin: {
             required, 
@@ -284,8 +269,11 @@ export default {
     mounted () {
         this.getLocal()
     },
-    
+     
     methods: {
+        ...mapActions([
+            'SIGN_IN_USER',
+        ]),
         registarations () {
             if (this.$v.$invalid) {
                 this.$toast.open({
@@ -307,7 +295,6 @@ export default {
                         first_name: this.name,
                         last_name: this.surname,
                         middle_name: this.surname,
-                        document_number: this.document_number,
                         iin: this.iin,
                         email: this.email,
                         phone: this.phone,   
@@ -321,10 +308,10 @@ export default {
                 })
                 .then((response) => {
                     this.$Progress.finish()
+                    this.showEdsForm = false
                     this.modal = true
                     this.name = null
                     this.surname = null
-                    this.document_number = null
                     this.middle_name = null
                     this.iin = null
                     this.phone = null
@@ -335,13 +322,12 @@ export default {
                     this.house_number = null
                     this.apartment_number = null
                     this.locality = null
-                    this.$toast.open({
-                        message: response.data.message,
-                        type: 'success',
-                        position: 'bottom',
-                        duration: 1500,
-                        queue: true
-                    });
+
+                    let data__profile = {
+                        token: response.data.access_token,
+                        type: false,
+                    }
+                    this.SIGN_IN_USER(data__profile)
                 })  
                 .catch((error) => {
                     this.$Progress.fail()
