@@ -194,7 +194,7 @@
                         </label>
                         <input class="input" v-model.trim="document_number" type="text" id="document_number">
                         <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.document_number.numeric">Поле 'Номер документа' введите только цифры</div>
+                        <div class="error__text" v-if="!$v.document_number.numeric">Введите корректный номер документа</div>
                     </div>
                     <div class="input__block__child">
                         <label for="series_documents">
@@ -483,10 +483,11 @@
 
 <script>
 import Nav from '../components/NavHeader'
-import { required, email, requiredUnless, numeric } from 'vuelidate/lib/validators'
+import { required, email, requiredUnless } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 import { helpers } from 'vuelidate/lib/validators'
 const alpha = helpers.regex('numeric', /^[0-9,+,(), «»]*$/)
+const document_number = helpers.regex('numeric', /^[0-9, a-zA-Z]*$/)
 
 export default {
     components: {
@@ -525,7 +526,7 @@ export default {
         },
         document_number: {
             required,
-            numeric
+            numeric: document_number
         },
         date_issuing: {
             required
