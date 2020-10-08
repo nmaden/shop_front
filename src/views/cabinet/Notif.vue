@@ -171,7 +171,7 @@
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="type_document">
-                            Тип документа  <span>*</span>
+                            Тип документа <span>*</span>
                         </label>
                         <div class="data_input_block">
                             <v-autocomplete
@@ -467,11 +467,11 @@
             <v-card>
                 <div class="type__notif">
                     <h2>
-                        Гость зарегистрирован уведомление успешно отправлено
+                        Гость зарегистрирован. Уведомление успешно отправлено
                     </h2>
                     <div class="type__notif__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
-                        <button @click="router('/')">
+                        <button @click="router('/profile')">
                             ЗАКРЫТЬ
                         </button>
                     </div>
@@ -586,7 +586,7 @@ export default {
             phone: null,
             country_code: null,
             date_birth: null,
-            type_document: null,
+            type_document: 5,
             date_issuing: null,
             date_endings: null,
             start_check_date: null,
@@ -791,7 +791,8 @@ export default {
                     arr.push(obj)
                 }
                 this.hotels = arr
-                this.arrival_address = response.data.hotels[0].id
+                response.data.hotels.length > 1 ? this.arrival_address = null : this.arrival_address = response.data.hotels[0].id
+                
             })  
             .catch((error) => {
                 console.warn(error);

@@ -5,7 +5,7 @@
             <div class="login__and__registration__flex">
                 <div class="login__and__registration__flex__l">
                     <h2>
-                        Войти в eQonaq
+                        Войти в личный кабинет
                     </h2>
                     <p>
                         Выберите способ авторизации
@@ -155,7 +155,7 @@ export default {
                 margin-top: 20px;
             }
             .login__and__registration__flex__l {
-                width: 361px;
+                width: 436px;
                 @media (max-width: @mobile) {
                     width: 100%;
                 }

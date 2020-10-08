@@ -6,7 +6,7 @@
             </label>
             <input type="text" v-model.trim="email" id="email">
             <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
-            <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
+            <div class="error__text" v-if="$v.password.$dirty && !$v.email.email">Введите корректный 'E-mail' </div>
             
             <label for="password">
                 Пароль

@@ -84,7 +84,7 @@
                         </label>
                         <input type="text" v-model.trim="house_number" id="house_number">    
                         <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.house_number.numeric">Поле 'Номер дома' введите только цифры</div>
+                        <div class="error__text" v-if="!$v.house_number.numeric">Введите корректный Номер дома</div>
                     </div>
 
                     <div class="input__block">
@@ -105,8 +105,10 @@
     </v-dialog>
 </template>
 <script>
-import { required, numeric } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
+import { helpers } from 'vuelidate/lib/validators'
+const alpha = helpers.regex('numeric', /^[0-9,/,a-zA-Z]*$/)
 
 export default {
     validations: {
@@ -121,7 +123,7 @@ export default {
         },
         house_number: {
             required,
-            numeric 
+            numeric: alpha
         },
     },
     data () {

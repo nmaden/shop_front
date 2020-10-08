@@ -72,7 +72,7 @@ export default {
 
 <style lang="less">
 .tab__main {
-    width: 100%;
+    width: 87%;
     .header__tabs {
         border-radius: 10px;
         border: 2px solid #FDE88D;

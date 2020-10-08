@@ -23,7 +23,6 @@
                         </label>
                         <input type="password" v-model.trim="new__password" id="new__password">    
                         <div class="error__text" v-if="$v.new__password.$dirty && !$v.new__password.required">Поле 'Новый пароль' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.new__password__repeat.sameAs">Пароли не совпадают</div>
                         <div class="error__text" v-if="!$v.new__password.minLength">Минимальная длина пароля 8 символов</div>
                         <div class="error__text" v-if="!$v.new__password.maxLength">Максимальная длина пароля 42 символа</div>
                     </div>
@@ -34,9 +33,7 @@
                         </label>
                         <input type="password"  v-model.trim="new__password__repeat"  id="new__password__repeat">
                         <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.required">Поле 'Повторить новый пароль' обязателен к заполнению</div>
-                        <div class="error__text" v-if="!$v.new__password__repeat.sameAs">Пароли не совпадают</div>
-                        <div class="error__text" v-if="!$v.new__password__repeat.maxLength">Максимальная длина пароля 42 символа</div>
-                        <div class="error__text" v-if="!$v.new__password__repeat.minLength">Минимальная длина пароля 8 символов</div>
+                        <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.sameAs">Пароли не совпадают</div>
                     </div>
                     <div class="input__block">
                         <button @click="changePassword">Сохранить</button>
@@ -61,10 +58,8 @@ export default {
             maxLength: maxLength(42),
         },
         new__password__repeat: {
-            required, 
             sameAs: sameAs('new__password'),
-            minLength: minLength(8),
-            maxLength: maxLength(42),
+            required, 
         }
     },
     data () {
