@@ -42,7 +42,11 @@
                         </p>
                     </div>
                     <div class="quest__list__r">
-                        <img src="../../../assets/icons/edit.svg" alt="edit">
+                        <img 
+                            src="../../../assets/icons/delete.svg" 
+                            alt="edit"
+                            @click="deleteGetId(item.id)"
+                        >
                         <p>
                             <span>
                                 статус
@@ -64,7 +68,37 @@
                 
             </div>
         </div>
-         
+        
+
+        <v-dialog
+            v-model="deleteDialog"
+            max-width="290"
+        >
+            <v-card>
+                <v-card-title class="headline">
+                    <h3 class="delete__dialog__title">
+                        Вы действительно хотите удалить лист прибытия?
+                    </h3>
+                </v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="#000"
+                        @click="deleteDialog = false"
+                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
+                    >
+                        Нет
+                    </v-btn>
+
+                    <v-btn
+                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
+                        color="#000"
+                    >
+                        Да
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -74,13 +108,18 @@ import { mapGetters } from 'vuex'
 export default {
     data () {
         return {
-            users: []
+            users: [],
+            deleteDialog: false 
         }
     },
     mounted () {
         this.getUsers()
     },
     methods: {
+        deleteGetId (id) {
+            console.log(id)
+            this.deleteDialog = true
+        },
         getUsers () {
             this.$axios({ 
                 method: 'get',
@@ -105,7 +144,11 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
-
+.delete__dialog__title {
+    font-family: "MontserratBold";
+    font-size: 17px;
+    line-height: 21px;
+}
 .main__base__margin {
     width: 1200px;
     margin: 0 auto;
@@ -152,6 +195,7 @@ export default {
                     width: 100%;
                     display: flex;
                     justify-content: flex-start;
+                    align-items: center;
                     h4 {
                         font-style: normal;
                         font-weight: 500;
@@ -164,6 +208,7 @@ export default {
                     }
                     img {
                         width: 25px;
+                        height: 16px;
                     }
                 }
                 p {

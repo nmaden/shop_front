@@ -121,6 +121,7 @@ export default {
             } else {
                 if (this.menu_count > -1) {
                     delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count = 0;
+                    this.scrollBodyLeave()
                 } else {
                     delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count += this.scrollInteval;
                     
