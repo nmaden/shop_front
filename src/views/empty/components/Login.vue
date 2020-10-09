@@ -1,21 +1,24 @@
 <template>
     <div class="login">
         <div class="login__form">
-            <label for="email">
-                E-mail
-            </label>
-            <input type="text" v-model.trim="email" id="email">
-            <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
-            <div class="error__text" v-if="$v.password.$dirty && !$v.email.email">Введите корректный 'E-mail' </div>
-            
-            <label for="password">
-                Пароль
-            </label>
-            <input type="password" v-model.trim="password" id="password">
-            <div class="error__text" v-if="$v.password.$dirty && !$v.password.required">Поле 'Пароль' обязателен к заполнению</div>
+            <form @submit="login">
+                <label for="email">
+                    E-mail
+                </label>
+                <input type="text" v-model.trim="email" id="email">
+                <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
+                <div class="error__text" v-if="$v.password.$dirty && !$v.email.email">Введите корректный 'E-mail' </div>
+                
+                <label for="password">
+                    Пароль
+                </label>
+                <input type="password" v-model.trim="password" id="password">
+                <div class="error__text" v-if="$v.password.$dirty && !$v.password.required">Поле 'Пароль' обязателен к заполнению</div>
 
-            <p>Забыли пароль?</p>
-            <button @click="login">Войти</button>
+                <!-- <p>Забыли пароль?</p> -->
+                <button type="submit">Войти</button> 
+            </form>
+            
         </div>
     </div>
 </template>
@@ -44,7 +47,8 @@ export default {
         ...mapActions([
             'SIGN_IN_USER',
         ]),
-        login () {
+        login (e) {
+            e.preventDefault()
             if (this.$v.$invalid) {
                 this.$toast.open({
                     message: 'Заполните необходимые поля',

@@ -90,6 +90,7 @@ export default {
                         'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
                     },
                     data: {
+                        old_password: this.old__password,
                         password: this.new__password
                     }
                 })

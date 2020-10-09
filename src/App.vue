@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <vue-progress-bar></vue-progress-bar>
-    <router-view />
+    <transition name="fade" mode="out-in">
+      <router-view />
+    </transition>
   </v-app>
 </template>
 

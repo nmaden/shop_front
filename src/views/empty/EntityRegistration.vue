@@ -163,10 +163,10 @@
                         
                         <div class="input__block">
                             <label for="address">
-                                Адрес <span>*</span>
+                                Улица <span>*</span>
                             </label>
                             <input type="text" v-model.trim="address" id="address">
-                            <div class="error__text" v-if="$v.address.$dirty && !$v.address.required">Поле 'Адрес' обязателен к заполнению</div>
+                            <div class="error__text" v-if="$v.address.$dirty && !$v.address.required">Поле 'Улица' обязателен к заполнению</div>
                         </div>
 
                         <div class="input__block__child">

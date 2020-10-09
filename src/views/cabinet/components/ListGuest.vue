@@ -116,8 +116,7 @@ export default {
         this.getUsers()
     },
     methods: {
-        deleteGetId (id) {
-            console.log(id)
+        deleteGetId () {
             this.deleteDialog = true
         },
         getUsers () {

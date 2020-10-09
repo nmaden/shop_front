@@ -293,7 +293,9 @@ export default {
             if (url == true) {
                 window.location.href = to
             } else {
-                this.$router.push(to)
+                if (this.$route.path !== to) {
+                    this.$router.push(to)
+                } 
             }
             this.show_mobile_menu = false
         },
