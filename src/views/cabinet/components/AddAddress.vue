@@ -388,6 +388,9 @@ export default {
                 outline: none;
                 font-family: "MontserratBold";
                 margin-top: 5px;
+                @media (max-width: @mobile) {
+                    font-size: 14px;
+                }
             }
             input {
                 width: 100%;

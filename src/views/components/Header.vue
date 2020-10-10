@@ -83,7 +83,7 @@
                                         Личный кабинет / {{GET_USER_DATA.name}} {{GET_USER_DATA.surname}}
                                     </p>
                                 </div>
-                                <div @click="sign_out" class="header__menu__user__hover__after__block">
+                                <div @click="sign_out_modal = true" class="header__menu__user__hover__after__block">
                                     <p>
                                         Выход
                                     </p>
@@ -115,69 +115,104 @@
 
         <!-- mobile menu -->
 
-        <div 
-            v-show="show_mobile_menu == true" 
-            class="mobile__menu"
-        >
-            <div class="mobile__menu__position">
-                <div class="mobile__menu__list">
-                    <div class="mobile__menu__list__header">
-                        <img 
-                            @click="show_mobile_menu = false" 
-                            src="../../assets/all/back__white.svg" 
-                            alt=""
-                        >
-                    </div>
-                    <div class="mobile__menu__list__header">
-                        <img src="../../assets/logo/logo__white.svg" alt="">
-                    </div>
-                    <div class="mobile__menu__list__flex">
+        <transition name="slide-fade">
+            <div 
+                v-show="show_mobile_menu == true" 
+                class="mobile__menu"
+            >
+                <div class="mobile__menu__position">
+                    <div class="mobile__menu__list">
+                        <div class="mobile__menu__list__header">
+                            <img 
+                                @click="show_mobile_menu = false" 
+                                src="../../assets/all/back__white.svg" 
+                                alt=""
+                            >
+                        </div>
+                        <div class="mobile__menu__list__header">
+                            <img src="../../assets/logo/logo__white.svg" alt="">
+                        </div>
+                        <div class="mobile__menu__list__flex">
+                            <div 
+                                class="mobile__menu__list__flex__block"
+                                v-for="menu_item in menu"
+                                :key="menu_item.name"
+                                @click="route(menu_item.to)"
+                            >
+                                <p>
+                                    {{menu_item.name}}
+                                </p>
+                            </div>
+                        </div>
                         <div 
-                            class="mobile__menu__list__flex__block"
-                            v-for="menu_item in menu"
-                            :key="menu_item.name"
-                            @click="route(menu_item.to)"
+                            v-if="GET_TOKEN.length == 0" 
+                            @click="route('/login')" 
+                            class="cabinet__block"
+                        >
+                            <img src="../../assets/icons/person_default.svg" alt="person_default">
+                            <p>
+                                Личный кабинет
+                            </p>
+                        </div>
+                        <div 
+                            v-if="GET_TOKEN.length !== 0" 
+                            @click="route('/profile')" 
+                            class="cabinet__block__user"
+                        >
+                            <img src="../../assets/icons/person_default.svg" alt="person_default">
+                            <p>
+                                Личный кабинет
+                            </p>
+                        </div>
+                        <div 
+                            v-if="GET_TOKEN.length !== 0"
+                            @click="sign_out_modal = true" 
+                            class="cabinet__block"
                         >
                             <p>
-                                {{menu_item.name}}
+                                Выход
                             </p>
                         </div>
                     </div>
-                    <div 
-                        v-if="GET_TOKEN.length == 0" 
-                        @click="route('/login')" 
-                        class="cabinet__block"
-                    >
-                        <img src="../../assets/icons/person_default.svg" alt="person_default">
-                        <p>
-                            Личный кабинет
-                        </p>
+                    <div class="mobile__menu__img">
+                        <img src="../../assets/all/hotpng__black.svg" alt="hotpng__black">
                     </div>
-                    <div 
-                        v-if="GET_TOKEN.length !== 0" 
-                        @click="route('/profile')" 
-                        class="cabinet__block__user"
-                    >
-                        <img src="../../assets/icons/person_default.svg" alt="person_default">
-                        <p>
-                            Личный кабинет
-                        </p>
-                    </div>
-                    <div 
-                        v-if="GET_TOKEN.length !== 0"
-                        @click="sign_out" 
-                        class="cabinet__block"
-                    >
-                        <p>
-                            Выход
-                        </p>
-                    </div>
-                </div>
-                <div class="mobile__menu__img">
-                    <img src="../../assets/all/hotpng__black.svg" alt="hotpng__black">
                 </div>
             </div>
-        </div>
+        </transition>
+
+
+        <v-dialog
+            v-model="sign_out_modal"
+            max-width="310"
+            style="z-index: 9999"
+        >
+            <v-card>
+                <v-card-title class="headline">
+                    <h3 class="delete__dialog__title">
+                        Выйти с личного кабинета?
+                    </h3>
+                </v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="#000"
+                        @click="sign_out_modal = false"
+                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
+                    >
+                        Нет
+                    </v-btn>
+
+                    <v-btn
+                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
+                        color="#000"
+                        @click="sign_out"
+                    >
+                        Да
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -188,7 +223,7 @@ import disableScroll from 'disable-scroll'
 export default {
     data () {
       return {
-        flag_uri: require('../../assets/flags/russia.svg'),
+        sign_out_modal: false,
         langs: [
             {
                 type: 'kz',
@@ -308,6 +343,7 @@ export default {
             if (this.$route.path !== '/') {
                 this.$router.push('/')
             } 
+            this.sign_out_modal = false
             this.$toast.open({
                 message: 'Вы вышли с личного кабинета',
                 type: 'warning',
@@ -345,6 +381,26 @@ export default {
 <style scoped lang="less">
 @mobile: 900px;
 
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+.delete__dialog__title {
+    font-family: "MontserratBold";
+    font-size: 17px;
+    line-height: 21px;
+
+    @media (max-width: @mobile) {
+        font-size: 13px;
+        line-height: 15px;
+    }
+}
 .header {
     width: 1200px;
     margin: 0 auto;
@@ -556,7 +612,7 @@ export default {
 .mobile__menu {
     width: 100%;
     height: 100%;
-    z-index: 9999;
+    z-index: 9997;
     background: rgba(23, 23, 23, 0.9);
     position: fixed;
     top: 0;

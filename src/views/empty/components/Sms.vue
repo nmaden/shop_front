@@ -58,6 +58,8 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
+
 .sms {
     width: 100%;
     .sms__form {
@@ -82,6 +84,11 @@ export default {
             font-size: 14px;
         }
         button {
+            @media (max-width: @mobile) {
+                font-size: 14px;
+                padding: 10px 20px;
+                width: 100%;
+            }
             padding: 15px 50px;
             background: #FDE88D;
             border: 3px solid #FDE88D;

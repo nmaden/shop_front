@@ -101,6 +101,8 @@ export default {
 </script>
 
 <style scoped lang="less">
+@mobile: 900px;
+
 .eds {
     width: 100%;
     .eds__form {
@@ -108,8 +110,15 @@ export default {
         .eds__button {
             width: 100%;
             margin-bottom: 20px;
+            @media (max-width: @mobile) {
+                margin-bottom: 0px;
+            }
         }
         button {
+            @media (max-width: @mobile) {
+                font-size: 14px;
+                padding: 10px 20px
+            }
             padding: 15px 50px;
             background: #FDE88D;
             border: 3px solid #FDE88D;

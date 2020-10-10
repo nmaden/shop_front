@@ -71,8 +71,13 @@ export default {
 </script>
 
 <style lang="less">
+@mobile: 900px;
+
 .tab__main {
     width: 87%;
+    @media (max-width: @mobile) {
+        width: 100%;
+    }
     .header__tabs {
         border-radius: 10px;
         border: 2px solid #FDE88D;
@@ -88,6 +93,9 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            @media (max-width: @mobile) {
+                height: 35px;
+            }
             p {
                 margin: 0;
                 font-weight: 600;
@@ -95,6 +103,9 @@ export default {
                 line-height: 20px;
                 user-select: none;
                 color: #000;
+                @media (max-width: @mobile) {
+                    font-size: 14px;
+                }
             }
         }
         .header__tabs__block__active {
@@ -105,6 +116,9 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            @media (max-width: @mobile) {
+                height: 35px;
+            }
             p {
                 margin: 0;
                 font-weight: 600;
@@ -112,6 +126,9 @@ export default {
                 line-height: 20px;
                 user-select: none;
                 color: #000;
+                @media (max-width: @mobile) {
+                    font-size: 14px;
+                }
             }
         }
     }

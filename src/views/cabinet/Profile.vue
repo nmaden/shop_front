@@ -182,7 +182,7 @@ export default {
             @media (max-width: @mobile) {
                 padding: 10px 20px;
                 color: #000;
-                font-size: 13px;
+                font-size: 14px;
                 margin-top: 0px;
                 width: 100%;
                 margin-bottom: 10px;

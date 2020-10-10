@@ -193,6 +193,9 @@ export default {
                 color: #000;
                 outline: none;
                 margin-top: 5px;
+                @media (max-width: @mobile) {
+                    font-size: 14px;
+                }
             }
             input {
                 width: 100%;

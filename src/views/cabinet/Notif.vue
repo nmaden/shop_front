@@ -1328,6 +1328,7 @@ export default {
                 @media (max-width: @mobile) {
                     width: 100%;
                     padding: 10px;
+                    font-size: 14px;
                 }
                 &:hover {
                     opacity: 0.7;
