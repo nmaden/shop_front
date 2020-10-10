@@ -10,6 +10,7 @@ import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 import VueProgressBar from 'vue-progressbar'
 import { i18n } from './plugins/i18n'
+import Scroll from './plugins/scroll'
 
 // options -------------------
 const options = {
@@ -37,6 +38,7 @@ Vue.prototype.$API_URL = process.env.VUE_APP_API_URL;
 Vue.prototype.$modal = new Vue()
 
 // vue use ---------------------
+Vue.use(Scroll)
 Vue.use(Vuelidate)
 Vue.use(VueToast)
 Vue.use(Moment)

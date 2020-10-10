@@ -63,7 +63,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -105,28 +104,9 @@ export default {
             window.open(to, '_blank')
         },
         scrollMenu (e) {
-            e = e || window.event
-            let delta = e.deltaY || e.detail || e.wheelDelta
             let menu__item = this.$refs.menu__item
-            let last__menu__item = menu__item[Object.keys(menu__item)[Object.keys(menu__item).length - 1]] 
-            let style__last__menu__item = window.getComputedStyle(last__menu__item)
-            let offset__width = last__menu__item.offsetLeft + parseInt(style__last__menu__item.width.replace('px', ''))
-            let margin__left__menu = Number(String(this.menu_count).replace('-', '')) + 1200
-
-            if (margin__left__menu > offset__width) {
-                if (delta < 0) {
-                    this.menu_count += this.scrollInteval
-                } 
-                this.scrollBodyLeave()
-            } else {
-                if (this.menu_count > -1) {
-                    delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count = 0;
-                    this.scrollBodyLeave()
-                } else {
-                    delta > 0 ? this.menu_count -= this.scrollInteval : this.menu_count += this.scrollInteval;
-                    
-                }
-            }
+            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval)
+            this.menu_count = this.$menuCount()
         },
         
         scrollBodyOver () {
