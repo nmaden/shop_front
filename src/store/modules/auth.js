@@ -10,12 +10,18 @@ export default {
         REDIRECT: (state, type) => {
             state.redirect = type
         },
+        LOGOUT: (state) => {
+            state.token = []
+        }
     },
     actions: {
-        SIGN_IN_USER({commit}, data__profile) {
+        SIGN_IN_USER ({commit}, data__profile) {
             commit('SIGN_IN', data__profile.token)
             commit('REDIRECT', data__profile.type)
             this.dispatch('USER_DATA')
+        },
+        SIGN_OUT_USER ({commit}) {
+            commit('LOGOUT')
         },
     },
     getters: {

@@ -49,12 +49,14 @@
                     ></v-select>
                 </div>
                 <div class="user">
-                    <v-tooltip bottom>
+                    <v-tooltip 
+                        v-if="GET_TOKEN.length == 0" 
+                        bottom
+                    >
                         <template v-slot:activator="{ on, attrs }">
                             <img  
                                 v-bind="attrs"
                                 v-on="on"
-                                v-if="GET_TOKEN.length == 0" 
                                 @click="route('/login')" 
                                 src="../../assets/icons/person_default.svg" 
                                 alt="person_default"
@@ -300,9 +302,19 @@ export default {
             this.show_mobile_menu = false
         },
         sign_out () {
+            this.$store.dispatch('SIGN_OUT_USER')
             localStorage.clear()
-            this.$router.push('/')
-            location.reload()
+            console.log(this.GET_TOKEN.length);
+            if (this.$route.path !== '/') {
+                this.$router.push('/')
+            } 
+            this.$toast.open({
+                message: 'Вы вышли с личного кабинета',
+                type: 'warning',
+                position: 'bottom',
+                duration: 1500,
+                queue: true
+            });
         },
         scrollMenu (e) {
             let menu__item = this.$refs.menu__item
@@ -415,6 +427,7 @@ export default {
         .user {
             margin-left: 15px;
             z-index: 99;
+            height: 40px;
 
             .main__header__menu__user {
                 position: relative;
@@ -437,10 +450,20 @@ export default {
                             display: block;
                             position: absolute;
                             right: 10px;
-                            top: -10px;
+                            top: -8px;
                             transform: rotateZ(180deg);
                             border: 10px solid transparent;
                             border-top: 10px solid #fff;
+                        }
+                        &::before {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            right: 9px;
+                            top: -12px;
+                            transform: rotateZ(180deg);
+                            border: 11px solid transparent;
+                            border-top: 11px solid #dadada;
                         }
 
                         .header__menu__user__hover__after__block {
