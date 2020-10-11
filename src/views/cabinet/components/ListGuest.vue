@@ -32,7 +32,8 @@
                         </div>
                         <p>
                             <span>
-                                {{item.start_check_date}}
+                                {{item.hotel.region.name_rus}},
+                                {{item.hotel.area.name_rus}}
                             </span>
                         </p>
                         <p>
@@ -42,11 +43,11 @@
                         </p>
                     </div>
                     <div class="quest__list__r">
-                        <img 
+                        <!-- <img 
                             src="../../../assets/icons/delete.svg" 
                             alt="edit"
                             @click="deleteGetId(item.id)"
-                        >
+                        > -->
                         <p>
                             <span>
                                 статус
@@ -217,7 +218,7 @@ export default {
                         font-style: normal;
                         font-weight: 300;
                         font-size: 12px;
-                        color: #C0C0C0;
+                        color: #a7a7a7;
                         @media (max-width: @mobile) {
                             font-size: 10px;
                         }

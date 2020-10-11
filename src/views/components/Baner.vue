@@ -9,63 +9,140 @@
             <div class="banner_c">
                 <div class="desktop">
                     <h1>
-                        Qus jetken jerine qonar, Qonaq qalag’an uıine qonar
+                        К вам прибыл иностранный гость?
                     </h1>
+                    <p>
+                        Согласно Постановлению Правительства № 148 от 21 января 2012 года вы обязаны 
+                        в течение 3-х дней проинформировать органы внутренних дел. <span @click="modal__description = true">Подробнее...</span>
+                    </p>
                 </div>
                 <div class="mobile">
                     <h1>
-                        Добро пожаловать
+                        К вам прибыл иностранный гость?
                     </h1>
-                </div>
-                
-                <div class="desktop">
-                    <button v-if="GET_TOKEN.length !== 0" @click="route">
-                        {{$t('notif_button')}}
-                    </button>
-                    <button v-else @click="modal = true">
-                        {{$t('notif_button')}}
-                    </button>
-                </div>
-                <div class="mobile">
-                    <button v-if="GET_TOKEN.length !== 0" @click="route">
-                        {{$t('notif_button_mobile')}}
-                    </button>
-                    <button v-else @click="modal = true">
-                        {{$t('notif_button_mobile')}}
-                    </button>
+                    <div class="banner_user">
+                        <img src="../../assets/all/banner_user__mobile.svg" alt="banner_user">
+                    </div>
                 </div>
             </div>
             <div class="banner_r">
-                <div class="banner_user">
-                    <img src="../../assets/all/banner_user__mobile.svg" alt="banner_user">
-                </div>
-                <img src="../../assets/all/hotpng.png" alt="hotpng">
+                <img class="hotpng" src="../../assets/all/hotpng.png" alt="hotpng">
             </div>
-            <v-dialog
-                v-model="modal"
-                max-width="500"
-            >
-                <v-card>
-                    <div class="type__baner">
-                        <h2>
-                            Требуется авторизация или регистрация
-                        </h2>
-                        
-                        <div class="type__baner__block">
-                            <img src="../../assets/all/auth_reg.svg" alt="images">
-                            <!-- <p>
-                                Вам на почту отправлено письмо с вашим паролем для авторизации в системе.
-                            </p> -->
-                            <router-link to="/login">
-                                <button>
-                                    АВТОРИЗОВАТЬСЯ
-                                </button>
-                            </router-link>
-                        </div>
-                    </div>
-                </v-card>
-            </v-dialog>
+            <div class="text__info__mobile">
+                <p>
+                    Согласно Постановлению Правительства № 148 от 21 января 2012 года вы обязаны 
+                    в течение 3-х дней проинформировать органы внутренних дел. <br>
+                    <span @click="modal__description = true">Подробнее...</span>
+                </p>
+            </div>
+
+            <div class="baner_flex__service">
+                <div 
+                    class="baner__service__block"
+                    v-for="item in baner"
+                    :key="item.id"
+                >
+                    <img :src="item.img" alt="icon">
+                    <p>
+                        {{item.text}}
+                    </p>
+                </div>
+            </div>
         </div>
+
+        <div class="main__button">
+            <div class="desktop">
+                <button v-if="GET_TOKEN.length !== 0" @click="route">
+                    {{$t('notif_button')}}
+                </button>
+                <button v-else @click="modal = true">
+                    {{$t('notif_button')}}
+                </button>
+            </div>
+            <div class="mobile">
+                <button v-if="GET_TOKEN.length !== 0" @click="route">
+                    {{$t('notif_button_mobile')}}
+                </button>
+                <button v-else @click="modal = true">
+                    {{$t('notif_button_mobile')}}
+                </button>
+            </div>
+        </div>
+
+        <!-- modals -->
+
+        <v-dialog
+            v-model="modal"
+            max-width="500"
+        >
+            <v-card>
+                <div class="type__baner">
+                    <h2>
+                        Требуется авторизация или регистрация
+                    </h2>
+                    
+                    <div class="type__baner__block">
+                        <img src="../../assets/all/auth_reg.svg" alt="images">
+                        <router-link to="/login">
+                            <button>
+                                АВТОРИЗОВАТЬСЯ
+                            </button>
+                        </router-link>
+                    </div>
+                </div>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog
+            v-model="modal__description"
+            max-width="900"
+        >
+            <v-card>
+                <div class="type__police">
+                    <div class="type__police__title">
+                        <h1>
+                            Административный Кодекса РК
+                        </h1>
+                    </div>
+                    <div 
+                        class="type__police__list"
+                        v-for="item_police in type__police__list"
+                        :key="item_police.title"
+                    >
+                        <h3>
+                             {{item_police.title}}
+                        </h3>
+                        <p>
+                             {{item_police.text}}
+                        </p>
+                    </div>
+                    <div class="type__police__scroll">
+                        <h4>
+                            В случае не соблюдения требовании законодательства, согласно статье 518 Административного Кодекса РК:
+                        </h4>
+                        <p>
+                            1. Непринятие принимающим лицом мер по своевременной регист рации иностранцев и лиц без гражданства либо оформлению документов на право их пребывания в Республике Казахстан, либо их выезду из Республики Казахстан по истечении определенного срока пребывания, либо несвоевременное информирование органов внутренних дел о пребывающих у них иммигрантах – влечет предупреждение на физических лиц, штраф на должностных лиц, субъектов малого предпринимательства или некоммерческие организации в размере десяти, на субъектов среднего предпринимательства – в размере пятнадцати, на субъектов крупного предпринимательства – в размере двадцати месячных расчетных показателей.
+                        </p>
+                        <p>
+                            2. Предоставление жилища иностранцу или лицу без гражданства, пребывающему в Республике Казахстан с нарушением законодательства Республики Казахстан в области миграции населения либо уклонение от выезда из Республики Казахстан в установленные сроки, либо несоответствие фактического места проживания адресу, указанному при регистрации, – влекут штраф на физических лиц в размере двадцати пяти, на должностное лицо, на субъектов малого предпринимательства или некоммерческие организации – в размере сорока, на субъектов среднего предпринимательства – в размере пятидесяти пяти, на субъектов крупного предпринимательства – в размере семидесяти пяти месячных расчетных показателей.
+                        </p>
+                        <p>
+                            3. Действия, предусмотренные частями первой и второй настоящей статьи, совершенные повторно в течение года после наложения административного взыскания, – влекут штраф на физических лиц в размере тридцати, на должностное лицо, на субъектов малого предпринимательства или некоммерческие организации – в размере сорока, на субъектов среднего предпринимательства – в размере семидесяти, на субъектов крупного предпринимательства – в размере ста месячных расчетных показателей.
+                        </p>
+                        <p>
+                            4. Совершение сделок с иностранцем или лицом без гражданства, пребывающими в Республике Казахстан с нарушением законодательства Республики Казахстан в области миграции населения в несоответствии осуществляемой деятельности целям, указанным в визе либо при регистрации в миграционной карточке, – влечет штраф на физических лиц в размере тридцати, на должностное лицо, на субъектов малого предпринимательства или некоммерческие организации – в размере сорока, на субъектов среднего предпринимательства – в размере семидесяти пяти, на субъектов крупного предпринимательства – в размере ста пятидесяти месячных расчетных показателей.
+                        </p>
+                        <p>
+                            5. Действие, предусмотренное частью четвертой настоящей статьи, совершенное повторно в течение года после наложения административного взыскания, – влечет штраф на физических лиц в размере пятидесяти, на должностное лицо, на субъектов малого предпринимательства или некоммерческие организации – в размере ста, на субъектов среднего предпринимательства – в размере ста пятидесяти, на субъектов крупного предпринимательства – в размере трехсот месячных расчетных показателей.
+                        </p>
+                    </div>
+                    <button @click="modal__description = false">
+                        Понятно
+                    </button>
+                </div>
+            </v-card>
+        </v-dialog>
+
         <Widget  class="widget"/>
     </div>
 </template>
@@ -77,7 +154,35 @@ import Widget from './Widget'
 export default {
     data () {
         return {
-            modal: false
+            modal: false,
+            modal__description: false,
+            type__police__list: [
+                {
+                    title: 'Согласно пункту 9 Постановлению Правительства Республики Казахстан от 21 января 2012 года № 148:',
+                    text: 'Принимающие лица информируют органы внутренних дел о пребывающих у них иммигрантах в течение трех рабочих дней со дня их прибытия.',
+                },
+                {
+                    title: 'Согласно пункту 10.1 статьи 1 Закону о миграции: ',
+                    text: 'Принимающее лицо - гражданин Республики Казахстан, иностранец и лицо без гражданства, постоянно проживающие в Республике Казахстан, или юридическое лицо, зарегистрированное в Республике Казахстан, ходатайствующие о приглашении иммигрантов в Республику Казахстан для временного проживания и (или) предоставляющие место для их проживания.'
+                }
+            ],
+            baner: [
+                {
+                    id: 1,
+                    img: require('../../assets/icons/smart__phone.svg'),
+                    text: 'Авторизуйтесь в системе или мобильном приложении eQonaq'
+                },
+                {
+                    id: 2,
+                    img: require('../../assets/icons/smart__face.svg'),
+                    text: 'Отсканируйте документ иностранца или внесите данные вручную'
+                },
+                {
+                    id: 3,
+                    img: require('../../assets/icons/smart__card.svg'),
+                    text: 'Результат услуги будет доступен в личном кабинете'
+                }
+            ]
         }
     },
     components: {
@@ -102,6 +207,104 @@ export default {
         display: flex;
     }
 }
+.type__police {
+    background: #fff;
+    padding: 40px 30px;
+    @media (max-width: @mobile) {
+        padding: 10px;
+    }
+    .type__police__title {
+        width: 100%;
+        h1 {
+            font-weight: 600;
+            font-family: "MontserratBold";
+            font-size: 30px;
+            @media (max-width: @mobile) {
+                font-size: 16px;
+                line-height: 20px;
+            }
+        }
+        margin-bottom: 25px;
+        @media (max-width: @mobile) {
+            margin-bottom: 10px;
+        }
+    }
+    .type__police__list {
+        background: url('../../assets/all/police__border.svg') no-repeat;
+        background-position: left;
+        padding-left: 30px;
+        background-size: contain;
+        margin-bottom: 15px;
+        @media (max-width: @mobile) {
+            margin-bottom: 7px;
+            background: none;
+            padding-left: 0;
+        }
+        h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            line-height: 19px;
+            @media (max-width: @mobile) {
+                font-size: 14px;
+            }
+        }
+        p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 19px;
+            @media (max-width: @mobile) {
+                font-size: 14px;
+            }
+        }
+    }
+    .type__police__scroll {
+        width: 100%;
+        h4 {
+            color: #FFCE03;
+            font-size: 18px;
+            line-height: 22px;
+            margin-bottom: 10px;
+            @media (max-width: @mobile) {
+                font-size: 15px;
+                line-height: 19px;
+            }
+        }
+        p {
+            font-size: 16px;
+            line-height: 19px;
+            @media (max-width: @mobile) {
+                font-size: 14px;
+            }
+        }
+    }
+    button {
+        padding: 15px 50px;
+        background: #FFCC47;
+        border-radius: 25px;
+        font-weight: bold;
+        margin: 0 auto;
+        font-size: 20px;
+        margin-top: 20px;
+        display: block;
+        outline: none;
+        font-style: normal;
+        line-height: 25px;
+        letter-spacing: -0.05em;
+        color: #000000;
+
+        &:hover {
+            opacity: .7;
+        }
+        @media (max-width: @mobile) {
+            padding: 4px 10px;
+            font-size: 12px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+    }
+}
+
 .type__baner {
     width: 100%;
     background: #fff;
@@ -172,12 +375,56 @@ export default {
         }
     }
 }
+
+.main__button {
+    .desktop {
+        display: block;
+        @media (max-width: @mobile) {
+            display: none;
+        }
+    }
+    .mobile {
+        display: none;
+        @media (max-width: @mobile) {
+            display: block;
+        }
+    }
+    button {
+        padding: 15px 50px;
+        width: 485px;
+        background: #FFCC47;
+        border-radius: 25px;
+        font-weight: bold;
+        margin: 0 auto;
+        font-size: 20px;
+        margin-top: 20px;
+        display: block;
+        outline: none;
+        font-style: normal;
+        line-height: 25px;
+        letter-spacing: -0.05em;
+        color: #000000;
+
+        &:hover {
+            opacity: .7;
+        }
+        @media (max-width: @mobile) {
+            padding: 4px 10px;
+            font-size: 12px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+    }
+}
+
 .banner {
     width: 100%;
     background: #FDE88D;
     margin-top: 63px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     border-radius: 10px;
     padding: 5px;
     font-family: 'MontserratBold';
@@ -186,7 +433,7 @@ export default {
         padding: 5px 20px;
     }
     .banner_l {
-        width: 17%;
+        width: 10%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -204,9 +451,25 @@ export default {
         }
     }
     .banner_c {
-        width: 65%;
+        width: 70%;
         @media (max-width: @mobile) {
-            width: 70%;
+            width: 100%;
+            position: relative;
+        }
+        .banner_user {
+            display: none;
+            position: absolute;
+            img {
+                @media (max-width: @mobile) {
+                    width: 59px;
+                }
+            }
+            @media (max-width: @mobile) {
+                border-radius: 50%;
+                display: block;
+                right: -8px;
+                top: -26px;
+            }
         }
         h1 {
             font-weight: bold;
@@ -219,6 +482,17 @@ export default {
                 font-size: 16px;
                 margin-top: 5px;
                 text-transform: none;
+                line-height: 19px;
+                width: 80%;
+            }
+        }
+        p {
+            font-family: "MediumMedium";
+            font-size: 17px;
+            margin-top: 10px;
+            span {
+                color: #0368FF;
+                cursor: pointer;
             }
         }
         .desktop {
@@ -233,62 +507,67 @@ export default {
                 display: block;
             }
         }
-        button {
-            padding: 15px 50px;
-            background: #FFCC47;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 20px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            outline: none;
-            font-style: normal;
-            line-height: 25px;
-            letter-spacing: -0.05em;
-            color: #000000;
-
-            &:hover {
-                opacity: .7;
-            }
+    }
+    .banner_r {
+        width: 10%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        @media (max-width: @mobile) {
+            display: none;
+        }
+        .hotpng {
+            transform: rotate(-88deg);
             @media (max-width: @mobile) {
-                padding: 4px 10px;
-                font-size: 12px;
-                margin-top: 0px;
-                margin-bottom: 5px;
+                display: none;
             }
         }
     }
-    .banner_r {
-        width: 17%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
+    .text__info__mobile {
+        display: none;
         @media (max-width: @mobile) {
-            width: 29%;
-            position: relative;
+            display: block;
+            width: 100%;
         }
-        img {
-            @media (max-width: @mobile) {
-                width: 35px;
+        p {
+            font-family: "MediumMedium";
+            font-size: 12px;
+            margin: 0;
+            margin-top: 15px;
+            line-height: 14,7px;
+            span {
+                color: #0368FF;
+                cursor: pointer;
             }
         }
-        .banner_user {
+    }
+    .baner_flex__service {
+        width: 96%;
+        padding-top: 20px;
+        margin: 0 auto;
+        padding-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        @media (max-width: @mobile) {
             display: none;
-            position: absolute;
-            left: 0;
-            top: -28px;
-            img {
-                @media (max-width: @mobile) {
-                    width: 79px;
+        }
+        .baner__service__block {
+            width: 31%;
+            display: flex;
+            justify-content: space-between;
+            line-height: 20px;
+            p {
+                font-family: "MediumMedium";
+                font-size: 15px;
+                margin: 0;
+                margin-left: 17px;
+                span {
+                    color: #0368FF;
+                    cursor: pointer;
                 }
             }
-            @media (max-width: @mobile) {
-                border-radius: 50%;
-                display: block;
-            }
         }
-        
-        
     }
 }
 

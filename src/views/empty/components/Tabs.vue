@@ -18,9 +18,6 @@
             <Eds />
         </div>
         <div class="header__tabs__content">
-            <Sms />
-        </div>
-        <div class="header__tabs__content">
             <Login />
         </div>
     </div>
@@ -28,12 +25,11 @@
 
 <script>
 import Login from './Login'
-import Sms from './Sms'
 import Eds from './Eds'
 
 export default {
     components: {
-        Login, Sms, Eds
+        Login, Eds
     },
     data() {
         return {
@@ -44,13 +40,8 @@ export default {
                     active: true,
                 },
                 {
-                    name: 'SMS вход',
-                    id: 1,
-                    active: false,
-                },
-                {
                     name: 'Логин',
-                    id: 2,
+                    id: 1,
                     active: false,
                 }
             ]
@@ -86,7 +77,7 @@ export default {
         background: #FDE88D;
         overflow: hidden;
         .header__tabs__block {
-            width: 33%;
+            width: 50%;
             height: 46px;
             background: #fff;
             cursor: pointer;
@@ -109,7 +100,7 @@ export default {
             }
         }
         .header__tabs__block__active {
-            width: 33%;
+            width: 50%;
             height: 46px;
             background: #FDE88D;
             cursor: pointer;
