@@ -7,6 +7,13 @@ export const routes = [
       component: () => import('../views/Main.vue'),
     },
     {
+      path: '/password/:hash',
+      name: 'Password',
+      component: () => import('../views/empty/Password.vue'),
+      meta: {layout: 'not_authorized', requiresAuth: false},
+      beforeEnter: authGuard
+    },
+    {
       path: '/login',
       name: 'Auth',
       component: () => import('../views/empty/Auth.vue'),
