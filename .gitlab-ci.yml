@@ -32,9 +32,9 @@ deploy to stage server:
     - echo "$SSH_PRIVATE_KEY_BETA" >> key.pem
     - chmod 400 key.pem
   script:
-    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 "cd /home/eqonaq/www/guest.stage.eqonaq.kz && git checkout ."
-    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 "git -C /home/eqonaq/www/guest.stage.eqonaq.kz pull origin master"
-    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 "cd /home/eqonaq/www/guest.stage.eqonaq.kz && npm install && npm run build"
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 -p 2232 "cd /home/eqonaq/www/guest.stage.eqonaq.kz && git checkout ."
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 -p 2232 "git -C /home/eqonaq/www/guest.stage.eqonaq.kz pull origin master"
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 -p 2232 "cd /home/eqonaq/www/guest.stage.eqonaq.kz && npm install && npm run build"
   after_script:
     - rm key.pem
   only:
