@@ -105,7 +105,7 @@ export default {
                         message: error.response.data.message,
                         type: 'error',
                         position: 'bottom',
-                        duration: 1500,
+                        duration: 5000,
                         queue: true
                     });
                 });  

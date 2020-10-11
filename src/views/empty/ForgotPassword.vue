@@ -102,7 +102,7 @@ export default {
                         message: error.response.data.message,
                         type: 'error',
                         position: 'bottom',
-                        duration: 2000,
+                        duration: 5000,
                         queue: true
                     });
                 });  
