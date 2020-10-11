@@ -161,7 +161,7 @@
                                 <div class="error__text" v-if="!$v.apartment_number.numeric">Поле 'Номер квартиры' введите только цифры</div>
                             </div>
                         </div>
-                        <button @click="registarations">РЕГИСТРАЦИЯ</button>
+                        <button :disabled="disabled__button" @click="registarations">РЕГИСТРАЦИЯ</button>
                     </div>
                 </div>
                 
@@ -222,6 +222,7 @@ export default {
             
             showEdsForm: false,
             police: false,
+            disabled__button: false,
 
             modal: false,
             region__array: [],
@@ -299,6 +300,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
+                this.disabled__button = true
                 this.$Progress.start()
                 this.$axios({ 
                     method: 'post',
@@ -341,8 +343,11 @@ export default {
                         type: false,
                     }
                     this.SIGN_IN_USER(data__profile)
+                    this.disabled__button = false
+
                 })  
                 .catch((error) => {
+                    this.disabled__button = false
                     this.$Progress.fail()
                     this.$toast.open({
                         message: error.response.data.message,

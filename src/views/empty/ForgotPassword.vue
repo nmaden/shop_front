@@ -1,15 +1,13 @@
 <template>
     <div class="add__password">
+        <Nav class="navbar" />
         <div class="add__password__form">
             <img src="../../assets/logo/logo.svg" alt="logo">
-            <input type="password" v-model.trim="new__password" placeholder="Введите пароль">
-            <div class="error__text" v-if="$v.new__password.$dirty && !$v.new__password.required">Поле 'Новый пароль' обязателен к заполнению</div>
-            <div class="error__text" v-if="!$v.new__password.minLength">Минимальная длина пароля 8 символов</div>
-            <div class="error__text" v-if="!$v.new__password.maxLength">Максимальная длина пароля 42 символа</div>
-            <input type="password" v-model.trim="new__password__repeat" placeholder="Повторите пароль">
-            <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.required">Поле 'Повторить новый пароль' обязателен к заполнению</div>
-            <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.sameAs">Пароли не совпадают</div>
-            <button :disabled="disabled__button" @click="sendPassword">
+            <input type="text" v-model.trim="email" placeholder="Введите электронный адрес">
+            <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'электронный адрес' обязателен к заполнению</div>
+            <div class="error__text" v-if="$v.email.$dirty && !$v.email.email">Введите корректный 'электронный адрес' </div>
+            
+            <button :disabled="disabled__button" @click="forgotPassword">
                 Отправить
             </button>
         </div>
@@ -24,7 +22,7 @@
             <v-card>
                 <div class="type__registration">
                     <h2>
-                        Пароль успешно изменён
+                        Ссылка с восстановлением пароля отправлено на ваш электронный адрес
                     </h2>
                     <div class="type__registration__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
@@ -40,30 +38,28 @@
     </div>
 </template>
 <script>
-import { required, sameAs, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, email } from 'vuelidate/lib/validators'
+import Nav from '../components/NavHeader'
 
 export default {
     data () {
         return {
-            new__password: null,
-            new__password__repeat: null,
-            modal: false,
+            email: null,
             disabled__button: false,
+            modal: false
         }
+    },
+    components: {
+        Nav
     },
     validations: {
-        new__password: {
+        email: {
             required,
-            minLength: minLength(8),
-            maxLength: maxLength(42),
+            email
         },
-        new__password__repeat: {
-            sameAs: sameAs('new__password'),
-            required, 
-        }
     },
     methods: {
-        sendPassword () {
+        forgotPassword () {
             if (this.$v.$invalid) {
                 this.$toast.open({
                     message: 'Заполните необходимые поля',
@@ -77,16 +73,17 @@ export default {
             } else {
                 this.disabled__button = true
                 this.$axios({ 
-                    method: 'post',
+                    method: 'put',
                     url: this.$API_URL + this.$API_VERSION_2 + 'password',
                     data: {
-                        hash: this.$route.params.hash,
-                        password: this.new__password,
+                        email: this.email,
                     }
                 })
                 .then((response) => {
-                    this.disabled__button = false
                     this.$Progress.finish()
+                    this.email = null
+                    this.modal = true
+                    this.disabled__button = false
                     this.$toast.open({
                         message: response.data.message,
                         type: 'success',
@@ -94,18 +91,18 @@ export default {
                         duration: 1500,
                         queue: true
                     });
-                    this.new__password = null
-                    this.new__password__repeat = null
-                    this.modal = true
                 })
                 .catch((error) => {
                     this.disabled__button = false
+
                     this.$Progress.fail()
+                    console.log(error);
+
                     this.$toast.open({
                         message: error.response.data.message,
                         type: 'error',
                         position: 'bottom',
-                        duration: 1500,
+                        duration: 2000,
                         queue: true
                     });
                 });  
@@ -128,8 +125,8 @@ export default {
     h2 {
         font-style: normal;
         font-weight: 600;
-        font-size: 30px;
-        line-height: 37px;
+        font-size: 20px;
+        line-height: 23px;
         letter-spacing: -0.05em;
         color: #000000;
          @media (max-width: @mobile) {
@@ -172,11 +169,18 @@ export default {
 }
 
 .add__password {
-    width: 100%;
+    width: 85%;
     height: 100vh;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    .navbar {
+        position: absolute;
+        top: 40px;
+        left: 0;
+    }
     .add__password__form {
         width: 400px;
         padding: 10px;

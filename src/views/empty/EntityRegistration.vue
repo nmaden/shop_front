@@ -210,7 +210,7 @@
                             </div>
 
                         </div>
-                        <button @click="registarations">РЕГИСТРАЦИЯ</button>
+                        <button :disabled="disabled__button" @click="registarations">РЕГИСТРАЦИЯ</button>
                     </div>
                 </div>
             </div>
@@ -281,6 +281,7 @@ export default {
             locality__array: [],
             additional_fields: false,
             additinal__validation: false,
+            disabled__button: false,
 
             showEdsForm: false,
             police: false,
@@ -365,6 +366,8 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
+                this.disabled__button = true
+
                 this.$Progress.start()
                 if (this.additional_fields == true) {
                     this.sendObj = {
@@ -416,8 +419,11 @@ export default {
                     this.phone = null
                     this.bin = null
                     this.role = null
+                    this.disabled__button = false
+
                 })  
                 .catch((error) => {
+                    this.disabled__button = false
                     this.$Progress.fail()
                     this.$toast.open({
                         message: error.response.data.message,
@@ -426,6 +432,7 @@ export default {
                         duration: 1500,
                         queue: true
                     });
+
                 });              
             }
         },

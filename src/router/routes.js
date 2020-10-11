@@ -14,6 +14,13 @@ export const routes = [
       // beforeEnter: authGuard
     },
     {
+      path: '/forgot',
+      name: 'Forgot',
+      component: () => import('../views/empty/ForgotPassword.vue'),
+      meta: {layout: 'not_authorized', requiresAuth: false},
+      beforeEnter: authGuard
+    },
+    {
       path: '/login',
       name: 'Auth',
       component: () => import('../views/empty/Auth.vue'),

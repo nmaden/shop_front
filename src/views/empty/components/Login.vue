@@ -7,7 +7,7 @@
                 </label>
                 <input type="text" v-model.trim="email" id="email">
                 <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
-                <div class="error__text" v-if="$v.password.$dirty && !$v.email.email">Введите корректный 'E-mail' </div>
+                <div class="error__text" v-if="$v.email.$dirty && !$v.email.email">Введите корректный 'E-mail' </div>
                 
                 <label for="password">
                     Пароль
@@ -15,8 +15,8 @@
                 <input type="password" v-model.trim="password" id="password">
                 <div class="error__text" v-if="$v.password.$dirty && !$v.password.required">Поле 'Пароль' обязателен к заполнению</div>
 
-                <!-- <p>Забыли пароль?</p> -->
-                <button type="submit">Войти</button> 
+                <router-link tag="a" to="/forgot"><p>Забыли пароль?</p></router-link>
+                <button :disabled="disabled__button" type="submit">Войти</button> 
             </form>
             
         </div>
@@ -32,6 +32,7 @@ export default {
         return {
             email: '',
             password: '',
+            disabled__button: false,
         }
     },
     validations: {
@@ -60,6 +61,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
+                this.disabled__button = true
                 this.$Progress.start()
                 this.$axios({ 
                     method: 'post',
@@ -70,6 +72,7 @@ export default {
                     }
                 })
                 .then((response) => {
+                    this.disabled__button = false
                     this.$Progress.finish()
                     this.is_entity = response.data.is_entity
                     console.log(response)
@@ -85,6 +88,7 @@ export default {
                     }
                 })
                 .catch((error) => {
+                    this.disabled__button = false
                     this.$Progress.fail()
                     if (error.response.status == 401) {
                         this.$toast.open({
@@ -110,6 +114,9 @@ export default {
    
     .login__form {
         width: 100%;
+        a {
+            text-decoration: none;
+        }
         .error__text {
             color: red;
             font-size: 12px;

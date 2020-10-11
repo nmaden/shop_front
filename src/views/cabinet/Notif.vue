@@ -654,6 +654,13 @@ export default {
         },
         sendNotif () {
             if (this.$v.$invalid) {
+                 this.$toast.open({
+                    message: 'Заполните необходимые поля',
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 2000,
+                    queue: true
+                });
                 this.$v.$touch()
                 return 
             } else {  
