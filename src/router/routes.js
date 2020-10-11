@@ -11,7 +11,7 @@ export const routes = [
       name: 'Password',
       component: () => import('../views/empty/Password.vue'),
       meta: {layout: 'not_authorized', requiresAuth: false},
-      beforeEnter: authGuard
+      // beforeEnter: authGuard
     },
     {
       path: '/login',
