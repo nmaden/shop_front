@@ -339,10 +339,7 @@ export default {
         sign_out () {
             this.$store.dispatch('SIGN_OUT_USER')
             localStorage.clear()
-            console.log(this.GET_TOKEN.length);
-            if (this.$route.path !== '/') {
-                this.$router.push('/')
-            } 
+            
             this.sign_out_modal = false
             this.$toast.open({
                 message: 'Вы вышли с личного кабинета',

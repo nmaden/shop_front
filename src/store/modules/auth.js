@@ -1,3 +1,5 @@
+import router from '../../router'
+
 export default {
     state: {
         token: [],
@@ -12,6 +14,9 @@ export default {
         },
         LOGOUT: (state) => {
             state.token = []
+            if (router.path !== '/') {
+                router.push('/')
+            } 
         }
     },
     actions: {
