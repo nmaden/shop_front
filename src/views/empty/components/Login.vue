@@ -90,15 +90,13 @@ export default {
                 .catch((error) => {
                     this.disabled__button = false
                     this.$Progress.fail()
-                    if (error.response.status == 401) {
-                        this.$toast.open({
-                            message: 'неверный логин или пароль!',
-                            type: 'error',
-                            position: 'bottom',
-                            duration: 1500,
-                            queue: true
-                        });
-                    }
+                    this.$toast.open({
+                        message: error.response.data.message,
+                        type: 'error',
+                        position: 'bottom',
+                        duration: 2500,
+                        queue: true
+                    });
                 });    
             }
         },
