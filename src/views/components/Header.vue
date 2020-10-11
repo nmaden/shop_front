@@ -184,7 +184,7 @@
 
         <v-dialog
             v-model="sign_out_modal"
-            max-width="310"
+            max-width="320"
             style="z-index: 9999"
         >
             <v-card>
@@ -195,13 +195,6 @@
                 </v-card-title>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn
-                        color="#000"
-                        @click="sign_out_modal = false"
-                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
-                    >
-                        Нет
-                    </v-btn>
 
                     <v-btn
                         style="background: rgb(255 206 3); font-family: 'MontserratBold'"
@@ -209,6 +202,14 @@
                         @click="sign_out"
                     >
                         Да
+                    </v-btn>
+
+                     <v-btn
+                        color="#000"
+                        @click="sign_out_modal = false"
+                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
+                    >
+                        Нет
                     </v-btn>
                 </v-card-actions>
             </v-card>

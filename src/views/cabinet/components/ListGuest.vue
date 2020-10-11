@@ -73,7 +73,7 @@
 
         <v-dialog
             v-model="deleteDialog"
-            max-width="290"
+            max-width="320"
         >
             <v-card>
                 <v-card-title class="headline">
@@ -83,19 +83,20 @@
                 </v-card-title>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn
-                        color="#000"
-                        @click="deleteDialog = false"
-                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
-                    >
-                        Нет
-                    </v-btn>
 
                     <v-btn
                         style="background: rgb(255 206 3); font-family: 'MontserratBold'"
                         color="#000"
                     >
                         Да
+                    </v-btn>
+
+                    <v-btn
+                        color="#000"
+                        @click="deleteDialog = false"
+                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
+                    >
+                        Нет
                     </v-btn>
                 </v-card-actions>
             </v-card>
