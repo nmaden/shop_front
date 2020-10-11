@@ -64,7 +64,7 @@ export default {
                 })
                 .catch((error) => {
                     this.$Progress.fail()
-                    console.log(response);
+                    console.log(error);
                 });  
             }
         }
