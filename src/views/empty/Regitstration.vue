@@ -169,7 +169,6 @@
         </div>
 
         <!-- modal window -->
-
         <v-dialog
             v-model="modal"
             max-width="500"
