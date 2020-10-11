@@ -61,10 +61,23 @@ export default {
                 .then((response) => {
                     this.$Progress.finish()
                     console.log(response);
+                    this.$toast.open({
+                        message: response.data.message,
+                        type: 'success',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
                 })
                 .catch((error) => {
                     this.$Progress.fail()
-                    console.log(error);
+                    this.$toast.open({
+                        message: error.response.data.message,
+                        type: 'error',
+                        position: 'bottom',
+                        duration: 1500,
+                        queue: true
+                    });
                 });  
             }
         }
