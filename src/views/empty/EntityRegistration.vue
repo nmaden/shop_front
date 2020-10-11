@@ -537,7 +537,7 @@ export default {
                             message: response.data.message,
                             type: 'success',
                             position: 'bottom',
-                            duration: 3000,
+                            duration: 10000,
                             queue: true
                         });
                     }

@@ -189,6 +189,7 @@ export default {
         font-style: normal;
         font-weight: 500;
         font-size: 28px;
+        font-family: "MontserratBold";
         span {
             text-transform: uppercase;
         }
