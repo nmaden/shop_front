@@ -466,7 +466,7 @@ export default {
                     message: error.response.data.message,
                     type: 'error',
                     position: 'bottom',
-                    duration: 1500,
+                    duration: 3000,
                     queue: true
                 });
             });    
