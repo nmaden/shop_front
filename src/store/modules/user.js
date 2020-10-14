@@ -4,11 +4,15 @@ import router from '../../router'
 export default {
     state: {
         user_name: '',
+        password_expired: null
     },
     mutations: {
         USER: (state, user) => {
             state.user = user
         },
+        PASSWORD_EXPIRED: (state, password_expired) => {
+            state.password_expired = password_expired
+        }
     },
     actions: {
         USER_DATA({commit}) {
@@ -20,6 +24,7 @@ export default {
                 },
             })
             .then((response) => {
+               commit('PASSWORD_EXPIRED', response.data.password_expired)
                commit('USER', response.data.profile)
                if (this.getters.GET_REDIRECT == true) {
                   router.push('/profile')
@@ -33,6 +38,9 @@ export default {
     getters: {
         GET_USER_DATA(state) {
             return state.user
+        },
+        GET_PASSWORD_EXPIRED_DATA(state) {
+            return state.password_expired
         },
     },
 }

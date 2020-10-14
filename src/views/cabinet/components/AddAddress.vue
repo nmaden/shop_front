@@ -193,7 +193,7 @@ export default {
                     message: 'Заполните необходимые поля',
                     type: 'error',
                     position: 'bottom',
-                    duration: 1500,
+                    duration: 5000,
                     queue: true
                 });
                 this.$v.$touch()
@@ -221,7 +221,7 @@ export default {
                         message: response.data.message,
                         type: 'success',
                         position: 'bottom',
-                        duration: 1500,
+                        duration: 5000,
                         queue: true
                     })
                     this.$emit('update__address')
@@ -232,7 +232,7 @@ export default {
                         message: error.response.data.message,
                         type: 'error',
                         position: 'bottom',
-                        duration: 1500,
+                        duration: 5000,
                         queue: true
                     });
                 });    
@@ -244,7 +244,7 @@ export default {
                     message: 'Заполните необходимые поля',
                     type: 'error',
                     position: 'bottom',
-                    duration: 1500,
+                    duration: 5000,
                     queue: true
                 });
                 this.$v.$touch()
@@ -272,7 +272,7 @@ export default {
                         message: response.data.message,
                         type: 'success',
                         position: 'bottom',
-                        duration: 1500,
+                        duration: 5000,
                         queue: true
                     })
                     this.$emit('update__address')
@@ -283,7 +283,7 @@ export default {
                         message: error.response.data.message,
                         type: 'error',
                         position: 'bottom',
-                        duration: 1500,
+                        duration: 5000,
                         queue: true
                     });
                 });    

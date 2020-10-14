@@ -135,7 +135,7 @@ export default {
         this.getAddress()
     },
     computed: {
-        ...mapGetters(['GET_USER_DATA', 'GET_TOKEN']),
+        ...mapGetters(['GET_USER_DATA', 'GET_TOKEN', 'GET_PASSWORD_EXPIRED_DATA']),
     }
 }
 </script>

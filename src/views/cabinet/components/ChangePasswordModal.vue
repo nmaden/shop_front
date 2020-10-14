@@ -77,7 +77,7 @@ export default {
                     message: 'Заполните необходимые поля',
                     type: 'error',
                     position: 'bottom',
-                    duration: 1500,
+                    duration: 5000,
                     queue: true
                 });
                 this.$v.$touch()
@@ -101,7 +101,7 @@ export default {
                             message: 'Минимальная длина пароля 8 символов максимальная 42 символа',
                             type: 'error',
                             position: 'bottom',
-                            duration: 2000,
+                            duration: 5000,
                             queue: true
                         });
                     } else {
@@ -109,7 +109,7 @@ export default {
                             message: response.data.message,
                             type: 'success',
                             position: 'bottom',
-                            duration: 1500,
+                            duration: 5000,
                             queue: true
                         });
                         this.modal = false
@@ -120,7 +120,13 @@ export default {
                 })  
                 .catch((error) => {
                     this.$Progress.fail()
-                    console.log(error)
+                    this.$toast.open({
+                        message: error.response.data.message,
+                        type: 'error',
+                        position: 'bottom',
+                        duration: 5000,
+                        queue: true
+                    });
                 });  
                 
             }

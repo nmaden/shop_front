@@ -55,7 +55,7 @@ export default {
                     message: 'Заполните необходимые поля',
                     type: 'error',
                     position: 'bottom',
-                    duration: 1500,
+                    duration: 5000,
                     queue: true
                 });
                 this.$v.$touch()
@@ -75,7 +75,6 @@ export default {
                     this.disabled__button = false
                     this.$Progress.finish()
                     this.is_entity = response.data.is_entity
-                    console.log(response)
                     if (response.data.is_entity == 1) {
                         document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz; max-age=30"
                         window.location.href = 'https://cabinet.eqonaq.kz'
@@ -94,7 +93,7 @@ export default {
                         message: error.response.data.message,
                         type: 'error',
                         position: 'bottom',
-                        duration: 2500,
+                        duration: 5000,
                         queue: true
                     });
                 });    

@@ -29,7 +29,7 @@ export default {
                     message: 'Убедитесь, что программа NCALayer запущена',
                     type: 'error',
                     position: 'bottom',
-                    duration: 2500,
+                    duration: 5000,
                     queue: true
                 });
             } else {
@@ -75,7 +75,7 @@ export default {
                         message: 'Пользователь не существует в системе! Обратитесь администратору!',
                         type: 'error',
                         position: 'bottom',
-                        duration: 1500,
+                        duration: 5000,
                         queue: true
                     });
                 }
