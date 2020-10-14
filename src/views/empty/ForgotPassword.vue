@@ -22,7 +22,7 @@
             <v-card>
                 <div class="type__registration">
                     <h2>
-                        Ссылка с восстановлением пароля отправлено на ваш электронный адрес
+                        Ссылка с восстановлением пароля отправлена на ваш электронный адрес
                     </h2>
                     <div class="type__registration__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">

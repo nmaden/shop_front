@@ -225,12 +225,13 @@
             <v-card>
                 <div class="type__registration">
                     <h2>
-                        Регистрация прошла успешно
+                       Заявка на регистрацию успешна отправлена
                     </h2>
                     <div class="type__registration__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
                         <p>
-                            Вам на почту отправлено письмо с вашим паролем для авторизации в системе.
+                            После одобрения заявки, ваш личный кабинет будет доступен. <br>
+                            При возникновении вопросов пишите письмо на почту <a href="mailto:support@eqonaq.kz">support@eqonaq.kz</a>
                         </p>
                         <router-link to="/login">
                             <button>
@@ -612,7 +613,7 @@ export default {
         p {
             font-style: normal;
             font-weight: 300;
-            font-size: 12px;
+            font-size: 13px;
             line-height: 15px;
             letter-spacing: -0.05em;
             color: #000000;

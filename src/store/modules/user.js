@@ -24,6 +24,7 @@ export default {
                 },
             })
             .then((response) => {
+                console.log(response);
                commit('PASSWORD_EXPIRED', response.data.password_expired)
                commit('USER', response.data.profile)
                if (this.getters.GET_REDIRECT == true) {

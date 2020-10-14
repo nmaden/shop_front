@@ -526,7 +526,7 @@ export default {
         p {
             font-style: normal;
             font-weight: 300;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 15px;
             letter-spacing: -0.05em;
             color: #000000;

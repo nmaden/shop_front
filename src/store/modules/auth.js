@@ -14,7 +14,7 @@ export default {
         },
         LOGOUT: (state) => {
             state.token = []
-            if (router.path !== '/') {
+            if (router.history.current.path !== '/') {
                 router.push('/')
             } 
         }
