@@ -8,6 +8,9 @@
                  <h3>
                      Изменить пароль
                  </h3>
+                 <p>
+                     Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы.
+                 </p>
                  <div class="registrations__form">
                     <div class="input__block">
                         <label for="old__password">
@@ -156,13 +159,19 @@ export default {
         padding: 10px;
     }
     h3 {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         font-family: "MontserratBold";
         font-size: 30px;
         @media (max-width: @mobile) {
             font-size: 20px;
             margin-bottom: 10px;
         }
+    }
+    p {
+        margin: 0;
+        margin-bottom: 10px;
+        font-size: 15px;
+        line-height: 17px;
     }
     .registrations__form {
         width: 100%;
