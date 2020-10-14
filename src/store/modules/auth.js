@@ -1,4 +1,5 @@
 import router from '../../router'
+import axios from 'axios'
 
 export default {
     state: {
@@ -12,11 +13,26 @@ export default {
         REDIRECT: (state, type) => {
             state.redirect = type
         },
-        LOGOUT: (state) => {
-            state.token = []
-            if (router.history.current.path !== '/') {
-                router.push('/')
-            } 
+        LOGOUT: (state, token) => {
+            axios({ 
+                method: 'post',
+                url: process.env.VUE_APP_API_URL + process.env.VUE_APP_API_VERSION + 'auth/logout',
+                headers: {
+                    'Authorization': `Bearer ${token}` 
+                },
+                data: {}
+            })
+            .then((response) => {
+                if (response.status == 200) {
+                    state.token = []
+                    if (router.history.current.path !== '/') {
+                        router.push('/')
+                    } 
+                } 
+            })
+            .catch((error) => {
+                console.log(error);
+            });    
         }
     },
     actions: {
@@ -26,7 +42,7 @@ export default {
             this.dispatch('USER_DATA')
         },
         SIGN_OUT_USER ({commit}) {
-            commit('LOGOUT')
+            commit('LOGOUT', this.getters.GET_TOKEN[0])
         },
     },
     getters: {

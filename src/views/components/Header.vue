@@ -338,9 +338,10 @@ export default {
             this.show_mobile_menu = false
         },
         sign_out () {
+            this.$Progress.finish()
+            this.sign_out_modal = false
             this.$store.dispatch('SIGN_OUT_USER')
             localStorage.clear()
-            this.sign_out_modal = false
             this.$toast.open({
                 message: 'Вы вышли с личного кабинета',
                 type: 'warning',

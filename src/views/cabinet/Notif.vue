@@ -913,7 +913,6 @@ export default {
             }, 2000)
         },
         sendBase64Capture(img) {
-            this.$Progress.start()
             this.loader_scan = true
             this.$axios({ 
                 method: 'post',
@@ -960,13 +959,10 @@ export default {
                         duration: 5000,
                     })
                     this.checkCountry()
-                    this.$Progress.finish()
                 }
             })
-            .catch(e => {
-                console.log(e)
+            .catch(() => {
                 this.capturePhoto()
-                this.$Progress.fail()
             })
         },
         sendBase64Uplodaded(img) {
@@ -1010,8 +1006,7 @@ export default {
                     this.$Progress.finish()
                 }
             })
-            .catch(e => {
-                console.log(e)
+            .catch(() => {
                 this.capturePhoto()
                 this.$Progress.fail()
             })

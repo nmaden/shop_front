@@ -50,7 +50,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
-                console.log('ok reg')                 
+                console.log('test')                 
             }
         },
     }
