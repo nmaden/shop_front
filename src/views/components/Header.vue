@@ -636,20 +636,19 @@ export default {
             }
             .mobile__menu__list__flex {
                 width: 100%;
-                display: flex;
-                justify-content: flex-start;
-                flex-wrap: wrap;
                 margin-top: 7px;
                 height: 50%;
                 overflow-y: scroll;
                 .mobile__menu__list__flex__block {
-                    padding: 7px 14px;
-                    border-radius: 30px;
+                    padding: 10px;
+                    border-radius: 12px;
                     cursor: pointer;
-                    border: 3px solid #FDE88D;
+                    border: 2px solid #FDE88D;
                     margin-right: 10px;
                     margin-bottom: 10px;
+                    float: left;
                     color: #fff;
+                    text-align: center;
                     &:hover {
                         background: #FDE88D;
                         color: #000;
