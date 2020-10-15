@@ -14,6 +14,9 @@ export default {
             state.redirect = type
         },
         LOGOUT: (state, token) => {
+            if (router.history.current.path !== '/') {
+                router.push('/')
+            } 
             axios({ 
                 method: 'post',
                 url: process.env.VUE_APP_API_URL + process.env.VUE_APP_API_VERSION + 'auth/logout',
@@ -25,10 +28,11 @@ export default {
             .then((response) => {
                 if (response.status == 200) {
                     state.token = []
-                    if (router.history.current.path !== '/') {
-                        router.push('/')
-                    } 
                 } 
+            })
+            .then(() => {
+                localStorage.clear()
+                location.reload()
             })
             .catch((error) => {
                 console.log(error);

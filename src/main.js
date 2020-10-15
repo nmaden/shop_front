@@ -9,8 +9,10 @@ import Moment from 'vue-moment'
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 import VueProgressBar from 'vue-progressbar'
+import IdleVue from 'idle-vue-3'
 import { i18n } from './plugins/i18n'
 import Scroll from './plugins/scroll'
+
 
 // options -------------------
 const options = {
@@ -26,6 +28,8 @@ const options = {
   location: 'top',
   inverse: false
 }
+
+const eventsHub = new Vue()
 
 // variables -------------------
 Vue.config.productionTip = false
@@ -43,6 +47,12 @@ Vue.use(Vuelidate)
 Vue.use(VueToast)
 Vue.use(Moment)
 Vue.use(VueProgressBar, options)
+
+Vue.use(IdleVue, {
+  eventEmitter: eventsHub,
+  idleTime: 1800000,
+  KeepTracking: false
+})
 
 // main config -----------------
 

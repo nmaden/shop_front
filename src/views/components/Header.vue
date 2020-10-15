@@ -341,7 +341,6 @@ export default {
             this.$Progress.finish()
             this.sign_out_modal = false
             this.$store.dispatch('SIGN_OUT_USER')
-            localStorage.clear()
             this.$toast.open({
                 message: 'Вы вышли с личного кабинета',
                 type: 'warning',
@@ -349,7 +348,6 @@ export default {
                 duration: 4000,
                 queue: true
             });
-            location.reload()
         },
         scrollMenu (e) {
             let menu__item = this.$refs.menu__item
