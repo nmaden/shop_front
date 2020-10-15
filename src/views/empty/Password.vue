@@ -3,7 +3,7 @@
         <div class="add__password__form">
             <img src="../../assets/logo/logo.svg" alt="logo">
             <p>
-                Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы.
+                Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы. Минимальное  количество символов 8 шт.
             </p>
             <input type="password" v-model.trim="new__password" placeholder="Введите пароль">
             <div class="error__text" v-if="$v.new__password.$dirty && !$v.new__password.required">Поле 'Новый пароль' обязателен к заполнению</div>

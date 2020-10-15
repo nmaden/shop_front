@@ -1,8 +1,11 @@
 <template>
-    <div class="add__password">
+    <div class="forgot__password">
         <Nav class="navbar" />
-        <div class="add__password__form">
+        <div class="forgot__password__form">
             <img src="../../assets/logo/logo.svg" alt="logo">
+            <p>
+                Восстановления пароля
+            </p>
             <input type="text" v-model.trim="email" placeholder="Введите электронный адрес">
             <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'электронный адрес' обязателен к заполнению</div>
             <div class="error__text" v-if="$v.email.$dirty && !$v.email.email">Введите корректный 'электронный адрес' </div>
@@ -168,7 +171,7 @@ export default {
     }
 }
 
-.add__password {
+.forgot__password {
     width: 85%;
     height: 100vh;
     margin: 0 auto;
@@ -181,7 +184,7 @@ export default {
         top: 40px;
         left: 0;
     }
-    .add__password__form {
+    .forgot__password__form {
         width: 400px;
         padding: 10px;
         background: #fff;
@@ -197,8 +200,16 @@ export default {
             top: -10px;
         }
         img {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             margin-top: 10px;
+        }
+        p {
+           font-size: 22px;
+            line-height: 17px;
+            color: #212121;
+            margin: 0;
+            margin-bottom: 19px;
+            font-weight: bold;
         }
         input {
             width: 100%;
@@ -208,6 +219,7 @@ export default {
             margin-bottom: 15px;
             padding-left: 10px;
             outline-color: #FDE88D;
+            text-align: center;
         }
         button {
             width: 100%;
