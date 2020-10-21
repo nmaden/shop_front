@@ -99,6 +99,7 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
+@planshet: 1200px;
 
 .telephones {
     width: 100%;
@@ -112,6 +113,9 @@ export default {
         width: 1200px;
         margin: 0 auto;
         margin-top: 65px;
+        @media (max-width: @planshet) {
+            width: 95%;
+        }
         @media (max-width: @mobile) {
             width: 95%;
             margin-top: 10px;
@@ -159,6 +163,9 @@ export default {
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
+            @media (max-width: @planshet) {
+                width: 95%;
+            }
             @media (max-width: @mobile) {
                 width: 95%;
             }

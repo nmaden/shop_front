@@ -74,7 +74,7 @@ export default {
 @mobile: 900px;
 .service {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 50px;
     @media (max-width: @mobile) {
         margin-top: 25px;
     }
@@ -113,7 +113,7 @@ export default {
     p {
         font-weight: bold;
         font-size: 24px;
-        margin-top: 40px;
+        margin-top: 60px;
         font-style: normal;
         line-height: 29px;
         font-family: 'MontserratBold';

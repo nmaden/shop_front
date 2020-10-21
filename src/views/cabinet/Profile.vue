@@ -38,7 +38,7 @@
 
                         <router-link v-if="addressStatus.length > 1" tag="a" to="/address">
                             <h5>
-                                Просмотреть все адреса
+                                Показать все адреса
                             </h5>
                         </router-link>
                     </div>
@@ -142,6 +142,7 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
+@planshet: 1200px;
 
 .profile {
     width: 100%;
@@ -154,6 +155,9 @@ export default {
         width: 1200px;
         margin: 0 auto;
         margin-top: 30px;
+        @media (max-width: @planshet) {
+            width: 95%;
+        }
         @media (max-width: @mobile) {
             width: 95%;
             margin-top: 10px;
@@ -178,6 +182,9 @@ export default {
             margin-right: 10px;
             &:hover {
                 opacity: 0.7;
+            }
+            @media (max-width: @planshet) {
+                margin-bottom: 10px;
             }
             @media (max-width: @mobile) {
                 padding: 10px 20px;
@@ -206,6 +213,9 @@ export default {
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
+            @media (max-width: @planshet) {
+                width: 95%;
+            }
             @media (max-width: @mobile) {
                 width: 95%;
             }

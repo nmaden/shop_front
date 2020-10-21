@@ -226,6 +226,7 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
+@planshet: 1200px;
 
 .cities__list {
     width: 100%;
@@ -335,7 +336,7 @@ export default {
     p {
         font-weight: bold;
         font-size: 24px;
-        margin-top: 30px;
+        margin-top: 80px;
         font-family: 'MontserratBold';
         @media (max-width: @mobile) {
             font-size: 17px;
@@ -378,6 +379,7 @@ export default {
                 background: #FFCE03;
                 margin-top: 20px;
                 border-radius: 10px;
+                
                 @media (max-width: @mobile) {
                     flex-wrap: wrap;
                 }
@@ -434,6 +436,8 @@ export default {
                     text-decoration: none;
                     &:hover {
                         opacity: .7;
+                    }
+                    @media (max-width: @planshet) {
                     }
                     @media (max-width: @mobile) {
                         width: 100%;

@@ -10,7 +10,7 @@
             <h2 
                 v-if="users.length == 0"
             >
-                У вас нет списока гостей
+                У вас нет списка гостей
             </h2>
             
             <div 
@@ -43,11 +43,6 @@
                         </p>
                     </div>
                     <div class="quest__list__r">
-                        <!-- <img 
-                            src="../../../assets/icons/delete.svg" 
-                            alt="edit"
-                            @click="deleteGetId(item.id)"
-                        > -->
                         <p>
                             <span>
                                 статус

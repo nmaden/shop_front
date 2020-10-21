@@ -661,6 +661,13 @@ export default {
                     duration: 5000,
                     queue: true
                 });
+                if (this.$v.picker.$model == null) {
+                    window.scroll({
+                        behavior: 'smooth',
+                        left: 0,
+                        top: 0
+                    });
+                }
                 this.$v.$touch()
                 return 
             } else {  

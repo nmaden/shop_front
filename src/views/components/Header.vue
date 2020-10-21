@@ -351,10 +351,10 @@ export default {
         },
         scrollMenu (e) {
             let menu__item = this.$refs.menu__item
-            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval)
+            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval, '.scroll__menu')
             this.menu_count = this.$menuCount()
         },
-        
+         
         scrollBodyOver () {
             disableScroll.on()
         },
@@ -367,7 +367,9 @@ export default {
                 this.$i18n.setLocaleMessage(this.lang, msg)
                 this.$i18n.locale = this.lang
             })
-        }
+        },
+    },
+    mounted () {
     },
     computed: {
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
@@ -377,6 +379,7 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
+@planshet: 1200px;
 
 .slide-fade-enter-active {
   transition: all .5s ease;
@@ -407,6 +410,10 @@ export default {
     padding-bottom: 15px;
     
     @media (max-width: @mobile) {
+        width: 95%;
+    }
+
+    @media (max-width: @planshet) {
         width: 95%;
     }
 
@@ -574,6 +581,15 @@ export default {
     position: relative;
     @media (max-width: @mobile) {
         display: none;
+    }
+    @media (max-width: @planshet) {
+        width: 95%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height: 76px;
+        &::-webkit-scrollbar {
+            width: 1px;
+        }
     }
 
     .menu {
