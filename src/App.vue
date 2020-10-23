@@ -10,6 +10,11 @@
 <script>
 export default {
   name: 'App',
+  onIdle() {
+    if (this.$store.getters.GET_TOKEN.length !== 0) {
+        this.$store.dispatch('SIGN_OUT_USER')
+    }
+  },
 };
 </script>
 

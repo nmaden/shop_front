@@ -18,7 +18,7 @@
              </h4>
              <div class="migrations__select">
                 <img src="../../assets/icons/search.svg" alt="search">
-                <img class="flag" v-show="country_id !== null" :src="country_flag" alt="search">
+                <img class="flag" v-show="country_id !== null" :src="country_flag" alt="flag">
                 <v-autocomplete
                     v-model.trim="country_id"
                     :items="countries"
@@ -134,6 +134,7 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
+@planshet: 1200px;
 
 .migrations {
     width: 100%;
@@ -147,6 +148,9 @@ export default {
         @media (max-width: @mobile) {
             width: 95%;
             margin-top: 10px;
+        }
+        @media (max-width: @planshet) {
+            width: 95%;
         }
         h1 {
             font-style: normal;
@@ -187,6 +191,9 @@ export default {
         margin-top: 20px;
         padding-top: 20px;
         padding-bottom: 20px;
+        @media (max-width: @planshet) {
+            width: 95%;
+        }
         @media (max-width: @mobile) {
             width: 95%;
             margin-top: 10px;

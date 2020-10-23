@@ -84,4 +84,9 @@ export const routes = [
       name: 'Search',
       component: () => import('../views/cabinet/Search.vue'),
     },
+    {
+      path: '*',
+      name: '404',
+      component: () => import('../views/cabinet/404.vue'),
+    },
 ]

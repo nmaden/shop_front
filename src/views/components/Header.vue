@@ -341,7 +341,6 @@ export default {
             this.$Progress.finish()
             this.sign_out_modal = false
             this.$store.dispatch('SIGN_OUT_USER')
-            localStorage.clear()
             this.$toast.open({
                 message: 'Вы вышли с личного кабинета',
                 type: 'warning',
@@ -349,14 +348,13 @@ export default {
                 duration: 4000,
                 queue: true
             });
-            location.reload()
         },
         scrollMenu (e) {
             let menu__item = this.$refs.menu__item
-            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval)
+            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval, '.scroll__menu')
             this.menu_count = this.$menuCount()
         },
-        
+         
         scrollBodyOver () {
             disableScroll.on()
         },
@@ -369,7 +367,9 @@ export default {
                 this.$i18n.setLocaleMessage(this.lang, msg)
                 this.$i18n.locale = this.lang
             })
-        }
+        },
+    },
+    mounted () {
     },
     computed: {
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
@@ -379,6 +379,7 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
+@planshet: 1200px;
 
 .slide-fade-enter-active {
   transition: all .5s ease;
@@ -409,6 +410,10 @@ export default {
     padding-bottom: 15px;
     
     @media (max-width: @mobile) {
+        width: 95%;
+    }
+
+    @media (max-width: @planshet) {
         width: 95%;
     }
 
@@ -577,6 +582,15 @@ export default {
     @media (max-width: @mobile) {
         display: none;
     }
+    @media (max-width: @planshet) {
+        width: 95%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height: 76px;
+        &::-webkit-scrollbar {
+            width: 1px;
+        }
+    }
 
     .menu {
         width: 100%;
@@ -636,20 +650,19 @@ export default {
             }
             .mobile__menu__list__flex {
                 width: 100%;
-                display: flex;
-                justify-content: flex-start;
-                flex-wrap: wrap;
                 margin-top: 7px;
                 height: 50%;
                 overflow-y: scroll;
                 .mobile__menu__list__flex__block {
-                    padding: 7px 14px;
-                    border-radius: 30px;
+                    padding: 10px;
+                    border-radius: 12px;
                     cursor: pointer;
-                    border: 3px solid #FDE88D;
+                    border: 2px solid #FDE88D;
                     margin-right: 10px;
                     margin-bottom: 10px;
+                    float: left;
                     color: #fff;
+                    text-align: center;
                     &:hover {
                         background: #FDE88D;
                         color: #000;

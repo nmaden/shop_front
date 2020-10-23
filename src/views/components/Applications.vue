@@ -62,7 +62,7 @@ export default {
     data () {
       return {
         menu_count: 0,
-        scrollInteval: 60,
+        scrollInteval: 30,
         applications: [
             {
                 title: 'AstraBus',
@@ -103,7 +103,7 @@ export default {
         },
         scrollMenu (e) {
             let menu__item = this.$refs.menu__item
-            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval)
+            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval, '.applications')
             this.menu_count = this.$menuCount()
         },
         scrollBodyOver () {
@@ -118,6 +118,7 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
+@planshet: 1200px;
 
 .applications {
     width: 100%;
@@ -131,7 +132,7 @@ export default {
     p {
         font-weight: bold;
         font-size: 24px;
-        margin-top: 30px;
+        margin-top: 80px;
         @media (max-width: @mobile) {
             font-size: 17px;
             margin-top: 25px;
@@ -222,6 +223,15 @@ export default {
         display: block;
         position: relative;
         height: 177px;
+        @media (max-width: @planshet) {
+            width: 100%;
+            overflow-x: scroll;
+            height: 195px;
+            overflow-y: hidden;
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+        }
         @media (max-width: @mobile) {
             display: none;
         }

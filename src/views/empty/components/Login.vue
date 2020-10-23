@@ -76,8 +76,12 @@ export default {
                     this.$Progress.finish()
                     this.is_entity = response.data.is_entity
                     if (response.data.is_entity == 1) {
+                        let origin = window.location.origin
+                        let origin__array = origin.replaceAll(/[./:]/g, ' ')
+                        let path = origin__array.split(' ').filter(item => item !== '')[1]
                         document.cookie = "token="+ response.data.token + "; domain=.eqonaq.kz; max-age=30"
-                        window.location.href = 'https://cabinet.eqonaq.kz'
+                        let url = path === 'eqonaq' ? 'https://cabinet.eqonaq.kz' : 'https://cabinet.'+path+'.eqonaq.kz'
+                        window.location.href = url
                     } else {
                         let data__profile = {
                             token: response.data.token,

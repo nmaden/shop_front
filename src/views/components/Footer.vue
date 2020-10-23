@@ -154,13 +154,16 @@ export default {
 
 <style lang="less" scoped>
 @mobile: 900px;
+@planshet: 1200px;
 
 .footer {
     background: #141414;
     overflow: hidden;
     width: 100%;
+    margin-top: 80px;
     @media (max-width: @mobile) {
         padding: 10px;
+        margin-top: 10px;
     }
     .footer__top {
         border-bottom: 1px solid #3D3526;
@@ -172,6 +175,9 @@ export default {
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
+            @media (max-width: @planshet) {
+                width: 95%;
+            }
             @media (max-width: @mobile) {
                 width: 95%;
                 flex-wrap: wrap;
@@ -203,6 +209,9 @@ export default {
                         
                         img {
                             width: 100%;
+                        }
+                        @media (max-width: @planshet) {
+                            width: 31%;
                         }
                         @media (max-width: @mobile) {
                             width: 26%;
@@ -270,6 +279,9 @@ export default {
         margin: 0 auto;
         margin-top: 30px;
         margin-bottom: 30px;
+        @media (max-width: @planshet) {
+            width: 95%;
+        }
         @media (max-width: @mobile) {
             width: 95%;
             margin-top: 10px;

@@ -73,7 +73,7 @@ export default {
     data () {
       return {
         menu_count: 0,
-        scrollInteval: 60,
+        scrollInteval: 35,
         places: [
             {
                 title: 'УЗНАЙТЕ БОЛЬШЕ О КАЗАХСТАНЕ НА kazakhstan.travel',
@@ -105,7 +105,7 @@ export default {
         },
         scrollMenu (e) {
             let menu__item = this.$refs.menu__item
-            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval)
+            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval, '.places')
             this.menu_count = this.$menuCount()
         },
         
@@ -122,6 +122,7 @@ export default {
 
 <style scoped lang="less">
 @mobile: 900px;
+@planshet: 1200px;
 
 .places {
     width: 100%;
@@ -134,7 +135,7 @@ export default {
     p {
         font-weight: bold;
         font-size: 24px;
-        margin-top: 30px;
+        margin-top: 60px;
         @media (max-width: @mobile) {
             font-size: 17px;
             margin-top: 10px;
@@ -224,7 +225,15 @@ export default {
         display: block;
         height: 466px;
         position: relative;
-
+        @media (max-width: @planshet) {
+            width: 100%;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            height: 480px;
+            &::-webkit-scrollbar {
+                width: 0px;
+            }
+        }
         @media (max-width: @mobile) {
             display: none;
         }
