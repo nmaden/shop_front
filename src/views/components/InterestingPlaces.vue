@@ -8,7 +8,7 @@
             <div class="places__type">
                 <div 
                     class="places__type__block__parrent"
-                    v-for="places_item in places"
+                    v-for="places_item in $t('interesting__places')"
                     :key="places_item.title"
                     @click="to_link(places_item.uri)"
                 >
@@ -40,7 +40,7 @@
             <div class="places__type" :style="'margin-left:' + this.menu_count + 'px'">
                 <div 
                     class="places__type__block__parrent"
-                    v-for="places_item in places"
+                    v-for="places_item in $t('interesting__places')"
                     :key="places_item.title"
                     @click="to_link(places_item.uri)"
                 >

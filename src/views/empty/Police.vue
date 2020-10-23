@@ -195,13 +195,15 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+@mobile: 900px;
+
 .scroll__police {
   width: 100%;
   height: 70%;
   position: absolute;
   overflow-y: scroll;
   left: 0;
-
+    
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -219,6 +221,9 @@ export default {
   .police {
     width: 85%;
     margin: 0 auto;
+    @media (max-width: @mobile) {
+      width: 95%;
+    }
     .police__title {
       width: 100%;
       text-align: center;
@@ -228,6 +233,9 @@ export default {
           font-weight: 500;
           font-size: 28px;
           font-family: "MontserratBold";
+          @media (max-width: @mobile) {
+            font-size: 16px;
+          }
           span {
               text-transform: uppercase;
           }
@@ -237,8 +245,19 @@ export default {
       text-align: left;
       margin-top: 20px;
       font-family: "MediumMedium";
+      @media (max-width: @mobile) {
+        padding-bottom: 14%;
+      }
       ul {
         list-style-type: circle;
+        @media (max-width: @mobile) {
+          font-size: 13px;
+        }
+      }
+      p {
+        @media (max-width: @mobile) {
+          font-size: 13px;
+        }
       }
     }
     .police__button {
@@ -257,12 +276,19 @@ export default {
         align-items: flex-start;
         padding-bottom: 10px;
         padding-top: 10px;
+        @media (max-width: @mobile) {
+            flex-wrap: wrap; 
+        }
         p {
           margin: 0;
           color: #a32f24;
           font-weight: normal;
           font-family: "MediumMedium";
           width: 80%;
+          @media (max-width: @mobile) {
+            font-size: 12px;
+            width: 100%;
+          }
         }
         .disabled__button {
           background: #ccc;
@@ -284,6 +310,13 @@ export default {
           border-radius: 30px;
           &:hover {
             opacity: 0.7;
+          }
+          @media (max-width: @mobile) {
+              padding: 10px 20px;
+              color: #000;
+              width: 100%;
+              font-size: 14px;
+              margin-top: 10px;
           }
         }
       }
