@@ -8,7 +8,7 @@
                 </h2>
 
                 <div class="registrations__form">
-                    <div @click="date_arrival = true" class="input__block">
+                    <div @click="date_arrival = true" class="input__block picker">
                         <label>
                             Дата заезда - выезда <span>*</span>
                         </label>
@@ -484,6 +484,7 @@
 <script>
 import Nav from '../components/NavHeader'
 import { required, email, requiredUnless } from 'vuelidate/lib/validators'
+import animateScrollTo from 'animated-scroll-to'
 import { mapGetters } from 'vuex'
 import { helpers } from 'vuelidate/lib/validators'
 const alpha = helpers.regex('numeric', /^[0-9,+,(), «»]*$/)
@@ -662,11 +663,9 @@ export default {
                     queue: true
                 });
                 if (this.$v.picker.$model == null) {
-                    window.scroll({
-                        behavior: 'smooth',
-                        left: 0,
-                        top: 0
-                    });
+                    animateScrollTo(document.querySelector('.picker'), {
+                        speed: 3000
+                    })
                 }
                 this.$v.$touch()
                 return 

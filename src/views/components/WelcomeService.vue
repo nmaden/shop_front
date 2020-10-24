@@ -1,8 +1,7 @@
 <template>
     <div class="service">
         <h1>
-            Добро пожаловать <br>
-            в информационную cистему eQonaq
+            {{$t('welcome__title')}}
         </h1>
 
         <div class="description">
@@ -15,13 +14,13 @@
         </div>
 
         <p>
-            Основные задачи
+            {{$t('welcome__task__title')}}
         </p>
 
         <div class="service__type">
             <div 
                 class="service__type__block"
-                v-for="service_item in service"
+                v-for="service_item in $t('welcome__service')"
                 :key="service_item.title"
             >   
                 <div class="service__type__block__img">
@@ -34,42 +33,7 @@
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    data () {
-      return {
-        service: [
-            {
-                img: require('../../assets/icons/1.svg'),
-                text: 'Создание единого реестра мест размещения.'
-            },
-            {
-                img: require('../../assets/icons/2.svg'),
-                text: 'Учет и контроль прибытия и убытия туристов.'
-            },
-            {
-                img: require('../../assets/icons/3.svg'),
-                text: 'Аналитика туристического потока и портрета туриста.'
-            },
-            {
-                img: require('../../assets/icons/4.svg'),
-                text: 'Инфраструктура для учета туристического сбора.'
-            },
-            {
-                img: require('../../assets/icons/5.svg'),
-                text: 'Предоставление различных сервисов для повышения качества пребывания туристов.'
-            },
-            {
-                img: require('../../assets/icons/6.svg'),
-                text: 'Уведомление МВД РК о прибытии иностранных туристов, во избежание штрафа по ст. 518'
-            },
-        ]
-      }
-    },
-}
-</script>
-
+ 
 <style scoped lang="less">
 @mobile: 900px;
 .service {

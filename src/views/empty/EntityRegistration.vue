@@ -16,6 +16,9 @@
                         <div class="registrations__form">
                             <button @click="handleSend">Выбрать ЭЦП</button>
                         </div>
+                        <p v-if="showEdsForm == false">
+                            Данный вид регистрации дает вам статус постоянного пользователя. Вы можете без ограничений пользоваться всеми услугами.
+                        </p>
                     </div>
                     
                     <div v-if="showEdsForm !== false">

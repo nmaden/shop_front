@@ -10,9 +10,16 @@
                 <div class="error__text" v-if="$v.email.$dirty && !$v.email.email">Введите корректный 'E-mail' </div>
                 
                 <label for="password">
-                    Пароль
+                    Пароль 
                 </label>
-                <input type="password" v-model.trim="password" id="password">
+
+                <div class="view__password__icon">
+                    <input :type="active__eye == true ? 'password' : 'text'" v-model.trim="password" id="password">
+                    <div class="view__icon">
+                        <span @click="activeEye" :class="active__eye == true ? 'mdi mdi-eye' : 'mdi mdi-eye-off'"></span>
+                    </div>
+                </div>
+
                 <div class="error__text" v-if="$v.password.$dirty && !$v.password.required">Поле 'Пароль' обязателен к заполнению</div>
 
                 <router-link tag="a" to="/forgot"><p>Забыли пароль?</p></router-link>
@@ -33,6 +40,7 @@ export default {
             email: '',
             password: '',
             disabled__button: false,
+            active__eye: true
         }
     },
     validations: {
@@ -45,6 +53,9 @@ export default {
         },
     },
     methods: {
+        activeEye () {
+            this.active__eye = !this.active__eye
+        },
         ...mapActions([
             'SIGN_IN_USER',
         ]),
@@ -131,6 +142,26 @@ export default {
             outline: none;
             padding: 10px;
             margin-bottom: 10px;
+        }
+        .view__password__icon {
+            position: relative;
+            .view__icon {
+                position: absolute;
+                top: 14%;
+                right: 7px;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                span {
+                    font-size: 22px;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                }
+            }
         }
         label {
             font-style: normal;

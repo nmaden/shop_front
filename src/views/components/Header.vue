@@ -103,7 +103,7 @@
             <div class="menu" :style="'margin-left:' + this.menu_count + 'px'">
                 <a 
                     class="menu__item"
-                    v-for="menu_item in menu"
+                    v-for="menu_item in $t('menu_header')"
                     :key="menu_item.name"
                     ref="menu__item"
                     @click="route(menu_item.to, menu_item.url)"
@@ -135,7 +135,7 @@
                         <div class="mobile__menu__list__flex">
                             <div 
                                 class="mobile__menu__list__flex__block"
-                                v-for="menu_item in menu"
+                                v-for="menu_item in $t('menu_header')"
                                 :key="menu_item.name"
                                 @click="route(menu_item.to)"
                             >
@@ -240,83 +240,6 @@ export default {
             },
         ],
         lang: 'ru',
-        menu: [
-            {
-                name: 'главная',
-                to: '/',
-                url: false
-            },
-            {
-                name: 'номера телефонов',
-                to: '/telephones',
-                url: false
-            },
-            {
-                name: 'Связь',
-                to: '/connection',
-                url: false
-            },
-            {
-                name: 'МИГРАЦИОННЫЙ СПРАВОЧНИК',
-                to: '/migration',
-                url: false
-            },
-            {
-                name: 'ВАЛЮТА',
-                to: '/currency',
-                url: false
-            },
-            {
-                name: 'ГОСТИНИЦЫ',
-                to: 'https://kazakhstan.travel/hotels',
-                url: true,
-            },
-            {
-                name: '3D - туры о Казахстане',
-                to: 'https://kazakhstan.travel/threedtours',
-                url: true,
-            },
-            {
-                name: 'Маршруты',
-                to: 'https://kazakhstan.travel/tours',
-                url: true,
-            },
-            {
-                name: 'О визе в Казахстан',
-                to: 'https://kazakhstan.travel/tourist-help/ru/documents',
-                url: true,
-            },
-            {
-                name: 'Часовые пояса',
-                to: 'https://kazakhstan.travel/tourist-help/ru/time_zones',
-                url: true,
-            },
-            {
-                name: 'О Погоде',
-                to: 'https://kazakhstan.travel/tourist-help/ru/weather',
-                url: true,
-            },
-            {
-                name: 'Языковой справочник',
-                to: 'https://kazakhstan.travel/tourist-help/ru/language',
-                url: true,
-            },
-            {
-                name: 'Транспорт',
-                to: 'https://kazakhstan.travel/tourist-help/ru/transport',
-                url: true,
-            },
-            {
-                name: 'Полезные ресурсы',
-                to: 'https://kazakhstan.travel/tourist-help/ru/resources',
-                url: true,
-            },
-            {
-                name: 'Публикации о Казахстане',
-                to: 'https://kazakhstan.travel/tourist-help/ru/phones',
-                url: true,
-            },
-        ],
         show_menu: false,
         menu_count: 0,
         show_mobile_menu: false,
@@ -362,15 +285,14 @@ export default {
             disableScroll.off()
         },
         sendLocale () {
-            import(`../../localization/${this.lang}.json`)
-            .then((msg) => {
-                this.$i18n.setLocaleMessage(this.lang, msg)
+            import(`../../localization/${this.lang}.js`)
+            .then((lang) => {
+                this.$i18n.setLocaleMessage(this.lang, lang.default)
                 this.$i18n.locale = this.lang
             })
         },
     },
-    mounted () {
-    },
+    
     computed: {
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
     }

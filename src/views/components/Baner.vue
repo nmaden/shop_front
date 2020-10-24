@@ -9,16 +9,15 @@
             <div class="banner_c">
                 <div class="desktop">
                     <h1>
-                        К вам прибыл иностранный гость?
+                        {{$t('baner__title')}}
                     </h1>
                     <p>
-                        Согласно Постановлению Правительства № 148 от 21 января 2012 года вы обязаны 
-                        в течение 3-х дней проинформировать органы внутренних дел. <span @click="modal__description = true">Подробнее...</span>
+                       {{$t('baner__description')}}  <span @click="modal__description = true">Подробнее...</span>
                     </p>
                 </div>
                 <div class="mobile">
                     <h1>
-                        К вам прибыл иностранный гость?
+                        {{$t('baner__title')}}
                     </h1>
                     <div class="banner_user">
                         <img src="../../assets/all/banner_user__mobile.svg" alt="banner_user">
@@ -30,8 +29,7 @@
             </div>
             <div class="text__info__mobile">
                 <p>
-                    Согласно Постановлению Правительства № 148 от 21 января 2012 года вы обязаны 
-                    в течение 3-х дней проинформировать органы внутренних дел. <br>
+                    {{$t('baner__description')}} <br>
                     <span @click="modal__description = true">Подробнее...</span>
                 </p>
             </div>
@@ -39,7 +37,7 @@
             <div class="baner_flex__service">
                 <div 
                     class="baner__service__block"
-                    v-for="item in baner"
+                    v-for="item in $t('baner__array')"
                     :key="item.id"
                 >
                     <img :src="item.img" alt="icon">
@@ -166,23 +164,6 @@ export default {
                     text: 'Принимающее лицо - гражданин Республики Казахстан, иностранец и лицо без гражданства, постоянно проживающие в Республике Казахстан, или юридическое лицо, зарегистрированное в Республике Казахстан, ходатайствующие о приглашении иммигрантов в Республику Казахстан для временного проживания и (или) предоставляющие место для их проживания.'
                 }
             ],
-            baner: [
-                {
-                    id: 1,
-                    img: require('../../assets/icons/smart__phone.svg'),
-                    text: 'Авторизуйтесь в системе или мобильном приложении eQonaq'
-                },
-                {
-                    id: 2,
-                    img: require('../../assets/icons/smart__face.svg'),
-                    text: 'Отсканируйте документ иностранца или внесите данные вручную'
-                },
-                {
-                    id: 3,
-                    img: require('../../assets/icons/smart__card.svg'),
-                    text: 'Результат услуги будет доступен в личном кабинете'
-                }
-            ]
         }
     },
     components: {
