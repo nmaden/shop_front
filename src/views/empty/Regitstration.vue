@@ -3,21 +3,25 @@
         <div class="auth__margin">
             <Nav />
             <div class="registrations">
-                <!-- <h2 v-if="police == false">
-                    Регистрация для физических лиц
-                </h2> -->
                 <Police 
                     @police__accepted="policeAccepted" 
                     v-if="police == false" 
                 />
 
                 <div v-if="police == true">
-                    <div class="eds__desktop">
+                    <div class="eds__desktop"> 
+                        <div v-if="showEdsForm == false" class="eds__desktop__text">
+                            <p>
+                                Данный вид регистрации дает вам статус постоянного пользователя. Вы можете без ограничений пользоваться всеми услугами.
+                            </p>
+                        </div>
+                        
                         <div class="registrations__form">
                             <button @click="handleSend">Выбрать ЭЦП</button>
                         </div>
-                        <p v-if="showEdsForm == false">
-                            Данный вид регистрации дает вам статус постоянного пользователя. Вы можете без ограничений пользоваться всеми услугами.
+                        
+                        <p v-if="showError == true"> 
+                            Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать <span>NCALayer</span> по <a href="https://pki.gov.kz/ncalayer/">ссылке</a>
                         </p>
                     </div>
                     
@@ -236,6 +240,8 @@ export default {
             connection: null,
             ready: false,
             esp__array: null,
+
+            showError: false
         }
     },
     validations: {
@@ -364,6 +370,7 @@ export default {
         },
         handleSend () {
             if (this.ready == false) {
+                this.showError = true
                 this.$toast.open({
                     message: 'Убедитесь, что программа NCALayer запущена',
                     type: 'error',
@@ -372,6 +379,7 @@ export default {
                     queue: true
                 });
             } else {
+                this.showError = false
                 const data = {
                     module: 'kz.gov.pki.knca.commonUtils',
                     method: "signXml",
@@ -577,6 +585,34 @@ export default {
                 display: block;
                 @media (max-width: @mobile) {
                     display: none;
+                }
+                p {
+                    color: red;
+                    font-family: "MediumMedium";
+                    span {
+                        border-bottom: 3px solid red;
+                    }
+                    a {
+                        color: red;
+                        text-decoration: none;
+                        &:hover {
+                            opacity: .7;
+                        }
+                    }
+                }
+                .eds__desktop__text {
+                    width: 544px;
+                    p {
+                        font-style: normal;
+                        font-weight: normal;
+                        font-family: "MediumMedium";
+                        font-size: 16px;
+                        line-height: 20px;
+                        color: #636363;
+                    }
+                    @media (max-width: @mobile) {
+                        width: 100%;
+                    }
                 }
             }
             h2 {

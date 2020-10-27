@@ -43,6 +43,20 @@
                         </p>
                     </div>
                     <div class="quest__list__r">
+                        <div class="pfd__block">
+                            <v-tooltip 
+                                bottom
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <i 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        class="mdi mdi-pdf-box"
+                                    ></i>
+                                </template>
+                                <span>Скачать справку</span>
+                            </v-tooltip>
+                        </div>
                         <p>
                             <span>
                                 статус
@@ -233,6 +247,22 @@ export default {
             .quest__list__r {
                 width: 27%;
                 text-align: right;
+                .pfd__block {
+                    height: 25px;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: flex-start;
+                    i {
+                        font-size: 34px;
+                        margin-top: -12px;
+                        margin-right: -5px;
+                        color: red;
+                        cursor: pointer;
+                        &:hover {
+                            opacity: .5;
+                        }
+                    }
+                }
                 @media (max-width: @mobile) {
                     width: 35%;
                 }

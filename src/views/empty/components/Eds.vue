@@ -2,6 +2,9 @@
     <div class="eds">
         <div class="eds__form">
             <button @click="handleSend" class="eds__button">Выбрать сертификат</button>
+            <p v-if="showError == true"> 
+                Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать <span>NCALayer</span> по <a href="https://pki.gov.kz/ncalayer/">ссылке</a>
+            </p>
         </div>
     </div>
 </template>
@@ -15,7 +18,8 @@ export default {
              // websocked
             connection: null,
             ready: false,
-            esp__array: null
+            esp__array: null,
+            showError: false
         }
     },
      
@@ -25,6 +29,7 @@ export default {
         ]),
         handleSend () {
             if (this.ready == false) {
+                this.showError = true
                 this.$toast.open({
                     message: 'Убедитесь, что программа NCALayer запущена',
                     type: 'error',
@@ -33,6 +38,7 @@ export default {
                     queue: true
                 });
             } else {
+                this.showError = false
                 const data = {
                     module: 'kz.gov.pki.knca.commonUtils',
                     method: "signXml",
@@ -111,6 +117,20 @@ export default {
     width: 100%;
     .eds__form {
         width: 100%;
+        p {
+            color: red;
+            font-family: "MediumMedium";
+            span {
+                border-bottom: 3px solid red;
+            }
+            a {
+                color: red;
+                text-decoration: none;
+                &:hover {
+                    opacity: .7;
+                }
+            }
+        }
         .eds__button {
             width: 100%;
             margin-bottom: 20px;
