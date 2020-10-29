@@ -632,9 +632,19 @@ export default {
         formatDate (date) {
             let datePart = date.match(/\d+/g),
             year = datePart[0],  
-            month = datePart[1], day = datePart[2]
+            month = datePart[1], 
+            day = datePart[2]
             return day+'.'+month+'.'+year;
         },
+
+        returnFormatDate (date) {
+            let datePart = date.match(/\d+/g),
+            day = datePart[0],  
+            month = datePart[1], 
+            year = datePart[2] 
+            return year+'-'+month+'-'+day;
+        },
+
         openDataPicker (picker__name) {
             switch (picker__name) {
                 case 'date_birth_picker':
@@ -722,18 +732,18 @@ export default {
                         name: this.name,
                         patronymic: this.middle_name,
                         hotel_id: this.arrival_address,
-                        date_birth: this.date_birth,
+                        date_birth: this.returnFormatDate(this.date_birth),
                         email: this.email,
                         phone: this.phone,
                         doctype_id: this.type_document,
                         document_number: this.document_number,
                         series_documents: this.series_documents,
-                        date_issue: this.date_issuing,
-                        valid_until: this.date_endings,
+                        date_issue: this.returnFormatDate(this.date_issuing),
+                        valid_until: this.returnFormatDate(this.date_endings),
                         notification_on_mvd: this.checkbox_notify_mvd,
                         gender_id: this.floor,
-                        start_check_date: this.start_check_date,
-                        end_check_date: this.end_check_date,
+                        start_check_date: this.returnFormatDate(this.start_check_date),
+                        end_check_date: this.returnFormatDate(this.end_check_date),
                         kato_id: this.citizenship,
                         target_id: this.target,
                         check_in: this.arrival,
@@ -910,9 +920,9 @@ export default {
         changeDateArrival () {
             this.date_arrival = false
             this.arrival = this.picker[0]
-            this.start_check_date = this.picker[0]
+            this.start_check_date = this.formatDate(this.picker[0])
             this.departure = this.picker[1]
-            this.end_check_date = this.picker[1]
+            this.end_check_date = this.formatDate(this.picker[1])
         },
         checkDateArrival () {
             if (typeof this.picker[0] !== 'undefined') {

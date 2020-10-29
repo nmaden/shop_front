@@ -10,6 +10,9 @@
 
                 <div v-if="police == true">
                     <div class="eds__desktop"> 
+                        <h1 v-if="showEdsForm == false">
+                            Регистрация
+                        </h1>
                         <div v-if="showEdsForm == false" class="eds__desktop__text">
                             <p>
                                 Данный вид регистрации дает вам статус постоянного пользователя. Вы можете без ограничений пользоваться всеми услугами.
@@ -583,6 +586,11 @@ export default {
             }
             .eds__desktop {
                 display: block;
+                h1 {
+                    color: #000;
+                    font-size: 48px;
+                    margin-bottom: 20px;
+                }
                 @media (max-width: @mobile) {
                     display: none;
                 }
