@@ -22,7 +22,7 @@
                             <button @click="handleSend">Выбрать ЭЦП</button>
                         </div>
                         <p v-if="showError == true"> 
-                            Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать <span>NCALayer</span> по <a href="https://pki.gov.kz/ncalayer/">ссылке</a>
+                            Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать NCALayer по <a href="https://pki.gov.kz/ncalayer/">ссылке</a>
                         </p>
                     </div>
                     
@@ -681,12 +681,11 @@ export default {
                 p {
                     color: red;
                     font-family: "MediumMedium";
-                    span {
-                        border-bottom: 3px solid red;
-                    }
                     a {
                         color: red;
                         text-decoration: none;
+                        border-bottom: 3px solid red;
+                        
                         &:hover {
                             opacity: .7;
                         }
