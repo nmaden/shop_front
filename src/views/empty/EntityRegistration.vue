@@ -11,15 +11,15 @@
                 <div v-if="police == true">
                     <div class="eds__desktop">
                         <h1 v-if="showEdsForm == false">
-                            Регистрация
+                            {{$t('registration__title')}}
                         </h1>
                         <div v-if="showEdsForm == false" class="eds__desktop__text">
                             <p>
-                                Данный вид регистрации дает вам статус постоянного пользователя. Вы можете без ограничений пользоваться всеми услугами.
+                                {{$t('registration__description')}}
                             </p>
                         </div>
                         <div class="registrations__form">
-                            <button @click="handleSend">Выбрать ЭЦП</button>
+                            <button @click="handleSend">{{$t('registration__eds__btn')}}</button>
                         </div>
                         <p v-if="showError == true"> 
                             Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать NCALayer по <a href="https://pki.gov.kz/ncalayer/">ссылке</a>

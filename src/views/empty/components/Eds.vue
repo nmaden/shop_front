@@ -1,7 +1,7 @@
 <template>
     <div class="eds">
         <div class="eds__form">
-            <button @click="handleSend" class="eds__button">Выбрать сертификат</button>
+            <button @click="handleSend" class="eds__button">{{$t('eds__btn')}}</button>
             <p v-if="showError == true"> 
                 Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать NCALayer по <a href="https://pki.gov.kz/ncalayer/">ссылке</a>
             </p>

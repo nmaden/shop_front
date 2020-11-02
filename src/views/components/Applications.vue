@@ -1,7 +1,7 @@
 <template>
     <div class="applications">
         <p>
-            Полезные приложения
+            {{$t('book__hotel__applications__title')}}
         </p>
         
         <div class="mobile">

@@ -10,7 +10,7 @@
                 <div class="error__text" v-if="$v.email.$dirty && !$v.email.email">Введите корректный 'E-mail' </div>
                 
                 <label for="password">
-                    Пароль 
+                    {{$t('login__label__password')}} 
                 </label>
 
                 <div class="view__password__icon">
@@ -22,8 +22,8 @@
 
                 <div class="error__text" v-if="$v.password.$dirty && !$v.password.required">Поле 'Пароль' обязателен к заполнению</div>
 
-                <router-link tag="a" to="/forgot"><p>Забыли пароль?</p></router-link>
-                <button :disabled="disabled__button" type="submit">Войти</button> 
+                <router-link tag="a" to="/forgot"><p>{{$t('login__forgot__password')}}</p></router-link>
+                <button :disabled="disabled__button" type="submit">{{$t('login__btn')}}</button> 
             </form>
             
         </div>

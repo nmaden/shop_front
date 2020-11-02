@@ -25,14 +25,14 @@
                 <div class="footer__top__c">
                     <router-link to="/login">
                         <p>
-                            ЗАРЕГИСТРИРОВАТЬСЯ
+                            {{$t('book__hotel__footer__reg')}}
                         </p>
                     </router-link>
                 </div>
                 <div class="footer__top__r">
                     <router-link to="/login">
                         <p>
-                            АВТОРИЗОВАТЬСЯ
+                            {{$t('book__hotel__footer__login')}}
                         </p>
                     </router-link>
                 </div>
@@ -51,14 +51,14 @@
                 </div>
                 <div class="footer__bottom__l__right">
                     <h5>
-                        ИНФОРМАЦИЯ
+                        {{$t('footer__info')}}
                     </h5>
                     <div
                         class="footer__bottom__l__right__flex"
                     > 
                         <div 
                             class="footer__bottom__l__right__block"
-                            v-for="item_info in info"
+                            v-for="item_info in $t('footer__menu__info')"
                             :key="item_info.name"
                             @click="route(item_info.to, item_info.type_route)"
                         >
@@ -100,38 +100,7 @@ export default {
                     hover_text: 'АО «НК «Kazakh Tourism» ',
                 },
             ],
-            info: [
-                {
-                    name: 'О системе',
-                    to: '',
-                    type_route: 'on_page',
-                },
-                {
-                    name: 'Номера телефонов',
-                    to: '/telephones',
-                    type_route: 'on_site',
-                },
-                {
-                    name: 'Связь',
-                    to: '/connection',
-                    type_route: 'on_site',
-                },
-                {
-                    name: 'Миграционный справочник',
-                    to: '/migration',
-                    type_route: 'on_site',
-                },
-                {
-                    name: 'Валюта',
-                    to: '/currency',
-                    type_route: 'on_site',
-                },
-                {
-                    name: 'Гостиницы',
-                    to: 'https://api.eqonaq.kz/hotels',
-                    type_route: 'on_new_site',
-                },
-            ],
+             
         }
     },
     methods: {

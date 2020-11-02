@@ -33,12 +33,12 @@ export default {
             "url": true
         },
         {
-            name: "3D - туры о Казахстане",
+            name: "Қазақстан бойынша 3-D турлар",
             to: "https://kazakhstan.travel/threedtours",
             "url": true
         },
         {
-            name: "Маршруты",
+            name: "Бағдарлар",
             to: "https://kazakhstan.travel/tours",
             "url": true
         },
@@ -48,32 +48,32 @@ export default {
             "url": true
         },
         {
-            name: "Часовые пояса",
+            name: "Сағаттық белдеулер",
             to: "https://kazakhstan.travel/tourist-help/ru/time_zones",
             "url": true
         },
         {
-            name: "О Погоде",
+            name: "Ауа райы жөнінде",
             to: "https://kazakhstan.travel/tourist-help/ru/weather",
             "url": true
         },
         {
-            name: "Языковой справочник",
+            name: "Тіл анықтамалығы",
             to: "https://kazakhstan.travel/tourist-help/ru/language",
             "url": true
         },
         {
-            name: "Транспорт",
+            name: "Көлік",
             to: "https://kazakhstan.travel/tourist-help/ru/transport",
             "url": true
         },
         {
-            name: "Полезные ресурсы",
+            name: "Пайдалы дереккөздер",
             to: "https://kazakhstan.travel/tourist-help/ru/resources",
             "url": true
         },
         {
-            name: "Публикации о Казахстане",
+            name: "Қазақстан жайлы жарияланымдар",
             to: "https://kazakhstan.travel/tourist-help/ru/phones",
             "url": true
         }
@@ -125,6 +125,7 @@ export default {
             text: 'ҚР ІІМ-ін шетелдік туристің келгендігі жайлы хабарландыру'
         },
     ],
+    interesting__places__title: 'Қызықты орындар',
     interesting__places: [
         {
             title: 'kazakhstan.travel сайты арқылы қазақстан туралы толығырақ біліңіз',
@@ -147,5 +148,118 @@ export default {
             img: require('../assets/all/pr_img3.png'),
             uri: 'https://kazakhstan.travel/'
         },
-    ]
+    ],
+    bookhotel__title: 'Қонақүй бөлмесін брондау',
+    bookhotel__descriptions: 'Қонақүйлер мен өзге орналастыру орындарының арнайы ұсыныстарымен танысыңыз',
+    bookhotel__city: 'Қайда жол жүресіз?',
+    bookhotel__arrival: 'Заезд',
+    bookhotel__departure: 'Отъезд',
+    book__hotel__users: 'Ересек',
+    book__hotel__numbers: 'Бөлме',
+    book__hotel__get__price: 'бағасын шығару',
+    book__hotel__applications__title: 'Пайдалы қолданбалар',
+    book__hotel__footer__reg: 'ТІРКЕЛУ',
+    book__hotel__footer__login: 'АВТОРИЗАЦИЯДАН ӨТУ',
+    footer__info: 'АҚПАРАТ',
+    footer__menu__info: [
+        {
+            name: 'Жүйе туралы',
+            to: '',
+            type_route: 'on_page',
+        },
+        {
+            name: 'Телефон нөмірлері',
+            to: '/telephones',
+            type_route: 'on_site',
+        },
+        {
+            name: 'Байланыс',
+            to: '/connection',
+            type_route: 'on_site',
+        },
+        {
+            name: 'Көші-қон анықтамалығы',
+            to: '/migration',
+            type_route: 'on_site',
+        },
+        {
+            name: 'Валюта',
+            to: '/currency',
+            type_route: 'on_site',
+        },
+        {
+            name: 'Қонақүйлер',
+            to: 'https://api.eqonaq.kz/hotels',
+            type_route: 'on_new_site',
+        },
+    ],
+    auth__login__title: 'eQonaq жүйесіне кіру',
+    auth__login__descriptions: 'Авторизация түрін таңдаңыз',
+    auth__reg__title: 'eQonaq жүйесіне алғаш рет кірсеңіз?',
+    auth__reg__button: 'ТІРКЕЛУ ',
+    auth__reg__modal__title: 'Тіркелу түрі',
+    auth__reg__modal__btn__individuals: 'Жеке тұлға',
+    auth__reg__modal__btn__entities: 'Заңды тұлға',
+    tabs_array__name__eds: 'ЭЦҚ',
+    tabs_array__name__login: 'Логин',
+    eds__btn: 'СЕРТИФИКАТТЫ ТАҢДАУ',
+    login__label__password: 'Құпиясөз',
+    login__btn: 'АВТОРИЗАЦИЯДАН ӨТУ',
+    login__forgot__password: 'Құпиясөзді ұмыттыңыз ба?',
+    nav__bar__title: 'Артқа',
+    registration__title: 'Тіркелу',
+    registration__description: ' Тіркелудің бұл түрі сізге тұрақты қолданушы мәртебесін береді. Сол арқылы сіз жүйе қызметтерін шектеусіз қолдана аласыз.',
+    registration__eds__btn: 'ЭЦҚ арқылы тіркелу',
+    forgot__password__page__title: 'Құпиясөзді қалпына келтіру',
+    forgot__password__page__input__placeholder: 'Электронды мекенжайыңызды енгізіңіз',
+    forgot__password__page__btn: 'Жіберу',
+    telephones__page__title: 'Қажет болар телефон нөмірлері',
+    telephones__page__description: ' Қазақстан аумағында шұғыл қызмет бөлімшелеріне кез келген қалалық және ұялы байланыс нөмірлерінен хабарласу тегін іске асырылады.',
+    telephones__page__phones: [
+        {
+            title: 'апаттық-құтқару жұмыстары қызметі (құтқару қызметі)',
+            number: '112',
+            phone: 'tel:112',
+        },
+        {
+            title: 'өрт сөндіру қызметі',
+            number: '101',
+            phone: 'tel:101',
+        },
+        {
+            title: 'полиция',
+            number: '102',
+            phone: 'tel:102',
+        },
+        {
+            title: 'жедел медициналық жәрдем',
+            number: '103',
+            phone: 'tel:103',
+        },
+        {
+            title: 'қалааралық және халықаралық қоңырау шалу қызметі',
+            number: '171',
+            phone: 'tel:171',
+        },
+        {
+            title: 'жергілікті ұялы байланыс операторларының анықтамалық қызметі',
+            number: '118',
+            phone: 'tel:118',
+        },
+        {
+            title: 'ақылы ақпараттық қызмет',
+            number: '169',
+            phone: 'tel:169',
+        },
+    ],
+    migration__page__title: 'КӨШІ-ҚОН АНЫҚТАМАЛЫҒЫ',
+    migration__page__description: 'Көші-қон анықтамалығы - ҚР аумағында уақытша тұрақтау үшін визаның керек/керек еместігі туралы ақпарат жинақталған анықтамалық.',
+    migration__page__description__two: 'Электронды виза алу үшін  {action}  визалық-көші-қон порталына жүгіну қажет.',
+    migration__select__label: 'Елді таңдаңыз',
+    migration__select__description: 'ҚР аумағында турист  {number__text} күнге дейін визасыз сапарлай алады. Елде болу мерзімі {number__text} күннен асатын болса, турист виза рәсімдеуге міндетті.',
+    migration__day: 'Елге визасыз кіру',
+    migration__visa: 'Электронды виза (eVisa)',
+    migration__day__text: 'Күн',
+    
+
 } 

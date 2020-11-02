@@ -3,22 +3,22 @@
         <Header />
         <div class="main__base__margin">
             <h1>
-                Полезные номера телефонов
+                {{$t('telephones__page__title')}}
             </h1>
             <p>
-                Вызов экстренных служб с любого оператора сотовой связи и городских номеров производится в Казахстане бесплатно
+                {{$t('telephones__page__description')}}
             </p>
         </div>
         <div class="telephones__data">
             <div class="telephones__data__margin">
                  <div 
                     class="telephones__block"
-                    v-for="item in phones"
+                    v-for="item in $t('telephones__page__phones')"
                     :key="item.number"
                     @click="call(item.phone)"
                  >
                      <div class="telephones__block__number__l">
-                        <img :src="item.img" alt="">
+                        <img src="../../assets/icons/phone.svg" alt="">
                         <h3>
                             {{item.number}}
                         </h3>
@@ -43,50 +43,7 @@ export default {
     },
     data () {
       return {
-        phones: [
-            {
-                title: 'служба аварийно-спасательных работ (служба спасения)',
-                number: '112',
-                img: require('../../assets/icons/phone.svg'),
-                phone: 'tel:112',
-            },
-            {
-                title: 'противопожарная служба',
-                number: '101',
-                img: require('../../assets/icons/phone.svg'),
-                phone: 'tel:101',
-            },
-            {
-                title: 'полиция',
-                number: '102',
-                img: require('../../assets/icons/phone.svg'),
-                phone: 'tel:102',
-            },
-            {
-                title: 'скорая медицинская помощь',
-                number: '103',
-                img: require('../../assets/icons/phone.svg'),
-                phone: 'tel:103',
-            },
-            {
-                title: 'заказ международных и межугородных звонков',
-                number: '171',
-                img: require('../../assets/icons/phone.svg'),
-                phone: 'tel:171',
-            },
-            {
-                title: 'справочная служба операторов местной телефонной связи',
-                number: '118',
-                img: require('../../assets/icons/phone.svg'),
-                phone: 'tel:118',
-            },
-            {
-                title: 'платная информационная служба',
-                number: '169',
-                img: require('../../assets/icons/phone.svg'),
-                phone: 'tel:169',
-            },
-        ]
+        
       }
     },
     methods: {

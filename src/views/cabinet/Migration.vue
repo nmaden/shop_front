@@ -3,18 +3,20 @@
         <Header />
         <div class="main__base__margin">
             <h1>
-                Миграционный справочник
+                {{$t('migration__page__title')}}
             </h1>
             <p>
-                Миграционный справочник - это справочник с данными о необходимости визы для прибывания в Республики Казахстан. Также информация о безвизовом нахождений туриста.
+                {{$t('migration__page__description')}}
             </p>
             <p>
-                Для получения элекронной визы необходимо обратиться в визово-миграционный портал <a href="https://www.vmp.gov.kz">www.vmp.gov.kz</a>
+                <i18n path="migration__page__description__two">
+                    <a href="https://www.vmp.gov.kz" place="action">www.vmp.gov.kz</a>
+                </i18n>
             </p>
         </div>
         <div class="migrations__data">
              <h4>
-                 Выберите страну
+                 {{$t('migration__select__label')}}
              </h4>
              <div class="migrations__select">
                 <img src="../../assets/icons/search.svg" alt="search">
@@ -34,13 +36,15 @@
                 ></v-autocomplete>
              </div>
              <p>
-                 Турист может прибывать в Республике Казахстан без визы в течении {{allowed_days_without_registration}} дней, если свыше указанного срока необходимо оформление визы.
+                <i18n path="migration__select__description">
+                    <span place="number__text">{{allowed_days_without_registration}}</span>
+                </i18n>
              </p>
              <div class="migrations__flex">
                  <div class="migrations__flex__block">
                     <div class="migrations__flex__block__header">
                         <p>
-                            Безвизовый въезд
+                            {{$t('migration__day')}}
                         </p>
                     </div>
                     <div class="migrations__flex__block__content">
@@ -48,14 +52,14 @@
                             <b>
                                 {{allowed_days_without_registration}}
                             </b>
-                            дней
+                            {{$t('migration__day__text')}}
                         </p>
                     </div>
                  </div>
                  <div class="migrations__flex__block">
                     <div class="migrations__flex__block__header">
                         <p>
-                            Электронная виза (eVisa)
+                            {{$t('migration__visa')}}
                         </p>
                     </div>
                     <div class="migrations__flex__block__content">

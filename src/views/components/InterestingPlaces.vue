@@ -1,7 +1,7 @@
 <template>
     <div class="places">
         <p>
-            Интересные места
+           {{$t('interesting__places__title')}}
         </p>
 
         <div class="mobile">
