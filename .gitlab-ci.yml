@@ -1,4 +1,1 @@
-trigger_build:
-  stage: deploy
-  script:
-    - "curl -X POST -F token=TOKEN -F ref=REF_NAME http://195.210.47.249/update"
+
