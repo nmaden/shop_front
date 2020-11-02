@@ -100,7 +100,7 @@
             @mouseleave="scrollBodyLeave" 
             class="scroll__menu"
         >
-            <div class="menu" :style="'margin-left:' + this.menu_count + 'px'">
+            <div class="menu">
                 <a 
                     class="menu__item"
                     v-for="menu_item in $t('menu_header')"
@@ -241,9 +241,7 @@ export default {
         ],
         lang: 'ru',
         show_menu: false,
-        menu_count: 0,
         show_mobile_menu: false,
-        scrollInteval: 60,
       }
     },
     methods: {
@@ -273,9 +271,7 @@ export default {
             });
         },
         scrollMenu (e) {
-            let menu__item = this.$refs.menu__item
-            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval, '.scroll__menu')
-            this.menu_count = this.$menuCount()
+            this.$scroll(e, 60)
         },
          
         scrollBodyOver () {
@@ -291,8 +287,9 @@ export default {
                 this.$i18n.locale = this.lang
             })
         },
+        
     },
-    
+     
     computed: {
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
     }
@@ -499,28 +496,24 @@ export default {
     margin: 0 auto;
     z-index: 20;
     margin-top: 10px;
-    height: 65px;
+    height: 76px;
+    overflow-x: scroll;
+    overflow-y: hidden;
     position: relative;
     @media (max-width: @mobile) {
         display: none;
     }
     @media (max-width: @planshet) {
         width: 95%;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        height: 76px;
-        &::-webkit-scrollbar {
-            width: 1px;
-        }
     }
-
+    &::-webkit-scrollbar {
+        width: 1px;
+    }
     .menu {
         width: 100%;
         padding-bottom: 10px;
         z-index: 100;
         white-space: nowrap;
-        position: absolute;
-
         
         .menu__item {
             display: inline-block;

@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-
+       
         <div 
             class="desktop"
             @mousewheel="scrollMenu" 
@@ -32,7 +32,6 @@
         >
             <div 
                 class="applications__type"
-                :style="'margin-left:' + menu_count + 'px'"
             >
                 <div 
                     class="applications__type__block"
@@ -58,11 +57,10 @@
 <script>
 import disableScroll from 'disable-scroll'
 
+
 export default {
     data () {
       return {
-        menu_count: 0,
-        scrollInteval: 30,
         applications: [
             {
                 title: 'AstraBus',
@@ -102,9 +100,7 @@ export default {
             window.open(to, '_blank');
         },
         scrollMenu (e) {
-            let menu__item = this.$refs.menu__item
-            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval, '.applications')
-            this.menu_count = this.$menuCount()
+            this.$scroll(e, 30)
         },
         scrollBodyOver () {
             disableScroll.on()
@@ -221,16 +217,15 @@ export default {
 
     .desktop {
         display: block;
-        position: relative;
-        height: 177px;
+        height: 200px;
+        overflow-x: scroll;
+        overflow-y: hidden;
         @media (max-width: @planshet) {
             width: 100%;
-            overflow-x: scroll;
             height: 195px;
-            overflow-y: hidden;
-            &::-webkit-scrollbar {
-                width: 0px;
-            }
+        }
+        &::-webkit-scrollbar {
+            width: 0px;
         }
         @media (max-width: @mobile) {
             display: none;
@@ -239,7 +234,6 @@ export default {
         .applications__type {
             width: 100%;
             white-space: nowrap;
-            position: absolute;
 
             .applications__type__block {
                 width: 233px;
