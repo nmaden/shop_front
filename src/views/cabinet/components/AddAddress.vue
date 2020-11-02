@@ -94,10 +94,10 @@
                         <input type="text"  v-model.trim="apartment_number"  id="apartment_number">
                     </div>
                     <div v-if="addAddressModal == true" class="input__block">
-                        <button @click="addAddress">Добавить</button>
+                        <button :disabled="disabled__button" @click="addAddress">Добавить</button>
                     </div>
                     <div v-else class="input__block">
-                        <button @click="editAddress">Редактировать</button>
+                        <button :disabled="disabled__button" @click="editAddress">Редактировать</button>
                     </div>
                 </div>   
             </div>
@@ -141,7 +141,9 @@ export default {
             region__array: [],
             district__array: [],
             locality__array: [],
-            addAddressModal: null
+            addAddressModal: null,
+
+            disabled__button: false
         }
     },
     mounted () {
@@ -199,6 +201,7 @@ export default {
                 this.$v.$touch()
                 return 
             } else {
+                this.disabled__button = true
                 this.$Progress.start()
                 this.$axios({ 
                     method: 'post',
@@ -225,6 +228,7 @@ export default {
                         queue: true
                     })
                     this.$emit('update__address')
+                    this.disabled__button = false
                 })  
                 .catch((error) => {
                     this.$Progress.fail()
@@ -235,6 +239,7 @@ export default {
                         duration: 5000,
                         queue: true
                     });
+                    this.disabled__button = false
                 });    
             }
         },
@@ -251,6 +256,7 @@ export default {
                 return 
             } else {
                 this.$Progress.start()
+                this.disabled__button = true
                 this.$axios({ 
                     method: 'PUT',
                     url: this.$API_URL + this.$API_VERSION_2 + 'placement/' + this.id,
@@ -276,6 +282,7 @@ export default {
                         queue: true
                     })
                     this.$emit('update__address')
+                    this.disabled__button = false
                 })  
                 .catch((error) => {
                     this.$Progress.fail()
@@ -286,6 +293,7 @@ export default {
                         duration: 5000,
                         queue: true
                     });
+                    this.disabled__button = false
                 });    
             }
         }

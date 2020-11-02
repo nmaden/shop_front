@@ -5,8 +5,6 @@ export default {
         let menu__count
 
         Vue.prototype.$scroll = (e, ref__name, count, scrollInteval, scroll__block__name) => {
-            disableScroll.on()
-
             menu__count = count
             e = e || window.event
             let delta = e.deltaY || e.detail || e.wheelDelta

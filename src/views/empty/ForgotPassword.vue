@@ -6,13 +6,15 @@
             <p>
                 Восстановления пароля
             </p>
-            <input type="text" v-model.trim="email" placeholder="Введите электронный адрес">
-            <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'электронный адрес' обязателен к заполнению</div>
-            <div class="error__text" v-if="$v.email.$dirty && !$v.email.email">Введите корректный 'электронный адрес' </div>
-            
-            <button :disabled="disabled__button" @click="forgotPassword">
-                Отправить
-            </button>
+            <form @submit="forgotPassword">
+                <input type="text" v-model.trim="email" placeholder="Введите электронный адрес">
+                <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'электронный адрес' обязателен к заполнению</div>
+                <div class="error__text" v-if="$v.email.$dirty && !$v.email.email">Введите корректный 'электронный адрес' </div>
+                
+                <button :disabled="disabled__button" type="submit">
+                    Отправить
+                </button>
+            </form>
         </div>
 
         <!-- modal window -->
@@ -62,7 +64,8 @@ export default {
         },
     },
     methods: {
-        forgotPassword () {
+        forgotPassword (e) {
+            e.preventDefault()
             if (this.$v.$invalid) {
                 this.$toast.open({
                     message: 'Заполните необходимые поля',

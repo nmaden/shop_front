@@ -48,7 +48,7 @@
 
         <v-dialog
             v-model="deleteDialog"
-            max-width="320"
+            max-width="290"
         >
             <v-card>
                 <v-card-title class="headline">

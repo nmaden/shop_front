@@ -8,11 +8,11 @@
                 </h2>
 
                 <div class="registrations__form">
-                    <div @click="date_arrival = true" class="input__block picker">
+                    <div class="input__block picker">
                         <label>
                             Дата заезда - выезда <span>*</span>
                         </label>
-                        <div class="data_input_block">
+                        <div @click="date_arrival = true" class="data_input_block">
                             <p>
                                 {{arrival | moment("DD.MM.YYYY")}}
                             </p>
@@ -20,7 +20,7 @@
                             <p>{{departure | moment("DD.MM.YYYY")}}</p>
                             <img src="../../assets/icons/date.png" alt="date">
                         </div>
-                        <div class="error__text" v-if="$v.picker.$dirty && !$v.picker.required">Поле 'Дата заезда - выезда' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.picker.$dirty && !$v.picker.required">Поле 'Дата заезда - выезда' обязателена к заполнению</div>
                     </div>
                     <div class="input__block">
                         <label for="check_in_time">
@@ -58,7 +58,7 @@
                                 @change="checkCountry"
                             ></v-autocomplete>
                         </div>
-                        <div class="error__text" v-if="$v.arrival_address.$dirty && !$v.arrival_address.required">Поле 'Адрес прибывания' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.arrival_address.$dirty && !$v.arrival_address.required">Поле 'Адрес прибывания' обязателено к заполнению</div>
                     </div>
                     
                 </div>
@@ -79,7 +79,7 @@
                             Имя <span>*</span>
                         </label>
                         <input v-model.trim="name" class="input" type="text" id="name">
-                        <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателено к заполнению</div>
                     </div>
 
                     <div class="input__block">
@@ -87,7 +87,7 @@
                             Фамилия <span>*</span>
                         </label>
                         <input v-model.trim="surname" class="input" type="text" id="surname">
-                        <div class="error__text" v-if="$v.surname.$dirty && !$v.surname.required">Поле 'Фамилия' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.surname.$dirty && !$v.surname.required">Поле 'Фамилия' обязателено к заполнению</div>
                     </div>
 
                     <div class="input__block">
@@ -115,18 +115,18 @@
                                 @change="checkCountry"
                             ></v-autocomplete>
                         </div>
-                        <div class="error__text" v-if="$v.citizenship.$dirty && !$v.citizenship.required">Поле 'Гражданство' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.citizenship.$dirty && !$v.citizenship.required">Поле 'Гражданство' обязателено к заполнению</div>
                     </div>
 
                     <div class="input__block__child">
-                        <label for="date_birth">
+                        <label for="date_birth"> 
                             Дата рождения <span>*</span>
                         </label>
-                        <div @click="date_birth_picker = true" class="data_input_block">
-                            <p>{{date_birth | moment("DD.MM.YYYY")}}</p>
-                            <img src="../../assets/icons/date.png" alt="date">
+                        <div class="data_input_block">
+                            <maskInput class="date__input" mask="11.11.1111" v-model="date_birth"/>
+                            <img @click="date_birth_picker = true" src="../../assets/icons/date.png" alt="date">
                         </div>
-                        <div class="error__text" v-if="$v.date_birth.$dirty && !$v.date_birth.required">Поле 'Дата рождения' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.date_birth.$dirty && !$v.date_birth.required">Поле 'Дата рождения' обязателена к заполнению</div>
                     </div>
 
                     <div class="input__block__child">
@@ -145,7 +145,7 @@
                                 :hide-details="true"
                             ></v-select>
                         </div>
-                        <div class="error__text" v-if="$v.floor.$dirty && !$v.floor.required">Поле 'Пол' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.floor.$dirty && !$v.floor.required">Поле 'Пол' обязателено к заполнению</div>
                     </div>
                 </div>
                 
@@ -186,14 +186,14 @@
                                 :single-line="true"
                             ></v-autocomplete>
                         </div>
-                        <div class="error__text" v-if="$v.type_document.$dirty && !$v.type_document.required">Поле 'Тип документа' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.type_document.$dirty && !$v.type_document.required">Поле 'Тип документа' обязателено к заполнению</div>
                     </div>
                     <div class="input__block__child">
                         <label for="document_number">
                             Номер документа <span>*</span>
                         </label>
                         <input class="input" v-model.trim="document_number" type="text" id="document_number">
-                        <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателено к заполнению</div>
                         <div class="error__text" v-if="!$v.document_number.numeric">Введите корректный номер документа</div>
                     </div>
                     <div class="input__block__child">
@@ -209,21 +209,21 @@
                         <label>
                             Дата выдачи <span>*</span>
                         </label>
-                        <div @click="date_issuing_picker = true" class="data_input_block">
-                            <p>{{date_issuing | moment("DD.MM.YYYY")}}</p>
-                            <img src="../../assets/icons/date.png" alt="date">
+                        <div class="data_input_block">
+                            <maskInput class="date__input" mask="11.11.1111" v-model="date_issuing"/>
+                            <img  @click="date_issuing_picker = true" src="../../assets/icons/date.png" alt="date">
                         </div>
-                        <div class="error__text" v-if="$v.date_issuing.$dirty && !$v.date_issuing.required">Поле 'Дата выдачи' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.date_issuing.$dirty && !$v.date_issuing.required">Поле 'Дата выдачи' обязателена к заполнению</div>
                     </div>
                     <div class="input__block__child">
                         <label>
                             Дата окончания срока <span>*</span>
                         </label>
-                        <div @click="date_endings_picker = true" class="data_input_block">
-                            <p>{{date_endings | moment("DD.MM.YYYY")}}</p>
-                            <img src="../../assets/icons/date.png" alt="date">
+                        <div class="data_input_block">
+                            <maskInput class="date__input" mask="11.11.1111" v-model="date_endings"/>
+                            <img  @click="date_endings_picker = true" src="../../assets/icons/date.png" alt="date">
                         </div>
-                        <div class="error__text" v-if="$v.date_endings.$dirty && !$v.date_endings.required">Поле 'Дата окончания срока' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.date_endings.$dirty && !$v.date_endings.required">Поле 'Дата окончания срока' обязателена к заполнению</div>
                     </div>
                 </div>
 
@@ -248,27 +248,27 @@
                                     :single-line="true"
                                 ></v-autocomplete>
                             </div>
-                            <div class="error__text" v-if="$v.target.$dirty && !$v.target.required">Поле 'Цель визита' обязателен к заполнению</div>
+                            <div class="error__text" v-if="$v.target.$dirty && !$v.target.required">Поле 'Цель визита' обязателено к заполнению</div>
                         </div>
                         <div class="input__block__child">
                             <label>
                                 Дата начала <span>*</span>
                             </label>
-                            <div @click="date_start_picker = true" class="data_input_block">
-                                <p>{{start_check_date | moment("DD.MM.YYYY")}}</p>
-                                <img src="../../assets/icons/date.png" alt="date">
+                            <div class="data_input_block">
+                                <maskInput class="date__input" mask="11.11.1111" v-model="start_check_date"/>
+                                <img @click="date_start_picker = true" src="../../assets/icons/date.png" alt="date">
                             </div>
-                            <div class="error__text" v-if="$v.start_check_date.$dirty && !$v.start_check_date.required">Поле 'Дата начала' обязателен к заполнению</div>
+                            <div class="error__text" v-if="$v.start_check_date.$dirty && !$v.start_check_date.required">Поле 'Дата начала' обязателена к заполнению</div>
                         </div>
                         <div class="input__block__child">
                             <label>
                                 Дата окончания <span>*</span>
                             </label>
-                            <div @click="date_end_picker = true" class="data_input_block">
-                                <p>{{end_check_date | moment("DD.MM.YYYY")}}</p>
-                                <img src="../../assets/icons/date.png" alt="date">
+                            <div class="data_input_block">
+                                <maskInput class="date__input" mask="11.11.1111" v-model="end_check_date"/>
+                                <img  @click="date_end_picker = true" src="../../assets/icons/date.png" alt="date">
                             </div>
-                            <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.required">Поле 'Дата окончания' обязателен к заполнению</div>
+                            <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.required">Поле 'Дата окончания' обязателена к заполнению</div>
                         </div>
                     </div>
 
@@ -328,14 +328,13 @@
             <v-card>
                 <v-date-picker 
                     locale="ru-in"
-                    v-model="date_birth"
+                    v-model="date_birth_modal"
                     color="#FFCC47"
-                    @change="date_birth_picker = false"
+                    @change="openDataPicker('date_birth_picker')"
                     :max="max_date_birth_picker"
                 ></v-date-picker>
             </v-card>
         </v-dialog>
-        
         <v-dialog
             v-model="date_issuing_picker"
             max-width="290"
@@ -344,8 +343,8 @@
                 <v-date-picker 
                     locale="ru-in"
                     color="#FFCC47"
-                    v-model="date_issuing"
-                    @change="date_issuing_picker = false"
+                    v-model="date_issuing_modal"
+                    @change="openDataPicker('date_issuing_picker')"
                     :max="max_date_issuing_picker"
                 ></v-date-picker>
             </v-card>
@@ -359,8 +358,8 @@
                 <v-date-picker 
                     locale="ru-in"
                     color="#FFCC47"
-                    v-model="date_endings"
-                    @change="date_endings_picker = false"
+                    v-model="date_endings_modal"
+                    @change="openDataPicker('date_endings_picker')"
                     :min="max_date_issuing_picker"
                 ></v-date-picker>
             </v-card>
@@ -374,8 +373,8 @@
                 <v-date-picker 
                     locale="ru-in"
                     color="#FFCC47"
-                    v-model="start_check_date"
-                    @change="date_start_picker = false"
+                    v-model="start_check_date_modal"
+                    @change="openDataPicker('date_start_picker')"
                     :max="max_date_issuing_picker"
                 ></v-date-picker>
             </v-card>
@@ -389,8 +388,8 @@
                 <v-date-picker 
                     locale="ru-in"
                     color="#FFCC47"
-                    v-model="end_check_date"
-                    @change="date_end_picker = false"
+                    v-model="end_check_date_modal"
+                    @change="openDataPicker('date_end_picker')"
                     :min="max_date_issuing_picker"
                 ></v-date-picker>
             </v-card>
@@ -467,7 +466,7 @@
             <v-card>
                 <div class="type__notif">
                     <h2>
-                        Гость зарегистрирован. Уведомление успешно отправлено
+                        Уведомление успешно отправлено
                     </h2>
                     <div class="type__notif__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
@@ -483,16 +482,16 @@
 
 <script>
 import Nav from '../components/NavHeader'
-import { required, email, requiredUnless } from 'vuelidate/lib/validators'
+import { required, email, requiredUnless, helpers } from 'vuelidate/lib/validators'
 import animateScrollTo from 'animated-scroll-to'
 import { mapGetters } from 'vuex'
-import { helpers } from 'vuelidate/lib/validators'
+import maskInput from 'vue-masked-input'
 const alpha = helpers.regex('numeric', /^[0-9,+,(), «»]*$/)
 const document_number = helpers.regex('numeric', /^[0-9, a-zA-Z]*$/)
 
 export default {
     components: {
-        Nav,
+        Nav, maskInput
     },
     validations: {
         picker: {
@@ -511,7 +510,7 @@ export default {
             required
         },
         date_birth: {
-            required
+            required,
         },
         floor: {
             required
@@ -610,6 +609,14 @@ export default {
             max_date_issuing_picker: null,
 
             additinal__validation: false,
+
+            // data_picker
+
+            date_birth_modal: null,
+            date_issuing_modal: null,
+            date_endings_modal: null,
+            start_check_date_modal: null,
+            end_check_date_modal: null
         }
     },
     mounted() {
@@ -622,6 +629,49 @@ export default {
         setInterval(this.getTime, 1000)
     },
     methods: {
+        formatDate (date) {
+            let datePart = date.match(/\d+/g),
+            year = datePart[0],  
+            month = datePart[1], 
+            day = datePart[2]
+            return day+'.'+month+'.'+year;
+        },
+
+        returnFormatDate (date) {
+            let datePart = date.match(/\d+/g),
+            day = datePart[0],  
+            month = datePart[1], 
+            year = datePart[2] 
+            return year+'-'+month+'-'+day;
+        },
+
+        openDataPicker (picker__name) {
+            switch (picker__name) {
+                case 'date_birth_picker':
+                    this.date_birth = this.formatDate(this.date_birth_modal)
+                    this.date_birth_picker = false
+                    break;
+                case 'date_issuing_picker':
+                    this.date_issuing = this.formatDate(this.date_issuing_modal)
+                    this.date_issuing_picker = false
+                    break;
+                case 'date_endings_picker':
+                    this.date_endings = this.formatDate(this.date_endings_modal)
+                    this.date_endings_picker = false
+                    break;
+                case 'date_start_picker':
+                    this.start_check_date = this.formatDate(this.start_check_date_modal)
+                    this.date_start_picker = false
+                    break;
+                case 'date_end_picker':
+                    this.end_check_date = this.formatDate(this.end_check_date_modal)
+                    this.date_end_picker = false
+                    break;
+                default:
+                    break;
+            }
+        },
+
         countryChanged(country) {
             this.country_code = country.dialCode
         },
@@ -682,18 +732,18 @@ export default {
                         name: this.name,
                         patronymic: this.middle_name,
                         hotel_id: this.arrival_address,
-                        date_birth: this.date_birth,
+                        date_birth: this.returnFormatDate(this.date_birth),
                         email: this.email,
                         phone: this.phone,
                         doctype_id: this.type_document,
                         document_number: this.document_number,
                         series_documents: this.series_documents,
-                        date_issue: this.date_issuing,
-                        valid_until: this.date_endings,
+                        date_issue: this.returnFormatDate(this.date_issuing),
+                        valid_until: this.returnFormatDate(this.date_endings),
                         notification_on_mvd: this.checkbox_notify_mvd,
                         gender_id: this.floor,
-                        start_check_date: this.start_check_date,
-                        end_check_date: this.end_check_date,
+                        start_check_date: this.returnFormatDate(this.start_check_date),
+                        end_check_date: this.returnFormatDate(this.end_check_date),
                         kato_id: this.citizenship,
                         target_id: this.target,
                         check_in: this.arrival,
@@ -870,9 +920,9 @@ export default {
         changeDateArrival () {
             this.date_arrival = false
             this.arrival = this.picker[0]
-            this.start_check_date = this.picker[0]
+            this.start_check_date = this.formatDate(this.picker[0])
             this.departure = this.picker[1]
-            this.end_check_date = this.picker[1]
+            this.end_check_date = this.formatDate(this.picker[1])
         },
         checkDateArrival () {
             if (typeof this.picker[0] !== 'undefined') {
@@ -952,9 +1002,9 @@ export default {
                     this.document_number = response.data.DocNumber
                     this.name = response.data.FirstName
                     this.surname = response.data.LastName
-                    this.date_birth = response.data.Birthday
-                    this.date_issuing = response.data.Issue
-                    this.date_endings = response.data.Valid
+                    this.date_birth = Object.prototype.hasOwnProperty.call(response.data, 'Birthday') == true ? this.formatDate(response.data.Birthday) : null
+                    this.date_issuing = Object.prototype.hasOwnProperty.call(response.data, 'Issue') == true ? this.formatDate(response.data.Issue) : null
+                    this.date_endings = Object.prototype.hasOwnProperty.call(response.data, 'Valid') == true ? this.formatDate(response.data.Valid) : null
                     this.citizenship = response.data.Country_id
                     this.middle_name = response.data.Patronymic
 
@@ -996,9 +1046,9 @@ export default {
                     this.document_number = response.data.DocNumber
                     this.name = response.data.FirstName
                     this.surname = response.data.LastName
-                    this.date_birth = response.data.Birthday
-                    this.date_issuing = response.data.Issue
-                    this.date_endings = response.data.Valid
+                    this.date_birth = Object.prototype.hasOwnProperty.call(response.data, 'Birthday') == true ? this.formatDate(response.data.Birthday) : null
+                    this.date_issuing = Object.prototype.hasOwnProperty.call(response.data, 'Issue') == true ? this.formatDate(response.data.Issue) : null
+                    this.date_endings = Object.prototype.hasOwnProperty.call(response.data, 'Valid') == true ? this.formatDate(response.data.Valid) : null
                     this.citizenship = response.data.Country_id
                     this.middle_name = response.data.Patronymic
 
@@ -1390,7 +1440,7 @@ export default {
                     }
                     .textarea {
                         width: 100%;
-                        height: 146px;
+                        height: 73px;
                         background: #fff;
                         border-radius: 10px;
                         outline: none;
@@ -1412,6 +1462,11 @@ export default {
                         align-items: center;
                         cursor: pointer;
                         margin-bottom: 10px;
+                        .date__input {
+                            border: none;
+                            height: 35px;
+                            margin: 0;
+                        }
                         .search_input {
                             height: 26px;
                             border: none;
@@ -1470,6 +1525,17 @@ export default {
                         align-items: center;
                         p {
                             margin: 0
+                        }
+                        .date__input {
+                            border: none;
+                            height: 35px;
+                            margin: 0;
+                        }
+                    }
+                    img {
+                        cursor: pointer;
+                        &:hover {
+                            opacity: .7;
                         }
                     }
                     span {
