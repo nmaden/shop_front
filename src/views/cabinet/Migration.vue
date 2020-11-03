@@ -88,7 +88,7 @@ export default {
         countries: [],
         country_id: null,
         allowed_days_without_registration: 30,
-        visa_required: 'Нет',
+        visa_required: this.$i18n.t('migration__visa__no'),
         country_flag: null
       }
     },
@@ -101,9 +101,9 @@ export default {
                 let res = this.country.filter((item) => item.id == this.country_id)
                 this.country_flag = res[0].flag
                 if (res[0].visa_required == 1) {
-                    this.visa_required = 'Да'
+                    this.visa_required = this.$i18n.t('migration__visa__yes')
                 } else {
-                    this.visa_required = 'Нет'
+                    this.visa_required = this.$i18n.t('migration__visa__no')
                 }
                 this.allowed_days_without_registration = res[0].allowed_days_without_registration
             } else {
