@@ -4,7 +4,7 @@
             <h2 
                 v-if="users.length !== 0"
             >
-                Список моих гостей
+                {{$t('list__guest__title')}}
             </h2>
 
             <h2 
@@ -59,7 +59,7 @@
                         </div>
                         <p>
                             <span>
-                                статус
+                                {{$t('list__guest__status__text')}}
                             </span>
                         </p>
                         <p>
