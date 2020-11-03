@@ -76,14 +76,14 @@
             <v-card>
                 <div class="type__baner">
                     <h2>
-                        Требуется авторизация или регистрация
+                        {{$t('auth__modal__requires__title')}}
                     </h2>
                     
                     <div class="type__baner__block">
                         <img src="../../assets/all/auth_reg.svg" alt="images">
                         <router-link to="/login">
                             <button>
-                                АВТОРИЗОВАТЬСЯ
+                                {{$t('book__hotel__footer__login')}}
                             </button>
                         </router-link>
                     </div>

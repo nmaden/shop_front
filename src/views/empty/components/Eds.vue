@@ -3,7 +3,10 @@
         <div class="eds__form">
             <button @click="handleSend" class="eds__button">{{$t('eds__btn')}}</button>
             <p v-if="showError == true"> 
-                Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать NCALayer по <a href="https://pki.gov.kz/ncalayer/">ссылке</a>
+                
+                <i18n path="eds__page__warnings">
+                    <a href="https://pki.gov.kz/ncalayer/" place="action">{{$t('eds__link__text')}}</a>
+                </i18n>
             </p>
         </div>
     </div>
@@ -31,7 +34,7 @@ export default {
             if (this.ready == false) {
                 this.showError = true
                 this.$toast.open({
-                    message: 'Убедитесь, что программа NCALayer запущена',
+                    message: this.$i18n.t('eds__nclaer__disabled'),
                     type: 'error',
                     position: 'bottom',
                     duration: 5000,

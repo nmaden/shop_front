@@ -260,5 +260,13 @@ export default {
     migration__day: 'Безвизовый въезд',
     migration__visa: 'Электронная виза (eVisa)',
     migration__day__text: 'Дней',
+    header__user__toast: 'Вход/регистрация',
+    header__user__menu__cabinet: 'Личный кабинет',
+    header__user__menu__sign__out: 'Выход',
+    header__user__menu__sign__out__toast: 'Вы вышли с личного кабинета',
+    auth__modal__requires__title: 'Требуется авторизация или регистрация',
+    eds__page__warnings: 'Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать NCALayer по {action}',
+    eds__link__text: 'ссылке',
+    eds__nclaer__disabled: 'Убедитесь, что программа NCALayer запущена',
 
 }

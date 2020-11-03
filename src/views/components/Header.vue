@@ -62,7 +62,7 @@
                                 alt="person_default"
                             >
                         </template>
-                        <span>Вход/регистрация</span>
+                        <span>{{$t('header__user__toast')}}</span>
                     </v-tooltip>
                     <div 
                         class="main__header__menu__user" 
@@ -80,12 +80,12 @@
                             <div class="header__menu__user__hover__after">
                                 <div @click="route('/profile')" class="header__menu__user__hover__after__block">
                                     <p>
-                                        Личный кабинет / {{GET_USER_DATA.name}} {{GET_USER_DATA.surname}}
+                                        {{$t('header__user__menu__cabinet')}} / {{GET_USER_DATA.name}} {{GET_USER_DATA.surname}}
                                     </p>
                                 </div>
                                 <div @click="sign_out_modal = true" class="header__menu__user__hover__after__block">
                                     <p>
-                                        Выход
+                                        {{$t('header__user__menu__sign__out')}}
                                     </p>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                         >
                             <img src="../../assets/icons/person_default.svg" alt="person_default">
                             <p>
-                                Личный кабинет
+                                {{$t('header__user__menu__cabinet')}}
                             </p>
                         </div>
                         <div 
@@ -161,7 +161,7 @@
                         >
                             <img src="../../assets/icons/person_default.svg" alt="person_default">
                             <p>
-                                Личный кабинет
+                                {{$t('header__user__menu__cabinet')}}
                             </p>
                         </div>
                         <div 
@@ -170,7 +170,7 @@
                             class="cabinet__block"
                         >
                             <p>
-                                Выход
+                                {{$t('header__user__menu__sign__out')}}
                             </p>
                         </div>
                     </div>
@@ -263,7 +263,7 @@ export default {
             this.sign_out_modal = false
             this.$store.dispatch('SIGN_OUT_USER')
             this.$toast.open({
-                message: 'Вы вышли с личного кабинета',
+                message: this.$i18n.t('header__user__menu__sign__out__toast'),
                 type: 'warning',
                 position: 'bottom',
                 duration: 4000,

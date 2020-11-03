@@ -260,6 +260,13 @@ export default {
     migration__day: 'Елге визасыз кіру',
     migration__visa: 'Электронды виза (eVisa)',
     migration__day__text: 'Күн',
-    
+    header__user__toast: 'Кіру/Тіркелу',
+    header__user__menu__cabinet: 'Жеке кабинет',
+    header__user__menu__sign__out: 'Шығу',
+    header__user__menu__sign__out__toast: 'Сіз жеке кабинеттен шықтыңыз',
+    auth__modal__requires__title: 'Авторизациядан өтуіңіз немесе тіркелуіңіз қажет',
+    eds__page__warnings: '“eQonaq” жүйесінде ЭЦҚ арқылы жұмыс жасау үшін {action} бойынша NCALayer бағдарламасын жүктеу/жаңарту қажет',
+    eds__link__text: 'сілтеме',
+    eds__nclaer__disabled: 'NCYLayer  бағдарламасы іске қосылғандығына көз жеткізіңіз',
 
 } 
