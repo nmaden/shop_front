@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import ru from '../localization/kz.js'
+import ru from '../localization/ru.js'
 
 Vue.use(VueI18n)
 

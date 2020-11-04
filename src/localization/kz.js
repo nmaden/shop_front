@@ -260,7 +260,7 @@ export default {
     migration__day: 'Елге визасыз кіру',
     migration__visa: 'Электронды виза (eVisa)',
     migration__day__text: 'Күн',
-    migration__visa__yes: 'Бар',
+    migration__visa__yes: 'Ия',
     migration__visa__no: 'Жоқ',
     header__user__toast: 'Кіру/Тіркелу',
     header__user__menu__cabinet: 'Жеке кабинет',
@@ -321,5 +321,6 @@ export default {
     add__addres__page__form__label__house: 'Үй нөмірі',
     add__addres__page__form__label__apartment_number: 'Пәтер нөмірі', 
     add__addres__page__form__btn: 'САҚТАУ', 
+    address__list__title: 'Менің мекенжайларым',
 
 } 

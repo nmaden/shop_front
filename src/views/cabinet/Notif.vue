@@ -296,11 +296,10 @@
                     color="#FFCC47"
                     label="Отправить welcome сообщение на email."
                 ></v-checkbox>
-                <button @click="sendNotif">ОТПРАВИТЬ</button>
+                <button @click="sendNotif">ОТПРАВИТЬ</button> 
             </div>
         </div>
-
-
+  
         <!-- modal window -->
 
         <v-dialog

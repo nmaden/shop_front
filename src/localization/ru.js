@@ -321,5 +321,5 @@ export default {
     add__addres__page__form__label__house: 'Номер дома', 
     add__addres__page__form__label__apartment_number: 'Номер квартиры', 
     add__addres__page__form__btn: 'Добавить', 
-
+    address__list__title: 'Мои адреса',
 }
