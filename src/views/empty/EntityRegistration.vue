@@ -11,18 +11,22 @@
                 <div v-if="police == true">
                     <div class="eds__desktop">
                         <h1 v-if="showEdsForm == false">
-                            Регистрация
+                            {{$t('registration__title')}}
                         </h1>
                         <div v-if="showEdsForm == false" class="eds__desktop__text">
                             <p>
-                                Данный вид регистрации дает вам статус постоянного пользователя. Вы можете без ограничений пользоваться всеми услугами.
+                                <i18n path="registration__description">
+                                    <a href="https://egov.kz/cms/ru/services/pass_onlineecp" place="action">{{$t('registration__description_link')}}</a>
+                                </i18n>
                             </p>
                         </div>
                         <div class="registrations__form">
-                            <button @click="handleSend">Выбрать ЭЦП</button>
+                            <button @click="handleSend">{{$t('registration__eds__btn')}}</button>
                         </div>
                         <p v-if="showError == true"> 
-                            Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать NCALayer по <a href="https://pki.gov.kz/ncalayer/">ссылке</a>
+                            <i18n path="eds__page__warnings">
+                                <a href="https://pki.gov.kz/ncalayer/" place="action">{{$t('eds__link__text')}}</a>
+                            </i18n>
                         </p>
                     </div>
                     
@@ -238,7 +242,9 @@
                     <div class="type__registration__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
                         <p>
-                            После одобрения заявки, ваш личный кабинет будет доступен. <br>
+                            После одобрения заявки на регистрацию, 
+                            на указанный <span>email</span> адрес будет  отправлено 
+                            письмо с  логином и паролем. <br>
                             При возникновении вопросов пишите письмо на почту <a href="mailto:support@eqonaq.kz">support@eqonaq.kz</a>
                         </p>
                         <router-link to="/login">
@@ -451,7 +457,7 @@ export default {
             if (this.ready == false) {
                 this.showError = true
                 this.$toast.open({
-                    message: 'Убедитесь, что программа NCALayer запущена',
+                    message: this.$i18n.t('eds__nclaer__disabled'),
                     type: 'error',
                     position: 'bottom',
                     duration: 5000,
@@ -596,14 +602,16 @@ export default {
     background: #fff;
     text-align: center;
     padding: 50px 70px;
+
     @media (max-width: @mobile) {
         padding: 10px;
     }
     h2 {
         font-style: normal;
         font-weight: 600;
-        font-size: 30px;
-        line-height: 37px;
+        font-size: 27px;
+        font-family: "MontserratBold";
+        line-height: 34px;
         letter-spacing: -0.05em;
         color: #000000;
          @media (max-width: @mobile) {
@@ -623,10 +631,11 @@ export default {
             }
         }
         p {
+            font-family: "MediumMedium";
             font-style: normal;
-            font-weight: 300;
-            font-size: 13px;
-            line-height: 15px;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
             letter-spacing: -0.05em;
             color: #000000;
             margin-top: 20px;
@@ -679,12 +688,12 @@ export default {
                     display: none;
                 }
                 p {
-                    color: red;
+                    color:  #636363;
                     font-family: "MediumMedium";
                     a {
-                        color: red;
+                        color:  #636363;
                         text-decoration: none;
-                        border-bottom: 3px solid red;
+                        border-bottom: 1px solid  #636363;
                         
                         &:hover {
                             opacity: .7;
@@ -700,7 +709,12 @@ export default {
                         font-size: 16px;
                         line-height: 20px;
                         color: #636363;
+                        a {
+                            color: #636363;
+                            border-bottom: 1px solid #636363;
+                        }
                     }
+                   
                     @media (max-width: @mobile) {
                         width: 100%;
                     }

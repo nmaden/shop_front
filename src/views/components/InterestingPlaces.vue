@@ -1,7 +1,7 @@
 <template>
     <div class="places">
         <p>
-            Интересные места
+           {{$t('interesting__places__title')}}
         </p>
 
         <div class="mobile">
@@ -37,7 +37,7 @@
             @mousemove="scrollBodyOver" 
             @mouseleave="scrollBodyLeave" 
         >
-            <div class="places__type" :style="'margin-left:' + this.menu_count + 'px'">
+            <div class="places__type">
                 <div 
                     class="places__type__block__parrent"
                     v-for="places_item in $t('interesting__places')"
@@ -72,8 +72,6 @@ import disableScroll from 'disable-scroll'
 export default {
     data () {
       return {
-        menu_count: 0,
-        scrollInteval: 35,
         places: [
             {
                 title: 'УЗНАЙТЕ БОЛЬШЕ О КАЗАХСТАНЕ НА kazakhstan.travel',
@@ -104,9 +102,7 @@ export default {
             window.open(to, '_blank')
         },
         scrollMenu (e) {
-            let menu__item = this.$refs.menu__item
-            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval, '.places')
-            this.menu_count = this.$menuCount()
+            this.$scroll(e, 30)
         },
         
         scrollBodyOver () {
@@ -223,16 +219,19 @@ export default {
     }
     .desktop {
         display: block;
-        height: 466px;
+        height: 485px;
         position: relative;
         @media (max-width: @planshet) {
             width: 100%;
-            overflow-x: scroll;
-            overflow-y: hidden;
             height: 480px;
             &::-webkit-scrollbar {
                 width: 0px;
             }
+        }
+        overflow-x: scroll;
+        overflow-y: hidden;
+        &::-webkit-scrollbar {
+            width: 0px;
         }
         @media (max-width: @mobile) {
             display: none;
@@ -240,7 +239,6 @@ export default {
         .places__type {
             width: 100%;
             white-space: nowrap;
-            position: absolute;
             .places__type__block__parrent {
                 width: 370px;
                 margin-right: 10px;

@@ -296,11 +296,10 @@
                     color="#FFCC47"
                     label="Отправить welcome сообщение на email."
                 ></v-checkbox>
-                <button @click="sendNotif">ОТПРАВИТЬ</button>
+                <button @click="sendNotif">ОТПРАВИТЬ</button> 
             </div>
         </div>
-
-
+  
         <!-- modal window -->
 
         <v-dialog
@@ -379,7 +378,6 @@
                 ></v-date-picker>
             </v-card>
         </v-dialog>
-
         <v-dialog
             v-model="date_end_picker"
             max-width="290"
@@ -394,8 +392,6 @@
                 ></v-date-picker>
             </v-card>
         </v-dialog>
-        
-
         <v-dialog
             v-model="scan_photo_picker"
             max-width="600"
@@ -488,6 +484,7 @@ import { mapGetters } from 'vuex'
 import maskInput from 'vue-masked-input'
 const alpha = helpers.regex('numeric', /^[0-9,+,(), «»]*$/)
 const document_number = helpers.regex('numeric', /^[0-9, a-zA-Z]*$/)
+
 
 export default {
     components: {
@@ -1072,7 +1069,7 @@ export default {
         ...mapGetters(['GET_TOKEN']),
         additinal__fuilds () {
             return this.additinal__validation  
-        }
+        },
     }
 }
 </script>

@@ -3,7 +3,7 @@
         <div @click="$router.go(-1)"  class="back__button">
             <img src="../../assets/icons/left-arrow.svg">
             <span>
-                Назад
+                {{$t('nav__bar__title')}}
             </span>
         </div>
     </div>

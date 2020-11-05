@@ -35,12 +35,12 @@ export default {
         return {
             tabs_array: [
                 {
-                    name: 'ЭЦП',
+                    name: this.$i18n.t('tabs_array__name__eds'),
                     id: 0,
                     active: true,
                 },
                 {
-                    name: 'Логин',
+                    name: this.$i18n.t('tabs_array__name__login'),
                     id: 1,
                     active: false,
                 }

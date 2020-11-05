@@ -1,14 +1,13 @@
 <template>
     <div class="book__hotel">
         <p>
-            Забронировать отель / гостиницу
+            {{$t('bookhotel__title')}}
         </p>
 
         <div class="book__hotel__filter">
             <div class="book__hotel__filter__margin">
                 <h4>
-                    Найдите спецпредложения от отелей, 
-                    домов и других вариантов
+                    {{$t('bookhotel__descriptions')}}
                 </h4>
                 <div class="filter__book__hotel">
                     <v-menu
@@ -97,10 +96,10 @@
                             >
                                 <img class="base__filter__img" src="../../assets/icons/person_filter.png" alt="person_filter">
                                 <p>
-                                    {{adults}} - взрослых 
+                                    {{adults}} - {{$t('book__hotel__users')}}
                                 </p>
                                 <p>
-                                    {{numbers}} - номер
+                                    {{numbers}} - {{$t('book__hotel__numbers')}}
                                 </p>    
                             </div>
                         </template>
@@ -108,7 +107,7 @@
                             <div class="counter__type__flex">
                                 <div class="counter__type__flex__block_l">
                                     <p>
-                                        Взрослых
+                                        {{$t('book__hotel__users')}}
                                     </p>
                                 </div>
                                 <div class="counter__type__flex__block_r">
@@ -126,7 +125,7 @@
                             <div class="counter__type__flex">
                                 <div class="counter__type__flex__block_l">
                                     <p>
-                                        Номера
+                                        {{$t('book__hotel__numbers')}}
                                     </p>
                                 </div>
                                 <div class="counter__type__flex__block_r">
@@ -144,7 +143,7 @@
                         </div>
                     </v-menu>
                     <a href="https://kazakhstan.travel/hotels" target="_blank">
-                        Проверить цены
+                        {{$t('book__hotel__get__price')}}
                     </a>
                 </div>
             </div>
@@ -163,13 +162,13 @@ export default {
         date_arrival: null,
         
 
-        arrival: 'Заезд',
-        departure: 'Отъезд',
+        arrival: this.$i18n.t('bookhotel__arrival'),
+        departure: this.$i18n.t('bookhotel__departure'),
         adults: 1,
         numbers: 1,
         region: [],
         region_id: null,
-        region_label: 'Куда вы хотите поехать? ',
+        region_label: this.$i18n.t('bookhotel__city'),
       }
     },
     mounted() {
@@ -430,7 +429,7 @@ export default {
                     padding: 15px 25px;
                     border-radius: 0px 10px 10px 0px;
                     font-weight: 800;
-                    font-size: 16px;
+                    font-size: 15px;
                     text-transform: uppercase;
                     color: #000000;
                     text-decoration: none;

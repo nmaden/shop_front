@@ -6,7 +6,7 @@
         <v-card>
             <div class="change__password">
                  <h3>
-                     Изменить пароль
+                     {{$t('edit__password__modal__title')}}
                  </h3>
                  <p>
                      Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы.
@@ -14,7 +14,7 @@
                  <div class="registrations__form">
                     <div class="input__block">
                         <label for="old__password">
-                            Старый пароль <span>*</span>
+                            {{$t('edit__modal__form__label__old__password')}} <span>*</span>
                         </label>
                         <input type="password" v-model.trim="old__password" id="old__password">
                         <div class="error__text" v-if="$v.old__password.$dirty && !$v.old__password.required">Поле 'Старый пароль' обязателен к заполнению</div>
@@ -22,7 +22,7 @@
 
                     <div class="input__block">
                         <label for="new__password">
-                            Новый пароль <span>*</span>
+                            {{$t('edit__modal__form__label__new__password')}} <span>*</span>
                         </label>
                         <input type="password" v-model.trim="new__password" id="new__password">    
                         <div class="error__text" v-if="$v.new__password.$dirty && !$v.new__password.required">Поле 'Новый пароль' обязателен к заполнению</div>
@@ -32,14 +32,14 @@
 
                     <div class="input__block">
                         <label for="new__password__repeat">
-                            Повторить новый пароль <span>*</span>
+                            {{$t('edit__modal__form__label__repeat__new__password')}} <span>*</span>
                         </label>
                         <input type="password"  v-model.trim="new__password__repeat"  id="new__password__repeat">
                         <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.required">Поле 'Повторить новый пароль' обязателен к заполнению</div>
                         <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.sameAs">Пароли не совпадают</div>
                     </div>
                     <div class="input__block">
-                        <button @click="changePassword">Сохранить</button>
+                        <button @click="changePassword">{{$t('edit__modal__form__btn') }}</button>
                     </div>
                 </div>   
             </div>

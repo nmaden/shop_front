@@ -4,15 +4,15 @@
         <div class="forgot__password__form">
             <img src="../../assets/logo/logo.svg" alt="logo">
             <p>
-                Восстановления пароля
+                {{$t('forgot__password__page__title')}} 
             </p>
             <form @submit="forgotPassword">
-                <input type="text" v-model.trim="email" placeholder="Введите электронный адрес">
+                <input type="text" v-model.trim="email" :placeholder="$t('forgot__password__page__input__placeholder')">
                 <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'электронный адрес' обязателен к заполнению</div>
                 <div class="error__text" v-if="$v.email.$dirty && !$v.email.email">Введите корректный 'электронный адрес' </div>
                 
                 <button :disabled="disabled__button" type="submit">
-                    Отправить
+                    {{$t('forgot__password__page__btn')}} 
                 </button>
             </form>
         </div>

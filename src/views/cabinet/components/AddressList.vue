@@ -3,7 +3,7 @@
         <div class="main__base__margin">
             <Nav />
             <h1>
-                Мои адреса
+                {{$t('address__list__title')}}
             </h1>
         </div>
         <div class="address__list__data">

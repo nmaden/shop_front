@@ -62,7 +62,7 @@
                                 alt="person_default"
                             >
                         </template>
-                        <span>Вход/регистрация</span>
+                        <span>{{$t('header__user__toast')}}</span>
                     </v-tooltip>
                     <div 
                         class="main__header__menu__user" 
@@ -80,12 +80,12 @@
                             <div class="header__menu__user__hover__after">
                                 <div @click="route('/profile')" class="header__menu__user__hover__after__block">
                                     <p>
-                                        Личный кабинет / {{GET_USER_DATA.name}} {{GET_USER_DATA.surname}}
+                                        {{$t('header__user__menu__cabinet')}} / {{GET_USER_DATA.name}} {{GET_USER_DATA.surname}}
                                     </p>
                                 </div>
                                 <div @click="sign_out_modal = true" class="header__menu__user__hover__after__block">
                                     <p>
-                                        Выход
+                                        {{$t('header__user__menu__sign__out')}}
                                     </p>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
             @mouseleave="scrollBodyLeave" 
             class="scroll__menu"
         >
-            <div class="menu" :style="'margin-left:' + this.menu_count + 'px'">
+            <div class="menu">
                 <a 
                     class="menu__item"
                     v-for="menu_item in $t('menu_header')"
@@ -151,7 +151,7 @@
                         >
                             <img src="../../assets/icons/person_default.svg" alt="person_default">
                             <p>
-                                Личный кабинет
+                                {{$t('header__user__menu__cabinet')}}
                             </p>
                         </div>
                         <div 
@@ -161,7 +161,7 @@
                         >
                             <img src="../../assets/icons/person_default.svg" alt="person_default">
                             <p>
-                                Личный кабинет
+                                {{$t('header__user__menu__cabinet')}}
                             </p>
                         </div>
                         <div 
@@ -170,7 +170,7 @@
                             class="cabinet__block"
                         >
                             <p>
-                                Выход
+                                {{$t('header__user__menu__sign__out')}}
                             </p>
                         </div>
                     </div>
@@ -241,9 +241,7 @@ export default {
         ],
         lang: 'ru',
         show_menu: false,
-        menu_count: 0,
         show_mobile_menu: false,
-        scrollInteval: 60,
       }
     },
     methods: {
@@ -265,7 +263,7 @@ export default {
             this.sign_out_modal = false
             this.$store.dispatch('SIGN_OUT_USER')
             this.$toast.open({
-                message: 'Вы вышли с личного кабинета',
+                message: this.$i18n.t('header__user__menu__sign__out__toast'),
                 type: 'warning',
                 position: 'bottom',
                 duration: 4000,
@@ -273,9 +271,7 @@ export default {
             });
         },
         scrollMenu (e) {
-            let menu__item = this.$refs.menu__item
-            this.$scroll(e, menu__item, this.menu_count, this.scrollInteval, '.scroll__menu')
-            this.menu_count = this.$menuCount()
+            this.$scroll(e, 60)
         },
          
         scrollBodyOver () {
@@ -291,8 +287,9 @@ export default {
                 this.$i18n.locale = this.lang
             })
         },
+        
     },
-    
+     
     computed: {
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
     }
@@ -499,28 +496,24 @@ export default {
     margin: 0 auto;
     z-index: 20;
     margin-top: 10px;
-    height: 65px;
+    height: 76px;
+    overflow-x: scroll;
+    overflow-y: hidden;
     position: relative;
     @media (max-width: @mobile) {
         display: none;
     }
     @media (max-width: @planshet) {
         width: 95%;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        height: 76px;
-        &::-webkit-scrollbar {
-            width: 1px;
-        }
     }
-
+    &::-webkit-scrollbar {
+        width: 1px;
+    }
     .menu {
         width: 100%;
         padding-bottom: 10px;
         z-index: 100;
         white-space: nowrap;
-        position: absolute;
-
         
         .menu__item {
             display: inline-block;

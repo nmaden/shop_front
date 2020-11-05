@@ -8,10 +8,10 @@
                     404
                 </h1>
                 <h1>
-                    Страница не найдена
+                    {{$t('page__404__title')}}
                 </h1>
                 <router-link tag="a" to="/">
-                    На главную
+                    {{$t('page__404__btn')}}
                 </router-link>
             </div>
         </div>

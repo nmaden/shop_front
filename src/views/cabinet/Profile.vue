@@ -11,7 +11,7 @@
                 <div class="profile__data__flex">
                     <div class="profile__data__text"> 
                         <p>
-                            ИИН:
+                            {{$t('profile__page__iin')}}
                         </p>
                         <h4 v-if="GET_USER_DATA.iin !== null">
                             {{GET_USER_DATA.iin}}
@@ -22,7 +22,7 @@
                     </div>
                     <div class="profile__data__text"> 
                         <p>
-                            Адрес:
+                            {{$t('profile__page__addres')}}
                         </p>
                         
                         <h4 
@@ -46,7 +46,7 @@
                 <div class="profile__data__flex">
                     <div class="profile__data__text"> 
                         <p>
-                            Почта:
+                            {{$t('profile__page__mail')}}
                         </p>
                         
                         <h4 v-if="GET_USER_DATA.email !== null">
@@ -60,9 +60,9 @@
             </div>
         </div>
         <div class="main__base__margin">
-            <button @click="router('/notif')">Отправить уведомление о прибытии гостя</button>
-            <button @click="modal('password')">Изменить пароль</button>
-            <button @click="modal('address')">Добавить адрес</button>
+            <button @click="router('/notif')">{{$t('profile__page__send__notif')}}</button>
+            <button @click="modal('password')">{{$t('profile__page__edit__password')}}</button>
+            <button @click="modal('address')">{{$t('profile__page__add__addres')}}</button>
             <ListGuest />
         </div>
 

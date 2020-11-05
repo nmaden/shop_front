@@ -5,19 +5,19 @@
             <div class="login__and__registration__flex">
                 <div class="login__and__registration__flex__l">
                     <h2>
-                        Войти в личный кабинет
+                        {{$t('auth__login__title')}}
                     </h2>
                     <p>
-                        Выберите способ авторизации
+                        {{$t('auth__login__descriptions')}}
                     </p>
                     <Tabs />
                 </div>
                 <div class="login__and__registration__flex__r">
                     <h2>
-                        Впервые на eQonaq?
+                        {{$t('auth__reg__title')}}
                     </h2>
                     <button @click="modal = true">
-                        ЗАРЕГИСТРИРОВАТЬСЯ
+                        {{$t('auth__reg__button')}}
                     </button>
                 </div>
             </div>
@@ -32,13 +32,13 @@
             <v-card>
                 <div class="type__auth">
                     <h2>
-                        Зарегистрироваться как
+                        {{$t('auth__reg__modal__title')}}
                     </h2>
                     <div class="type__auth__block">
                         <img src="../../assets/all/natural_person.svg" alt="images">
                         <router-link to="/regitstration">
                             <button>
-                                Физическое лицо
+                                {{$t('auth__reg__modal__btn__individuals')}}
                             </button>
                         </router-link>
                     </div>
@@ -46,7 +46,7 @@
                         <img src="../../assets/all/entity.svg" alt="images">
                         <router-link to="/entityregistration">
                             <button>
-                                Юридическое лицо
+                                {{$t('auth__reg__modal__btn__entities')}}
                             </button>
                         </router-link>
                     </div>
@@ -99,6 +99,8 @@ export default {
     
     .type__auth__block {
         margin-top: 30px;
+        display: flex;
+        flex-direction: column;
         @media (max-width: @mobile) {
             margin-top: 15px;
         }
@@ -115,6 +117,7 @@ export default {
             border-radius: 30px;
             font-style: normal;
             font-weight: 600;
+            margin-top: 10px;
             font-size: 20px;
             line-height: 25px;
             color: #000;

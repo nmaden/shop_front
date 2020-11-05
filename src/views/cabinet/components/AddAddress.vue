@@ -6,7 +6,7 @@
         <v-card>
             <div class="change__address">
                  <h3 v-if="addAddressModal == true">
-                    Добавить адрес
+                    {{$t('add__addres__page__title')}}
                  </h3>
                  <h3 v-else>
                     Редактировать адрес
@@ -14,14 +14,14 @@
                  <div class="registrations__form">
                     <div class="input__block">
                         <label for="region">
-                            Область <span>*</span>
+                           {{$t('add__addres__page__form__label__obl')}}  <span>*</span>
                         </label>
                         <select 
                             v-model.trim="region" 
                             id="region"
                             @change="getDistrict"
                         >
-                            <option value="" disabled>Область</option>
+                            <option value="" disabled>{{$t('add__addres__page__form__label__obl')}}</option>
                             <option 
                                 v-for="item_region in region__array"
                                 :key="item_region.value"
@@ -35,14 +35,14 @@
 
                     <div class="input__block">
                         <label for="district">
-                            Район <span>*</span>
+                            {{$t('add__addres__page__form__label__district')}} <span>*</span>
                         </label>
                         <select 
                             v-model.trim="district" 
                             id="district"
                             @change="getLocality"
                         >
-                            <option value="" disabled>Район</option>
+                            <option value="" disabled>{{$t('add__addres__page__form__label__district')}}</option>
                             <option 
                                 v-for="item_district in district__array"
                                 :key="item_district.value"
@@ -56,10 +56,10 @@
 
                     <div class="input__block">
                         <label for="locality">
-                            Населенный пункт 
+                           {{$t('add__addres__page__form__label__locality')}}
                         </label>
                         <select v-model.trim="locality" id="locality">
-                            <option value="" disabled>Населенный пункт</option>
+                            <option value="" disabled>{{$t('add__addres__page__form__label__locality')}}</option>
                             <option 
                                 v-for="item_locality in locality__array"
                                 :key="item_locality.value"
@@ -72,7 +72,7 @@
                     
                     <div class="input__block">
                         <label for="address">
-                            Адрес <span>*</span>
+                            {{$t('add__addres__page__form__label__addres')}} <span>*</span>
                         </label>
                         <input type="text" v-model.trim="address" id="address">
                         <div class="error__text" v-if="$v.address.$dirty && !$v.address.required">Поле 'Адрес' обязателен к заполнению</div>
@@ -80,7 +80,7 @@
 
                     <div class="input__block">
                         <label for="house_number">
-                            Номер дома <span>*</span>
+                            {{$t('add__addres__page__form__label__house')}} <span>*</span>
                         </label>
                         <input type="text" v-model.trim="house_number" id="house_number">    
                         <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div>
@@ -89,12 +89,12 @@
 
                     <div class="input__block">
                         <label for="apartment_number">
-                            Номер квартиры
+                            {{$t('add__addres__page__form__label__apartment_number')}}
                         </label>
                         <input type="text"  v-model.trim="apartment_number"  id="apartment_number">
                     </div>
                     <div v-if="addAddressModal == true" class="input__block">
-                        <button :disabled="disabled__button" @click="addAddress">Добавить</button>
+                        <button :disabled="disabled__button" @click="addAddress">{{$t('add__addres__page__form__btn')}}</button>
                     </div>
                     <div v-else class="input__block">
                         <button :disabled="disabled__button" @click="editAddress">Редактировать</button>
