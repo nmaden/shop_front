@@ -121,13 +121,12 @@ export default {
     .eds__form {
         width: 100%;
         p {
-            color: red;
+            color: #636363;
             font-family: "MediumMedium";
             a {
-                color: red;
+                color: #636363;
+                border-bottom: 1px solid #636363;
                 text-decoration: none;
-                border-bottom: 3px solid red;
-                
                 &:hover {
                     opacity: .7;
                 }
