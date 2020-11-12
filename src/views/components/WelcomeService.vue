@@ -12,7 +12,7 @@
                 Система создана в рамках реализации государственной программы развития туристической отрасли Министерством Культуры и Спорта при содействии Министерства Внутренних дел и Комитета Национальной безопасности Республики Казахстан.
             </p>
         </div>
-
+        <Video />
         <p>
             {{$t('welcome__task__title')}}
         </p>
@@ -34,6 +34,15 @@
     </div>
 </template>
  
+<script>
+import Video from './VideoPage'
+export default {
+    components: {
+        Video
+    }
+}
+</script>
+
 <style scoped lang="less">
 @mobile: 900px;
 .service {
