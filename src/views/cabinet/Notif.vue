@@ -617,7 +617,6 @@ export default {
         }
     },
     mounted() {
-        this.getDate()
         this.getCountries()
         this.getDoctypes()
         this.getTargets()
@@ -915,6 +914,7 @@ export default {
             this.check_in_time = hour + ":" + mimutes + ":" + seconds
         },
         changeDateArrival () {
+            this.getDate()
             this.date_arrival = false
             this.arrival = this.picker[0]
             this.start_check_date = this.formatDate(this.picker[0])

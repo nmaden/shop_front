@@ -93,10 +93,10 @@
                         </label>
                         <input type="text"  v-model.trim="apartment_number"  id="apartment_number">
                     </div>
-                    <div v-if="addAddressModal == true" class="input__block">
+                    <div v-if="addAddressModal == true" class="input__block margin__block">
                         <button :disabled="disabled__button" @click="addAddress">{{$t('add__addres__page__form__btn')}}</button>
                     </div>
-                    <div v-else class="input__block">
+                    <div v-else class="input__block margin__block">
                         <button :disabled="disabled__button" @click="editAddress">Редактировать</button>
                     </div>
                 </div>   
@@ -354,7 +354,9 @@ export default {
         flex-wrap: wrap;
         justify-content: space-between;
         text-align: left;
-        
+        .margin__block {
+            margin: 0 auto;
+        }
         .input__block {
             width: 314px;
             margin-bottom: 10px;
