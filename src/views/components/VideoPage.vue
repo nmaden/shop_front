@@ -10,7 +10,9 @@
                 </p>
             </div>
             <div class="video__fixed__r">
-                <img src="../../assets/all/img__video__play.svg" alt="">
+                <a href="https://www.youtube.com/watch?v=cl5LyPF5TRs&feature=youtu.be" target="_blank">
+                    <img src="../../assets/all/img__video__play.svg" alt="">
+                </a>
             </div>
         </div>
     </div>
