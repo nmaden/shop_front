@@ -38,12 +38,12 @@
                     <v-select
                         :items="langs"
                         :hide-details="true"
-                        dense
                         :flat="true"
                         item-text="label"
                         item-value="type"
                         item-color="#000"
                         solo
+                        dense
                         v-model="lang"
                         @change="sendLocale"
                     ></v-select>
@@ -300,6 +300,12 @@ export default {
 @mobile: 900px;
 @planshet: 1200px;
 
+.v-sheet.v-list {
+    border-radius: 0;
+    text-align: center;
+}
+
+
 .slide-fade-enter-active {
   transition: all .5s ease;
 }
@@ -396,7 +402,7 @@ export default {
             }
         }
         .lang {
-            width: 100px;
+            width: 91px;
             z-index: 99;
             font-family: 'MontserratBold';
             display: flex;
