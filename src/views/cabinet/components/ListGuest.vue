@@ -28,12 +28,25 @@
                             <h4>
                                 {{item.clients.name}} {{item.clients.surname}}  
                             </h4> 
-                            <img :src="item.clients.citizenship.flag" alt="country">
+                            <v-tooltip 
+                                bottom
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <img 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        :src="item.clients.citizenship.flag" 
+                                        alt="country"
+                                    >
+                                </template>
+                                <span>{{item.clients.citizenship.name_rus}}</span>
+                            </v-tooltip>
                         </div>
                         <p>
                             <span>
                                 {{item.hotel.region.name_rus}},
-                                {{item.hotel.area.name_rus}}
+                                {{item.hotel.area.name_rus}},
+                                {{item.hotel.locality.name_rus}}
                             </span>
                         </p>
                         <p>

@@ -5,7 +5,7 @@
             <p v-if="showError == true"> 
                 
                 <i18n path="eds__page__warnings">
-                    <a href="https://pki.gov.kz/ncalayer/" place="action">{{$t('eds__link__text')}}</a>
+                    <a href="https://pki.gov.kz/ncalayer/" target="_blank" place="action">{{$t('eds__link__text')}}</a>
                 </i18n>
             </p>
         </div>

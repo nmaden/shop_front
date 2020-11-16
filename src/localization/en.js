@@ -208,7 +208,7 @@ export default {
     login__forgot__password: 'Забыли пароль?',
     nav__bar__title: 'Назад',
     registration__title: 'Регистрация',
-    registration__description: 'Для регистрации вам необходим ЭЦП ключ который вы можете получить по {action}',
+    registration__description: 'Для регистрации вам необходим ЭЦП ключ, который вы можете получить по {action}',
     registration__description_link: 'ссылке',
     registration__eds__btn: 'Выбрать ЭЦП',
     forgot__password__page__title: 'Восстановления пароля',
