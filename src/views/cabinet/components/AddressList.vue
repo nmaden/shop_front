@@ -20,6 +20,7 @@
                             <span v-if="item_address.locality !== null">{{item_address.locality.name_rus}},</span> 
                             {{item_address.street}} 
                             {{item_address.house}}
+                            {{item_address.apartment_number}} 
                         </p>
                     </div>
                     <div class="address__list__button">
@@ -32,6 +33,7 @@
                                 area_id: item_address.area_id,
                                 locality_id: item_address.locality_id,
                                 region_id: item_address.region_id,
+                                apartment_number: item_address.apartment_number,
                                 id: item_address.id
                             })"
                         >

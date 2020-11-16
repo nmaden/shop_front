@@ -14,7 +14,7 @@
                  <div class="registrations__form">
                     <div class="input__block">
                         <label for="region">
-                           {{$t('add__addres__page__form__label__obl')}}  <span>*</span>
+                           {{$t('add__addres__page__form__label__obl')}} <span>*</span>
                         </label>
                         <select 
                             v-model.trim="region" 
@@ -91,7 +91,7 @@
                         <label for="apartment_number">
                             {{$t('add__addres__page__form__label__apartment_number')}}
                         </label>
-                        <input type="text"  v-model.trim="apartment_number"  id="apartment_number">
+                        <input type="text"  v-model.trim="apartment_number" id="apartment_number">
                     </div>
                     <div v-if="addAddressModal == true" class="input__block margin__block">
                         <button :disabled="disabled__button" @click="addAddress">{{$t('add__addres__page__form__btn')}}</button>
@@ -214,7 +214,8 @@ export default {
                         area_id: this.district,
                         locality_id: this.locality,
                         street: this.address,
-                        house: this.house_number
+                        house: this.house_number,
+                        apartment_number: this.apartment_number
                     }
                 })
                 .then((response) => {
@@ -268,7 +269,8 @@ export default {
                         area_id: this.district,
                         locality_id: this.locality,
                         street: this.address,
-                        house: this.house_number
+                        house: this.house_number,
+                        apartment_number: this.apartment_number
                     }
                 })
                 .then((response) => {
@@ -316,6 +318,7 @@ export default {
                 this.district = value.edit_data.area_id
                 this.locality = value.edit_data.locality_id
                 this.id = value.edit_data.id
+                this.apartment_number = value.edit_data.apartment_number
 
                 this.getDistrict()
                 this.getLocality()
