@@ -22,7 +22,7 @@
                         </div>
                         <div class="error__text" v-if="$v.picker.$dirty && !$v.picker.required">Поле 'Дата заезда - выезда' обязателена к заполнению</div>
                     </div>
-                    <div class="input__block">
+                    <div class="input__block time">
                         <label for="check_in_time">
                             Время заезда <span>*</span>
                         </label>
@@ -40,7 +40,7 @@
                         </v-tooltip>
                     </div>
 
-                     <div class="input__block select__input">
+                     <div class="input__block address select__input">
                         <label>
                             Адрес прибывания <span>*</span>
                         </label>
@@ -53,6 +53,7 @@
                                 filled
                                 :hide-details="true"
                                 no-data-text="Нечего не найдено"
+                                placeholder="Выберите адрес"
                                 background-color="transparent"
                                 :single-line="true"
                                 @change="checkCountry"
@@ -78,7 +79,7 @@
                         <label for="name">
                             Имя <span>*</span>
                         </label>
-                        <input v-model.trim="name" class="input" type="text" id="name">
+                        <input v-model.trim="name" class="input upperCase" type="text" id="name">
                         <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателено к заполнению</div>
                     </div>
 
@@ -86,7 +87,7 @@
                         <label for="surname">
                             Фамилия <span>*</span>
                         </label>
-                        <input v-model.trim="surname" class="input" type="text" id="surname">
+                        <input v-model.trim="surname" class="input upperCase" type="text" id="surname">
                         <div class="error__text" v-if="$v.surname.$dirty && !$v.surname.required">Поле 'Фамилия' обязателено к заполнению</div>
                     </div>
 
@@ -94,7 +95,7 @@
                         <label for="middle_name">
                             Отчество
                         </label>
-                        <input v-model.trim="middle_name" class="input" type="text" id="middle_name">
+                        <input v-model.trim="middle_name" class="input upperCase" type="text" id="middle_name">
                     </div>
 
                     <div class="input__block select__input">
@@ -394,7 +395,7 @@
         </v-dialog>
         <v-dialog
             v-model="scan_photo_picker"
-            max-width="600"
+            max-width="1160"
         >
             <div class="scan__block">
                 <div class="scan__block__header">
@@ -403,54 +404,59 @@
                     </h3>
                     <span class="mdi mdi-close" @click="closeScanDocument"></span>
                 </div>
-                <div class="scan__block_webcam">
-                    <div class="scan__block_webcam__hidden">
-                        <div v-show="loader_scan" class="scan__preloader">
-                            <div class="scan__preloader__flex">
-                                <v-progress-circular
-                                    indeterminate
-                                    color="#FFCC47"
-                                ></v-progress-circular>
+                <div class="scan__block__flex">
+                    <div class="scan__block_webcam">
+                        <div class="scan__block_webcam__hidden">
+                            <div v-show="loader_scan" class="scan__preloader">
+                                <div class="scan__preloader__flex">
+                                    <v-progress-circular
+                                        indeterminate
+                                        color="#FFCC47"
+                                    ></v-progress-circular>
+                                </div>
                             </div>
+                            <div class="scan__border__main">
+                                <div 
+                                    :class="{
+                                        scan__border__left__top: default_style, 
+                                        scan__border__left__top__error: error_style,
+                                        scan__border__left__top__success: success_style,
+                                    }"
+                                >
+                                </div>
+                                <div 
+                                    :class="{
+                                        scan__border__rigth__top: default_style, 
+                                        scan__border__rigth__top__error: error_style,
+                                        scan__border__rigth__top__success: success_style,
+                                    }"
+                                >
+                                </div>
+                                <div 
+                                    :class="{
+                                        scan__border__left__bottom: default_style, 
+                                        scan__border__left__bottom__error: error_style,
+                                        scan__border__left__bottom__success: success_style,
+                                    }"
+                                >
+                                </div>
+                                <div 
+                                    :class="{
+                                        scan__border__rigth__bottom: default_style, 
+                                        scan__border__rigth__bottom__error: error_style,
+                                        scan__border__rigth__bottom__success: success_style,
+                                    }"
+                                >
+                                </div>
+                            </div>
+                            <video 
+                                ref="webcam" 
+                                class="webCamMirror"
+                            />
                         </div>
-                        <div class="scan__border__main">
-                            <div 
-                                :class="{
-                                    scan__border__left__top: default_style, 
-                                    scan__border__left__top__error: error_style,
-                                    scan__border__left__top__success: success_style,
-                                }"
-                            >
-                            </div>
-                            <div 
-                                :class="{
-                                    scan__border__rigth__top: default_style, 
-                                    scan__border__rigth__top__error: error_style,
-                                    scan__border__rigth__top__success: success_style,
-                                }"
-                            >
-                            </div>
-                            <div 
-                                :class="{
-                                    scan__border__left__bottom: default_style, 
-                                    scan__border__left__bottom__error: error_style,
-                                    scan__border__left__bottom__success: success_style,
-                                }"
-                            >
-                            </div>
-                            <div 
-                                :class="{
-                                    scan__border__rigth__bottom: default_style, 
-                                    scan__border__rigth__bottom__error: error_style,
-                                    scan__border__rigth__bottom__success: success_style,
-                                }"
-                            >
-                            </div>
-                        </div>
-                        <video 
-                            ref="webcam" 
-                            class="webCamMirror"
-                        />
+                    </div>
+                    <div class="scan__photo__block">
+                        <img src="../../assets/all/scan__photo.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -708,8 +714,15 @@ export default {
                     duration: 5000,
                     queue: true
                 });
+
+                
                 if (this.$v.picker.$model == null) {
                     animateScrollTo(document.querySelector('.picker'), {
+                        speed: 3000
+                    })
+                }
+                if (this.$v.arrival_address.$model == null) {
+                    animateScrollTo(document.querySelector('.address'), {
                         speed: 3000
                     })
                 }
@@ -1150,173 +1163,186 @@ export default {
             cursor: pointer;
         }
     }
-    .scan__block_webcam {
+    
+    .scan__block__flex {
         width: 100%;
-        background: #fff;
-        .scan__block_webcam__hidden {
-            width: 100%;
-            height: 409px;
-            overflow: hidden;
-            position: relative;
-            .scan__preloader {
+        display: flex;
+        justify-content: space-between;
+        .scan__photo__block {
+            width: 49%;
+            img {
                 width: 100%;
-                height: 100%;
-                z-index: 9999;
-                display: flex;
-                justify-content: center;
-                background: transparent;
-                position: absolute;
-                top: 0;
-                align-items: center;
-                .scan__preloader__flex {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background: rgba(0, 0, 0, 0.5);
-                    width: 89.4%;
-                    height: 86.4%;
-                }
             }
-            .scan__border__main {
-                position: absolute;
+        }
+        .scan__block_webcam {
+            width: 50%;
+            background: #fff;
+            .scan__block_webcam__hidden {
                 width: 100%;
-                height: 100%;
-                z-index: 999;
-
-                // border 1
-                .scan__border__left__top {
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    border-left: 3px solid #FFCC47;
-                    border-top: 3px solid #FFCC47;
-                    left: 25px;
-                    top: 25px;
-                }
-                .scan__border__left__top__error {
-                    border-left: 3px solid red;
-                    border-top: 3px solid red;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    left: 25px;
-                    top: 25px;
-                }
-                .scan__border__left__top__success {
-                    border-left: 3px solid #26f700;
-                    border-top: 3px solid #26f700;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    left: 25px;
-                    top: 25px;
-                }
-                // border 2
-                .scan__border__rigth__top {
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    border-right: 3px solid #FFCC47;
-                    border-top: 3px solid #FFCC47;
-                    right: 25px;
-                    top: 25px;
-                }
-                .scan__border__rigth__top__error {
-                    border-right: 3px solid red;
-                    border-top: 3px solid red;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    right: 25px;
-                    top: 25px;
-                }
-                .scan__border__rigth__top__success {
-                    border-right: 3px solid #26f700;
-                    border-top: 3px solid #26f700;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    right: 25px;
-                    top: 25px;
-                }
-                // border 3
-                .scan__border__left__bottom {
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    border-left: 3px solid #FFCC47;
-                    border-bottom: 3px solid #FFCC47;
-                    left: 25px;
-                    bottom: 25px;
-                }
-                .scan__border__left__bottom__error {
-                    border-left: 3px solid red;
-                    border-bottom: 3px solid red;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    left: 25px;
-                    bottom: 25px;
-                }
-                .scan__border__left__bottom__success {
-                    border-left: 3px solid #26f700;
-                    border-bottom: 3px solid #26f700;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    left: 25px;
-                    bottom: 25px;
-                }
-                // border 4
-                .scan__border__rigth__bottom {
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    border-right: 3px solid #FFCC47;
-                    border-bottom: 3px solid #FFCC47;
-                    right: 25px;
-                    bottom: 25px;
-                }
-                .scan__border__rigth__bottom__error {
-                    border-right: 3px solid red;
-                    border-bottom: 3px solid red;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    right: 25px;
-                    bottom: 25px;
-                }
-                .scan__border__rigth__bottom__success {
-                    border-right: 3px solid #26f700;
-                    border-bottom: 3px solid #26f700;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    right: 25px;
-                    bottom: 25px;
-                }
-
-                // after ------------------------
-                &::after {
-                    content: '';
-                    display: block;
+                height: 409px;
+                overflow: hidden;
+                position: relative;
+                .scan__preloader {
                     width: 100%;
                     height: 100%;
+                    z-index: 9999;
+                    display: flex;
+                    justify-content: center;
+                    background: transparent;
                     position: absolute;
-                    border: 25px solid rgba(0, 0, 0, 0.5);
+                    top: 0;
+                    align-items: center;
+                    .scan__preloader__flex {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: rgba(0, 0, 0, 0.5);
+                        width: 89.4%;
+                        height: 86.4%;
+                    }
+                }
+                .scan__border__main {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 999;
+
+                    // border 1
+                    .scan__border__left__top {
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        border-left: 3px solid #FFCC47;
+                        border-top: 3px solid #FFCC47;
+                        left: 25px;
+                        top: 25px;
+                    }
+                    .scan__border__left__top__error {
+                        border-left: 3px solid red;
+                        border-top: 3px solid red;
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        left: 25px;
+                        top: 25px;
+                    }
+                    .scan__border__left__top__success {
+                        border-left: 3px solid #26f700;
+                        border-top: 3px solid #26f700;
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        left: 25px;
+                        top: 25px;
+                    }
+                    // border 2
+                    .scan__border__rigth__top {
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        border-right: 3px solid #FFCC47;
+                        border-top: 3px solid #FFCC47;
+                        right: 25px;
+                        top: 25px;
+                    }
+                    .scan__border__rigth__top__error {
+                        border-right: 3px solid red;
+                        border-top: 3px solid red;
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        right: 25px;
+                        top: 25px;
+                    }
+                    .scan__border__rigth__top__success {
+                        border-right: 3px solid #26f700;
+                        border-top: 3px solid #26f700;
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        right: 25px;
+                        top: 25px;
+                    }
+                    // border 3
+                    .scan__border__left__bottom {
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        border-left: 3px solid #FFCC47;
+                        border-bottom: 3px solid #FFCC47;
+                        left: 25px;
+                        bottom: 25px;
+                    }
+                    .scan__border__left__bottom__error {
+                        border-left: 3px solid red;
+                        border-bottom: 3px solid red;
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        left: 25px;
+                        bottom: 25px;
+                    }
+                    .scan__border__left__bottom__success {
+                        border-left: 3px solid #26f700;
+                        border-bottom: 3px solid #26f700;
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        left: 25px;
+                        bottom: 25px;
+                    }
+                    // border 4
+                    .scan__border__rigth__bottom {
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        border-right: 3px solid #FFCC47;
+                        border-bottom: 3px solid #FFCC47;
+                        right: 25px;
+                        bottom: 25px;
+                    }
+                    .scan__border__rigth__bottom__error {
+                        border-right: 3px solid red;
+                        border-bottom: 3px solid red;
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        right: 25px;
+                        bottom: 25px;
+                    }
+                    .scan__border__rigth__bottom__success {
+                        border-right: 3px solid #26f700;
+                        border-bottom: 3px solid #26f700;
+                        width: 120px;
+                        height: 120px;
+                        position: absolute;
+                        right: 25px;
+                        bottom: 25px;
+                    }
+
+                    // after ------------------------
+                    &::after {
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        border: 25px solid rgba(0, 0, 0, 0.5);
+                    }
+                }
+                
+                .webCamMirror {
+                    -webkit-transform: scaleX(-1);
+                    transform: scaleX(-1);
+                    z-index: 98;
+                    width: 100%;
+                    height: 100%;
                 }
             }
             
-            .webCamMirror {
-                -webkit-transform: scaleX(-1);
-                transform: scaleX(-1);
-                z-index: 98;
-                width: 100%;
-                height: 100%;
-            }
         }
-        
     }
+    
 }
 .notif {
     width: 100%;
@@ -1410,6 +1436,7 @@ export default {
                 .select__input {
                     cursor: pointer;
                 }
+                
                 .input__block {
                     width: 345px;
                     margin-right: 10px;
@@ -1495,6 +1522,21 @@ export default {
                         font-size: 14px;
                     }
                 }
+                .picker {
+                    width: 230px;
+                    @media (max-width: @mobile) {
+                        width: 100%;
+                    }
+                }
+                .time {
+                    width: 181px;
+                    @media (max-width: @mobile) {
+                        width: 100%;
+                    }
+                }
+                .upperCase {
+                    text-transform: uppercase;
+                }
                 .input__block__child {
                     width: 201px;
                     margin-right: 10px;
@@ -1548,6 +1590,7 @@ export default {
                         padding: 10px;
                         margin-bottom: 10px;
                     }
+                    
                     label {
                         font-style: normal;
                         font-weight: 500;
