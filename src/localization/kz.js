@@ -208,7 +208,7 @@ export default {
     login__forgot__password: 'Құпиясөзді ұмыттыңыз ба?',
     nav__bar__title: 'Артқа',
     registration__title: 'Тіркелу',
-    registration__description: 'Для регистрации вам необходим ЭЦП ключ который вы можете получить по {action}',
+    registration__description: 'Для регистрации вам необходим ЭЦП ключ, который вы можете получить по {action}',
     registration__description_link: 'ссылке',
     registration__eds__btn: 'ЭЦҚ арқылы тіркелу',
     forgot__password__page__title: 'Құпиясөзді қалпына келтіру',
