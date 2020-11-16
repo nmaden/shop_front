@@ -402,7 +402,7 @@ export default {
             }
         }
         .lang {
-            width: 91px;
+            width: 92px;
             z-index: 99;
             font-family: 'MontserratBold';
             display: flex;

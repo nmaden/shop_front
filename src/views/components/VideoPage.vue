@@ -2,11 +2,11 @@
     <div class="video__main">
         <div class="video__fixed">
             <div class="video__fixed__l">
-                <h2>
-                    Небольшое видео о системе eQonaq
+                <h2> 
+                    {{$t('video__title')}}
                 </h2>
                 <p>
-                    Небольшое видео о нашей системе, кто мы, как начать работу с eQonaq
+                    {{$t('video__description')}}
                 </p>
             </div>
             <div class="video__fixed__r">

@@ -4,7 +4,7 @@
             <Nav />
             <div class="registrations">
                 <h2>
-                    Отправить уведомление о прибытии гостя в МВД
+                    {{$t('notif__add__title')}}
                 </h2>
 
                 <div class="registrations__form">
