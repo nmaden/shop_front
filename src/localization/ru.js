@@ -312,7 +312,6 @@ export default {
     profile__page__edit__password: 'Изменить пароль',
     profile__page__add__addres: 'Добавить адрес',
     list__guest__title: 'Список моих гостей',
-    list__guest__status__text: 'статус',
     edit__password__modal__title: 'Изменить пароль',
     edit__modal__form__label__old__password: 'Старый пароль',
     edit__modal__form__label__new__password: 'Новый пароль',

@@ -312,7 +312,6 @@ export default {
     profile__page__edit__password: 'ҚҰПИЯСӨЗДІ ӨЗГЕРТУ',
     profile__page__add__addres: 'МЕКЕНЖАЙ ҚОСУ',
     list__guest__title: 'Менің қонақтарымтың тізімі',
-    list__guest__status__text: 'статус',
     edit__password__modal__title: 'ҚҰПИЯСӨЗДІ ӨЗГЕРТУ',
     edit__modal__form__label__old__password: 'Бұрыңғы құпиясөз',
     edit__modal__form__label__new__password: 'Жаңа құпиясөз',
