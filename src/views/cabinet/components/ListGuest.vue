@@ -163,6 +163,7 @@ export default {
                 },
             })
             .then((response) => {
+                console.log(response.data)
                 response.data.data == undefined ? this.users = [] : this.users = response.data.data
             })  
             .catch((error) => {
