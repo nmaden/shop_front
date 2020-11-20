@@ -51,7 +51,6 @@ Vue.use(VueProgressBar, options)
 Vue.use(IdleVue, {
   eventEmitter: eventsHub,
   idleTime: 600000,
-  // idleTime: 60000000,
   KeepTracking: false
 })
 
