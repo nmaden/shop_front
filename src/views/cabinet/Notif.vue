@@ -619,7 +619,7 @@ export default {
             date_issuing_modal: null,
             date_endings_modal: null,
             start_check_date_modal: null,
-            end_check_date_modal: null
+            end_check_date_modal: null,
         }
     },
     mounted() {
@@ -858,7 +858,7 @@ export default {
                 let arr = []
                 for (let index = 0; index < response.data.hotels.length; index++) {
                     obj = {
-                        label: response.data.hotels[index].region.name_rus + ' ул ' + response.data.hotels[index].street + ' ' + response.data.hotels[index].house,
+                        label: response.data.hotels[index].region.name_rus + ' ул ' + response.data.hotels[index].street + ' ' + response.data.hotels[index].house +  ' кв ' + response.data.hotels[index].apartment_number,
                         value: response.data.hotels[index].id
                     }
                     arr.push(obj)
@@ -966,17 +966,27 @@ export default {
         onCapture() {
             let constraints = { audio: false, video: { front: "user", width: 550, height: 400 } }; 
             navigator.mediaDevices.getUserMedia(constraints)
-            .then((mediaStream) => {
-                this.$refs.webcam.srcObject = mediaStream;
-                this.$refs.webcam.onloadedmetadata = () => {
-                    this.$refs.webcam.play();
-                }
+            .then(() => {
+                navigator.mediaDevices.getUserMedia(constraints)
+                .then((mediaStream) => {
+                    this.$refs.webcam.srcObject = mediaStream;
+                    this.$refs.webcam.onloadedmetadata = () => {
+                        this.$refs.webcam.play();
+                    }
+                })
+                this.scan_photo_picker = true
+                setTimeout(() => {
+                    this.capturePhoto()
+                }, 2000)
             })
-            .catch((err) => { console.log(err.name + ": " + err.message); });
-            this.scan_photo_picker = true
-            setTimeout(() => {
-                 this.capturePhoto()
-            }, 2000)
+            .catch(() => { 
+                this.$toast.open({
+                    message: "Разрешите доступ к камере!",
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 5000,
+                })
+            });
         },
         sendBase64Capture(img) {
             this.loader_scan = true
