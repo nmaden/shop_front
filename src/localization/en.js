@@ -78,68 +78,72 @@ export default {
             "url": true
         }
     ],
-    "baner__title": "К ВАМ ПРИБЫЛ ИНОСТРАННЫЙ ГОСТЬ?",
-    "baner__description": "Согласно Постановлению Правительства № 148 от 21 января 2012 года вы обязаны в течение 3-х дней проинформировать органы внутренних дел.",
+    "baner__title": "HAVE YOU RECEIVED A FOREIGN GUEST?",
+    "baner__description": "According to Government Decree No. 148 of January 21, 2012, you are required to inform the internal Affairs bodies within 3 days.",
     "baner__array": [
         {
             "id": 1,
             "img": require('../assets/icons/smart__phone.svg'),
-            "text": "Авторизуйтесь в системе или мобильном приложении eQonaq"
+            "text": "Log in to the eQonaq system or mobile app"
         },
         {
             "id": 2,
             "img": require('../assets/icons/smart__face.svg'),
-            "text": "Отсканируйте документ иностранца или внесите данные вручную"
+            "text": "Scan the alien's document or enter the data manually"
         },
         {
             "id": 3,
             "img":  require('../assets/icons/smart__card.svg'),
-            "text": "Результат услуги будет доступен в личном кабинете"
+            "text": "The result of the service will be available in your personal account"
         }
     ],
-    welcome__title: "Добро пожаловать в информационную cистему eQonaq",
-    welcome__task__title: "Основные задачи",
+    video__title: 'A short video about the eQonaq system',
+    video__description: 'A short video about our system', 
+    welcome__title: "Welcome to  eQonaq information system",
+    welcome__description__one: '«eQonaq» – is a state information system designed for electronic collection, recording and processing of data of receiving persons about immigrants and internal migrants staying with them by automating the processes of their mandatory registration and sending notifications to the internal Affairs bodies by receiving persons',
+    welcome__description__two: 'The system was created as part of the state tourism development program of the Ministry of culture and sports with the assistance of the Ministry of internal Affairs and the national security Committee of the Republic of Kazakhstan.',
+    welcome__task__title: "Main goals",
     welcome__service: [
         {
             img: require('../assets/icons/1.svg'),
-            text: 'Создание единого реестра мест размещения.'
+            text: 'To create a list of places of accommodation.'
         },
         {
             img: require('../assets/icons/2.svg'),
-            text: 'Учет и контроль прибытия и убытия туристов.'
+            text: 'To control arrival and departure of tourists.'
         },
         {
             img: require('../assets/icons/3.svg'),
-            text: 'Аналитика туристического потока и портрета туриста.'
+            text: 'To analize tourist flow and tourist profile.'
         },
         {
             img: require('../assets/icons/4.svg'),
-            text: 'Инфраструктура для учета туристического сбора.'
+            text: 'To develop Bed-Tax, infrastructure for accounting tourist tax.'
         },
         {
             img: require('../assets/icons/5.svg'),
-            text: 'Предоставление различных сервисов для повышения качества пребывания туристов.'
+            text: 'To provide various services for a better travel experience.'
         },
         {
             img: require('../assets/icons/6.svg'),
-            text: 'Уведомление МВД РК о прибытии иностранных туристов, во избежание штрафа по ст. 518'
+            text: 'To notify the Ministry of Internal Affairs of the Republic of Kazakhstan about the tourists` arrival'
         },
     ],
-    interesting__places__title: 'Интересные места',
+    interesting__places__title: 'Attractions',
     interesting__places: [
         {
-            title: 'УЗНАЙТЕ БОЛЬШЕ О КАЗАХСТАНЕ НА kazakhstan.travel',
+            title: 'LEARN MORE ABOUT KAZAKHSTAN AT KAZAKHSTAN.TRAVEL',
             img: require('../assets/all/pr_img0.png'),
             uri: 'https://kazakhstan.travel/publications/ru/15/10-must-see-landscapes-in-kazakhstan',
             sub_logo: require('../assets/all/travelLogo.svg')
         },
         {
-            title: 'ОТДЫХ НА Открытом воздухе',
+            title: 'OUTDOOR RECREATION',
             img: require('../assets/all/pr_img1.png'),
             uri: 'https://kazakhstan.travel/publications/ru/15/10-must-see-landscapes-in-kazakhstan'
         },
         {
-            title: 'АРХИТЕКТУРА',
+            title: 'ARCHITECTURE',
             img: require('../assets/all/pr_img2.png'),
             uri: 'https://kazakhstan.travel/publications/ru/108/seven-architectural-wonders-of-kazakhstan'
         },
@@ -149,68 +153,68 @@ export default {
             uri: 'https://kazakhstan.travel/'
         },
     ],
-    bookhotel__title: 'Забронировать отель / гостиницу',
-    bookhotel__descriptions: 'Найдите спецпредложения от отелей, домов и других вариантов',
-    bookhotel__city: 'Куда вы хотите поехать?',
+    bookhotel__title: 'Book a hotel room',
+    bookhotel__descriptions: 'Find special offers from hotels and guesthouses',
+    bookhotel__city: 'Where are you going?', 
     bookhotel__arrival: 'Заезд',
     bookhotel__departure: 'Отъезд',
-    book__hotel__users: 'Взрослых',
-    book__hotel__numbers: 'Номер',
+    book__hotel__users: 'adulst',
+    book__hotel__numbers: 'room',
     book__hotel__get__price: 'Проверить цены',
-    book__hotel__applications__title: 'Полезные приложения',
-    book__hotel__footer__reg: 'ЗАРЕГИСТРИРОВАТЬСЯ',
-    book__hotel__footer__login: 'АВТОРИЗОВАТЬСЯ',
-    footer__info: 'ИНФОРМАЦИЯ',
+    book__hotel__applications__title: 'Useful apps',
+    book__hotel__footer__reg: ' Sign Up',
+    book__hotel__footer__login: 'Sign In',
+    footer__info: 'Information',
     footer__menu__info: [
         {
-            name: 'О системе',
+            name: 'About',
             to: '',
             type_route: 'on_page',
         },
         {
-            name: 'Номера телефонов',
+            name: 'Useful phone numbers',
             to: '/telephones',
             type_route: 'on_site',
         },
         {
-            name: 'Связь',
+            name: 'Cellular Operators',
             to: '/connection',
             type_route: 'on_site',
         },
         {
-            name: 'Миграционный справочник',
+            name: 'Migration guide',
             to: '/migration',
             type_route: 'on_site',
         },
         {
-            name: 'Валюта',
+            name: 'Currency',
             to: '/currency',
             type_route: 'on_site',
         },
         {
-            name: 'Гостиницы',
+            name: 'Hotels',
             to: 'https://api.eqonaq.kz/hotels',
             type_route: 'on_new_site',
         },
     ],
-    auth__login__title: 'Войти в eQonaq?',
-    auth__login__descriptions: 'Выберите способ авторизации',
-    auth__reg__title: 'Впервые на eQonaq?',
-    auth__reg__button: 'ЗАРЕГИСТРИРОВАТЬСЯ',
-    auth__reg__modal__title: 'Зарегистрироваться как',
-    auth__reg__modal__btn__individuals: 'Физическое лицо',
-    auth__reg__modal__btn__entities: ' Юридическое лицо',
-    tabs_array__name__eds: 'ЭЦП',
-    tabs_array__name__login: 'Логин',
-    eds__btn: 'Выбрать сертификат',
-    login__label__password: 'Пароль',
-    login__btn: 'Войти',
-    login__forgot__password: 'Забыли пароль?',
-    nav__bar__title: 'Назад',
-    registration__title: 'Регистрация',
-    registration__description: 'Для регистрации вам необходим ЭЦП ключ, который вы можете получить по {action}',
-    registration__description_link: 'ссылке',
-    registration__eds__btn: 'Выбрать ЭЦП',
+    auth__login__title: 'Log in to eQonaq?',
+    auth__login__descriptions: 'Sign in with',
+    auth__reg__title: 'New to eQonaq?',
+    auth__reg__button: 'Sign Up',
+    auth__reg__modal__title: 'Sign Up as',
+    auth__reg__modal__btn__individuals: 'Individual',
+    auth__reg__modal__btn__entities: 'Legal entity',
+    tabs_array__name__eds: 'EDS',
+    tabs_array__name__login: 'Login',
+    eds__btn: 'Choose certificate',
+    login__label__password: 'Password',
+    login__btn: 'Sign In',
+    login__forgot__password: 'Forgot your password?',
+    nav__bar__title: 'back',
+    registration__title: 'Sign Up',
+    registration__description: 'To register, you need an EDS key, which you can get at the {action}',
+    registration__description_link: 'link',
+    registration__eds__btn: 'Select an EDS',
     forgot__password__page__title: 'Восстановления пароля',
     forgot__password__page__input__placeholder: 'Введите электронный адрес',
     forgot__password__page__btn: 'Отправить',
@@ -267,7 +271,7 @@ export default {
     header__user__menu__cabinet: 'Личный кабинет',
     header__user__menu__sign__out: 'Выход',
     header__user__menu__sign__out__toast: 'Вы вышли с личного кабинета',
-    auth__modal__requires__title: 'Требуется авторизация или регистрация',
+    auth__modal__requires__title: 'Log in or Sign up in the system',
     eds__page__warnings: 'Для работы с ЭЦП на информационной системе “eQonaq” необходимо обновить/скачать NCALayer по {action}',
     eds__link__text: 'ссылке',
     eds__nclaer__disabled: 'Убедитесь, что программа NCALayer запущена',
@@ -300,27 +304,27 @@ export default {
     modal__reference__police__scroll__text__two: '2. Предоставление жилища иностранцу или лицу без гражданства, пребывающему в Республике Казахстан с нарушением законодательства Республики Казахстан в области миграции населения либо уклонение от выезда из Республики Казахстан в установленные сроки, либо несоответствие фактического места проживания адресу, указанному при регистрации, – влекут штраф на физических лиц в размере двадцати пяти, на должностное лицо, на субъектов малого предпринимательства или некоммерческие организации – в размере сорока, на субъектов среднего предпринимательства – в размере пятидесяти пяти, на субъектов крупного предпринимательства – в размере семидесяти пяти месячных расчетных показателей.',
     modal__reference__police__scroll__text__threa: '3. Действия, предусмотренные частями первой и второй настоящей статьи, совершенные повторно в течение года после наложения административного взыскания, – влекут штраф на физических лиц в размере тридцати, на должностное лицо, на субъектов малого предпринимательства или некоммерческие организации – в размере сорока, на субъектов среднего предпринимательства – в размере семидесяти, на субъектов крупного предпринимательства – в размере ста месячных расчетных показателей.',
     modal__reference__police__scroll__btn: 'Понятно',
-    profile__page__iin: 'ИИН',
-    profile__page__addres: 'Адрес',
-    profile__page__mail: 'Почта',
-    profile__page__send__notif: 'Отправить уведомление о прибытии гостя',
-    profile__page__edit__password: 'Изменить пароль',
-    profile__page__add__addres: 'Добавить адрес',
-    list__guest__title: 'Список моих гостей',
-    list__guest__status__text: 'статус',
-    edit__password__modal__title: 'Изменить пароль',
-    edit__modal__form__label__old__password: 'Старый пароль',
-    edit__modal__form__label__new__password: 'Новый пароль',
-    edit__modal__form__label__repeat__new__password: 'Повторить новый пароль',
-    edit__modal__form__btn: 'Сохранить',
-    add__addres__page__title: 'Добавить адрес',
-    add__addres__page__form__label__obl: 'Область',
-    add__addres__page__form__label__district: 'Район',
-    add__addres__page__form__label__locality: 'Населенный пункт',
-    add__addres__page__form__label__addres: 'Адрес',
-    add__addres__page__form__label__house: 'Номер дома',
-    add__addres__page__form__label__apartment_number: 'Номер квартиры', 
-    add__addres__page__form__btn: 'Добавить', 
+    profile__page__iin: 'IIN',
+    profile__page__addres: 'Address',
+    profile__page__mail: 'Email',
+    profile__page__send__notif: 'Send notification of guest arrival',
+    profile__page__edit__password: 'Change password',
+    profile__page__add__addres: 'Add Address',
+    list__guest__title: 'Guest list',
+    edit__password__modal__title: 'Change password',
+    edit__modal__form__label__old__password: 'Current password',
+    edit__modal__form__label__new__password: 'New password',
+    edit__modal__form__label__repeat__new__password: 'Repeat password',
+    edit__modal__form__btn: 'Save',
+    add__addres__page__title: 'Address',
+    add__addres__page__form__label__obl: 'Region/Province',
+    add__addres__page__form__label__district: 'District',
+    add__addres__page__form__label__locality: 'City/town',
+    add__addres__page__form__label__addres: 'Street',
+    add__addres__page__form__label__house: 'Building',
+    add__addres__page__form__label__apartment_number: 'Apartment', 
+    add__addres__page__form__btn: 'Add', 
     address__list__title: 'Мои адреса',
-
+    notif__add__title: 'Send notification of guest arrival to the Ministry of internal Affairs',
+    
 }

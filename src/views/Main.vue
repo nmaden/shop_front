@@ -6,7 +6,6 @@
             <WelcomeService />
             <InterestingPlaces />
             <BookHotel />
-            <Applications />
         </div>
         <Footer />
     </div>
@@ -18,12 +17,11 @@ import Baner from './components/Baner'
 import WelcomeService from './components/WelcomeService'
 import InterestingPlaces from './components/InterestingPlaces'
 import BookHotel from './components/BookHotel'
-import Applications from './components/Applications'
 import Footer from './components/Footer'
 
 export default {
     components: {
-        Header, Baner, WelcomeService, InterestingPlaces, BookHotel, Applications, Footer
+        Header, Baner, WelcomeService, InterestingPlaces, BookHotel, Footer
     },
 }
 </script>

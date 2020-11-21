@@ -7,6 +7,16 @@
                 {{$t('list__guest__title')}}
             </h2>
 
+            <div 
+                class="list__guest__filters"
+                v-if="users.length !== 0"
+            >
+                <p class="active__filter__text">Все</p>
+                <p class="not__active__filter__text">Проживающие</p>
+                <p class="not__active__filter__text">Выбывшие</p>
+                <p class="not__active__filter__text">Удаленные</p>
+            </div>
+
             <h2 
                 v-if="users.length == 0"
             >
@@ -47,6 +57,8 @@
                                 {{item.hotel.region.name_rus}},
                                 {{item.hotel.area.name_rus}},
                                 {{item.hotel.locality.name_rus}}
+                                кв
+                                {{item.hotel.apartment_number}}
                             </span>
                         </p>
                         <p>
@@ -61,20 +73,16 @@
                                 bottom
                             >
                                 <template v-slot:activator="{ on, attrs }">
-                                    <i 
+                                    <p
                                         v-bind="attrs"
                                         v-on="on"
-                                        class="mdi mdi-pdf-box"
-                                    ></i>
+                                    >
+                                        Скачать справку (pdf)
+                                    </p>
                                 </template>
                                 <span>Скачать справку</span>
                             </v-tooltip>
                         </div>
-                        <p>
-                            <span>
-                                {{$t('list__guest__status__text')}}
-                            </span>
-                        </p>
                         <p>
                             <b v-if="item.statuses_id == 1">
                                 заезд
@@ -86,6 +94,9 @@
                                 выезд
                             </b>
                         </p>
+                        <button>
+                            Удалить <span class="mdi mdi-delete"></span>
+                        </button>
                     </div>
                 </div>
                 
@@ -133,7 +144,7 @@ export default {
     data () {
         return {
             users: [],
-            deleteDialog: false 
+            deleteDialog: false,
         }
     },
     mounted () {
@@ -152,6 +163,7 @@ export default {
                 },
             })
             .then((response) => {
+                console.log(response.data)
                 response.data.data == undefined ? this.users = [] : this.users = response.data.data
             })  
             .catch((error) => {
@@ -187,6 +199,32 @@ export default {
         color: #000;
         @media (max-width: @mobile) {
             font-size: 15px;
+        }
+    }
+    
+    .list__guest__filters {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 10px;
+        
+        .not__active__filter__text {
+            color: #C0C0C0;
+        }
+        .active__filter__text {
+            color: #000;
+        }
+        p {
+            font-family: "MediumMedium";
+            font-weight: normal;
+            font-size: 15px;
+            letter-spacing: -0.05em;
+            margin: 0;
+            margin-right: 10px;
+            cursor: pointer;
+            &:hover {
+                opacity: .7;
+            }
         }
     }
 
@@ -261,16 +299,15 @@ export default {
                 width: 27%;
                 text-align: right;
                 .pfd__block {
-                    height: 25px;
                     display: flex;
                     justify-content: flex-end;
                     align-items: flex-start;
-                    i {
-                        font-size: 34px;
-                        margin-top: -12px;
-                        margin-right: -5px;
-                        color: red;
+                    p {
+                        font-size: 12px;
+                        font-family: "MediumMedium";
+                        color: #000;
                         cursor: pointer;
+                        font-weight: 400;
                         &:hover {
                             opacity: .5;
                         }
@@ -279,13 +316,23 @@ export default {
                 @media (max-width: @mobile) {
                     width: 35%;
                 }
-                
+                button {
+                    font-size: 12px;
+                    color: #C0C0C0;
+                    font-family: "MediumMedium";
+                    span {
+                        font-size: 14px;
+                    }
+                    &:hover {
+                        opacity: .5;
+                    }
+                }
                 img {
                     cursor: pointer;
                 }
                 p {
                     margin: 0;
-                    
+                    font-family: "MediumMedium";
                     span {
                         font-style: normal;
                         font-weight: 300;

@@ -61,20 +61,6 @@
                                 </div>
                             </div>
 
-                            <div class="input__block">
-                                <label for="email">
-                                    Роль <span>*</span>
-                                </label>
-                                <div class="input">
-                                    {{
-                                        role == "admin" ?
-                                        'Администратор'
-                                        :
-                                        ''
-                                    }}
-                                </div>
-                                <div class="error__text" v-if="$v.role.$dirty && !$v.role.required">Поле 'Роль' обязателен к заполнению</div>
-                            </div>
                             <div class="input__block__child">
                                 <label for="phone">
                                     Телефон <span>*</span>
@@ -194,33 +180,6 @@
                                 <input type="text" v-model.trim="house_number" id="house_number">    
                                 <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div>
                             </div>
-
-                            <div class="input__block">
-                                <label for="hotel_pms">
-                                    PMS 
-                                </label>
-                                <input type="text" v-model.trim="hotel_pms" id="hotel_pms">
-                            </div>
-
-                            <div class="input__block">
-                                <label for="hotel_site">
-                                    Сайт 
-                                </label>
-                                <input type="text" v-model.trim="hotel_site" id="hotel_site">
-                            </div>
-                            <div class="input__block">
-                                <label for="hotel_booking">
-                                    Booking  
-                                </label>
-                                <input type="text" v-model.trim="hotel_booking" id="hotel_booking">
-                            </div>
-                            <div class="input__block">
-                                <label for="hotel_tripadvisor">
-                                    Tripadvisor
-                                </label>
-                                <input type="text" v-model.trim="hotel_tripadvisor" id="hotel_tripadvisor">
-                            </div>
-
                         </div>
                         <button :disabled="disabled__button" @click="registarations">РЕГИСТРАЦИЯ</button>
                     </div>
@@ -242,10 +201,8 @@
                     <div class="type__registration__block">
                         <img src="../../assets/all/super-girl.svg" alt="images">
                         <p>
-                            После одобрения заявки на регистрацию, 
-                            на указанный <span>email</span> адрес будет  отправлено 
-                            письмо с  логином и паролем. <br>
-                            При возникновении вопросов пишите письмо на почту <a href="mailto:support@eqonaq.kz">support@eqonaq.kz</a>
+                            После одобрения заявки, на указанный <span>email</span> будут отправлены данные для входа в систему. <br>
+                            При возникновении вопросов пишите на почту <a href="mailto:support@eqonaq.kz">support@eqonaq.kz</a>
                         </p>
                         <router-link to="/login">
                             <button>
@@ -285,21 +242,19 @@ export default {
             locality: null,
             hotel_name: null,
             hotel_entity: null,
-            hotel_pms: null,
-            hotel_site: null,
-            hotel_booking: null,
-            hotel_tripadvisor: null,
 
             modal: false,
             region__array: [],
             district__array: [],
             locality__array: [],
+
             additional_fields: false,
+
             additinal__validation: false,
             disabled__button: false,
-
             showEdsForm: false,
             police: false,
+
             sendObj: null,
             // websocked
             connection: null,
@@ -334,9 +289,6 @@ export default {
         email: {
             required, 
             email,
-        },
-        role: {
-            required, 
         },
 
         region: {
@@ -402,11 +354,6 @@ export default {
                         hotel_locality_id: this.district,
                         hotel_area_id: this.locality,
                         hotel_address: this.address,
-                        hotel_house: this.house_number,
-                        hotel_pms: this.hotel_pms,
-                        hotel_site: this.hotel_site,
-                        hotel_booking: this.hotel_booking,
-                        hotel_tripadvisor: this.hotel_tripadvisor,
                     }
                 } else {
                     this.sendObj = {
