@@ -24,7 +24,7 @@
                     <span class="mdi mdi-close" @click="video__md = false"></span>
                 </div>
                 <div class="video__modal__iframe">
-                    <iframe class="video__iframe" src="https://www.youtube.com/embed/cl5LyPF5TRs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="video__iframe" src="https://www.youtube.com/embed/-iQ1lpnD-M8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </v-dialog>
