@@ -16,7 +16,7 @@
                         <div v-if="showEdsForm == false" class="eds__desktop__text">
                             <p>
                                 <i18n path="registration__description">
-                                    <a href="https://egov.kz/cms/ru/services/pass_onlineecp" place="action">{{$t('registration__description_link')}}</a>
+                                    <a href="https://egov.kz/cms/ru/services/pass_onlineecp" target="_blank" place="action">{{$t('registration__description_link')}}</a>
                                 </i18n>
                             </p>
                         </div>
@@ -354,6 +354,7 @@ export default {
                         hotel_locality_id: this.district,
                         hotel_area_id: this.locality,
                         hotel_address: this.address,
+                        hotel_house: this.house_number
                     }
                 } else {
                     this.sendObj = {

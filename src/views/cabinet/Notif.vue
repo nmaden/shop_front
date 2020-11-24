@@ -857,9 +857,16 @@ export default {
                 let obj;
                 let arr = []
                 for (let index = 0; index < response.data.hotels.length; index++) {
-                    obj = {
-                        label: response.data.hotels[index].region.name_rus + ' ул ' + response.data.hotels[index].street + ' ' + response.data.hotels[index].house +  ' кв ' + response.data.hotels[index].apartment_number,
-                        value: response.data.hotels[index].id
+                    if (response.data.hotels[index].apartment_number == null) {
+                        obj = {
+                            label: response.data.hotels[index].region.name_rus + ' ул ' + response.data.hotels[index].street + ', ' + response.data.hotels[index].house,
+                            value: response.data.hotels[index].id
+                        }
+                    } else {
+                        obj = {
+                            label: response.data.hotels[index].region.name_rus + ' ул ' + response.data.hotels[index].street + ', ' + response.data.hotels[index].house +  ' кв ' + response.data.hotels[index].apartment_number,
+                            value: response.data.hotels[index].id
+                        }
                     }
                     arr.push(obj)
                 }
