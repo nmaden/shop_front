@@ -18,6 +18,7 @@
         <v-dialog
             v-model="video__md"
             max-width="1160"
+            overlay-opacity="0.9"
         >
             <div class="video__modal">
                 <div class="video__modal__header">
@@ -42,17 +43,27 @@ export default {
 </script>
  
 <style lang="less">
+.v-dialog {
+    border-radius: 4px;
+    margin: 24px;
+    overflow-y: auto;
+    pointer-events: auto;
+    transition: 0;
+    width: 100%;
+    z-index: inherit;
+    box-shadow: none;
+}
 .video__modal {
     width: 100%;
-    background: #fff;
+    background: transparent;
     .video__modal__header {
         width: 100%;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        padding: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         text-align: right;
         span {
             font-size: 30px;
+            color: #fff;
             cursor: pointer;
             &:hover {
                 opacity: .7;
