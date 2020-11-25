@@ -1,27 +1,25 @@
 <template>
     <div>
         <div class="main__base__margin">
-            <h2 
-                v-if="users.length !== 0"
-            >
+            <h2>
                 {{$t('list__guest__title')}}
             </h2>
 
             <div 
                 class="list__guest__filters"
-                v-if="users.length !== 0"
             >
-                <p class="active__filter__text">Все</p>
-                <p class="not__active__filter__text">Проживающие</p>
-                <p class="not__active__filter__text">Выбывшие</p>
-                <p class="not__active__filter__text">Удаленные</p>
+                <p @click="filterList(0)" class="not__active__filter__text active__filter__text">Все</p>
+                <p @click="filterList(1)" class="not__active__filter__text">Проживающие</p>
+                <p @click="filterList(2)" class="not__active__filter__text">Выбывшие</p>
+                <p @click="filterList(3)" class="not__active__filter__text">Удаленные</p>
             </div>
 
-            <h2 
+            <h5 
                 v-if="users.length == 0"
+                class="not__data"
             >
                 У вас нет списка гостей
-            </h2>
+            </h5>
             
             <div 
                 v-else
@@ -56,9 +54,10 @@
                             <span>
                                 {{item.hotel.region.name_rus}},
                                 {{item.hotel.area.name_rus}},
-                                {{item.hotel.locality.name_rus}}
-                                кв
-                                {{item.hotel.apartment_number}}
+                                {{
+                                    item.hotel.locality !== null ? item.hotel.locality.name_rus : null
+                                }}
+                                {{item.hotel.apartment_number !== null ? 'кв - ' + item.hotel.apartment_number : null}}
                             </span>
                         </p>
                         <p>
@@ -90,15 +89,13 @@
                             <b v-else-if="item.statuses_id == 2">
                                 проживание
                             </b>
-                            <b v-else>
-                                выезд
-                            </b>
                         </p>
-                        <button>
+                        <button @click="removeListId(item.id)">
                             Удалить <span class="mdi mdi-delete"></span>
                         </button>
                     </div>
                 </div>
+                
                 
             </div>
         </div>
@@ -106,12 +103,13 @@
 
         <v-dialog
             v-model="deleteDialog"
-            max-width="320"
+            max-width="420"
         >
             <v-card>
                 <v-card-title class="headline">
                     <h3 class="delete__dialog__title">
-                        Вы действительно хотите удалить лист прибытия?
+                        Вы действительно хотите <br>
+                        удалить лист прибытия?
                     </h3>
                 </v-card-title>
                 <v-card-actions>
@@ -120,6 +118,7 @@
                     <v-btn
                         style="background: rgb(255 206 3); font-family: 'MontserratBold'"
                         color="#000"
+                        @click="removeList"
                     >
                         Да
                     </v-btn>
@@ -145,31 +144,82 @@ export default {
         return {
             users: [],
             deleteDialog: false,
+            list__id: null,
         }
     },
     mounted () {
-        this.getUsers()
+        this.getUsers('clients', 0)
     },
     methods: {
-        deleteGetId () {
+        removeListId (id) {
             this.deleteDialog = true
+            this.list__id = id
         },
-        getUsers () {
+        removeList () {
             this.$axios({ 
-                method: 'get',
-                url: this.$API_URL + this.$API_VERSION_2 + 'clients',
+                method: 'delete',
+                url: this.$API_URL + this.$API_VERSION_2 + 'client/delete',
                 headers: {
                     'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
                 },
+                data: {
+                    id: this.list__id
+                }
             })
             .then((response) => {
-                console.log(response.data)
-                response.data.data == undefined ? this.users = [] : this.users = response.data.data
+                this.$toast.open({
+                    message: response.data.success,
+                    type: 'success',
+                    position: 'bottom',
+                    duration: 5000,
+                    queue: true
+                })
+                this.deleteDialog = false
+                this.getUsers('client/deleted', 3)
             })  
             .catch((error) => {
                 console.log(error);
             }); 
         },
+        getUsers (type, index) {
+            this.$axios({ 
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + type,
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                this.addActiveClass(index)
+                this.users = response.data.data
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
+        addActiveClass (index) {
+            let not_active = document.querySelectorAll('.not__active__filter__text')
+            for (let i = 0; i < not_active.length; i++) {
+                not_active[i].classList.remove("active__filter__text")
+                not_active[index].classList.add("active__filter__text")
+            }
+        },
+        filterList (index) {
+            switch (index) {
+                case 0:
+                    this.getUsers('clients', index)
+                    break;
+                case 1:
+                    this.getUsers('client/residence', index)
+                    break;
+                case 2:
+                    this.getUsers('client/exit', index)
+                    break;
+                case 3:
+                    this.getUsers('client/deleted', index)
+                    break;
+            }
+        }
     },
     computed: {
         ...mapGetters(['GET_TOKEN']),
@@ -191,6 +241,11 @@ export default {
     @media (max-width: @mobile) {
         width: 100%;
         margin-top: 20px;
+    }
+    .not__data {
+        font-size: 16px;
+        margin-top: 16px;
+        margin-bottom: 16px;
     }
     h2 {
         font-style: normal;
