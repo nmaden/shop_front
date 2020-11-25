@@ -373,19 +373,37 @@ export default {
                     url: this.$API_URL + this.$API_VERSION_2 + 'register/pki/step2',
                     data: this.sendObj
                 })
-                .then(() => {
+                .then((response) => {
                     this.$Progress.finish()
-                    this.showEdsForm = false
-                    this.modal = true
-                    this.name = null
-                    this.surname = null
-                    this.middle_name = null
-                    this.email = null
-                    this.phone = null
-                    this.bin = null
-                    this.role = null
                     this.disabled__button = false
 
+                    if (response.data.message !== "Пользователь с таким email адресом уже существует") {
+                        this.modal = true
+                        this.showEdsForm = false
+                        this.name = null
+                        this.surname = null
+                        this.middle_name = null
+                        this.email = null
+                        this.phone = null
+                        this.bin = null
+                        this.role = null
+
+                        this.$toast.open({
+                            message: response.data.message,
+                            type: 'success',
+                            position: 'bottom',
+                            duration: 5000,
+                            queue: true
+                        });
+                    } else {
+                        this.$toast.open({
+                            message: response.data.message,
+                            type: 'error',
+                            position: 'bottom',
+                            duration: 10000,
+                            queue: true
+                        });
+                    }
                 })  
                 .catch((error) => {
                     this.disabled__button = false
@@ -394,10 +412,9 @@ export default {
                         message: error.response.data.message,
                         type: 'error',
                         position: 'bottom',
-                        duration: 5000,
+                        duration: 10000,
                         queue: true
                     });
-
                 });              
             }
         },
