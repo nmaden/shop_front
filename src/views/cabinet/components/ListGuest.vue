@@ -54,9 +54,10 @@
                             <span>
                                 {{item.hotel.region.name_rus}},
                                 {{item.hotel.area.name_rus}},
-                                {{item.hotel.locality.name_rus}}
-                                кв
-                                {{item.hotel.apartment_number}}
+                                {{
+                                    item.hotel.locality !== null ? item.hotel.locality.name_rus : null
+                                }}
+                                {{item.hotel.apartment_number !== null ? 'кв - ' + item.hotel.apartment_number : null}}
                             </span>
                         </p>
                         <p>
