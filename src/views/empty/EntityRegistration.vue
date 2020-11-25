@@ -400,7 +400,7 @@ export default {
                             message: response.data.message,
                             type: 'error',
                             position: 'bottom',
-                            duration: 10000,
+                            duration: 5000,
                             queue: true
                         });
                     }
