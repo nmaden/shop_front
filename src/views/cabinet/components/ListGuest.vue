@@ -34,7 +34,7 @@
                     <div class="quest__list__l">
                         <div class="quest__list__l__header">
                             <h4>
-                                {{item.clients.name}} {{item.clients.surname}}  
+                                {{item.clients.name}} {{item.clients.surname}}
                             </h4> 
                             <v-tooltip 
                                 bottom

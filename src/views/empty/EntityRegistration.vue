@@ -351,8 +351,8 @@ export default {
                         hotel_name: this.hotel_name,
                         hotel_entity_name: this.hotel_entity,    
                         hotel_region_id: this.region,    
-                        hotel_locality_id: this.district,
-                        hotel_area_id: this.locality,
+                        hotel_locality_id: this.locality,
+                        hotel_area_id: this.district, 
                         hotel_address: this.address,
                         hotel_house: this.house_number
                     }
