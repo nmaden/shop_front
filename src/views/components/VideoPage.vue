@@ -3,10 +3,8 @@
         <div class="video__fixed">
             <div class="video__fixed__l">
                 <h2> 
-                    {{$t('video__title')}}
                 </h2>
                 <p>
-                    {{$t('video__description')}}
                 </p>
             </div>
             <div class="video__fixed__r">
@@ -25,7 +23,7 @@
                     <span class="mdi mdi-close" @click="video__md = false"></span>
                 </div>
                 <div class="video__modal__iframe">
-                    <iframe class="video__iframe" src="https://www.youtube.com/embed/-iQ1lpnD-M8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="video__iframe" src="https://www.youtube.com/embed/YpPXms28b2s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </v-dialog>
@@ -96,23 +94,8 @@ export default {
         padding: 50px;
         justify-content: space-between;
         align-items: center;
-        .video__fixed__l {
-            width: 35%;
-            h2 {
-                font-size: 24px;
-                line-height: 32px;
-                color: #fff;
-                font-style: normal;
-            }
-            p {
-                color: #fff;
-                font-size: 16px;
-                line-height: 20,39px;
-                margin-top: 10px;
-            }
-        }
         .video__fixed__r {
-            width: 40%;
+            width: 100%;
             text-align: center;
             img {
                 cursor: pointer;
