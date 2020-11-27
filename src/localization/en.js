@@ -97,8 +97,6 @@ export default {
             "text": "The result of the service will be available in your personal account"
         }
     ],
-    video__title: 'A short video about the eQonaq system',
-    video__description: 'A short video about our system', 
     welcome__title: "Welcome to  eQonaq information system",
     welcome__description__one: '«eQonaq» – is a state information system designed for electronic collection, recording and processing of data of receiving persons about immigrants and internal migrants staying with them by automating the processes of their mandatory registration and sending notifications to the internal Affairs bodies by receiving persons',
     welcome__description__two: 'The system was created as part of the state tourism development program of the Ministry of culture and sports with the assistance of the Ministry of internal Affairs and the national security Committee of the Republic of Kazakhstan.',
