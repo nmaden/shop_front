@@ -191,7 +191,7 @@ export default {
         },
         {
             name: 'Гостиницы',
-            to: 'https://api.eqonaq.kz/hotels',
+            to: 'https://kazakhstan.travel/hotels',
             type_route: 'on_new_site',
         },
     ],

@@ -1,21 +1,15 @@
 <template>
     <div class="video__main">
-        <div class="video__fixed">
-            <div class="video__fixed__l">
-                <h2> 
-                </h2>
-                <p>
-                </p>
-            </div>
+        <div @click="video__md = true" class="video__fixed">
             <div class="video__fixed__r">
-                <a @click="video__md = true">
+                <a>
                     <img src="../../assets/all/img__video__play.svg" alt="">
                 </a>
             </div>
         </div>
         <v-dialog
             v-model="video__md"
-            max-width="1160"
+            max-width="900"
             overlay-opacity="0.9"
         >
             <div class="video__modal">
@@ -88,17 +82,28 @@ export default {
         position: absolute;
         border-radius: 11px;
         width: 95.2%;
+        cursor: pointer;
         height: 255px;
         background: rgba(0, 0, 0, 0.5);
         display: flex;
         padding: 50px;
         justify-content: space-between;
         align-items: center;
+        &:hover {
+            .video__fixed__r {
+                img {
+                    cursor: pointer;
+                    width: 180px;
+                }
+            }
+        }
         .video__fixed__r {
             width: 100%;
             text-align: center;
             img {
                 cursor: pointer;
+                width: 100px;
+                transition: 0.5s;
             }
         }
     }
