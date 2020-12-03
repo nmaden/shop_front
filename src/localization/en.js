@@ -80,6 +80,7 @@ export default {
     ],
     "baner__title": "HAVE YOU RECEIVED A FOREIGN GUEST?",
     "baner__description": "According to Government Decree No. 148 of January 21, 2012, you are required to inform the internal Affairs bodies within 3 days.",
+    "baner__morree": "More...",
     "baner__array": [
         {
             "id": 1,
@@ -211,7 +212,7 @@ export default {
     nav__bar__title: 'back',
     registration__title: 'Sign Up',
     registration__description: 'To register, you need an EDS key, which you can get at the {action}',
-    registration__description_link: 'link',
+    registration__description_link: 'link.',
     registration__eds__btn: 'Select an EDS',
     forgot__password__page__title: 'Восстановления пароля',
     forgot__password__page__input__placeholder: 'Введите электронный адрес',

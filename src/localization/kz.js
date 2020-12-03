@@ -80,6 +80,7 @@ export default {
     ],
     "baner__title": "Сіздің қонақүйге шетел азаматы орналасты ма?",
     "baner__description": "ҚР Үкіметінің 2012 жылғы 5 қаңтардағы № 148 қаулысына сәйкес сіз 3 күн ішінде ІІМ-не хабарлама жолдауға міндеттісіз",
+    "baner__morree": "Жалғасы…...", 
     "baner__array": [
         {
             "id": 1,
@@ -211,7 +212,7 @@ export default {
     nav__bar__title: 'Артқа',
     registration__title: 'Тіркелу',
     registration__description: 'Для регистрации вам необходим ЭЦП ключ, который вы можете получить по {action}',
-    registration__description_link: 'ссылке',
+    registration__description_link: 'ссылке.',
     registration__eds__btn: 'ЭЦҚ арқылы тіркелу',
     forgot__password__page__title: 'Құпиясөзді қалпына келтіру',
     forgot__password__page__input__placeholder: 'Электронды мекенжайыңызды енгізіңіз',
