@@ -80,6 +80,7 @@ export default {
     ],
     "baner__title": "К ВАМ ПРИБЫЛ ИНОСТРАННЫЙ ГОСТЬ?",
     "baner__description": "Согласно Постановлению Правительства № 148 от 21 января 2012 года вы обязаны в течение 3-х дней проинформировать органы внутренних дел.",
+    "baner__morree": "Подробнее...",
     "baner__array": [
         {
             "id": 1,
@@ -212,7 +213,7 @@ export default {
     nav__bar__title: 'Назад',
     registration__title: 'Регистрация',
     registration__description: 'Для регистрации вам необходим ЭЦП ключ, который вы можете получить по {action}',
-    registration__description_link: 'ссылке',
+    registration__description_link: 'ссылке.',
     registration__eds__btn: 'Выбрать ЭЦП',
     forgot__password__page__title: 'Восстановления пароля',
     forgot__password__page__input__placeholder: 'Введите электронный адрес',

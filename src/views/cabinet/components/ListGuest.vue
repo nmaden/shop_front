@@ -34,7 +34,7 @@
                     <div class="quest__list__l">
                         <div class="quest__list__l__header">
                             <h4>
-                                {{item.clients.name}} {{item.clients.surname}}
+                                {{item.clients.name}} {{item.clients.surname}} 
                             </h4> 
                             <v-tooltip 
                                 bottom
@@ -76,27 +76,36 @@
                                         v-bind="attrs"
                                         v-on="on"
                                     >
-                                        Скачать справку (pdf)
+                                        <a 
+                                            download 
+                                            target="_blank" 
+                                            @click="dowloadPdf(item.id)">
+                                            Скачать справку (pdf)
+                                        </a>
                                     </p>
                                 </template>
                                 <span>Скачать справку</span>
                             </v-tooltip>
                         </div>
                         <p>
-                            <b v-if="item.statuses_id == 1">
-                                заезд
+                            <b v-if="item.statuses_id == 3">
+                                Выезд
                             </b>
                             <b v-else-if="item.statuses_id == 2">
                                 проживание
                             </b>
+                            <b v-else-if="item.statuses_id == 4">
+                                Удаленный
+                            </b>
                         </p>
-                        <button @click="removeListId(item.id)">
+                        <button v-if="item.statuses_id !== 4" @click="removeListId(item.id)">
                             Удалить <span class="mdi mdi-delete"></span>
+                        </button>
+                        <button v-if="item.statuses_id == 4" @click="activateListId(item.id)">
+                            Востановить
                         </button>
                     </div>
                 </div>
-                
-                
             </div>
         </div>
         
@@ -133,6 +142,38 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-dialog
+            v-model="activateDialog"
+            max-width="420"
+        >
+            <v-card>
+                <v-card-title class="headline">
+                    <h3 class="delete__dialog__title">
+                        Вы действительно хотите <br>
+                        востановить лист прибытия?
+                    </h3>
+                </v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
+                        color="#000"
+                        @click="activeList"
+                    >
+                        Да
+                    </v-btn>
+
+                    <v-btn
+                        color="#000"
+                        @click="activateDialog = false"
+                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
+                    >
+                        Нет
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -144,6 +185,7 @@ export default {
         return {
             users: [],
             deleteDialog: false,
+            activateDialog: false,
             list__id: null,
         }
     },
@@ -154,6 +196,43 @@ export default {
         removeListId (id) {
             this.deleteDialog = true
             this.list__id = id
+        },
+        activateListId (id) {
+            this.activateDialog = true
+            this.list__id = id
+        },
+        dowloadPdf (id) {
+            let origin = window.location.origin
+            let origin__array = origin.replaceAll(/[./:]/g, ' ')
+            let path = origin__array.split(' ').filter(item => item !== '')[2]
+            let url = path === 'eqonaq' ? 'https://api.eqonaq.kz/client_reference/' : 'https://api.'+path+'.eqonaq.kz/client_reference/'
+            location.href = url + id
+        },
+        activeList () {
+            this.$axios({ 
+                method: 'put',
+                url: this.$API_URL + this.$API_VERSION_2 + 'client/activate',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+                data: {
+                    id: this.list__id
+                }
+            })
+            .then((response) => {
+                this.$toast.open({
+                    message: response.data.success,
+                    type: 'success',
+                    position: 'bottom',
+                    duration: 5000,
+                    queue: true
+                })
+                this.activateDialog = false
+                this.getUsers('clients', 0)
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
         },
         removeList () {
             this.$axios({ 
@@ -180,7 +259,7 @@ export default {
             .catch((error) => {
                 console.log(error);
             }); 
-        },
+        }, 
         getUsers (type, index) {
             this.$axios({ 
                 method: 'get',
@@ -190,6 +269,7 @@ export default {
                 },
             })
             .then((response) => {
+                console.log(response.data);
                 this.addActiveClass(index)
                 this.users = response.data.data
             })  
@@ -365,6 +445,10 @@ export default {
                         font-weight: 400;
                         &:hover {
                             opacity: .5;
+                        }
+                        a {
+                            text-decoration: none;
+                            color: #000;
                         }
                     }
                 }

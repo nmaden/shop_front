@@ -249,7 +249,7 @@ export default {
         padding-bottom: 14%;
       }
       ul {
-        list-style-type: circle;
+        list-style-type: none;
         @media (max-width: @mobile) {
           font-size: 13px;
         }
