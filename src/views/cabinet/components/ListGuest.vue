@@ -107,7 +107,15 @@
                     </div>
                 </div>
             </div>
+            <v-pagination
+                v-model="page"
+                v-if="total_page > 5"
+                :length="last__page"
+                @input="getUsers('clients', 0)"
+                class="paginations"
+            ></v-pagination>
         </div>
+        
         
 
         <v-dialog
@@ -187,6 +195,9 @@ export default {
             deleteDialog: false,
             activateDialog: false,
             list__id: null,
+            page: 1,
+            last__page: null,
+            total_page: null
         }
     },
     mounted () {
@@ -264,12 +275,17 @@ export default {
             this.$axios({ 
                 method: 'get',
                 url: this.$API_URL + this.$API_VERSION_2 + type,
+                params: {
+                    per_page: 5,
+                    page: this.page
+                },
                 headers: {
                     'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
                 },
             })
             .then((response) => {
-                console.log(response.data);
+                this.total_page = response.data.total
+                this.last__page = response.data.last_page
                 this.addActiveClass(index)
                 this.users = response.data.data
             })  
@@ -318,6 +334,13 @@ export default {
     width: 1200px;
     margin: 0 auto;
     margin-top: 30px;
+    .paginations {
+        width: 558px;
+        margin-bottom: 20px;
+        @media (max-width: @mobile) {
+            width: 100%;
+        }
+    }
     @media (max-width: @mobile) {
         width: 100%;
         margin-top: 20px;
