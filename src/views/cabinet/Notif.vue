@@ -844,7 +844,6 @@ export default {
                 this.countries = arr
             }); 
         },
-
         getAddress () {
             this.$axios({
                 method: 'get',

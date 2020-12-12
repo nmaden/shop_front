@@ -110,6 +110,7 @@
             <v-pagination
                 v-model="page"
                 v-if="total_page > 5"
+                color="#ffdf56"
                 :length="last__page"
                 @input="getUsers('clients', 0)"
                 class="paginations"
