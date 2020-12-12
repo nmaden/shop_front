@@ -12,7 +12,7 @@
                         {{$t('baner__title')}}
                     </h1>
                     <p>
-                       {{$t('baner__description')}}  <span @click="modal__description = true">Подробнее...</span>
+                       {{$t('baner__description')}}  <span @click="modal__description = true">{{$t('baner__morree')}}</span>
                     </p>
                 </div>
                 <div class="mobile">
@@ -30,7 +30,9 @@
             <div class="text__info__mobile">
                 <p>
                     {{$t('baner__description')}} <br>
-                    <span @click="modal__description = true">Подробнее...</span>
+                    <span @click="modal__description = true">
+                        {{$t('baner__morree')}}
+                    </span>
                 </p>
             </div>
 
