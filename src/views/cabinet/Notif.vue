@@ -10,7 +10,7 @@
                 <div class="registrations__form">
                     <div class="input__block picker">
                         <label>
-                            Дата заезда - выезда <span>*</span>
+                            {{$t('notif__input__label__ar__dep')}} <span>*</span>
                         </label>
                         <div @click="date_arrival = true" class="data_input_block">
                             <p>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="input__block time">
                         <label for="check_in_time">
-                            Время заезда <span>*</span>
+                            {{$t('notif__input__label__time')}} <span>*</span>
                         </label>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
@@ -42,7 +42,7 @@
 
                      <div class="input__block address select__input">
                         <label>
-                            Адрес прибывания <span>*</span>
+                           {{$t('notif__input__label__addres')}} <span>*</span>
                         </label>
                         <div class="data_input_block">
                             <v-autocomplete
@@ -66,18 +66,18 @@
                 
                 <div class="buttons__mobile__capture">
                     <div class="registrations__form">
-                        <button class="capture__photo__desktop" @click="onCapture">Сканировать документ</button>
+                        <button class="capture__photo__desktop" @click="onCapture">{{$t('notif__scan__btn')}}</button>
                         <button class="get__file__button" @click="runGetPhoto">Загрузить документ</button>
                         <input type="file" id="get__file" @change="changePhoto">
                     </div>
                 </div>
                 
-                <h3>Данные гостя</h3>
+                <h3>{{$t('notif__guest__info')}}</h3>
 
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="name">
-                            Имя <span>*</span>
+                            {{$t('notif__input__label__name')}} <span>*</span>
                         </label>
                         <input v-model.trim="name" class="input upperCase" type="text" id="name">
                         <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателено к заполнению</div>
@@ -85,7 +85,7 @@
 
                     <div class="input__block">
                         <label for="surname">
-                            Фамилия <span>*</span>
+                            {{$t('notif__input__label__last__name')}} <span>*</span>
                         </label>
                         <input v-model.trim="surname" class="input upperCase" type="text" id="surname">
                         <div class="error__text" v-if="$v.surname.$dirty && !$v.surname.required">Поле 'Фамилия' обязателено к заполнению</div>
@@ -93,14 +93,14 @@
 
                     <div class="input__block">
                         <label for="middle_name">
-                            Отчество
+                            {{$t('notif__input__label__middle__name')}}
                         </label>
                         <input v-model.trim="middle_name" class="input upperCase" type="text" id="middle_name">
                     </div>
 
                     <div class="input__block select__input">
                         <label>
-                            Гражданство <span>*</span>
+                            {{$t('notif__input__label__citinzeship')}} <span>*</span>
                         </label>
                         <div class="data_input_block">
                             <v-autocomplete
@@ -121,7 +121,7 @@
 
                     <div class="input__block__child">
                         <label for="date_birth"> 
-                            Дата рождения <span>*</span>
+                            {{$t('notif__input__label__date_of_birth')}} <span>*</span>
                         </label>
                         <div class="data_input_block">
                             <maskInput class="date__input" mask="11.11.1111" v-model="date_birth"/>
@@ -133,7 +133,7 @@
 
                     <div class="input__block__child">
                         <label for="floor">
-                            Пол <span>*</span>
+                            {{$t('notif__input__label__gender')}} <span>*</span>
                         </label>
                         
                         <div class="data_input_block">
@@ -154,26 +154,26 @@
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="phone">
-                            Телефон 
+                             {{$t('notif__input__label__phone')}}
                         </label>
                         <input class="input" v-model.trim="phone" type="text" id="phone">
                         <div class="error__text" v-if="!$v.phone.numeric">Введите корректный номер телефона</div>
                     </div>
                     <div class="input__block">
                         <label for="email">
-                            E-mail
+                            {{$t('notif__input__label__email')}}
                         </label>
                         <input class="input" v-model.trim="email" type="text" id="email">
                         <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                     </div>
                 </div>
 
-                <h3>Документы, удостоверяющие личность</h3>
+                <h3>{{$t('notif__identity__documents')}}</h3>
 
                 <div class="registrations__form">
                     <div class="input__block">
                         <label for="type_document">
-                            Тип документа <span>*</span>
+                            {{$t('notif__input__label_identification_document')}} <span>*</span>
                         </label>
                         <div class="data_input_block">
                             <v-autocomplete
@@ -192,7 +192,7 @@
                     </div>
                     <div class="input__block__child">
                         <label for="document_number">
-                            Номер документа <span>*</span>
+                           {{$t('notif__input__label__doc__num')}}  <span>*</span>
                         </label>
                         <input class="input" v-model.trim="document_number" type="text" id="document_number">
                         <div class="error__text" v-if="$v.document_number.$dirty && !$v.document_number.required">Поле 'Номер документа' обязателено к заполнению</div>
@@ -200,7 +200,7 @@
                     </div>
                     <div class="input__block__child">
                         <label for="series_documents">
-                            Серия документа 
+                           {{$t('notif__input__label__doc__series')}}
                         </label>
                         <input class="input" v-model.trim="series_documents" type="text" id="series_documents">
                     </div>
@@ -209,7 +209,7 @@
                 <div class="registrations__form">
                     <div class="input__block__child">
                         <label>
-                            Дата выдачи <span>*</span>
+                            {{$t('notif__input__label__date_of_issue')}} <span>*</span>
                         </label>
                         <div class="data_input_block">
                             <maskInput class="date__input" mask="11.11.1111" v-model="date_issuing"/>
@@ -221,7 +221,7 @@
                     </div>
                     <div class="input__block__child">
                         <label>
-                            Дата окончания срока <span>*</span>
+                            {{$t('notif__input__label__valid_through')}} <span>*</span>
                         </label>
                         <div class="data_input_block">
                             <maskInput class="date__input" mask="11.11.1111" v-model="date_endings"/>
@@ -234,12 +234,12 @@
                 </div>
 
                 <div v-if="checkbox_notify_mvd == true">
-                    <h3>Данные о пребывании</h3>
+                    <h3>{{$t('notif__stay__details')}}</h3>
 
                     <div class="registrations__form">
                         <div class="input__block select__input">
                             <label>
-                                Цель визита <span>*</span>
+                                {{$t('notif__input__label__purpose_of_visit')}} <span>*</span>
                             </label>
                             <div class="data_input_block">
                                 <v-autocomplete
@@ -258,7 +258,7 @@
                         </div>
                         <div class="input__block__child">
                             <label>
-                                Дата начала <span>*</span>
+                                 {{$t('notif__input__label__arrival')}} <span>*</span>
                             </label>
                             <div class="data_input_block">
                                 <maskInput class="date__input" mask="11.11.1111" v-model="start_check_date"/>
@@ -270,7 +270,7 @@
                         </div>
                         <div class="input__block__child">
                             <label>
-                                Дата окончания <span>*</span>
+                                {{$t('notif__input__label__departure')}} <span>*</span>
                             </label>
                             <div class="data_input_block">
                                 <maskInput class="date__input" mask="11.11.1111" v-model="end_check_date"/>
@@ -285,7 +285,7 @@
                     <div class="registrations__form">
                         <div class="input__block">
                             <label for="comment">
-                                Дополнительные сведения
+                                 {{$t('notif__input__label__additional_information')}}
                             </label>
                             <textarea class="textarea" v-model.trim="comment" id="comment"></textarea>
                         </div>
@@ -298,15 +298,15 @@
                     color="#FFCC47"
                     :hide-details="true"
                     :readonly="true"
-                    label="Отправить уведомление в МВД РК о прибытии иностранного постояльца."
+                    :label="$t('notif__send__mvd__checkbox')"
                 ></v-checkbox>
                 <v-checkbox
                     v-model="checkbox_welcome_message"
                     :hide-details="true"
                     color="#FFCC47"
-                    label="Отправить welcome сообщение на email."
+                    :label="$t('notif__send__email__checkbox')"
                 ></v-checkbox>
-                <button @click="sendNotif">ОТПРАВИТЬ</button> 
+                <button @click="sendNotif">{{$t('notif__send__data__btn')}}</button> 
             </div>
         </div>
   
@@ -409,7 +409,7 @@
             <div class="scan__block">
                 <div class="scan__block__header">
                     <h3>
-                        Сканирование документа 
+                        {{$t('notif__scan__document')}}
                     </h3>
                     <span class="mdi mdi-close" @click="closeScanDocument"></span>
                 </div>
