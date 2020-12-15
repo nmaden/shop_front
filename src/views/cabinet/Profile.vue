@@ -17,7 +17,7 @@
                             {{GET_USER_DATA.iin}}
                         </h4>
                         <h4 v-else>
-                            не добавлен
+                            {{ $t('not__added__text') }}
                         </h4>
                     </div>
                     <div class="profile__data__text"> 
@@ -38,7 +38,7 @@
 
                         <router-link v-if="addressStatus.length > 1" tag="a" to="/address">
                             <h5>
-                                Показать все адреса
+                                {{$t('link__all__adress')}}
                             </h5>
                         </router-link>
                     </div>
@@ -53,7 +53,7 @@
                             {{GET_USER_DATA.email}}
                         </h4>
                         <h4 v-else>
-                            не добавлен
+                            {{ $t('not__added__text') }}
                         </h4>
                     </div>
                 </div>

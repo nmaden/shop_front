@@ -9,7 +9,7 @@
                      {{$t('edit__password__modal__title')}}
                  </h3>
                  <p>
-                     Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы. <br>
+                    {{$t('change__password__description')}} <br>
                      (!, @, $, %, ^, &, *, -, +)
                  </p>
                  <div class="registrations__form">
