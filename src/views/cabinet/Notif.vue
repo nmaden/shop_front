@@ -128,6 +128,7 @@
                             <img @click="date_birth_picker = true" src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.date_birth.$dirty && !$v.date_birth.required">Поле 'Дата рождения' обязателена к заполнению</div>
+                        <div class="error__text" v-if="$v.date_birth.$dirty && !$v.date_birth.numeric">Не верная дата</div>
                     </div>
 
                     <div class="input__block__child">
@@ -215,6 +216,8 @@
                             <img  @click="date_issuing_picker = true" src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.date_issuing.$dirty && !$v.date_issuing.required">Поле 'Дата выдачи' обязателена к заполнению</div>
+                        <div class="error__text" v-if="$v.date_issuing.$dirty && !$v.date_issuing.numeric">Не верная дата</div>
+
                     </div>
                     <div class="input__block__child">
                         <label>
@@ -225,6 +228,8 @@
                             <img  @click="date_endings_picker = true" src="../../assets/icons/date.png" alt="date">
                         </div>
                         <div class="error__text" v-if="$v.date_endings.$dirty && !$v.date_endings.required">Поле 'Дата окончания срока' обязателена к заполнению</div>
+                        <div class="error__text" v-if="$v.date_endings.$dirty && !$v.date_endings.numeric">Не верная дата</div>
+
                     </div>
                 </div>
 
@@ -260,6 +265,8 @@
                                 <img @click="date_start_picker = true" src="../../assets/icons/date.png" alt="date">
                             </div>
                             <div class="error__text" v-if="$v.start_check_date.$dirty && !$v.start_check_date.required">Поле 'Дата начала' обязателена к заполнению</div>
+                            <div class="error__text" v-if="$v.start_check_date.$dirty && !$v.start_check_date.numeric">Не верная дата</div>
+
                         </div>
                         <div class="input__block__child">
                             <label>
@@ -270,6 +277,8 @@
                                 <img  @click="date_end_picker = true" src="../../assets/icons/date.png" alt="date">
                             </div>
                             <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.required">Поле 'Дата окончания' обязателена к заполнению</div>
+                            <div class="error__text" v-if="$v.end_check_date.$dirty && !$v.end_check_date.numeric">Не верная дата</div>
+
                         </div>
                     </div>
 
@@ -491,6 +500,22 @@ import maskInput from 'vue-masked-input'
 const alpha = helpers.regex('numeric', /^[0-9,+,(), «»]*$/)
 const document_number = helpers.regex('numeric', /^[0-9, a-zA-Z]*$/)
 
+const validate_date = (value) => {
+    let date = value.replace(/_.*/, '')
+    if (date.length == 10) {
+        let arrD = date.split(".")
+        arrD[1] -= 1
+        let d = new Date(arrD[2], arrD[1], arrD[0])
+        if ((d.getFullYear() == arrD[2]) && (d.getMonth() == arrD[1]) && (d.getDate() == arrD[0])) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+
 
 export default {
     components: {
@@ -514,6 +539,7 @@ export default {
         },
         date_birth: {
             required,
+            numeric: validate_date,
         },
         floor: {
             required
@@ -532,19 +558,23 @@ export default {
             numeric: document_number
         },
         date_issuing: {
-            required
+            required,
+            numeric: validate_date,
         },
         date_endings: {
-            required
+            required,
+            numeric: validate_date,
         },
         target: {
             required: requiredUnless('additinal__fuilds')
         },
         start_check_date: {
-            required: requiredUnless('additinal__fuilds')
+            required: requiredUnless('additinal__fuilds'),
+            numeric: validate_date,
         },
         end_check_date: {
-            required: requiredUnless('additinal__fuilds')
+            required: requiredUnless('additinal__fuilds'),
+            numeric: validate_date,
         },
     },
     data () {
@@ -707,15 +737,13 @@ export default {
         },
         sendNotif () {
             if (this.$v.$invalid) {
-                 this.$toast.open({
+                this.$toast.open({
                     message: 'Заполните необходимые поля',
                     type: 'error',
                     position: 'bottom',
                     duration: 5000,
                     queue: true
                 });
-
-                
                 if (this.$v.picker.$model == null) {
                     animateScrollTo(document.querySelector('.picker'), {
                         speed: 3000
@@ -844,7 +872,6 @@ export default {
                 this.countries = arr
             }); 
         },
-
         getAddress () {
             this.$axios({
                 method: 'get',
@@ -878,7 +905,6 @@ export default {
                 console.warn(error);
             });
         },
-
         getDoctypes () {
             this.$axios({
                 method: 'get',
