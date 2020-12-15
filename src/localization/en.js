@@ -1,6 +1,21 @@
 export default {
     "notif_button": "Send notification of guest arrival",
     "notif_button_mobile": "Send notification",
+    change__password__description: "Your password must contain uppercase and lowercase characters, numbers, and special characters.",
+    not__added__text: "Not Added",
+    link__all__adress: "Show all addresses",
+    dowload__pdf__list: "Download help (pdf)",
+    residents__list: "accommodation",
+    left__list: "Left",
+    removed__list: "Deleted",
+    remove__list: "Remove",
+    recovery__list: "Recover",
+    all__tab__list__name: "All",
+    residents__tab__list__name: "Residents",
+    retired__tab__list__name: "Retired",
+    deleted__tab__list__name: "Deleted",
+    not__list__guest: "You don't have a guest list",
+
     "menu_header": [
         {
             "name": "home",

@@ -1,6 +1,21 @@
 export default { 
     "notif_button": "Қонақ келгендігі жайлы хабарлама жіберу",
     "notif_button_mobile": "Хабарлама жіберу",
+    change__password__description: "Сіздің пароліңізде жоғарғы және төменгі әріптер, сандар және арнайы таңбалар болуы керек.",
+    link__all__adress: "Барлық мекенжайларды көрсету",
+    not__added__text: "Жазылмаған",
+    dowload__pdf__list: "Анықтаманы жүктеу (pdf)",
+    residents__list: "Тұрушы",
+    left__list: "Кеткендер",
+    removed__list: "Жойылған",
+    remove__list: "Өшіру",
+    recovery__list: "Қалпына келтіру",
+    all__tab__list__name: "Барлық",
+    residents__tab__list__name: "Тұратын",
+    retired__tab__list__name: "Кеткендер",
+    deleted__tab__list__name: "Жойылған",
+    not__list__guest: "Сізде қонақтар тізімі жоқ",
+
     menu_header: [
         {
             name: "басты бет",

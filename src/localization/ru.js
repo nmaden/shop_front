@@ -1,6 +1,21 @@
 export default {
     "notif_button": "Отправить уведомление о прибытии гостя",
     "notif_button_mobile": "Отправить уведомление",
+    change__password__description: "Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы.",
+    link__all__adress: "Показать все адреса",
+    not__added__text: "не добавлен",
+    dowload__pdf__list: "Скачать справку (pdf)",
+    residents__list: "Проживающие",
+    left__list: "Выезд",
+    removed__list: "Удаленный",
+    remove__list: "Удалить",
+    recovery__list: "Восстановить",
+    all__tab__list__name: "Все",
+    residents__tab__list__name: "Проживающие",
+    retired__tab__list__name: "Выбывшие",
+    deleted__tab__list__name: "Удаленные",
+    not__list__guest: "У вас нет списка гостей",
+
     "menu_header": [
         {
             "name": "главная",
