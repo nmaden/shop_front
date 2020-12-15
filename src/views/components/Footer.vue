@@ -45,8 +45,8 @@
                     <img class="logo__footer" src="../../assets/logo/logo.svg" alt="logo">
                      
                     <div class="footer__bottom__l__left__flex">
-                        <img src="../../assets/icons/appstore.svg" alt="appstore">
-                        <img src="../../assets/icons/playmarket.svg" alt="playmarket">
+                        <!-- <img src="../../assets/icons/appstore.svg" alt="appstore"> -->
+                        <img src="../../assets/icons/playmarket.svg" @click="openPlay('playmarket')" alt="playmarket">
                     </div>
                 </div>
                 <div class="footer__bottom__l__right">
@@ -104,6 +104,11 @@ export default {
         }
     },
     methods: {
+        openPlay (type) {
+            if (type == 'playmarket') {
+                window.open('https://play.google.com/store/apps/details?id=com.codetau.eqonaq', '_blank')
+            }
+        },
         route (to, type_route) {
             if (type_route == 'on_site') {
                 this.$router.push(to)

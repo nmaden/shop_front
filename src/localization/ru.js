@@ -8,7 +8,17 @@ export default {
             "url": false
         },
         {
-            "name": "номера телефонов",
+            "name": "МИГРАЦИОННЫЙ СПРАВОЧНИК",
+            "to": "/migration",
+            "url": false
+        },
+        {
+            "name": "забронировать отель",
+            "to": "https://kazakhstan.travel/hotels",
+            "url": true
+        },
+        {
+            "name": "полезные контакты",
             "to": "/telephones",
             "url": false
         },
@@ -18,19 +28,9 @@ export default {
             "url": false
         },
         {
-            "name": "МИГРАЦИОННЫЙ СПРАВОЧНИК",
-            "to": "/migration",
-            "url": false
-        },
-        {
             "name": "ВАЛЮТА",
             "to": "/currency",
             "url": false
-        },
-        {
-            "name": "ГОСТИНИЦЫ",
-            "to": "https://kazakhstan.travel/hotels",
-            "url": true
         },
         {
             "name": "3D - туры о Казахстане",
@@ -159,7 +159,7 @@ export default {
     bookhotel__departure: 'Отъезд',
     book__hotel__users: 'Взрослых',
     book__hotel__numbers: 'Номер',
-    book__hotel__get__price: 'Проверить цены',
+    book__hotel__get__price: 'Посмотреть предложения',
     book__hotel__applications__title: 'Полезные приложения',
     book__hotel__footer__reg: 'ЗАРЕГИСТРИРОВАТЬСЯ',
     book__hotel__footer__login: 'АВТОРИЗОВАТЬСЯ',
@@ -171,27 +171,12 @@ export default {
             type_route: 'on_page',
         },
         {
-            name: 'Номера телефонов',
-            to: '/telephones',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Связь',
-            to: '/connection',
-            type_route: 'on_site',
-        },
-        {
             name: 'Миграционный справочник',
             to: '/migration',
             type_route: 'on_site',
         },
         {
-            name: 'Валюта',
-            to: '/currency',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Гостиницы',
+            name: 'Забронировать отель',
             to: 'https://kazakhstan.travel/hotels',
             type_route: 'on_new_site',
         },

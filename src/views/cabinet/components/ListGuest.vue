@@ -102,7 +102,7 @@
                             Удалить <span class="mdi mdi-delete"></span>
                         </button>
                         <button v-if="item.statuses_id == 4" @click="activateListId(item.id)">
-                            Востановить
+                            Восcтановить
                         </button>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                 <v-card-title class="headline">
                     <h3 class="delete__dialog__title">
                         Вы действительно хотите <br>
-                        востановить лист прибытия?
+                        восcтановить лист прибытия?
                     </h3>
                 </v-card-title>
                 <v-card-actions>

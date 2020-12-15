@@ -8,7 +8,17 @@ export default {
             "url": false
         },
         {
-            "name": "useful phone numbers",
+            "name": "migration gulde",
+            "to": "/migration",
+            "url": false
+        },
+        {
+            "name": "book a hotel",
+            "to": "https://kazakhstan.travel/hotels",
+            "url": true
+        },
+        {
+            "name": "useful contacts",
             "to": "/telephones",
             "url": false
         },
@@ -18,19 +28,9 @@ export default {
             "url": false
         },
         {
-            "name": "migration gulde",
-            "to": "/migration",
-            "url": false
-        },
-        {
             "name": "currency",
             "to": "/currency",
             "url": false
-        },
-        {
-            "name": "hotels",
-            "to": "https://kazakhstan.travel/hotels",
-            "url": true
         },
         {
             "name": "3D tours around Kazakhstan",
@@ -159,7 +159,7 @@ export default {
     bookhotel__departure: 'Отъезд',
     book__hotel__users: 'adulst',
     book__hotel__numbers: 'room',
-    book__hotel__get__price: 'Проверить цены',
+    book__hotel__get__price: 'View offers',
     book__hotel__applications__title: 'Useful apps',
     book__hotel__footer__reg: ' Sign Up',
     book__hotel__footer__login: 'Sign In',
@@ -171,27 +171,12 @@ export default {
             type_route: 'on_page',
         },
         {
-            name: 'Useful phone numbers',
-            to: '/telephones',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Cellular Operators',
-            to: '/connection',
-            type_route: 'on_site',
-        },
-        {
             name: 'Migration guide',
             to: '/migration',
             type_route: 'on_site',
         },
         {
-            name: 'Currency',
-            to: '/currency',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Hotels',
+            name: 'Book a hotel',
             to: 'https://kazakhstan.travel/hotels',
             type_route: 'on_new_site',
         },
