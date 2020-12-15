@@ -8,7 +8,17 @@ export default {
             "url": false
         },
         {
-            name: "ТЕЛЕФОН НӨМІРЛЕРІ",
+            name: "КӨШІ-ҚОН АНЫҚТАМАЛЫҒЫ",
+            to: "/migration",
+            "url": false
+        },
+        {
+            name: "қонақүйге бронь жасау",
+            to: "https://kazakhstan.travel/hotels",
+            "url": true
+        },
+        {
+            name: "пайдалы байланыстар",
             to: "/telephones",
             "url": false
         },
@@ -18,19 +28,9 @@ export default {
             "url": false
         },
         {
-            name: "КӨШІ-ҚОН АНЫҚТАМАЛЫҒЫ",
-            to: "/migration",
-            "url": false
-        },
-        {
             name: "ВАЛЮТА",
             to: "/currency",
             "url": false
-        },
-        {
-            name: "ҚОНАҚҮЙЛЕР",
-            to: "https://kazakhstan.travel/hotels",
-            "url": true
         },
         {
             name: "Қазақстан бойынша 3-D турлар",
@@ -159,7 +159,7 @@ export default {
     bookhotel__departure: 'Отъезд',
     book__hotel__users: 'Ересек',
     book__hotel__numbers: 'Бөлме',
-    book__hotel__get__price: 'бағасын шығару',
+    book__hotel__get__price: 'ұсынысты көру',
     book__hotel__applications__title: 'Пайдалы қолданбалар',
     book__hotel__footer__reg: 'ТІРКЕЛУ',
     book__hotel__footer__login: 'АВТОРИЗАЦИЯДАН ӨТУ',
@@ -171,27 +171,12 @@ export default {
             type_route: 'on_page',
         },
         {
-            name: 'Телефон нөмірлері',
-            to: '/telephones',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Байланыс',
-            to: '/connection',
-            type_route: 'on_site',
-        },
-        {
             name: 'Көші-қон анықтамалығы',
             to: '/migration',
             type_route: 'on_site',
         },
         {
-            name: 'Валюта',
-            to: '/currency',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Қонақүйлер',
+            name: 'Қонақүйге бронь жасау',
             to: 'https://kazakhstan.travel/hotels',
             type_route: 'on_new_site',
         },
