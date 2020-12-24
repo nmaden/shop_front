@@ -8,17 +8,17 @@
             <div 
                 class="list__guest__filters"
             >
-                <p @click="filterList(0)" class="not__active__filter__text active__filter__text">Все</p>
-                <p @click="filterList(1)" class="not__active__filter__text">Проживающие</p>
-                <p @click="filterList(2)" class="not__active__filter__text">Выбывшие</p>
-                <p @click="filterList(3)" class="not__active__filter__text">Удаленные</p>
+                <p @click="filterList(0)" class="not__active__filter__text active__filter__text">{{$t('all__tab__list__name')}}</p>
+                <p @click="filterList(1)" class="not__active__filter__text">{{$t('residents__tab__list__name')}}</p>
+                <p @click="filterList(2)" class="not__active__filter__text">{{$t('retired__tab__list__name')}}</p>
+                <p @click="filterList(3)" class="not__active__filter__text">{{$t('deleted__tab__list__name')}}</p>
             </div>
 
             <h5 
                 v-if="users.length == 0"
                 class="not__data"
             >
-                У вас нет списка гостей
+                {{$t('not__list__guest')}}
             </h5>
             
             <div 
@@ -80,29 +80,29 @@
                                             download 
                                             target="_blank" 
                                             @click="dowloadPdf(item.id)">
-                                            Скачать справку (pdf)
+                                            {{$t('dowload__pdf__list')}}
                                         </a>
                                     </p>
                                 </template>
-                                <span>Скачать справку</span>
+                                <span>{{$t('dowload__pdf__list')}}</span>
                             </v-tooltip>
                         </div>
                         <p>
                             <b v-if="item.statuses_id == 3">
-                                Выезд
+                                {{$t('left__list')}}  
                             </b>
                             <b v-else-if="item.statuses_id == 2">
-                                проживание
+                                {{$t('residents__list')}} 
                             </b>
                             <b v-else-if="item.statuses_id == 4">
-                                Удаленный
+                                {{$t('removed__list')}} 
                             </b>
                         </p>
                         <button v-if="item.statuses_id !== 4" @click="removeListId(item.id)">
-                            Удалить <span class="mdi mdi-delete"></span>
+                            {{$t('remove__list')}}  <span class="mdi mdi-delete"></span>
                         </button>
                         <button v-if="item.statuses_id == 4" @click="activateListId(item.id)">
-                            Востановить
+                            {{$t('recovery__list')}}
                         </button>
                     </div>
                 </div>
@@ -110,6 +110,7 @@
             <v-pagination
                 v-model="page"
                 v-if="total_page > 5"
+                color="#ffdf56"
                 :length="last__page"
                 @input="getUsers('clients', 0)"
                 class="paginations"
@@ -158,7 +159,7 @@
                 <v-card-title class="headline">
                     <h3 class="delete__dialog__title">
                         Вы действительно хотите <br>
-                        востановить лист прибытия?
+                        восcтановить лист прибытия?
                     </h3>
                 </v-card-title>
                 <v-card-actions>

@@ -1,6 +1,21 @@
 export default {
     "notif_button": "Send notification of guest arrival",
     "notif_button_mobile": "Send notification",
+    change__password__description: "Your password must contain uppercase and lowercase characters, numbers, and special characters.",
+    not__added__text: "Not Added",
+    link__all__adress: "Show all addresses",
+    dowload__pdf__list: "Download help (pdf)", 
+    residents__list: "accommodation",
+    left__list: "Left",
+    removed__list: "Deleted",
+    remove__list: "Remove",
+    recovery__list: "Recover",
+    all__tab__list__name: "All",
+    residents__tab__list__name: "Residents",
+    retired__tab__list__name: "Retired",
+    deleted__tab__list__name: "Deleted",
+    not__list__guest: "You don't have a guest list",
+
     "menu_header": [
         {
             "name": "home",
@@ -8,7 +23,17 @@ export default {
             "url": false
         },
         {
-            "name": "useful phone numbers",
+            "name": "migration gulde",
+            "to": "/migration",
+            "url": false
+        },
+        {
+            "name": "book a hotel",
+            "to": "https://kazakhstan.travel/hotels",
+            "url": true
+        },
+        {
+            "name": "useful contacts",
             "to": "/telephones",
             "url": false
         },
@@ -18,19 +43,9 @@ export default {
             "url": false
         },
         {
-            "name": "migration gulde",
-            "to": "/migration",
-            "url": false
-        },
-        {
             "name": "currency",
             "to": "/currency",
             "url": false
-        },
-        {
-            "name": "hotels",
-            "to": "https://kazakhstan.travel/hotels",
-            "url": true
         },
         {
             "name": "3D tours around Kazakhstan",
@@ -159,7 +174,7 @@ export default {
     bookhotel__departure: 'Отъезд',
     book__hotel__users: 'adulst',
     book__hotel__numbers: 'room',
-    book__hotel__get__price: 'Проверить цены',
+    book__hotel__get__price: 'View offers',
     book__hotel__applications__title: 'Useful apps',
     book__hotel__footer__reg: ' Sign Up',
     book__hotel__footer__login: 'Sign In',
@@ -171,27 +186,12 @@ export default {
             type_route: 'on_page',
         },
         {
-            name: 'Useful phone numbers',
-            to: '/telephones',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Cellular Operators',
-            to: '/connection',
-            type_route: 'on_site',
-        },
-        {
             name: 'Migration guide',
             to: '/migration',
             type_route: 'on_site',
         },
         {
-            name: 'Currency',
-            to: '/currency',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Hotels',
+            name: 'Book a hotel',
             to: 'https://kazakhstan.travel/hotels',
             type_route: 'on_new_site',
         },
@@ -325,5 +325,32 @@ export default {
     add__addres__page__form__btn: 'Add', 
     address__list__title: 'Мои адреса',
     notif__add__title: 'Send notification of guest arrival to the Ministry of internal Affairs',
-    
+    notif__scan__document: 'Scanned document',
+    notif__scan__btn: 'Scan document',
+    notif__guest__info: 'Guest details',
+    notif__identity__documents: 'Identity documents',
+    notif__stay__details: 'Stay details',
+    notif__send__data__btn: 'Submit',
+    notif__send__email__checkbox: 'Send a Welcome email',
+    notif__send__mvd__checkbox: 'Send notification of guest arrival to the Ministry of internal Affairs',
+    notif__input__label__ar__dep: 'Arival - Departure',
+    notif__input__label__time: 'Chek in time',
+    notif__input__label__addres: 'Address',
+    notif__input__label__name: 'First name',
+    notif__input__label__last__name: 'Last name',
+    notif__input__label__middle__name: 'Middle name',
+    notif__input__label__citinzeship: 'Citinzeship',
+    notif__input__label__date_of_birth: 'Date of birth',
+    notif__input__label__gender: 'Gender',
+    notif__input__label__phone: 'Telephone number',
+    notif__input__label__email: 'E-mail',
+    notif__input__label_identification_document: 'Type of identification document',
+    notif__input__label__doc__num: 'Document number',
+    notif__input__label__doc__series: 'Серия документа',
+    notif__input__label__date_of_issue: 'Date of issue',
+    notif__input__label__valid_through: 'Valid through',
+    notif__input__label__purpose_of_visit: 'The purpose of visit',
+    notif__input__label__arrival: 'Arrival',
+    notif__input__label__departure: 'Departure',
+    notif__input__label__additional_information: 'Additional information',
 }

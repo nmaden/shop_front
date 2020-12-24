@@ -430,6 +430,8 @@ export default {
                     border-radius: 0px 10px 10px 0px;
                     font-weight: 800;
                     font-size: 15px;
+                    line-height: 17px;
+                    text-align: center;
                     text-transform: uppercase;
                     color: #000000;
                     text-decoration: none;

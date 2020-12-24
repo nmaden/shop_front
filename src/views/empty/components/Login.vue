@@ -12,7 +12,7 @@
                 <label for="password">
                     {{$t('login__label__password')}} 
                 </label>
-
+ 
                 <div class="view__password__icon">
                     <input :type="active__eye == true ? 'password' : 'text'" v-model.trim="password" id="password">
                     <div class="view__icon">

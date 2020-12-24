@@ -5,11 +5,22 @@
             <p>
                 Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы (!, @, $, %, ^, &, *, -, +). Минимальное  количество символов 8 шт.
             </p>
-            <input type="password" v-model.trim="new__password" placeholder="Введите пароль">
+            <div class="view__password__icon">
+                <input :type="active__eye == true ? 'password' : 'text'"  v-model.trim="new__password" placeholder="Введите пароль">
+                <div class="view__icon">
+                    <span @click="activeEye" :class="active__eye == true ? 'mdi mdi-eye' : 'mdi mdi-eye-off'"></span>
+                </div>
+            </div>
             <div class="error__text" v-if="$v.new__password.$dirty && !$v.new__password.required">Поле 'Новый пароль' обязателен к заполнению</div>
             <div class="error__text" v-if="!$v.new__password.minLength">Минимальная длина пароля 8 символов</div>
             <div class="error__text" v-if="!$v.new__password.maxLength">Максимальная длина пароля 42 символа</div>
-            <input type="password" v-model.trim="new__password__repeat" placeholder="Повторите пароль">
+            
+            <div class="view__password__icon">
+                <input :type="active__eye == true ? 'password' : 'text'" v-model.trim="new__password__repeat" placeholder="Повторите пароль">
+                <div class="view__icon">
+                    <span @click="activeEye" :class="active__eye == true ? 'mdi mdi-eye' : 'mdi mdi-eye-off'"></span>
+                </div>
+            </div>
             <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.required">Поле 'Повторить новый пароль' обязателен к заполнению</div>
             <div class="error__text" v-if="$v.new__password__repeat.$dirty && !$v.new__password__repeat.sameAs">Пароли не совпадают</div>
             <button :disabled="disabled__button" @click="sendPassword">
@@ -52,6 +63,7 @@ export default {
             new__password__repeat: null,
             modal: false,
             disabled__button: false,
+            active__eye: true
         }
     },
     validations: {
@@ -66,6 +78,9 @@ export default {
         }
     },
     methods: {
+        activeEye () {
+            this.active__eye = !this.active__eye
+        },
         sendPassword () {
             if (this.$v.$invalid) {
                 this.$toast.open({
@@ -205,6 +220,26 @@ export default {
         img {
             margin-bottom: 10px;
             margin-top: 10px;
+        }
+        .view__password__icon {
+            position: relative;
+            .view__icon {
+                position: absolute;
+                top: 14%;
+                right: 7px;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                span {
+                    font-size: 22px;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                }
+            }
         }
         input {
             width: 100%;

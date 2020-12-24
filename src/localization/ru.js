@@ -1,6 +1,21 @@
 export default {
     "notif_button": "Отправить уведомление о прибытии гостя",
     "notif_button_mobile": "Отправить уведомление",
+    change__password__description: "Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы.",
+    link__all__adress: "Показать все адреса",
+    not__added__text: "не добавлен",
+    dowload__pdf__list: "Скачать справку (pdf)",
+    residents__list: "Проживающие",
+    left__list: "Выезд",
+    removed__list: "Удаленный",
+    remove__list: "Удалить",
+    recovery__list: "Восстановить",
+    all__tab__list__name: "Все",
+    residents__tab__list__name: "Проживающие",
+    retired__tab__list__name: "Выбывшие",
+    deleted__tab__list__name: "Удаленные",
+    not__list__guest: "У вас нет списка гостей",
+
     "menu_header": [
         {
             "name": "главная",
@@ -8,7 +23,17 @@ export default {
             "url": false
         },
         {
-            "name": "номера телефонов",
+            "name": "МИГРАЦИОННЫЙ СПРАВОЧНИК",
+            "to": "/migration",
+            "url": false
+        },
+        {
+            "name": "забронировать отель",
+            "to": "https://kazakhstan.travel/hotels",
+            "url": true
+        },
+        {
+            "name": "полезные контакты",
             "to": "/telephones",
             "url": false
         },
@@ -18,19 +43,9 @@ export default {
             "url": false
         },
         {
-            "name": "МИГРАЦИОННЫЙ СПРАВОЧНИК",
-            "to": "/migration",
-            "url": false
-        },
-        {
             "name": "ВАЛЮТА",
             "to": "/currency",
             "url": false
-        },
-        {
-            "name": "ГОСТИНИЦЫ",
-            "to": "https://kazakhstan.travel/hotels",
-            "url": true
         },
         {
             "name": "3D - туры о Казахстане",
@@ -159,7 +174,7 @@ export default {
     bookhotel__departure: 'Отъезд',
     book__hotel__users: 'Взрослых',
     book__hotel__numbers: 'Номер',
-    book__hotel__get__price: 'Проверить цены',
+    book__hotel__get__price: 'Посмотреть предложения',
     book__hotel__applications__title: 'Полезные приложения',
     book__hotel__footer__reg: 'ЗАРЕГИСТРИРОВАТЬСЯ',
     book__hotel__footer__login: 'АВТОРИЗОВАТЬСЯ',
@@ -171,27 +186,12 @@ export default {
             type_route: 'on_page',
         },
         {
-            name: 'Номера телефонов',
-            to: '/telephones',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Связь',
-            to: '/connection',
-            type_route: 'on_site',
-        },
-        {
             name: 'Миграционный справочник',
             to: '/migration',
             type_route: 'on_site',
         },
         {
-            name: 'Валюта',
-            to: '/currency',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Гостиницы',
+            name: 'Забронировать отель',
             to: 'https://kazakhstan.travel/hotels',
             type_route: 'on_new_site',
         },
@@ -326,5 +326,32 @@ export default {
     add__addres__page__form__btn: 'Добавить', 
     address__list__title: 'Мои адреса',
     notif__add__title: 'Отправить уведомление о прибытии гостя в МВД',
-
-}
+    notif__scan__document: 'Сканирование документа',
+    notif__scan__btn: 'Сканировать документ',
+    notif__guest__info: 'Данные гостя',
+    notif__identity__documents: 'Документы, удостоверяющие личность',
+    notif__stay__details: 'Данные о пребывании',
+    notif__send__data__btn: 'ОТПРАВИТЬ',
+    notif__send__email__checkbox: 'Отправить welcome сообщение на email.',
+    notif__send__mvd__checkbox: 'Отправить уведомление в МВД РК о прибытии иностранного постояльца.',
+    notif__input__label__ar__dep: 'Дата заезда - выезда',
+    notif__input__label__time: 'Время заезда',
+    notif__input__label__addres: 'Адрес прибывания',
+    notif__input__label__name: 'Имя',
+    notif__input__label__last__name: 'Фамилия',
+    notif__input__label__middle__name: 'Отчество',
+    notif__input__label__citinzeship: 'Гражданство',
+    notif__input__label__date_of_birth: 'Дата рождения',
+    notif__input__label__gender: 'Пол',
+    notif__input__label__phone: 'Телефон',
+    notif__input__label__email: 'E-mail',
+    notif__input__label_identification_document: 'Тип документа',
+    notif__input__label__doc__num: 'Номер документа',
+    notif__input__label__doc__series: 'Серия документа',
+    notif__input__label__date_of_issue: 'Дата выдачи',
+    notif__input__label__valid_through: 'Дата окончания срока',
+    notif__input__label__purpose_of_visit: 'Цель визита',
+    notif__input__label__arrival: 'Дата начала',
+    notif__input__label__departure: 'Дата окончания',
+    notif__input__label__additional_information: 'Дополнительные сведения',
+}   

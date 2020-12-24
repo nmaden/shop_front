@@ -1,6 +1,21 @@
 export default { 
     "notif_button": "Қонақ келгендігі жайлы хабарлама жіберу",
     "notif_button_mobile": "Хабарлама жіберу",
+    change__password__description: "Сіздің пароліңізде жоғарғы және төменгі әріптер, сандар және арнайы таңбалар болуы керек.",
+    link__all__adress: "Барлық мекенжайларды көрсету",
+    not__added__text: "Жазылмаған",
+    dowload__pdf__list: "Анықтаманы жүктеу (pdf)",
+    residents__list: "Тұрушы",
+    left__list: "Кеткендер",
+    removed__list: "Жойылған",
+    remove__list: "Өшіру",
+    recovery__list: "Қалпына келтіру",
+    all__tab__list__name: "Барлық",
+    residents__tab__list__name: "Тұратын",
+    retired__tab__list__name: "Кеткендер",
+    deleted__tab__list__name: "Жойылған",
+    not__list__guest: "Сізде қонақтар тізімі жоқ",
+
     menu_header: [
         {
             name: "басты бет",
@@ -8,7 +23,17 @@ export default {
             "url": false
         },
         {
-            name: "ТЕЛЕФОН НӨМІРЛЕРІ",
+            name: "КӨШІ-ҚОН АНЫҚТАМАЛЫҒЫ",
+            to: "/migration",
+            "url": false
+        },
+        {
+            name: "қонақүйге бронь жасау",
+            to: "https://kazakhstan.travel/hotels",
+            "url": true
+        },
+        {
+            name: "пайдалы байланыстар",
             to: "/telephones",
             "url": false
         },
@@ -18,19 +43,9 @@ export default {
             "url": false
         },
         {
-            name: "КӨШІ-ҚОН АНЫҚТАМАЛЫҒЫ",
-            to: "/migration",
-            "url": false
-        },
-        {
             name: "ВАЛЮТА",
             to: "/currency",
             "url": false
-        },
-        {
-            name: "ҚОНАҚҮЙЛЕР",
-            to: "https://kazakhstan.travel/hotels",
-            "url": true
         },
         {
             name: "Қазақстан бойынша 3-D турлар",
@@ -159,7 +174,7 @@ export default {
     bookhotel__departure: 'Отъезд',
     book__hotel__users: 'Ересек',
     book__hotel__numbers: 'Бөлме',
-    book__hotel__get__price: 'бағасын шығару',
+    book__hotel__get__price: 'ұсынысты көру',
     book__hotel__applications__title: 'Пайдалы қолданбалар',
     book__hotel__footer__reg: 'ТІРКЕЛУ',
     book__hotel__footer__login: 'АВТОРИЗАЦИЯДАН ӨТУ',
@@ -171,27 +186,12 @@ export default {
             type_route: 'on_page',
         },
         {
-            name: 'Телефон нөмірлері',
-            to: '/telephones',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Байланыс',
-            to: '/connection',
-            type_route: 'on_site',
-        },
-        {
             name: 'Көші-қон анықтамалығы',
             to: '/migration',
             type_route: 'on_site',
         },
         {
-            name: 'Валюта',
-            to: '/currency',
-            type_route: 'on_site',
-        },
-        {
-            name: 'Қонақүйлер',
+            name: 'Қонақүйге бронь жасау',
             to: 'https://kazakhstan.travel/hotels',
             type_route: 'on_new_site',
         },
@@ -325,6 +325,33 @@ export default {
     add__addres__page__form__label__apartment_number: 'Пәтер нөмірі', 
     add__addres__page__form__btn: 'САҚТАУ', 
     address__list__title: 'Менің мекенжайларым',
-    notif__add__title: 'Отправить уведомление о прибытии гостя в МВД',
-
+    notif__add__title: 'ІІМ-не шетелдік қонақ келгендігі жайлы хабарлама жіберу',
+    notif__scan__document: 'ҚҰЖАТТЫ СКАНЕРЛЕУ',
+    notif__scan__btn: 'Құжатты сканерлеу',
+    notif__guest__info: 'Қонақ жайлы мәліметтер',
+    notif__identity__documents: 'Жеке басын куәландыратын құжаттар',
+    notif__stay__details: 'Сапары жайлы мәліметтер',
+    notif__send__data__btn: 'ЖІБЕРУ',
+    notif__send__email__checkbox: 'Email-ге welcome хабарландыру жіберу',
+    notif__send__mvd__checkbox: 'ІІМ-не шетелдік қонақ келгендігі жайлы хабарлама жіберу',
+    notif__input__label__ar__dep: 'Келу-кету күні',
+    notif__input__label__time: 'Келу уақыты',
+    notif__input__label__addres: 'Тұрақтаған мекенжайы',
+    notif__input__label__name: 'Аты',
+    notif__input__label__last__name: 'Тегі',
+    notif__input__label__middle__name: 'Әкесінің аты',
+    notif__input__label__citinzeship: 'Азаматтығы',
+    notif__input__label__date_of_birth: 'Туған күні',
+    notif__input__label__gender: 'Жынысы',
+    notif__input__label__phone: 'Телефон',
+    notif__input__label__email: 'E-mail',
+    notif__input__label_identification_document: 'Құжат түрі',
+    notif__input__label__doc__num: 'Құжат нөмірі',
+    notif__input__label__doc__series: 'Серия документа',
+    notif__input__label__date_of_issue: 'Берілген күні',
+    notif__input__label__valid_through: 'Қолданылу мерзімі',
+    notif__input__label__purpose_of_visit: 'Сапар мақсаты',
+    notif__input__label__arrival: 'Басталуы',
+    notif__input__label__departure: 'Аяқталуы',
+    notif__input__label__additional_information: 'Қосымша ақпарат',
 } 
