@@ -35,6 +35,8 @@ export default {
 </script>
  
 <style lang="less">
+@planshet: 1200px;
+
 .v-dialog {
     border-radius: 4px;
     margin: 24px;
@@ -65,6 +67,7 @@ export default {
     .video__modal__iframe {
         width: 100%;
         height: 500px;
+        
         .video__iframe {
             width: 100%;
             height: 100%;
@@ -78,6 +81,7 @@ export default {
     background: url('../../assets/all/img__video.svg') no-repeat;
     overflow: hidden;
     position: relative;
+    
     .video__fixed {
         position: absolute;
         border-radius: 11px;
@@ -89,6 +93,9 @@ export default {
         padding: 50px;
         justify-content: space-between;
         align-items: center;
+        @media (max-width: @planshet) {
+            width: 100%;
+        }
         &:hover {
             .video__fixed__r {
                 img {
