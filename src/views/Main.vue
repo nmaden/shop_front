@@ -35,7 +35,6 @@ export default {
     .main__base__margin {
         width: 1200px;
         margin: 0 auto;
-        margin-top: 65px;
         @media (max-width: @mobile) {
             width: 95%;
             margin-top: 0;
