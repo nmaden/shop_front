@@ -13,6 +13,12 @@
                 <router-link to="/">
                     <img src="../../assets/logo/logo.svg" alt="logo">
                 </router-link>
+                <div class="menu__header__icon" @click="show_desctop_menu = true">
+                    <img src="../../assets/icons/menu__header__icons.svg" alt="menu">
+                    <p>
+                        Меню
+                    </p>
+                </div>
                 <div class="languages">
                     <select
                         v-model="lang"
@@ -94,25 +100,34 @@
                 </div>
             </div>
         </div>
-        <div 
-            @mousewheel="scrollMenu" 
-            @mousemove="scrollBodyOver" 
-            @mouseleave="scrollBodyLeave" 
-            class="scroll__menu"
-        >
-            <div class="menu">
-                <a 
-                    class="menu__item"
-                    v-for="menu_item in $t('menu_header')"
-                    :key="menu_item.name"
-                    ref="menu__item"
-                    @click="route(menu_item.to, menu_item.url)"
-                >
-                    {{menu_item.name}}
-                </a>
+        
+        <transition name="slide-fade">
+            <div class="menu__left__open" v-show="show_desctop_menu == true" >
+                <div class="menu__left__open__header">
+                    <img src="../../assets/icons/menu__icon__left.svg" @click="show_desctop_menu = false" class="close__menu__header" alt="menu">
+                    <img src="../../assets/logo/logo__menu__header.svg" alt="menu">
+                    <router-link 
+                        to="/login"
+                        v-if="GET_TOKEN.length == 0" 
+                    >
+                        <button>
+                            АВТОРИЗАЦИЯ
+                        </button>
+                    </router-link>
+                </div>
+                <div class="menu__left__open__list">
+                    <a 
+                        class="menu__item"
+                        v-for="menu_item in $t('menu_header')"
+                        :key="menu_item.name"
+                        @click="route(menu_item.to, menu_item.url)"
+                    >
+                        {{menu_item.name}}
+                    </a> 
+                </div>
             </div>
-        </div>
-
+        </transition>
+        
         <!-- mobile menu -->
 
         <transition name="slide-fade">
@@ -219,12 +234,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import disableScroll from 'disable-scroll'
 
 export default {
     data () {
       return {
         sign_out_modal: false,
+        show_desctop_menu: false,
         langs: [
             {
                 type: 'kz',
@@ -270,16 +285,7 @@ export default {
                 queue: true
             });
         },
-        scrollMenu (e) {
-            this.$scroll(e, 60)
-        },
          
-        scrollBodyOver () {
-            disableScroll.on()
-        },
-        scrollBodyLeave () {
-            disableScroll.off()
-        },
         sendLocale () {
             import(`../../localization/${this.lang}.js`)
             .then((lang) => {
@@ -289,9 +295,23 @@ export default {
         },
         
     },
-     
     computed: {
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
+    },
+    created () {
+        let vm = this
+        document.addEventListener('click', function(event) {
+            var menu__left__open = document.querySelector('.menu__left__open').contains(event.target);
+            var menu__header__icon = document.querySelector('.menu__header__icon').contains(event.target);
+
+            if (!menu__header__icon) {
+                if (vm.show_desctop_menu == true) {
+                    if (!menu__left__open) {
+                        vm.show_desctop_menu = false
+                    }
+                }
+            } 
+        });
     }
 }
 </script>
@@ -323,7 +343,7 @@ export default {
 
     @media (max-width: @mobile) {
         font-size: 13px;
-        line-height: 15px;
+        line-height: 15px; 
     }
 }
 .header {
@@ -346,7 +366,6 @@ export default {
         width: 50%;
         display: flex;
         justify-content: flex-start;
-        align-items: center;
         img {
             @media (max-width: @mobile) {
                 width: 134px;
@@ -355,6 +374,7 @@ export default {
         @media (max-width: @mobile) {
             width: 100%;
             justify-content: space-between;
+            align-items: center;
         }
         .languages {
             width: 40px;
@@ -367,6 +387,26 @@ export default {
                 font-weight: bold;
                 width: 100%;
                 outline: none;
+            }
+        }
+        .menu__header__icon {
+            display: flex;
+            justify-content: flex-start;
+            cursor: pointer;
+            align-items: flex-start;
+            margin-left: 55px;
+            &:hover {
+                opacity: .7;
+            }
+            p {
+                margin: 0;
+                margin-left: 7px;
+                font-size: 20px;
+                margin-top: 5px;
+                color: #000;
+            }
+            @media (max-width: @mobile) {
+                display: none;
             }
         }
         .icon__mobile {
@@ -497,44 +537,77 @@ export default {
     }
 }
 
-.scroll__menu {
-    width: 1200px;
-    margin: 0 auto;
-    z-index: 20;
-    margin-top: 10px;
-    height: 76px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    position: relative;
+.menu__left__open {
     @media (max-width: @mobile) {
         display: none;
     }
-    @media (max-width: @planshet) {
-        width: 95%;
-    }
-    &::-webkit-scrollbar {
-        width: 1px;
-    }
-    .menu {
+    display: block;
+    width: 553px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    padding: 40px 20px;
+    background: rgba(23, 23, 23, 0.89);
+    .menu__left__open__header {
         width: 100%;
-        padding-bottom: 10px;
-        z-index: 100;
-        white-space: nowrap;
-        
-        .menu__item {
-            display: inline-block;
-            padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .close__menu__header {
+            cursor: pointer;
+            &:hover {
+                opacity: .7;
+            }
+        }
+        button {
+            width: 164px;
+            height: 50px;
+            background: #FDE88D;
             border: 3px solid #FDE88D;
+            font-size: 16px;
+            outline: none;
+            color: #000;
+            box-sizing: border-box;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+            border-radius: 30px;
+        }
+    }
+    .menu__left__open__list {
+        width: 100%;
+        height: 72vh;
+        overflow-y: scroll;
+        margin-top: 50px;
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: transparent; 
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: transparent; 
+        }
+        .menu__item {
+            float: left;
+            clear: both;
+            padding: 10px 26px;
+            border: 3px solid #FDE88D;
+            margin-bottom: 10px;
             border-radius: 30px;
             font-family: 'MontserratBold';
             font-size: 16px;
             font-style: normal;
             font-weight: bold;
-            margin-right: 10px;
             text-transform: uppercase;
             letter-spacing: -0.05em;
             user-select: none;
-            color: #000;
+            color: #fff;
             cursor: pointer;
             &:hover {
                 background: #FDE88D;
@@ -542,7 +615,7 @@ export default {
         }
     }
 }
-
+ 
 .mobile__menu {
     width: 100%;
     height: 100%;

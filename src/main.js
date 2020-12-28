@@ -54,6 +54,7 @@ Vue.use(IdleVue, {
   KeepTracking: false
 })
 
+
 // main config -----------------
 
 new Vue({
