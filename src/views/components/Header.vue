@@ -16,7 +16,7 @@
                 <div class="menu__header__icon" @click="show_desctop_menu = true">
                     <img src="../../assets/icons/menu__header__icons.svg" alt="menu">
                     <p>
-                        Меню
+                        {{$t('menu__header__title')}} 
                     </p>
                 </div>
                 <div class="languages">
@@ -117,10 +117,10 @@
                 </div>
                 <div class="menu__left__open__list">
                     <a 
-                        class="menu__item"
                         v-for="menu_item in $t('menu_header')"
                         :key="menu_item.name"
                         @click="route(menu_item.to, menu_item.url)"
+                        :class="$route.path == menu_item.to ? 'menu__item__active' : 'menu__item'"
                     >
                         {{menu_item.name}}
                     </a> 
@@ -285,7 +285,6 @@ export default {
                 queue: true
             });
         },
-         
         sendLocale () {
             import(`../../localization/${this.lang}.js`)
             .then((lang) => {
@@ -293,7 +292,6 @@ export default {
                 this.$i18n.locale = this.lang
             })
         },
-        
     },
     computed: {
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
@@ -549,7 +547,24 @@ export default {
     top: 0;
     z-index: 9999;
     padding: 40px 20px;
+    overflow-y: scroll;
     background: rgba(23, 23, 23, 0.89);
+
+    &::-webkit-scrollbar {
+        width: 7px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent; 
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: transparent; 
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: transparent; 
+    }
+
     .menu__left__open__header {
         width: 100%;
         display: flex;
@@ -576,22 +591,24 @@ export default {
     }
     .menu__left__open__list {
         width: 100%;
-        height: 72vh;
-        overflow-y: scroll;
         margin-top: 50px;
-        &::-webkit-scrollbar {
-            width: 7px;
-        }
-        &::-webkit-scrollbar-track {
-            background: transparent; 
-        }
-        
-        &::-webkit-scrollbar-thumb {
-            background: transparent; 
-        }
-
-        &::-webkit-scrollbar-thumb:hover {
-          background: transparent; 
+        .menu__item__active {
+            float: left;
+            clear: both;
+            padding: 10px 26px;
+            border: 3px solid #FDE88D;
+            margin-bottom: 10px;
+            border-radius: 30px;
+            font-family: 'MontserratBold';
+            font-size: 16px;
+            font-style: normal;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            user-select: none;
+            background: #FDE88D;
+            color: #000;
+            cursor: pointer;
         }
         .menu__item {
             float: left;
@@ -611,6 +628,7 @@ export default {
             cursor: pointer;
             &:hover {
                 background: #FDE88D;
+                color: #000;
             }
         }
     }

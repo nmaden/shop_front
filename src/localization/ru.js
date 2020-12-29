@@ -10,6 +10,7 @@ export default {
     removed__list: "Удаленный",
     remove__list: "Удалить",
     recovery__list: "Восстановить",
+    menu__header__title: "Меню",
     all__tab__list__name: "Все",
     residents__tab__list__name: "Проживающие",
     retired__tab__list__name: "Выбывшие",
@@ -20,6 +21,11 @@ export default {
         {
             "name": "главная",
             "to": "/",
+            "url": false
+        },
+        {
+            "name": "Личный кабинет",
+            "to": "/login",
             "url": false
         },
         {
