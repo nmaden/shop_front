@@ -8,6 +8,20 @@
             <BookHotel />
         </div>
         <Footer />
+
+         <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+                <div 
+                    class="support__service"
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                    <img src="../assets/icons/call__icon.svg" alt="">
+                </div>
+            </template>
+            <span>Обратная связь</span>
+        </v-tooltip>
+
     </div>
 </template>
 
@@ -41,6 +55,23 @@ export default {
         }
         @media (max-width: @planshet) {
             width: 95%;
+        }
+    }
+    .support__service {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        width: 65px;
+        height: 65px;
+        background: #FDE88D;
+        box-shadow: 0px 8px 20px rgba(253, 232, 141, 0.56);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.7;
         }
     }
 }

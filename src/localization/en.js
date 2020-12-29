@@ -15,12 +15,17 @@ export default {
     retired__tab__list__name: "Retired",
     deleted__tab__list__name: "Deleted",
     not__list__guest: "You don't have a guest list",
-
+    menu__header__title: "Menu",
     "menu_header": [
         {
             "name": "home",
             "to": "/",
             "url": false
+        },
+        {
+            name: "Personal Area",
+            to: "/login",
+            url: false
         },
         {
             "name": "migration gulde",
