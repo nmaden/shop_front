@@ -15,12 +15,18 @@ export default {
     retired__tab__list__name: "Кеткендер",
     deleted__tab__list__name: "Жойылған",
     not__list__guest: "Сізде қонақтар тізімі жоқ",
+    menu__header__title: "Мәзір",
 
     menu_header: [
         {
             name: "басты бет",
             to: "/",
             "url": false
+        },
+        {
+            name: "Жеке кабинет",
+            to: "/login",
+            url: false
         },
         {
             name: "КӨШІ-ҚОН АНЫҚТАМАЛЫҒЫ",
