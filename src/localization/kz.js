@@ -13,10 +13,10 @@ export default {
     all__tab__list__name: "Барлық",
     residents__tab__list__name: "Тұратын",
     retired__tab__list__name: "Кеткендер",
-    deleted__tab__list__name: "Жойылған",
+    deleted__tab__list__name: "Жойылған", 
     not__list__guest: "Сізде қонақтар тізімі жоқ",
     menu__header__title: "Мәзір",
-
+    modal__feadback: "Өтініш мақсатын, мәселенің мәнін сипаттаңыз, қажет болған жағдайда сізбен байланысу мүмкіндігі болу үшін өз атыңызды, телефон нөміріңізді көрсетіңіз.",
     menu_header: [
         {
             name: "басты бет",

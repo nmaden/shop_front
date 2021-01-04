@@ -68,6 +68,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="footer__bottom__l__center">
+                    <h5>
+                        Контакты
+                    </h5>
+                    <div
+                        class="footer__bottom__l__right__flex"
+                    > 
+                        <div 
+                            class="footer__bottom__l__right__block"
+                        >
+                            <p>
+                                Обратная связь
+                            </p>
+                        </div>
+                        <div 
+                            class="footer__bottom__l__right__block"
+                        >
+                            <p>
+                                 +7/7172/79-04-39 
+                            </p>
+                        </div>
+                        <div 
+                            class="footer__bottom__l__right__block"
+                        >
+                            <p>
+                                Support@eqonaq.kz
+                            </p>
+                        </div>
+                    </div>
+                </div>
                 <div class="footer__bottom__l__left__mobile">
                     <img class="logo__footer" src="../../assets/logo/logo.svg" alt="logo">
                      
@@ -325,7 +355,7 @@ export default {
                 }
             }
             .footer__bottom__l__right {
-                width: 50%;
+                width: 25%;
                 @media (max-width: @mobile) {
                     width: 100%;
                 }
@@ -341,7 +371,7 @@ export default {
                     }
                 }
                 .footer__bottom__l__right__flex {
-                    width: 65%;
+                    width: 100%;
                     display: flex;
                     justify-content: flex-start;
                     flex-wrap: wrap;
@@ -349,7 +379,52 @@ export default {
                         width: 100%;
                     }
                     .footer__bottom__l__right__block {
-                        width: 50%;
+                        width: 100%;
+                        @media (max-width: @mobile) {
+                            width: 100%;
+                        }
+                        p {
+                            font-style: normal;
+                            cursor: pointer;
+                            user-select: none;
+                            font-weight: 600;
+                            margin: 0;
+                            font-size: 14px;
+                            line-height: 17px;
+                            color: #AFAFAF;
+                            margin-bottom: 10px;
+                        }
+                    }
+                    
+                }
+                
+            }
+            .footer__bottom__l__center {
+                width: 25%;
+                @media (max-width: @mobile) {
+                    width: 100%;
+                }
+                h5 {
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: #FFFFFF;
+                    margin: 0;
+                    margin-bottom: 23px;
+                    @media (max-width: @mobile) {
+                        font-size: 13px;
+                        margin-bottom: 10px;
+                    }
+                }
+                .footer__bottom__l__right__flex {
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    @media (max-width: @mobile) {
+                        width: 100%;
+                    }
+                    .footer__bottom__l__right__block {
+                        width: 100%;
                         @media (max-width: @mobile) {
                             width: 100%;
                         }
