@@ -13,9 +13,10 @@ export default {
     all__tab__list__name: "All",
     residents__tab__list__name: "Residents",
     retired__tab__list__name: "Retired",
-    deleted__tab__list__name: "Deleted",
+    deleted__tab__list__name: "Deleted", 
     not__list__guest: "You don't have a guest list",
     menu__header__title: "Menu",
+    modal__feadback: "Please describe the purpose of the request and the essence of the question. Please provide your name and phone number so that we can contact you if necessary.",
     "menu_header": [
         {
             "name": "home",

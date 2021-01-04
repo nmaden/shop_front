@@ -12,11 +12,11 @@ export default {
     recovery__list: "Восстановить",
     menu__header__title: "Меню",
     all__tab__list__name: "Все",
-    residents__tab__list__name: "Проживающие",
+    residents__tab__list__name: "Проживающие", 
     retired__tab__list__name: "Выбывшие",
     deleted__tab__list__name: "Удаленные",
     not__list__guest: "У вас нет списка гостей",
-
+    modal__feadback: "Пожалуйста, опишите цель обращения, суть вопроса, укажите свое имя, номер телефона, чтобы в случае необходимости была возможность связаться с вами.",
     "menu_header": [
         {
             "name": "главная",
