@@ -20,7 +20,9 @@
                     <img src="../assets/icons/call__icon.svg" alt="">
                 </div>
             </template>
-            <span>Обратная связь</span>
+            <span>
+                {{$t('fead__back__toast')}}
+            </span>
         </v-tooltip>
 
 
@@ -31,24 +33,24 @@
             <div class="support__modal">
                 <div class="support__modal__header">
                     <h2>
-                        Обратная связь
+                       {{$t('modal__title')}}
                     </h2>
                     <p class="description">
                        {{$t('modal__feadback')}}
                     </p>
                     <p class="support__description">
-                        Службу поддержки: eqonaq@suport.kz <br>
-                        Телефон: +7/7172/79-04-39
+                        {{$t('support__description__one')}} eqonaq@suport.kz <br>
+                        {{$t('support__description__two')}} +7/7172/79-04-39
                     </p>
                 </div>
                 <div class="support__modal__form">
                     <div class="form__group">
-                        <label for="name">Имя</label>
+                        <label for="name">{{$t('notif__input__label__name')}}</label>
                         <input type="text" v-model.trim="name" id="name">
                         <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателен к заполнению</div>
                     </div>
                     <div class="form__group">
-                        <label for="phone">Телефон</label>
+                        <label for="phone">{{$t('notif__input__label__phone')}}</label>
                         <input type="text" v-model.trim="phone" id="phone">
                         <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
                         <div class="error__text" v-if="!$v.phone.numeric">Поле 'Телефон' введите только цифры</div>
@@ -59,7 +61,7 @@
                         <div class="error__text" v-if="$v.message.$dirty && !$v.message.required">Поле 'Сообщение' обязателен к заполнению</div>
                     </div>
                     <div class="form__group__button">
-                        <button @click="sendFeadback">Отправить</button>
+                        <button @click="sendFeadback">{{$t('forgot__password__page__btn')}}</button>
                     </div>
                 </div>
             </div>

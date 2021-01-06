@@ -17,6 +17,10 @@ export default {
     deleted__tab__list__name: "Удаленные",
     not__list__guest: "У вас нет списка гостей",
     modal__feadback: "Пожалуйста, опишите цель обращения, суть вопроса, укажите свое имя, номер телефона, чтобы в случае необходимости была возможность связаться с вами.",
+    modal__title: "Обратная связь",
+    support__description__one: "Служба поддержки:",
+    support__description__two: "Телефон:",
+    header__menu__auth: "АВТОРИЗАЦИЯ",
     "menu_header": [
         {
             "name": "главная",
@@ -184,6 +188,8 @@ export default {
     book__hotel__applications__title: 'Полезные приложения',
     book__hotel__footer__reg: 'ЗАРЕГИСТРИРОВАТЬСЯ',
     book__hotel__footer__login: 'АВТОРИЗОВАТЬСЯ',
+    footer__contact: "Контакты",
+    footer__contact__feadback: "Обратная связь",
     footer__info: 'ИНФОРМАЦИЯ',
     footer__menu__info: [
         {
@@ -224,6 +230,7 @@ export default {
     forgot__password__page__title: 'Восстановления пароля',
     forgot__password__page__input__placeholder: 'Введите электронный адрес',
     forgot__password__page__btn: 'Отправить',
+    fead__back__toast: "Обратная связь",
     telephones__page__title: 'Полезные номера телефонов',
     telephones__page__description: 'Вызов экстренных служб с любого оператора сотовой связи и городских номеров производится в Казахстане бесплатно',
     telephones__page__phones: [
