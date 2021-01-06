@@ -17,6 +17,10 @@ export default {
     not__list__guest: "You don't have a guest list",
     menu__header__title: "Menu",
     modal__feadback: "Please describe the purpose of the request and the essence of the question. Please provide your name and phone number so that we can contact you if necessary.",
+    modal__title: "Feedback",
+    support__description__one: "Support service:",
+    support__description__two: "Phone number:",
+    header__menu__auth: "Authorization",
     "menu_header": [
         {
             "name": "home",
@@ -94,7 +98,7 @@ export default {
             "url": true
         },
         {
-            "name": "Публикации о Казахстане",
+            "name": "PUBLICATIONS ABOUT KAZAKHSTAN",
             "to": "https://kazakhstan.travel/tourist-help/ru/phones",
             "url": true
         }
@@ -184,6 +188,8 @@ export default {
     book__hotel__applications__title: 'Useful apps',
     book__hotel__footer__reg: ' Sign Up',
     book__hotel__footer__login: 'Sign In',
+    footer__contact: "Contacts",
+    footer__contact__feadback: "Feedback",
     footer__info: 'Information',
     footer__menu__info: [
         {
@@ -272,7 +278,8 @@ export default {
     migration__day__text: 'Дней',
     migration__visa__yes: 'Да',
     migration__visa__no: 'Нет',
-    header__user__toast: 'Вход/регистрация',
+    header__user__toast: 'Login/Registration',
+    fead__back__toast: "Feedback",
     header__user__menu__cabinet: 'Личный кабинет',
     header__user__menu__sign__out: 'Выход',
     header__user__menu__sign__out__toast: 'Вы вышли с личного кабинета',

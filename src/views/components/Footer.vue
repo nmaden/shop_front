@@ -70,7 +70,7 @@
                 </div>
                 <div class="footer__bottom__l__center">
                     <h5>
-                        Контакты
+                        {{$t('footer__contact')}}
                     </h5>
                     <div
                         class="footer__bottom__l__right__flex"
@@ -79,7 +79,7 @@
                             class="footer__bottom__l__right__block"
                         >
                             <p>
-                                Обратная связь
+                               {{$t('footer__contact__feadback')}}
                             </p>
                         </div>
                         <div 

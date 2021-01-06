@@ -111,7 +111,7 @@
                         v-if="GET_TOKEN.length == 0" 
                     >
                         <button>
-                            АВТОРИЗАЦИЯ
+                            {{$t('header__menu__auth')}}
                         </button>
                     </router-link>
                 </div>
