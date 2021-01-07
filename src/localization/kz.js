@@ -13,10 +13,14 @@ export default {
     all__tab__list__name: "Барлық",
     residents__tab__list__name: "Тұратын",
     retired__tab__list__name: "Кеткендер",
-    deleted__tab__list__name: "Жойылған",
+    deleted__tab__list__name: "Жойылған", 
     not__list__guest: "Сізде қонақтар тізімі жоқ",
     menu__header__title: "Мәзір",
-
+    modal__feadback: "Өтініш мақсатын, мәселенің мәнін сипаттаңыз, қажет болған жағдайда сізбен байланысу мүмкіндігі болу үшін өз атыңызды, телефон нөміріңізді көрсетіңіз.",
+    modal__title: "Кері байланыс",
+    support__description__one: "Қолдау қызметі:",
+    support__description__two: "Телефоны:",
+    header__menu__auth: "Авторландыру",
     menu_header: [
         {
             name: "басты бет",
@@ -184,6 +188,8 @@ export default {
     book__hotel__applications__title: 'Пайдалы қолданбалар',
     book__hotel__footer__reg: 'ТІРКЕЛУ',
     book__hotel__footer__login: 'АВТОРИЗАЦИЯДАН ӨТУ',
+    footer__contact: "Байланыстар",
+    footer__contact__feadback: "Кері байланыс",
     footer__info: 'АҚПАРАТ',
     footer__menu__info: [
         {
@@ -273,6 +279,7 @@ export default {
     migration__visa__yes: 'Ия',
     migration__visa__no: 'Жоқ',
     header__user__toast: 'Кіру/Тіркелу',
+    fead__back__toast: "Кері байланыс",
     header__user__menu__cabinet: 'Жеке кабинет',
     header__user__menu__sign__out: 'Шығу',
     header__user__menu__sign__out__toast: 'Сіз жеке кабинеттен шықтыңыз',
