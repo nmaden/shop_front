@@ -191,6 +191,7 @@ export default {
     footer__contact: "Contacts",
     footer__contact__feadback: "Feedback",
     footer__info: 'Information',
+    login__description: "Вы входите в информационную систему «eQonaq». Вы несете персональную ответственность за ваши действия, согласно НТД по информационной безопасности, а также Законодательства Республики Казахстан. Уведомляем, все ваши действия будут записаны в системный журнал.",
     footer__menu__info: [
         {
             name: 'About',
