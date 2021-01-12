@@ -39,7 +39,7 @@
                        {{$t('modal__feadback')}}
                     </p>
                     <p class="support__description">
-                        {{$t('support__description__one')}} eqonaq@suport.kz <br>
+                        {{$t('support__description__one')}} support@eqonaq.kz <br>
                         {{$t('support__description__two')}} +7/7172/79-04-39
                     </p>
                 </div>

@@ -20,6 +20,9 @@
         <div class="header__tabs__content">
             <Login />
         </div>
+        <p>
+            {{$t('login__description')}}
+        </p>
     </div>
 </template>
 
@@ -66,6 +69,13 @@ export default {
 
 .tab__main {
     width: 87%;
+    p {
+        color: gray;
+        font-size: 13px;
+        font-family: "MediumMedium";
+        line-height: 14px;
+        font-weight: normal;
+    }
     @media (max-width: @mobile) {
         width: 100%;
     }
