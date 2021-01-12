@@ -93,7 +93,7 @@
                             class="footer__bottom__l__right__block"
                         >
                             <p>
-                                Support@eqonaq.kz
+                                support@eqonaq.kz 
                             </p>
                         </div>
                     </div>

@@ -134,7 +134,7 @@ export default {
         }
         .eds__button {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             @media (max-width: @mobile) {
                 margin-bottom: 0px;
             }

@@ -125,7 +125,7 @@ export default {
     width: 100%;
    
     .login__form {
-        width: 100%;
+        width: 100%; 
         a {
             text-decoration: none;
         }
@@ -193,6 +193,8 @@ export default {
             outline: none;
             font-size: 16px;
             text-transform: uppercase;
+            margin-bottom: 12px;
+
             &:hover {
                 opacity: .7;
             }
