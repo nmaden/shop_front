@@ -1,4 +1,5 @@
 export default {
+    link_to_main_video: 'https://www.youtube.com/embed/YpPXms28b2s',
     "notif_button": "Send notification of guest arrival",
     "notif_button_mobile": "Send notification",
     change__password__description: "Your password must contain uppercase and lowercase characters, numbers, and special characters.",

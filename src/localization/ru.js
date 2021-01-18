@@ -1,4 +1,5 @@
 export default {
+    link_to_main_video: 'https://www.youtube.com/embed/YpPXms28b2s',
     "notif_button": "Отправить уведомление о прибытии гостя",
     "notif_button_mobile": "Отправить уведомление",
     change__password__description: "Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы.",
