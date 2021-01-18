@@ -1,4 +1,5 @@
 export default { 
+    link_to_main_video: 'https://www.youtube.com/embed/CWoOizez0Gc',
     "notif_button": "Қонақ келгендігі жайлы хабарлама жіберу",
     "notif_button_mobile": "Хабарлама жіберу",
     change__password__description: "Сіздің пароліңізде жоғарғы және төменгі әріптер, сандар және арнайы таңбалар болуы керек.",
