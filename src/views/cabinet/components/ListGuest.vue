@@ -79,7 +79,7 @@
                                         <a 
                                             download 
                                             target="_blank" 
-                                            @click="dowloadPdf(item.id)">
+                                            @click="dowloadPdf(item.id,item.clients.name+' '+item.clients.surname)">
                                             {{$t('dowload__pdf__list')}}
                                         </a>
                                     </p>
@@ -213,12 +213,30 @@ export default {
             this.activateDialog = true
             this.list__id = id
         },
-        dowloadPdf (id) {
-            let origin = window.location.origin
-            let origin__array = origin.replaceAll(/[./:]/g, ' ')
-            let path = origin__array.split(' ').filter(item => item !== '')[2]
-            let url = path === 'eqonaq' ? 'https://api.eqonaq.kz/client_reference/' : 'https://api.'+path+'.eqonaq.kz/client_reference/'
-            location.href = url + id
+        dowloadPdf (id,name) {
+
+            this.$axios({ 
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + 'client/reference?id='+id, 
+                responseType: 'blob',
+                headers: {
+                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                },
+            })
+            .then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', name+ '.pdf'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
+
+
+          
         },
         activeList () {
             this.$axios({ 
