@@ -31,6 +31,7 @@
                     v-for="item in users"
                     :key="item.id"
                 >
+                 
                     <div class="quest__list__l">
                         <div class="quest__list__l__header">
                             <h4>
@@ -68,19 +69,24 @@
                     </div>
                     <div class="quest__list__r">
                         <div class="pfd__block">
+                            
                             <v-tooltip 
                                 bottom
-                            >
+                            >   
+                              
                                 <template v-slot:activator="{ on, attrs }">
+                                 
                                     <p
                                         v-bind="attrs"
                                         v-on="on"
                                     >
                                         <a 
+                                            v-if="item.notif.length!=0 && item.notif[0].status=='completed'"
                                             download 
                                             target="_blank" 
                                             @click="dowloadPdf(item.id,item.clients.name+' '+item.clients.surname)">
                                             {{$t('dowload__pdf__list')}}
+                                          
                                         </a>
                                     </p>
                                 </template>
@@ -220,7 +226,8 @@ export default {
                 url: this.$API_URL + this.$API_VERSION_2 + 'client/reference?id='+id, 
                 responseType: 'blob',
                 headers: {
-                    'Authorization': `Bearer ${this.GET_TOKEN[0]}` 
+                     'Authorization': `Bearer ${this.GET_TOKEN[0]}`,
+                  
                 },
             })
             .then((response) => {
