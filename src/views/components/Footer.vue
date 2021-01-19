@@ -85,16 +85,16 @@
                         <div 
                             class="footer__bottom__l__right__block"
                         >
-                            <p>
+                            <a target="_blank" href="tel: +7 7172 79-04-39">
                                  +7/7172/79-04-39 
-                            </p>
+                            </a>
                         </div>
                         <div 
                             class="footer__bottom__l__right__block"
                         >
-                            <p>
+                            <a target="_blank" href="mailto: support@eqonaq.kz ">
                                 support@eqonaq.kz 
-                            </p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     <img class="logo__footer" src="../../assets/logo/logo.svg" alt="logo">
                      
                     <div class="footer__bottom__l__left__flex">
-                        <img src="../../assets/icons/appstore.svg" alt="appstore">
+                        <!-- <img src="../../assets/icons/appstore.svg" alt="appstore"> -->
                         <img src="../../assets/icons/playmarket.svg" alt="playmarket">
                     </div>
                 </div>
@@ -383,7 +383,8 @@ export default {
                         @media (max-width: @mobile) {
                             width: 100%;
                         }
-                        p {
+                        a,p {
+                            text-decoration: none;
                             font-style: normal;
                             cursor: pointer;
                             user-select: none;
@@ -428,7 +429,8 @@ export default {
                         @media (max-width: @mobile) {
                             width: 100%;
                         }
-                        p {
+                        a,p { 
+                            text-decoration: none;
                             font-style: normal;
                             cursor: pointer;
                             user-select: none;
