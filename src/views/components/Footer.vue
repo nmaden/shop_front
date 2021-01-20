@@ -78,7 +78,7 @@
                         <div 
                             class="footer__bottom__l__right__block"
                         >
-                            <p>
+                            <p @click="callFeedback">
                                {{$t('footer__contact__feadback')}}
                             </p>
                         </div>
@@ -114,8 +114,12 @@
 
 <script>
 export default {
+    props: {
+      support: String
+    },
     data () {
         return {
+           
             withSupport: [
                 {
                     img: require('../../assets/logo/2.png'),
@@ -139,6 +143,9 @@ export default {
                 window.open('https://play.google.com/store/apps/details?id=com.codetau.eqonaq', '_blank')
             }
         },
+        callFeedback() {
+            this.$parent.supportModal();
+        },
         route (to, type_route) {
             if (type_route == 'on_site') {
                 this.$router.push(to)
@@ -152,7 +159,8 @@ export default {
                 });
             } 
         } 
-    }
+    },
+  
 }
 </script>
 
