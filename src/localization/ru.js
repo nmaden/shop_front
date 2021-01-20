@@ -27,6 +27,10 @@ export default {
     support__description__one: "Служба поддержки:",
     support__description__two: "Телефон:",
     header__menu__auth: "АВТОРИЗАЦИЯ",
+    header__sign__title: "Вход",
+    guest__notif__pending: "В обработке",
+    guest__notif__nothing: "Нет данных",
+    guest__notif__failed: "Ошибка",
     "menu_header": [
         {
             "name": "главная",

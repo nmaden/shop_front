@@ -68,7 +68,7 @@
                         </p>
                     </div>
                     <div class="quest__list__r">
-                        <div class="pfd__block" v-if="item.notif.length!=0 ">
+                        <div class="pfd__block" v-if="item.notif.length!=0 && item.notif[0].status=='completed' ">
                             
                             <v-tooltip 
                                 bottom
@@ -92,15 +92,33 @@
                             </v-tooltip>
                         </div>
                        
-                        <!-- <p class="guest__notif__status" v-else-if="item.notif.length!=0 && item.notif[0].status=='failed'">
-                            Ошибка
-                        </p>
-                        <p class="guest__notif__status" v-else-if="item.notif.length!=0 && item.notif[0].status=='В обработке'">
-                            Ошибка
+                       
+                      
+
+                        <v-tooltip bottom v-else-if="item.notif.length!=0 && item.notif[0].status=='failed'">
+                            <template v-slot:activator="{ on, attrs }">
+                                <p
+                                    @click="resend(item.notif[0].id)" 
+                                    
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    class="guest__notif__status guest__notif__red"
+                                >
+                                {{$t('guest__notif__failed')}}  
+                                
+                                <span class="mdi mdi-reload"></span>
+                                </p>
+                            </template>
+                            <span>Переотправить уведомление</span>
+                        </v-tooltip>
+                      
+                       
+                        <p class="guest__notif__status" v-else-if="item.notif.length!=0 && item.notif[0].status=='pending'">
+                            {{$t('guest__notif__pending')}}  
                         </p>
                         <p class="guest__notif__status" v-else-if="item.notif.length==0">
-                            Нет данных
-                        </p> -->
+                           {{$t('guest__notif__nothing')}}  
+                        </p>
 
                         <p>
                             <b v-if="item.statuses_id == 3">
@@ -220,6 +238,29 @@ export default {
         this.getUsers('clients', 0)
     },
     methods: {
+        resend(id) {
+
+            this.$axios({ 
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + 'notify/resend?id='+id,
+                headers: {
+                     'Authorization': `Bearer ${this.GET_TOKEN[0]}`,
+                },
+            })
+            .then((response) => {
+                this.$toast.open({
+                    message: response.data.message,
+                    type: 'success',
+                    position: 'bottom',
+                    duration: 5000,
+                    queue: true
+                })
+                this.getUsers('clients', 0);
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
         removeListId (id) {
             this.deleteDialog = true
             this.list__id = id
@@ -519,6 +560,21 @@ export default {
                     color: #000;
                     cursor: pointer;
                     font-weight: 400;
+                }
+                .guest__notif__red {
+                    color: red;
+                    span {
+                        color: red;
+                    }
+                }
+                .guest__notif__red:hover {
+                    opacity: 0.7;
+                }
+                .guest__notif__resend {
+                    
+                    p {
+                        font-size: 12px;
+                    }
                 }
                 @media (max-width: @mobile) {
                     width: 35%;

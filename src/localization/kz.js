@@ -27,6 +27,10 @@ export default {
     support__description__one: "Қолдау қызметі:",
     support__description__two: "Телефоны:",
     header__menu__auth: "Авторландыру",
+    header__sign__title: "Кіру",
+    guest__notif__pending: "Өңделуде",
+    guest__notif__nothing: "Деректер жоқ",
+    guest__notif__failed: "Сәтсіз аяқталды",
     menu_header: [
         {
             name: "басты бет",

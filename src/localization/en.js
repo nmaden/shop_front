@@ -24,6 +24,10 @@ export default {
     support__description__one: "Support service:",
     support__description__two: "Phone number:",
     header__menu__auth: "Authorization",
+    header__sign__title: "Log in",
+    guest__notif__pending: "Pending",
+    guest__notif__nothing: "No data",
+    guest__notif__failed: "Failed",
     "menu_header": [
         {
             "name": "home",
