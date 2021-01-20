@@ -17,7 +17,7 @@
                     <span class="mdi mdi-close" @click="video__md = false"></span>
                 </div>
                 <div class="video__modal__iframe">
-                    <iframe class="video__iframe" src="https://www.youtube.com/embed/YpPXms28b2s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="video__iframe" v-bind:src="$t('link_to_main_video')" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </v-dialog>

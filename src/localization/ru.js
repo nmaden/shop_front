@@ -1,4 +1,5 @@
 export default {
+    link_to_main_video: 'https://www.youtube.com/embed/YpPXms28b2s',
     "notif_button": "Отправить уведомление о прибытии гостя",
     "notif_button_mobile": "Отправить уведомление",
     change__password__description: "Ваш пароль должен содержать символы верхнего и нижнего регистра, цифры и специальные символы.",
@@ -18,9 +19,18 @@ export default {
     not__list__guest: "У вас нет списка гостей",
     modal__feadback: "Пожалуйста, опишите цель обращения, суть вопроса, укажите свое имя, номер телефона, чтобы в случае необходимости была возможность связаться с вами.",
     modal__title: "Обратная связь",
+    modal_title_message: "Сообщение",
+    modal_name_error: "Поле 'Имя' обязателен к заполнению",
+    modal_phone_error: "Поле 'Телефон' обязателен к заполнению",
+    modal_message_error: "Поле 'Сообщение' обязателен к заполнению",
+    modal_send_button: "Отправить",
     support__description__one: "Служба поддержки:",
     support__description__two: "Телефон:",
     header__menu__auth: "АВТОРИЗАЦИЯ",
+    header__sign__title: "Вход",
+    guest__notif__pending: "В обработке",
+    guest__notif__nothing: "Нет данных",
+    guest__notif__failed: "Ошибка",
     "menu_header": [
         {
             "name": "главная",

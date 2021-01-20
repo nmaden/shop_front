@@ -1,4 +1,5 @@
 export default { 
+    link_to_main_video: 'https://www.youtube.com/embed/CWoOizez0Gc',
     "notif_button": "Қонақ келгендігі жайлы хабарлама жіберу",
     "notif_button_mobile": "Хабарлама жіберу",
     change__password__description: "Сіздің пароліңізде жоғарғы және төменгі әріптер, сандар және арнайы таңбалар болуы керек.",
@@ -18,9 +19,18 @@ export default {
     menu__header__title: "Мәзір",
     modal__feadback: "Өтініш мақсатын, мәселенің мәнін сипаттаңыз, қажет болған жағдайда сізбен байланысу мүмкіндігі болу үшін өз атыңызды, телефон нөміріңізді көрсетіңіз.",
     modal__title: "Кері байланыс",
+    modal_title_message: "Хабарлама",
+    modal_name_error: "'Аты' өрісін толтырыңыз",
+    modal_phone_error: "'Телефон' өрісін толтырыңыз",
+    modal_message_error: "'Хабарлама' өрісін толтырыңыз",
+    modal_send_button: "Жіберу",
     support__description__one: "Қолдау қызметі:",
     support__description__two: "Телефоны:",
     header__menu__auth: "Авторландыру",
+    header__sign__title: "Кіру",
+    guest__notif__pending: "Өңделуде",
+    guest__notif__nothing: "Деректер жоқ",
+    guest__notif__failed: "Сәтсіз аяқталды",
     menu_header: [
         {
             name: "басты бет",

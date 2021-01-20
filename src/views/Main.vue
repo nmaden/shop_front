@@ -38,30 +38,31 @@
                     <p class="description">
                        {{$t('modal__feadback')}}
                     </p>
-                    <p class="support__description">
-                        {{$t('support__description__one')}} support@eqonaq.kz <br>
-                        {{$t('support__description__two')}} +7/7172/79-04-39
-                    </p>
+
+                    <a target="_blank" href="mailto:support@eqonaq.kz" class="support__description"> {{$t('support__description__one')}} support@eqonaq.kz </a>
+                    <a target="_blank" href="tel:+7 7172 79-04-39" class="support__description" >{{$t('support__description__two')}} +7/7172/79-04-39</a>
                 </div>
                 <div class="support__modal__form">
                     <div class="form__group">
                         <label for="name">{{$t('notif__input__label__name')}}</label>
                         <input type="text" v-model.trim="name" id="name">
-                        <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">Поле 'Имя' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.name.$dirty && !$v.name.required">{{$t('modal_name_error')}}</div>
                     </div>
                     <div class="form__group">
                         <label for="phone">{{$t('notif__input__label__phone')}}</label>
                         <input type="text" v-model.trim="phone" id="phone">
-                        <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">Поле 'Телефон' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.phone.$dirty && !$v.phone.required">{{$t('modal_phone_error')}}</div>
                         <div class="error__text" v-if="!$v.phone.numeric">Поле 'Телефон' введите только цифры</div>
                     </div>
                     <div class="form__group">
-                        <label for="message">Сообщение</label>
+                        <label for="message">{{$t('modal_title_message')}}</label>
                         <textarea id="message" v-model.trim="message"></textarea>
-                        <div class="error__text" v-if="$v.message.$dirty && !$v.message.required">Поле 'Сообщение' обязателен к заполнению</div>
+                        <div class="error__text" v-if="$v.message.$dirty && !$v.message.required">{{$t('modal_message_error')}}</div>
                     </div>
                     <div class="form__group__button">
-                        <button @click="sendFeadback">{{$t('forgot__password__page__btn')}}</button>
+                        <button @click="sendFeadback">
+                            {{$t('forgot__password__page__btn')}}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -151,6 +152,8 @@ export default {
     .support__modal__header {
         width: 100%;
         text-align: center;
+        display: flex;
+        flex-direction: column;
         h2 {
             margin: 0;
            font-family: "MontserratBold";
@@ -158,18 +161,21 @@ export default {
            margin-top: 25px;
            line-height: 36,57px;
         }
-        p {
+        a {
             margin: 0;
             font-family: "MediumMedium";
             font-size: 14px;
             line-height: 17px;
             margin-top: 15px;
+            text-decoration: none;
         }
         .description {
             font-weight: 400;
         }
         .support__description {
             font-weight: 700;
+            color: #000000;
+
         }
     }
     .support__modal__form {

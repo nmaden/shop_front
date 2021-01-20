@@ -35,6 +35,7 @@
                 </div>
             </div>
             <div class="header__r">
+                
                 <div class="search">
                     <router-link to="/search">
                         <img src="../../assets/icons/search.svg" alt="search">
@@ -55,21 +56,31 @@
                     ></v-select>
                 </div>
                 <div class="user">
+                    
                     <v-tooltip 
                         v-if="GET_TOKEN.length == 0" 
                         bottom
                     >
+
                         <template v-slot:activator="{ on, attrs }">
-                            <img  
-                                v-bind="attrs"
-                                v-on="on"
-                                @click="route('/login')" 
-                                src="../../assets/icons/person_default.svg" 
-                                alt="person_default"
-                            >
+                            
+                            <div class="header__row">
+                                <p @click="route('/login')" >{{$t('header__sign__title')}}</p>
+                                <img  
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    @click="route('/login')" 
+                                    src="../../assets/icons/person_default.svg" 
+                                    alt="person_default"
+                                >
+                            </div>
+                            
+
+
                         </template>
                         <span>{{$t('header__user__toast')}}</span>
                     </v-tooltip>
+                   
                     <div 
                         class="main__header__menu__user" 
                         @mouseleave="show_menu = false" 
@@ -82,6 +93,9 @@
                             </p>
                             <img src="../../assets/icons/person_default.svg" alt="person_default">
                         </div>
+
+                      
+                        
                         <div v-show="show_menu == true" class="header__menu__user__hover">
                             <div class="header__menu__user__hover__after">
                                 <div @click="route('/profile')" class="header__menu__user__hover__after__block">
@@ -97,6 +111,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -277,6 +292,8 @@ export default {
             this.$Progress.finish()
             this.sign_out_modal = false
             this.$store.dispatch('SIGN_OUT_USER')
+
+            localStorage.removeItem('vuex');
             this.$toast.open({
                 message: this.$i18n.t('header__user__menu__sign__out__toast'),
                 type: 'warning',
@@ -424,6 +441,27 @@ export default {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+
+        .header__row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            p {
+                
+                cursor: pointer;
+                margin-right: 10px;
+                margin-top: 12px;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 17px;
+                color: #000;
+                user-select: none;
+            }
+            p:hover {
+                opacity: 0.7;
+            }
+        }
         @media (max-width: @mobile) {
             display: none;
         }

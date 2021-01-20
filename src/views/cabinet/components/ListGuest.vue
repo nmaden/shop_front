@@ -31,6 +31,7 @@
                     v-for="item in users"
                     :key="item.id"
                 >
+                 
                     <div class="quest__list__l">
                         <div class="quest__list__l__header">
                             <h4>
@@ -67,26 +68,58 @@
                         </p>
                     </div>
                     <div class="quest__list__r">
-                        <div class="pfd__block">
+                        <div class="pfd__block" v-if="item.notif.length!=0 && item.notif[0].status=='completed' ">
+                            
                             <v-tooltip 
                                 bottom
-                            >
+                            >   
                                 <template v-slot:activator="{ on, attrs }">
-                                    <p
-                                        v-bind="attrs"
-                                        v-on="on"
-                                    >
-                                        <a 
-                                            download 
-                                            target="_blank" 
-                                            @click="dowloadPdf(item.id)">
-                                            {{$t('dowload__pdf__list')}}
-                                        </a>
-                                    </p>
+                                <p
+                                    v-bind="attrs"
+                                    v-on="on"
+                                >
+                                    <a 
+                                        
+                                        download 
+                                        target="_blank" 
+                                        @click="dowloadPdf(item.id,item.clients.name+' '+item.clients.surname)">
+                                        {{$t('dowload__pdf__list')}}
+                                        
+                                    </a>
+                                </p>
                                 </template>
                                 <span>{{$t('dowload__pdf__list')}}</span>
                             </v-tooltip>
                         </div>
+                       
+                       
+                      
+
+                        <v-tooltip bottom v-else-if="item.notif.length!=0 && item.notif[0].status=='failed'">
+                            <template v-slot:activator="{ on, attrs }">
+                                <p
+                                    @click="resend(item.notif[0].id)" 
+                                    
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    class="guest__notif__status guest__notif__red"
+                                >
+                                {{$t('guest__notif__failed')}}  
+                                
+                                <span class="mdi mdi-reload"></span>
+                                </p>
+                            </template>
+                            <span>Переотправить уведомление</span>
+                        </v-tooltip>
+                      
+                       
+                        <p class="guest__notif__status" v-else-if="item.notif.length!=0 && item.notif[0].status=='pending'">
+                            {{$t('guest__notif__pending')}}  
+                        </p>
+                        <p class="guest__notif__status" v-else-if="item.notif.length==0">
+                           {{$t('guest__notif__nothing')}}  
+                        </p>
+
                         <p>
                             <b v-if="item.statuses_id == 3">
                                 {{$t('left__list')}}  
@@ -205,6 +238,29 @@ export default {
         this.getUsers('clients', 0)
     },
     methods: {
+        resend(id) {
+
+            this.$axios({ 
+                method: 'get',
+                url: this.$API_URL + this.$API_VERSION_2 + 'notify/resend?id='+id,
+                headers: {
+                     'Authorization': `Bearer ${this.GET_TOKEN[0]}`,
+                },
+            })
+            .then((response) => {
+                this.$toast.open({
+                    message: response.data.message,
+                    type: 'success',
+                    position: 'bottom',
+                    duration: 5000,
+                    queue: true
+                })
+                this.getUsers('clients', 0);
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
         removeListId (id) {
             this.deleteDialog = true
             this.list__id = id
@@ -213,12 +269,34 @@ export default {
             this.activateDialog = true
             this.list__id = id
         },
-        dowloadPdf (id) {
-            let origin = window.location.origin
-            let origin__array = origin.replaceAll(/[./:]/g, ' ')
-            let path = origin__array.split(' ').filter(item => item !== '')[2]
-            let url = path === 'eqonaq' ? 'https://api.eqonaq.kz/client_reference/' : 'https://api.'+path+'.eqonaq.kz/client_reference/'
-            location.href = url + id
+        dowloadPdf (id,name) {
+
+            this.$axios({ 
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION_2 + 'client/reference',
+                data: {
+                    id:id
+                },
+                responseType: 'blob',
+                headers: {
+                     'Authorization': `Bearer ${this.GET_TOKEN[0]}`,
+                  
+                },
+            })
+            .then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', name+ '.pdf'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+            })  
+            .catch((error) => {
+                console.log(error);
+            }); 
+
+
+          
         },
         activeList () {
             this.$axios({ 
@@ -474,6 +552,28 @@ export default {
                             text-decoration: none;
                             color: #000;
                         }
+                    }
+                }
+                .guest__notif__status {
+                    font-size: 12px;
+                    font-family: "MediumMedium";
+                    color: #000;
+                    cursor: pointer;
+                    font-weight: 400;
+                }
+                .guest__notif__red {
+                    color: red;
+                    span {
+                        color: red;
+                    }
+                }
+                .guest__notif__red:hover {
+                    opacity: 0.7;
+                }
+                .guest__notif__resend {
+                    
+                    p {
+                        font-size: 12px;
                     }
                 }
                 @media (max-width: @mobile) {

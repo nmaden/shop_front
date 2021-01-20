@@ -78,23 +78,23 @@
                         <div 
                             class="footer__bottom__l__right__block"
                         >
-                            <p>
+                            <p @click="callFeedback">
                                {{$t('footer__contact__feadback')}}
                             </p>
                         </div>
                         <div 
                             class="footer__bottom__l__right__block"
                         >
-                            <p>
+                            <a target="_blank" href="tel: +7 7172 79-04-39">
                                  +7/7172/79-04-39 
-                            </p>
+                            </a>
                         </div>
                         <div 
                             class="footer__bottom__l__right__block"
                         >
-                            <p>
+                            <a target="_blank" href="mailto: support@eqonaq.kz ">
                                 support@eqonaq.kz 
-                            </p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     <img class="logo__footer" src="../../assets/logo/logo.svg" alt="logo">
                      
                     <div class="footer__bottom__l__left__flex">
-                        <img src="../../assets/icons/appstore.svg" alt="appstore">
+                        <!-- <img src="../../assets/icons/appstore.svg" alt="appstore"> -->
                         <img src="../../assets/icons/playmarket.svg" alt="playmarket">
                     </div>
                 </div>
@@ -114,8 +114,12 @@
 
 <script>
 export default {
+    props: {
+      support: String
+    },
     data () {
         return {
+           
             withSupport: [
                 {
                     img: require('../../assets/logo/2.png'),
@@ -139,6 +143,9 @@ export default {
                 window.open('https://play.google.com/store/apps/details?id=com.codetau.eqonaq', '_blank')
             }
         },
+        callFeedback() {
+            this.$parent.supportModal();
+        },
         route (to, type_route) {
             if (type_route == 'on_site') {
                 this.$router.push(to)
@@ -152,7 +159,8 @@ export default {
                 });
             } 
         } 
-    }
+    },
+  
 }
 </script>
 
@@ -383,7 +391,8 @@ export default {
                         @media (max-width: @mobile) {
                             width: 100%;
                         }
-                        p {
+                        a,p {
+                            text-decoration: none;
                             font-style: normal;
                             cursor: pointer;
                             user-select: none;
@@ -428,7 +437,8 @@ export default {
                         @media (max-width: @mobile) {
                             width: 100%;
                         }
-                        p {
+                        a,p { 
+                            text-decoration: none;
                             font-style: normal;
                             cursor: pointer;
                             user-select: none;
