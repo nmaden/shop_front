@@ -68,31 +68,40 @@
                         </p>
                     </div>
                     <div class="quest__list__r">
-                        <div class="pfd__block">
+                        <div class="pfd__block" v-if="item.notif.length!=0 ">
                             
                             <v-tooltip 
                                 bottom
                             >   
-                              
                                 <template v-slot:activator="{ on, attrs }">
-                                 
-                                    <p
-                                        v-bind="attrs"
-                                        v-on="on"
-                                    >
-                                        <a 
-                                            v-if="item.notif.length!=0 && item.notif[0].status=='completed'"
-                                            download 
-                                            target="_blank" 
-                                            @click="dowloadPdf(item.id,item.clients.name+' '+item.clients.surname)">
-                                            {{$t('dowload__pdf__list')}}
-                                          
-                                        </a>
-                                    </p>
+                                <p
+                                    v-bind="attrs"
+                                    v-on="on"
+                                >
+                                    <a 
+                                        
+                                        download 
+                                        target="_blank" 
+                                        @click="dowloadPdf(item.id,item.clients.name+' '+item.clients.surname)">
+                                        {{$t('dowload__pdf__list')}}
+                                        
+                                    </a>
+                                </p>
                                 </template>
                                 <span>{{$t('dowload__pdf__list')}}</span>
                             </v-tooltip>
                         </div>
+                       
+                        <!-- <p class="guest__notif__status" v-else-if="item.notif.length!=0 && item.notif[0].status=='failed'">
+                            Ошибка
+                        </p>
+                        <p class="guest__notif__status" v-else-if="item.notif.length!=0 && item.notif[0].status=='В обработке'">
+                            Ошибка
+                        </p>
+                        <p class="guest__notif__status" v-else-if="item.notif.length==0">
+                            Нет данных
+                        </p> -->
+
                         <p>
                             <b v-if="item.statuses_id == 3">
                                 {{$t('left__list')}}  
@@ -222,8 +231,11 @@ export default {
         dowloadPdf (id,name) {
 
             this.$axios({ 
-                method: 'get',
-                url: this.$API_URL + this.$API_VERSION_2 + 'client/reference?id='+id, 
+                method: 'post',
+                url: this.$API_URL + this.$API_VERSION_2 + 'client/reference',
+                data: {
+                    id:id
+                },
                 responseType: 'blob',
                 headers: {
                      'Authorization': `Bearer ${this.GET_TOKEN[0]}`,
@@ -500,6 +512,13 @@ export default {
                             color: #000;
                         }
                     }
+                }
+                .guest__notif__status {
+                    font-size: 12px;
+                    font-family: "MediumMedium";
+                    color: #000;
+                    cursor: pointer;
+                    font-weight: 400;
                 }
                 @media (max-width: @mobile) {
                     width: 35%;
