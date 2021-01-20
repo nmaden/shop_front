@@ -1,4 +1,29 @@
-trigger_build:
+image: docker:stable
+services:
+- docker:dind
+
+stages:
+- deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+deploy to server:
+  image: alpine
   stage: deploy
+  before_script:
+    - apk update
+    - apk add --no-cache openssh
+    - echo "$SSH_PRIVATE_KEY_BETA" >> key.pem
+    - chmod 400 key.pem
   script:
-    - "curl -X POST -F token=TOKEN -F ref=REF_NAME http://195.210.47.249/update"
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.249 git -C /home/eqonaq/www/beta.eqonaq.kz checkout -- .
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.249 git -C /home/eqonaq/www/beta.eqonaq.kz pull origin develop
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.249 "cd /home/eqonaq/www/beta.eqonaq.kz && npm install"
+    - ssh -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.249 "cd /home/eqonaq/www/beta.eqonaq.kz && npm run build"
+
+  after_script:
+    - rm key.pem
+  only:
+    - develop
