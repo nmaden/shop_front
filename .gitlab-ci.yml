@@ -1,1 +1,33 @@
+image: docker:stable
+services:
+- docker:dind
 
+stages:
+- deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+deploy to server:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk update
+    - apk add --no-cache openssh
+    - echo "$SSH_PRIVATE_KEY_PROD" >> key.pem
+    - chmod 400 key.pem
+  script:
+    - ssh -p 2232 -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 git -C /home/eqonaq/www/guest.eqonaq checkout -- .
+#    - ssh -p 2232 -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 git -C /home/eqonaq/www/reserve.eqonaq.kz checkout -- .
+    - ssh -p 2232 -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 git -C /home/eqonaq/www/guest.eqonaq pull origin master
+#    - ssh -p 2232 -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 git -C /home/eqonaq/www/reserve.eqonaq.kz pull origin master
+    - ssh -p 2232 -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "cd /home/eqonaq/www/guest.eqonaq && npm install"
+#    - ssh -p 2232 -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 "cd /home/eqonaq/www/reserve.eqonaq.kz && npm install"
+    - ssh -p 2232 -i key.pem -o 'StrictHostKeyChecking no' eqonaq@94.247.133.122 "cd /home/eqonaq/www/guest.eqonaq && npm run build"
+#    - ssh -p 2232 -i key.pem -o 'StrictHostKeyChecking no' eqonaq@195.210.47.190 "cd /home/eqonaq/www/reserve.eqonaq.kz && npm run build"
+
+  after_script:
+    - rm key.pem
+  only:
+    - master
