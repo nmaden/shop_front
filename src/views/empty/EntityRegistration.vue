@@ -3,6 +3,7 @@
         <div class="auth__margin">
             <Nav />
             <div class="registrations">
+           
                 <Police 
                     @police__accepted="policeAccepted" 
                     v-if="police == false" 
@@ -440,6 +441,10 @@ export default {
                         "", ""
                     ]
                 };
+                if(this.$route.query.test.enterpreneur) {
+                    data.enterpreneur = 1;
+                }
+               
                 this.connection.send(JSON.stringify(data));
             }
         },
