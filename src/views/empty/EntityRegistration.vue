@@ -77,7 +77,8 @@
                                 <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
                                 <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                             </div>
-                            <div class="input__block__child">
+
+                            <div class="input__block__child" v-if="$route.query.test.enterpreneur">
                                 <label for="bin">
                                     БИН места размещения <span>*</span>
                                 </label>
@@ -89,6 +90,20 @@
                                 <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
                                 <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
                             </div>
+                            <div class="input__block__child">
+                                <label for="bin">
+                                    ИИН места размещения <span>*</span>
+                                </label>
+                                <div class="input">
+                                    {{iin}}
+                                </div>
+                                <div class="error__text" v-if="$v.bin.$dirty && !$v.bin.required">Поле 'ИИН места размещения' обязателен к заполнению</div>
+                                <div class="error__text" v-if="!$v.bin.numeric">Поле 'ИИН места размещения' введите только цифры</div>
+                                <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
+                                <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
+                            </div>
+
+                            
                         </div>
 
                         <div v-if="additional_fields == true" class="registrations__form">
@@ -232,6 +247,7 @@ export default {
             phone: null,
             email: null,
             bin: null,
+            iin: null,
             role: null,
             token_pki: null,
 
@@ -340,6 +356,8 @@ export default {
 
                 this.$Progress.start()
                 if (this.additional_fields == true) {
+
+
                     this.sendObj = {
                         token: this.token_pki,
                         first_name: this.name,
@@ -349,6 +367,7 @@ export default {
                         phone: this.phone,   
                         role: this.role,
                         bin: this.bin,
+                        
                         hotel_name: this.hotel_name,
                         hotel_entity_name: this.hotel_entity,    
                         hotel_region_id: this.region,    
@@ -356,6 +375,11 @@ export default {
                         hotel_area_id: this.district, 
                         hotel_address: this.address,
                         hotel_house: this.house_number
+                    }
+
+                    if(this.$route.query.enterpreneur) {
+                        this.sendObj.iin = this.iin
+                        this.sendObj.enterpreneur = 1
                     }
                 } else {
                     this.sendObj = {
@@ -367,6 +391,11 @@ export default {
                         phone: this.phone,   
                         role: this.role,
                         bin: this.bin,
+                    }
+
+                    if(this.$route.query.enterpreneur) {
+                        this.sendObj.iin = this.iin
+                        this.sendObj.enterpreneur = 1
                     }
                 }
                 this.$axios({ 
@@ -387,6 +416,7 @@ export default {
                         this.email = null
                         this.phone = null
                         this.bin = null
+                        this.iin = null
                         this.role = null
 
                         this.$toast.open({
@@ -442,7 +472,7 @@ export default {
                     ]
                 };
                 if(this.$route.query.test.enterpreneur) {
-                    data.enterpreneur = 1;
+                    data.enterpreneur = 1
                 }
                
                 this.connection.send(JSON.stringify(data));
