@@ -83,7 +83,7 @@
                             {{$t('add__addres__page__form__label__house')}} <span>*</span>
                         </label>
                         <input type="text" v-model.trim="house_number" id="house_number">    
-                        <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div>
+                        <!-- <div class="error__text" v-if="$v.house_number.$dirty && !$v.house_number.required">Поле 'Номер дома' обязателен к заполнению</div> -->
                         <div class="error__text" v-if="!$v.house_number.numeric">Введите корректный Номер дома</div>
                     </div>
 
@@ -122,7 +122,6 @@ export default {
             required, 
         },
         house_number: {
-            required,
             numeric: alpha
         },
     },
