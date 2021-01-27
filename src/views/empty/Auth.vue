@@ -44,15 +44,24 @@
                     </div>
                     <div class="type__auth__block">
                         <img src="../../assets/all/entity.svg" alt="images">
-                        <router-link to="/entityregistration">
-                            <button>
-                                {{$t('auth__reg__modal__btn__entities')}}
-                            </button>
-                        </router-link>
+                        <div class="type__auth__row">
+                            <router-link to="/entityregistration" >
+                                <button>
+                                    ТОО
+                                </button>
+                            </router-link>
+                            <router-link to="/entityregistration?enterpreneur=true" >
+                                <button>
+                                    ИП
+                                </button>
+                            </router-link>
+                        </div>
+                      
                     </div>
                 </div>
             </v-card>
         </v-dialog>
+
     </div>
 </template>
 
@@ -66,7 +75,8 @@ export default {
     },
     data() {
         return {
-            modal: false
+            modal: false,
+            modal_select_type: false,
         }
     },
 }
@@ -97,6 +107,15 @@ export default {
         }
     }
     
+    .type__auth__row {
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+        button {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
     .type__auth__block {
         margin-top: 30px;
         display: flex;
