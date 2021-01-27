@@ -77,7 +77,7 @@
                                 <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
                                 <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                             </div>
-                            <div class="input__block__child">
+                            <div class="input__block__child" v-if="$route.query.enterpreneur">
                                 <label for="bin">
                                     БИН места размещения <span>*</span>
                                 </label>
@@ -86,6 +86,18 @@
                                 </div>
                                 <div class="error__text" v-if="$v.bin.$dirty && !$v.bin.required">Поле 'БИН места размещения' обязателен к заполнению</div>
                                 <div class="error__text" v-if="!$v.bin.numeric">Поле 'БИН места размещения' введите только цифры</div>
+                                <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
+                                <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
+                            </div>
+                            <div class="input__block__child" v-else>
+                                <label for="bin">
+                                    ИИН места размещения <span>*</span>
+                                </label>
+                                <div class="input">
+                                    {{iin}}
+                                </div>
+                                <div class="error__text" v-if="$v.bin.$dirty && !$v.bin.required">Поле 'iin места размещения' обязателен к заполнению</div>
+                                <div class="error__text" v-if="!$v.bin.numeric">Поле 'ИИН места размещения' введите только цифры</div>
                                 <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
                                 <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
                             </div>
@@ -279,6 +291,12 @@ export default {
             required, 
         },
         bin: {
+            required, 
+            numeric,
+            minLength: minLength(12),
+            maxLength: maxLength(12)
+        },
+        iin: {
             required, 
             numeric,
             minLength: minLength(12),
