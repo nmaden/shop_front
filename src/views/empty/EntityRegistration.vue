@@ -77,7 +77,7 @@
                                 <div class="error__text" v-if="$v.email.$dirty && !$v.email.required">Поле 'E-mail' обязателен к заполнению</div>
                                 <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                             </div>
-
+   
                             <div class="input__block__child" v-if="$route.query.enterpreneur==true">
                                 <label for="bin">
                                     БИН места размещения <span>*</span>
@@ -347,17 +347,17 @@ export default {
             this.police = type
         },
         registarations () {
-            if (this.$v.$invalid) {
-                this.$toast.open({
-                    message: 'Заполните необходимые поля',
-                    type: 'error',
-                    position: 'bottom',
-                    duration: 5000,
-                    queue: true
-                });
-                this.$v.$touch()
-                return 
-            } else {
+            // if (this.$v.$invalid) {
+            //     this.$toast.open({
+            //         message: 'Заполните необходимые поля',
+            //         type: 'error',
+            //         position: 'bottom',
+            //         duration: 5000,
+            //         queue: true
+            //     });
+            //     this.$v.$touch()
+            //     return 
+            // } else {
                 this.disabled__button = true
 
                 this.$Progress.start()
@@ -447,7 +447,7 @@ export default {
                         queue: true
                     });
                 });              
-            }
+          
         },
         handleSend () {
             if (this.ready == false) {
