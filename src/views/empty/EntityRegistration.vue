@@ -90,17 +90,17 @@
                                 <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
                                 <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
                             </div>
-                            <div class="input__block__child">
+                            <div class="input__block__child" v-else>
                                 <label for="bin">
                                     ИИН места размещения <span>*</span>
                                 </label>
                                 <div class="input">
                                     {{iin}}
                                 </div>
-                                <div class="error__text" v-if="$v.bin.$dirty && !$v.bin.required">Поле 'ИИН места размещения' обязателен к заполнению</div>
-                                <div class="error__text" v-if="!$v.bin.numeric">Поле 'ИИН места размещения' введите только цифры</div>
-                                <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
-                                <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
+                                <div class="error__text" v-if="$v.iin.$dirty && !$v.iin.required">Поле 'ИИН места размещения' обязателен к заполнению</div>
+                                <div class="error__text" v-if="!$v.iin.numeric">Поле 'ИИН места размещения' введите только цифры</div>
+                                <div class="error__text" v-if="!$v.iin.minLength">Минимальное количество символов 12</div>
+                                <div class="error__text" v-if="!$v.iin.maxLength">Максимальное количество символов 12</div>
                             </div>
 
                             
@@ -295,6 +295,12 @@ export default {
             required, 
         },
         bin: {
+            required, 
+            numeric,
+            minLength: minLength(12),
+            maxLength: maxLength(12)
+        },
+        iin: {
             required, 
             numeric,
             minLength: minLength(12),
