@@ -500,18 +500,19 @@ export default {
             .then((response) => {
                 this.$Progress.finish()
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    if (typeof(response.data.filled_data.hotel_bin) == 'undefined') {
-                         this.$toast.open({
-                            message: 'Выберите сертификат юридического лица',
-                            type: 'error',
-                            position: 'bottom',
-                            duration: 5000,
-                            queue: true
-                        });
-                    } else {
+                    // if (typeof(response.data.filled_data.hotel_bin) == 'undefined') {
+                    //      this.$toast.open({
+                    //         message: 'Выберите сертификат юридического лица',
+                    //         type: 'error',
+                    //         position: 'bottom',
+                    //         duration: 5000,
+                    //         queue: true
+                    //     });
+                    // } else {
                         this.name = response.data.filled_data.first_name
                         this.surname = response.data.filled_data.last_name
                         this.bin = response.data.filled_data.hotel_bin
+                        this.iin = response.data.filled_data.iin
                         this.role = response.data.filled_data.role
                         this.email = response.data.filled_data.email
                         this.token_pki = response.data.token
@@ -530,7 +531,7 @@ export default {
                             duration: 10000,
                             queue: true
                         });
-                    }
+                    // }
                 } else {
                     this.showEdsForm = false
                 }
