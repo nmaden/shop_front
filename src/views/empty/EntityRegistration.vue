@@ -78,7 +78,7 @@
                                 <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                             </div>
 
-                            <div class="input__block__child" v-if="$route.query.enterpreneur">
+                            <div class="input__block__child" v-if="$route.query.enterpreneur==true">
                                 <label for="bin">
                                     БИН места размещения <span>*</span>
                                 </label>
@@ -383,10 +383,7 @@ export default {
                         hotel_house: this.house_number
                     }
 
-                    if(this.$route.query.enterpreneur) {
-                        this.sendObj.iin = this.iin
-                        this.sendObj.enterpreneur = 1
-                    }
+                    
                 } else {
                     this.sendObj = {
                         token: this.token_pki,
@@ -399,10 +396,7 @@ export default {
                         bin: this.bin,
                     }
 
-                    if(this.$route.query.enterpreneur) {
-                        this.sendObj.iin = this.iin
-                        this.sendObj.enterpreneur = 1
-                    }
+                   
                 }
                 this.$axios({ 
                     method: 'post',
@@ -477,10 +471,7 @@ export default {
                         "", ""
                     ]
                 };
-                if(this.$route.query.enterpreneur) {
-                    data.enterpreneur = 1
-                }
-               
+            
                 this.connection.send(JSON.stringify(data));
             }
         },
@@ -524,13 +515,20 @@ export default {
             });
         },
         sendEsp () {
-            this.$Progress.start()
+            this.$Progress.start();
+
+            let data = {
+                    data: this.esp__array
+            }
+        
+            if(this.$route.query.enterpreneur==true) {
+                data.enterpreneur=1;
+            }
+           
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION_2 + 'register/pki',
-                data: {
-                    data: this.esp__array,
-                }
+                data
             })
             .then((response) => {
                 this.$Progress.finish()
