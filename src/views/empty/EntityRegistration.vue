@@ -441,6 +441,7 @@ export default {
                         "", ""
                     ]
                 };
+
                 if(this.$route.query.enterpreneur) {
                     data.enterpreneur = 1;
                 }
