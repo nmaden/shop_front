@@ -336,11 +336,11 @@ export default {
     },
     mounted () {
         this.getLocal();
-        if(!this.$route.query.entrepreneur) {
+        if(!this.$route.query.entrepreneur) { // reg for not ip 
             this.show_bin = 1;
         }
         else {
-            this.show_bin = 0;
+            this.show_bin = 0;   // reg for ip
         }
     },
     
@@ -387,7 +387,7 @@ export default {
                         hotel_address: this.address,
                         hotel_house: this.house_number
                     }
-                    if(this.from_step_1!='') {
+                    if(this.from_step_1==1) {
                         this.sendObj.entrepreneur = 1;
                     }
 
@@ -405,7 +405,7 @@ export default {
                         role: this.role,
                         bin: this.bin,
                     }
-                    if(this.from_step_1!='') {
+                    if(this.from_step_1==1) {
                         this.sendObj.entrepreneur = 1;
                     }
 
@@ -552,15 +552,26 @@ export default {
             .then((response) => {
                 this.$Progress.finish()
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    if (typeof(response.data.filled_data.hotel_bin) == 'undefined' && !response.data.entrepreneur) {
+                    if (!response.data.filled_data.iin && this.show_bin==0) {
                          this.$toast.open({
-                            message: 'Выберите сертификат юридического лица',
+                            message: 'Выберите сертификат ИП',
                             type: 'error',
                             position: 'bottom',
                             duration: 5000,
                             queue: true
                         });
-                    } else {
+
+                    } 
+                    else if (response.data.filled_data.iin && this.show_bin==1) {
+                         this.$toast.open({
+                            message: 'Выберите сертификат ТОО',
+                            type: 'error',
+                            position: 'bottom',
+                            duration: 5000,
+                            queue: true
+                        });
+                    }
+                    else {
                         this.from_step_1 = response.data.entrepreneur;
                     
                         this.name = response.data.filled_data.first_name
