@@ -571,8 +571,15 @@ export default {
                         this.email = response.data.filled_data.email
                         this.token_pki = response.data.token
                         this.showEdsForm = true
-                            this.additional_fields = true
-                            this.additinal__validation = true
+
+                        if(response.data.filled_data.hotel_bin) {
+                            this.bin = response.data.filled_data.hotel_bin;
+                        }  
+                        else {
+                            this.bin = response.data.filled_data.iin;
+                        } 
+                        this.additional_fields = true
+                        this.additinal__validation = true
                         // if (typeof(response.data.need_fill_data.hotel_entity_name) !== 'undefined') {
                         //     this.additional_fields = true
                         //     this.additinal__validation = false
