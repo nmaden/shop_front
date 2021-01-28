@@ -95,18 +95,18 @@
                                     ИИН места размещения <span>*</span>
                                 </label>
                                 <div class="input">
-                                    {{iin}}
+                                    {{bin}}
                                 </div>
-                                <div class="error__text" v-if="$v.iin.$dirty && !$v.iin.required">Поле 'ИИН места размещения' обязателен к заполнению</div>
-                                <div class="error__text" v-if="!$v.iin.numeric">Поле 'ИИН места размещения' введите только цифры</div>
-                                <div class="error__text" v-if="!$v.iin.minLength">Минимальное количество символов 12</div>
-                                <div class="error__text" v-if="!$v.iin.maxLength">Максимальное количество символов 12</div>
+                                <div class="error__text" v-if="$v.bin.$dirty && !$v.bin.required">Поле 'ИИН места размещения' обязателен к заполнению</div>
+                                <div class="error__text" v-if="!$v.bin.numeric">Поле 'ИИН места размещения' введите только цифры</div>
+                                <div class="error__text" v-if="!$v.bin.minLength">Минимальное количество символов 12</div>
+                                <div class="error__text" v-if="!$v.bin.maxLength">Максимальное количество символов 12</div>
                             </div>
 
                             
                         </div>
 
-                        <div v-if="additional_fields == true" class="registrations__form">
+                        <div  class="registrations__form">
                             <div class="input__block">
                                 <label for="hotel_name">
                                     Наименование места размещения <span>*</span>
@@ -235,7 +235,7 @@
 <script>
 import Nav from '../components/NavHeader'
 import MaskedInput from 'vue-masked-input'
-import { required, numeric, email, requiredUnless, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, numeric, email, minLength, maxLength } from 'vuelidate/lib/validators'
 import Police from './Police'
 
 export default {
@@ -266,7 +266,7 @@ export default {
             district__array: [],
             locality__array: [],
 
-            additional_fields: false,
+            additional_fields: true,
 
             additinal__validation: false,
             disabled__button: false,
@@ -301,12 +301,6 @@ export default {
             minLength: minLength(12),
             maxLength: maxLength(12)
         },
-        iin: {
-            required, 
-            numeric,
-            minLength: minLength(12),
-            maxLength: maxLength(12)
-        },
         phone: {
             required, 
         },
@@ -316,22 +310,22 @@ export default {
         },
 
         region: {
-            required: requiredUnless('additinal__fuilds'), 
+            required, 
         },
         district: {
-            required: requiredUnless('additinal__fuilds'), 
+            required, 
         },
         address: {
-            required: requiredUnless('additinal__fuilds'), 
+            required, 
         },
         house_number: {
-            required: requiredUnless('additinal__fuilds'),
+            required,
         },
         hotel_name: {
-            required: requiredUnless('additinal__fuilds'),
+            required,
         },
         hotel_entity: {
-            required: requiredUnless('additinal__fuilds')
+            required,
         }
     },
     components: {
@@ -341,7 +335,7 @@ export default {
     },
     mounted () {
         this.getLocal();
-        if(!this.$route.query.enterpreneur) {
+        if(!this.$route.query.entrepreneur) {
             this.show_bin = 1;
         }
         else {
@@ -354,17 +348,19 @@ export default {
             this.police = type
         },
         registarations () {
-            // if (this.$v.$invalid) {
-            //     this.$toast.open({
-            //         message: 'Заполните необходимые поля',
-            //         type: 'error',
-            //         position: 'bottom',
-            //         duration: 5000,
-            //         queue: true
-            //     });
-            //     this.$v.$touch()
-            //     return 
-            // } else {
+            if (this.$v.$invalid) {
+                this.$toast.open({
+                    message: 'Заполните необходимые поля',
+                    type: 'error',
+                    position: 'bottom',
+                    duration: 5000,
+                    queue: true
+                });
+                this.$v.$touch()
+                return 
+            } else {
+
+            
                 this.disabled__button = true
 
                 this.$Progress.start()
@@ -389,6 +385,8 @@ export default {
                         hotel_address: this.address,
                         hotel_house: this.house_number
                     }
+
+                    
 
                     
                 } else {
@@ -454,7 +452,7 @@ export default {
                         queue: true
                     });
                 });              
-          
+            }
         },
         handleSend () {
             if (this.ready == false) {
@@ -532,7 +530,7 @@ export default {
                
                 data = {
                     data: this.esp__array,
-                    enterpreneur: 1
+                    entrepreneur: 1
                 }
             }
             
@@ -558,18 +556,20 @@ export default {
                         this.name = response.data.filled_data.first_name
                         this.surname = response.data.filled_data.last_name
                         this.bin = response.data.filled_data.hotel_bin
-                        this.iin = response.data.filled_data.iin
+                        this.bin = response.data.filled_data.iin
                         this.role = response.data.filled_data.role
                         this.email = response.data.filled_data.email
                         this.token_pki = response.data.token
                         this.showEdsForm = true
-                        if (typeof(response.data.need_fill_data.hotel_entity_name) !== 'undefined') {
                             this.additional_fields = true
-                            this.additinal__validation = false
-                        } else {
-                            this.additional_fields = false
                             this.additinal__validation = true
-                        }
+                        // if (typeof(response.data.need_fill_data.hotel_entity_name) !== 'undefined') {
+                        //     this.additional_fields = true
+                        //     this.additinal__validation = false
+                        // } else {
+                        //     this.additional_fields = false
+                        //     this.additinal__validation = true
+                        // }
                         this.$toast.open({
                             message: response.data.message,
                             type: 'success',

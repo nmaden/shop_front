@@ -50,7 +50,7 @@
                                     ТОО
                                 </button>
                             </router-link>
-                            <router-link to="/entityregistration?enterpreneur=true" >
+                            <router-link to="/entityregistration?entrepreneur=true" >
                                 <button>
                                     ИП
                                 </button>
