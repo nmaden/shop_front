@@ -241,6 +241,7 @@ import Police from './Police'
 export default {
     data () {
         return {
+            from_step_1: '',
             show_bin: 0,
             name: null,
             surname: null,
@@ -366,6 +367,7 @@ export default {
                 this.$Progress.start()
                 if (this.additional_fields == true) {
 
+                    
 
                     this.sendObj = {
                         token: this.token_pki,
@@ -385,6 +387,9 @@ export default {
                         hotel_address: this.address,
                         hotel_house: this.house_number
                     }
+                    if(this.from_step_1!='') {
+                        this.sendObj.entrepreneur = 1;
+                    }
 
                     
 
@@ -399,6 +404,9 @@ export default {
                         phone: this.phone,   
                         role: this.role,
                         bin: this.bin,
+                    }
+                    if(this.from_step_1!='') {
+                        this.sendObj.entrepreneur = 1;
                     }
 
                    
@@ -534,25 +542,27 @@ export default {
                 }
             }
             
-            console.log(data);
-           
+        
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION_2 + 'register/pki',
                 data
             })
+            
             .then((response) => {
                 this.$Progress.finish()
                 if (Object.keys(response.data.filled_data).length !== 0) {
-                    // if (typeof(response.data.filled_data.hotel_bin) == 'undefined') {
-                    //      this.$toast.open({
-                    //         message: 'Выберите сертификат юридического лица',
-                    //         type: 'error',
-                    //         position: 'bottom',
-                    //         duration: 5000,
-                    //         queue: true
-                    //     });
-                    // } else {
+                    if (typeof(response.data.filled_data.hotel_bin) == 'undefined' && !response.data.entrepreneur) {
+                         this.$toast.open({
+                            message: 'Выберите сертификат юридического лица',
+                            type: 'error',
+                            position: 'bottom',
+                            duration: 5000,
+                            queue: true
+                        });
+                    } else {
+                        this.from_step_1 = response.data.entrepreneur;
+                    
                         this.name = response.data.filled_data.first_name
                         this.surname = response.data.filled_data.last_name
                         this.bin = response.data.filled_data.hotel_bin
@@ -577,7 +587,7 @@ export default {
                             duration: 10000,
                             queue: true
                         });
-                    // }
+                    }
                 } else {
                     this.showEdsForm = false
                 }
