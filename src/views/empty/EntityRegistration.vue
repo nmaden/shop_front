@@ -21,7 +21,7 @@
                                 </i18n>
                             </p>
                         </div>
-                        <div class="registrations__form">
+                        <div class="registrations__form" v-if="showEdsForm == false">
                             <button @click="handleSend">{{$t('registration__eds__btn')}}</button>
                         </div>
                         <p v-if="showError == true"> 
@@ -78,7 +78,7 @@
                                 <div class="error__text" v-if="!$v.email.email">Введите корректный 'E-mail' </div>
                             </div>
    
-                            <div class="input__block__child" v-if="$route.query.enterpreneur==true">
+                            <div class="input__block__child" v-if="show_bin==1">
                                 <label for="bin">
                                     БИН места размещения <span>*</span>
                                 </label>
@@ -241,6 +241,7 @@ import Police from './Police'
 export default {
     data () {
         return {
+            show_bin: 0,
             name: null,
             surname: null,
             middle_name: null,
@@ -339,7 +340,13 @@ export default {
         Police
     },
     mounted () {
-        this.getLocal()
+        this.getLocal();
+        if(!this.$route.query.enterpreneur) {
+            this.show_bin = 1;
+        }
+        else {
+            this.show_bin = 0;
+        }
     },
     
     methods: {
@@ -521,9 +528,15 @@ export default {
                     data: this.esp__array
             }
         
-            if(this.$route.query.enterpreneur==true) {
-                data.enterpreneur=1;
+            if(this.show_bin==0) {
+               
+                data = {
+                    data: this.esp__array,
+                    enterpreneur: 1
+                }
             }
+            
+            console.log(data);
            
             this.$axios({ 
                 method: 'post',
