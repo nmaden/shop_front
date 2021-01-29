@@ -444,6 +444,9 @@ export default {
             this.$axios({ 
                 method: 'post',
                 url: this.$API_URL + this.$API_VERSION_2 + 'register/pki',
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
                 data: {
                     data: this.esp__array,
                 }
