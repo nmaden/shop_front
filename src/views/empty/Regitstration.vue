@@ -169,11 +169,11 @@
 
                             <div class="input__block__child">
                                 <label for="apartment_number">
-                                    Номер квартиры <span>*</span>
+                                    Номер квартиры 
                                 </label>
                                 <input type="text"  v-model.trim="apartment_number"  id="apartment_number">
-                                <div class="error__text" v-if="$v.apartment_number.$dirty && !$v.apartment_number.required">Поле 'Номер квартиры' обязателен к заполнению</div>
-                                <div class="error__text" v-if="!$v.apartment_number.numeric">Поле 'Номер квартиры' введите только цифры</div>
+                                <!-- <div class="error__text" v-if="$v.apartment_number.$dirty && !$v.apartment_number.required">Поле 'Номер квартиры' обязателен к заполнению</div>
+                                <div class="error__text" v-if="!$v.apartment_number.numeric">Поле 'Номер квартиры' введите только цифры</div> -->
                             </div>
                         </div>
                         <button :disabled="disabled__button" @click="registarations">РЕГИСТРАЦИЯ</button>
@@ -285,8 +285,7 @@ export default {
             required,
         },
         apartment_number: {
-            required, 
-            numeric
+           
         }
     },
     components: {
@@ -785,3 +784,5 @@ export default {
     }
 }
 </style>
+
+// https://cabinet.beta.eqonaq.kz
