@@ -785,4 +785,3 @@ export default {
 }
 </style>
 
-// https://cabinet.beta.eqonaq.kz
