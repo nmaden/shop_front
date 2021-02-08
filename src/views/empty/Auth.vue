@@ -44,15 +44,15 @@
                     </div>
                     <div class="type__auth__block">
                         <img src="../../assets/all/entity.svg" alt="images">
-                        <div class="type__auth__row">
+                        <div class="type__auth__column">
                             <router-link to="/entityregistration" >
                                 <button>
-                                    ТОО
+                                    Юридические лица
                                 </button>
                             </router-link>
                             <router-link to="/entityregistration?entrepreneur=true" >
                                 <button>
-                                    ИП
+                                    Индивидуальный предприниматель
                                 </button>
                             </router-link>
                         </div>
@@ -107,13 +107,18 @@ export default {
         }
     }
     
-    .type__auth__row {
+    .type__auth__column {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-self: center;
         button {
             margin-left: 5px;
             margin-right: 5px;
+            width: 100%;
+           
+            @media (max-width: @mobile) {
+                font-size: 16px;
+            }
         }
     }
     .type__auth__block {
