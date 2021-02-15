@@ -325,7 +325,7 @@ export default {
                         token: this.token_pki,
                         first_name: this.name,
                         last_name: this.surname,
-                        middle_name: this.surname,
+                        middle_name: (this.middle_name)? this.middle_name:'',
                         iin: this.iin,
                         email: this.email,
                         phone: this.phone,   
@@ -462,6 +462,7 @@ export default {
                     } else {
                         this.name = response.data.filled_data.first_name 
                         this.surname = response.data.filled_data.last_name
+                        this.middle_name = (response.data.filled_data.middle_name)?response.data.filled_data.middle_name:''
                         this.iin = response.data.filled_data.iin
                         this.email = response.data.filled_data.email
                         this.token_pki = response.data.token
