@@ -1,4 +1,93 @@
 export default {
+    agreement__title__first: "THE AGREEMENT OF RIGHTS",
+    agreement__title__second: "USE OF THE «eQonaq» INFORMATION SYSTEM",
+
+    "agreement_1": [
+        {
+            "1": "General provisions",
+            "2": "This User Agreement (hereinafter referred to as the Agreement) regulates the relationship between the Owner, Administrator and User of the eQonaq web portal and its components.",
+            "3": "The following terms are used in this Agreement:",
+            "4": "information system",
+            "5": "an information system for collecting and processing a unified register of tourist accommodation, tourist flow, as well as monitoring compliance with the migration legislation of the Republic of Kazakhstan by notifying state bodies of the arrival of tourists;",
+            "6": "sections of the information system",
+            "7": "parts of the information system that are specialized in providing individual electronic services, information and (or) services;",
+            "8": "electronic service ( hereinafter referred to as the Service)",
+            "9": "provision of services to individuals and legal entities registered in the information system as users;",
+            "10": "The owner of the information system (hereinafter referred to as the Owner)",
+            "11": "is the Ministry of Culture and Sports of the Republic of Kazakhstan;",
+            "12": "the user of the information system (hereinafter referred to as the User)",
+            "13": "is a natural or legal person who has accepted the terms of this Agreement, registered in the information system by means of EDS, and uses its services to notify state authorities of the arrival of tourists within the framework of the current legislation of the Republic of Kazakhstan;",
+            "14": "information System Administrator (hereinafter referred to as the Administrator)",
+            "15": "JSC",
+            "16": "NC",
+            "17": "a mobile application",
+            "18": "is a program installed and running on a User's mobile device that provides access to the eQonaq IP via a cellular network and the Internet;",
+            "19": "electronic digital signature (hereinafter – EDS)",
+            "20": "is a set of electronic digital characters created by means of digital signatures and prove the authenticity of an electronic document, its ownership and immutability of contents;",
+            "21": "All other terms and definitions used in this Agreement are interpreted in accordance with the current legislation of the Republic of Kazakhstan."            
+
+        }
+    ],
+    "agreement_2": [
+        {
+            "1": "Subject of the Agreement",
+            "2": "This Agreement is a public offer. By accessing the materials of the information system, the User is considered to have joined and accepted all the terms of this Agreement.",
+            "3": "The Administrator has the right, with the consent of the Owner, to unilaterally change the terms of this Agreement at any time. Such changes come into force after 3 (three) days from the date of posting the new version of the Agreement, with the simultaneous loss of the previous version of the Agreement.",
+            "4": "If the User does not agree with the Agreement or the changes made, he is obliged to refuse access to the eQonaq IP and stop using the materials and services of the eQonaq IP.",
+            "5":"The email address specified by the User in the registration form in the information system is intended for receiving notifications in the case of:",
+            "6": "subscription by the User to receive various service notifications;",
+            "7": "password recovery;",
+            "8": "getting the generated new password.",
+            "9": "By accepting the terms of this Agreement, the User hereby consents to the collection, processing, storage, unloading and use of personal data and submitted by another User in an information system information to provide the services via the IP «eQonaq», and also improve the quality (provided) Services.",
+                    
+            
+       
+        }
+    ],
+    "agreement_3": [
+        {
+            "1": "Rights and obligations of the Parties",
+            "2": "The Owner and Administrator have the right to:",
+            "3": "If necessary, check the accuracy of the User's entered data, including by contacting government agencies and other organizations.",
+            "4": "Send informational notifications to the User.",
+            "5": "If the User violates the terms of this Agreement, refuse to register the User, delete or block the User account.",
+            "6": "The user has the right to:",
+            "7": "Get advice and practical help from the Administrator regarding the use of the «eQonaq» IP by writing a corresponding request in the «Support» section of the IP «eQonaq»",
+            "8": "The Owner and the Administrator are obliged to:",
+            "9": "Ensure the confidentiality of the User's personal data by preventing their disclosure without the User's consent or the presence of other legal grounds.",
+            "10": "Ensure the functioning of the eQonaq «eQonaq» IP.",
+            "11": "Keep the password entrusted to the User for access to the «eQonaq» IP secret from third parties not related to the data exchange process, except for cases provided for by the legislation of the Republic of Kazakhstan.",
+            "12": "The user must:",
+            "13": "To receive the services of the IP «eQonaq», go through the registration procedure.",
+            "14": "At the same time, before registering in the IP «eQonaq», you must:",
+            "15": "individuals from among the citizens of the Republic of Kazakhstan and having a residence permit in the Republic of Kazakhstan-have a valid EDS issued by the National Certification Center of the Republic of Kazakhstan, used in the field of «electronic government»;",
+            "16": "legal entities registered in the Republic of Kazakhstan – a valid EDS issued by the National Certification Center of the Republic of Kazakhstan, used in the field of «electronic government».",
+            "17": "Provide the Owner and Administrator with accurate and complete information on the items offered in the registration form in the IP «eQonaq».",
+            "18": "When working in the «eQonaq» IP, do not impersonate another person, do not use materials containing viruses or other malicious software, or use your own digital signature.",
+            "19": "Do not use the «eQonaq» IP and the information obtained in the information system for the purposes of terrorism, extremism, inciting ethnic hatred and for other purposes prohibited by the legislation of the Republic of Kazakhstan."
+        }
+    ],
+    "agreement_4": [
+        {
+            "1": "Liability of the parties",
+            "2": "In case of violation of the terms of this Agreement, resulting in harm to all or one of the parties to the Agreement, the guilty party is liable in accordance with the legislation of the Republic of Kazakhstan.",
+            "3": "Administrator is not responsible for temporary technical failures and breaks in work is «eQonaq» caused by reasons beyond the Administrator, the Owner or in the case of scheduled or unscheduled maintenance activities is «eQonaq».",
+            "4": "The Owner and the Administrator are not responsible for temporary failures and interruptions in the operation of communication lines, other similar failures, as well as for problems with the computer, mobile communication device from which the User accesses the eQonaq IP.",
+            "5": "The Owner and the Administrator are not responsible for any direct or indirect damages, including lost profits, loss of use, loss of data or any other non-material losses, damage to reputation and other damages resulting from:",
+            "6": "the use or inability to use the eQonaq IP by Users;",
+            "7": "changes to the terms of the Agreement by the Owner and / or Administrator.",
+            "8": "The user is fully responsible for the accuracy of the data provided when registering with the «eQonaq» IP, for the accuracy of the information transmitted for the provision of services through the «eQonaq» IP.",
+            "9": "The user assumes all risks and possible damages resulting from the provision of false information about themselves, as well as for the transfer of their own data to third parties related to registration in the IP «eQonaq»",
+        }
+    ],
+    "agreement_5": [
+        {
+            "1": "Other provisions",
+            "2": "All possible disputes arising out of or related to this Agreement are subject to resolution in accordance with the current legislation of the Republic of Kazakhstan.",
+            "3": "By clicking on the «Next» button, you confirm that you are familiar with all the clauses of this Agreement and accept them.",
+            "4": "Next"
+        }
+    ],
     link_to_main_video: 'https://www.youtube.com/embed/YpPXms28b2s',
     "notif_button": "Send notification of guest arrival",
     "notif_button_mobile": "Send notification",
@@ -198,7 +287,7 @@ export default {
     footer__contact: "Contacts",
     footer__contact__feadback: "Feedback",
     footer__info: 'Information',
-    login__description: "Согласно Законодательству Республики Казахстан, вы несете персональную ответственность за корректность предоставляемых данных в системе «eQonaq».",
+    login__description: "According to the Legislation of the Republic of Kazakhstan, you are personally responsible for the correctness of the data provided in the «eQonaq»system.",
     footer__menu__info: [
         {
             name: 'About',
@@ -223,6 +312,8 @@ export default {
     auth__reg__modal__title: 'Sign Up as',
     auth__reg__modal__btn__individuals: 'Individual',
     auth__reg__modal__btn__entities: 'Legal entity',
+    auth__reg__modal__btn__ip: 'Individual entrepreneur',
+    
     tabs_array__name__eds: 'EDS',
     tabs_array__name__login: 'Login',
     eds__btn: 'Choose certificate',

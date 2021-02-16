@@ -47,12 +47,13 @@
                         <div class="type__auth__column">
                             <router-link to="/entityregistration" >
                                 <button>
-                                    Юридические лица
+                                    {{$t('auth__reg__modal__btn__entities')}}
                                 </button>
                             </router-link>
                             <router-link to="/entityregistration?entrepreneur=true" >
                                 <button>
-                                    Индивидуальный предприниматель
+                                    
+                                    {{$t('auth__reg__modal__btn__ip')}}
                                 </button>
                             </router-link>
                         </div>
