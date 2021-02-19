@@ -14,6 +14,20 @@ export const routes = [
       // beforeEnter: authGuard
     },
     {
+      path: '/news',
+      name: 'NewsAll',
+      component: () => import('../views/empty/NewsAll.vue'),
+      meta: {layout: 'not_authorized', requiresAuth: false},
+      // beforeEnter: authGuard
+    },
+    {
+      path: '/news-detail-:id',
+      name: 'NewsDetail',
+      component: () => import('../views/empty/NewsDetail.vue'),
+      meta: {layout: 'not_authorized', requiresAuth: false},
+      // beforeEnter: authGuard
+    },
+    {
       path: '/forgot',
       name: 'Forgot',
       component: () => import('../views/empty/ForgotPassword.vue'),

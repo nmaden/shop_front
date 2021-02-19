@@ -5,10 +5,11 @@
             <Baner />
             <WelcomeService />
             <InterestingPlaces />
+            <News />
             <BookHotel />
         </div>
         <Footer />
-
+        
          <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
                 <div 
@@ -75,13 +76,14 @@ import Header from './components/Header'
 import Baner from './components/Baner'
 import WelcomeService from './components/WelcomeService'
 import InterestingPlaces from './components/InterestingPlaces'
+import News from './components/News'
 import BookHotel from './components/BookHotel'
 import Footer from './components/Footer'
 import { required, numeric } from 'vuelidate/lib/validators'
 
 export default {
     components: {
-        Header, Baner, WelcomeService, InterestingPlaces, BookHotel, Footer
+        Header, Baner, WelcomeService, InterestingPlaces, BookHotel, Footer,News
     },
     validations: {
         phone: {
