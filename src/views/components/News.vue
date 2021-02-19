@@ -1,8 +1,8 @@
 <template>
     <div class="news">
-        <p>
-            Новости
-        </p>
+        <h1>
+             {{$t('news__title')}}
+        </h1>
 
         <div class="news__block__desktop">
 
@@ -10,9 +10,10 @@
 
                 <div class="news__item" v-for="(item,index) in news_all" :key="index">
                     <div class="news__item" @click="showAll">
-                        <img :src="get_api_back_end+item.file" alt="">
-                        <p class="news__date" v-if="item.created_at">{{item.created_at}}</p>
-                        <p class="news__title" v-if="item.title.length>30">{{item.title.substring(0,50)+'...'}}</p>
+                        <img v-if="item.file" :src="get_api_back_end+item.file" alt="">
+                        <div v-else></div>
+                        <p class="news__date" v-if="item.created_at">{{convert_date(item.created_at)}}</p>
+                        <p class="news__title" v-if="item.title.length>30">{{item.title.substring(0,45)+'...'}}</p>
                         <p class="news__title" v-else>{{item.title}}</p>
 
                         <div class="news__black"></div>
@@ -51,6 +52,14 @@ export default {
       },
     },
     methods: {
+        convert_date(date) {
+            let day = date.split(" ")[0].split("-")[2];
+            let month = date.split(" ")[0].split("-")[1];
+            let year = date.split(" ")[0].split("-")[0];
+
+            return day+'.'+month+'.'+year;
+
+        },
         showAll() {
             this.$router.push("/news");
         },
@@ -98,40 +107,22 @@ export default {
     width: 100%;
     margin-top: 40px;
     font-family: 'MontserratBold';
-    
-
-    .news__detail {
-        .news__block {
-            display: flex;
-            flex-direction: column;
-        }
-        .news__date {
-            color: #F5C93C;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        .news__title {
-            font-size: 36px;
-            margin-bottom: 35px;
+    h1 {
+        font-weight: bold;
+        font-size: 48px;
+        line-height: 67px;
+        font-style: normal;
+        letter-spacing: -0.05em;
+        color: #000000;
+        font-family: 'MontserratBold';
+        margin-bottom: 20px;
+        @media (max-width: @mobile) {
             margin-top: 0;
-            line-height: 1;
-        }
-        .news__image {
-            margin-bottom: 35px;
-            width: 1140px;
-            height: 363px;
-            img {
-                width: 1140px;
-                height: 363px;
-                object-fit: cover;
-                border-radius: 10px;
-            }
-        }
-        .news__text {
-            font-size: 16px;
-            margin-top: 0;
+            display: none;
         }
     }
+
+   
     @media (max-width: @mobile) {
         margin-top: 0px;
     }
@@ -169,6 +160,7 @@ export default {
 
             display: flex;
             flex-direction: column;
+            justify-content: flex-end;
             position: relative;
             transition:  .0.7s;
           
@@ -198,6 +190,7 @@ export default {
           
           
            .news__black {
+              
                background-color: black;
                width: 387px;
                height: 288px; 
@@ -217,26 +210,27 @@ export default {
                line-height: 1;
                font-size: 18px;
                text-transform: uppercase;
-
-               position: absolute;
-               bottom: 10px;
-               left: 25px;
-               right: 10px;
+               font-family: "MediumMedium";
+               
                color: white;
                z-index: 10;
+               margin-top: 0;
+
+               margin-left: 20px;
                font-weight: normal !important;
                 @media (max-width: @mobile__min) {
                     font-size: 16px;
                 }
            }
            .news__date {
-               position: absolute;
+               margin-top: 0;
                color: #F5C93C;
                font-size: 14px;
                text-transform: uppercase;
-               bottom: 46px;
-               left: 25px;
+            
                z-index: 10;
+               margin-left: 20px;
+           
 
                
            }

@@ -414,6 +414,7 @@ export default {
                 opacity: .7;
             }
             p {
+                font-weight: 500;
                 margin: 0;
                 margin-left: 7px;
                 font-size: 20px;

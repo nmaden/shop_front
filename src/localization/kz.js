@@ -117,6 +117,7 @@ export default {
     guest__notif__pending: "Өңделуде",
     guest__notif__nothing: "Деректер жоқ",
     guest__notif__failed: "Сәтсіз аяқталды",
+    news__title: "Жаңалықтар",
     menu_header: [
         {
             name: "басты бет",
@@ -131,6 +132,11 @@ export default {
         {
             name: "КӨШІ-ҚОН АНЫҚТАМАЛЫҒЫ",
             to: "/migration",
+            "url": false
+        },
+        {
+            "name": "ЖАҢАЛЫҚТАР",
+            "to": "/news",
             "url": false
         },
         {

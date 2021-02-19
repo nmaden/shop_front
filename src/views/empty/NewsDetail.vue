@@ -8,16 +8,20 @@
 
 
                     <div class="news__block">
-                        <p class="news__date">{{news[0].created_at}}</p> 
+                        <p class="news__date">{{convert_date(news[0].created_at)}}</p> 
                         <p class="news__title">{{news[0].title}}</p>
 
                         <div class="news__image">
                            <img :src="get_api_back_end+news[0].file" alt="">
                         </div>
 
-                        <p class="news__text">
+                        <!-- <p class="news__text">
                            {{news[0].text}}
-                        </p>
+                        </p> -->
+                        <div v-for="(i, index) in news[0].text.split('/*')" :key="index" >
+                            <div v-if="i.length<=2"><br></div>
+                            <p   class="news__text" v-else>{{i}}</p>
+                        </div>
                     </div>
                     
 
@@ -25,6 +29,8 @@
                 </div>
 
             </div>
+
+            <Applications />
         </div>
         <Footer />
         
@@ -94,12 +100,13 @@ import Header from '../components/Header'
 
 import Footer from '../components/Footer'
 
+import Applications from '../components/Applications'
 import Nav from '../components/NavHeader'
 import { required, numeric } from 'vuelidate/lib/validators'
 
 export default {
     components: {
-        Header, Footer,Nav
+        Header, Footer,Nav,Applications
     },
     validations: {
         phone: {
@@ -132,6 +139,13 @@ export default {
         this.show_new(this.$route.params.id);
     },
     methods: {
+        convert_date(date) {
+            let day = date.split(" ")[0].split("-")[2];
+            let month = date.split(" ")[0].split("-")[1];
+            let year = date.split(" ")[0].split("-")[0];
+
+            return day+'.'+month+'.'+year;
+        },
         show_new(id) {
              this.$axios({ 
                     method: 'get',
@@ -223,6 +237,7 @@ export default {
             color: #F5C93C;
             font-size: 24px;
             margin-bottom: 15px;
+            margin-top: 0;
             @media (max-width: @mobile) {
                 font-size: 16px;
             
@@ -269,6 +284,8 @@ export default {
         .news__text {
             font-size: 16px;
             margin-top: 0;
+            font-family: "MediumExtraLight";
+            letter-spacing: 1px;
         }
     }
     @media (max-width: @mobile) {

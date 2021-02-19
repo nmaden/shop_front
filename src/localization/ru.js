@@ -123,6 +123,7 @@ export default {
     guest__notif__pending: "В обработке",
     guest__notif__nothing: "Нет данных",
     guest__notif__failed: "Ошибка",
+    news__title: "Новости",
     "menu_header": [
         {
             "name": "главная",
@@ -137,6 +138,11 @@ export default {
         {
             "name": "МИГРАЦИОННЫЙ СПРАВОЧНИК",
             "to": "/migration",
+            "url": false
+        },
+        {
+            "name": "Новости",
+            "to": "/news",
             "url": false
         },
         {

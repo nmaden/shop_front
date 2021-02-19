@@ -7,6 +7,8 @@
             <InterestingPlaces />
             <News />
             <BookHotel />
+
+            <Applications />
         </div>
         <Footer />
         
@@ -77,13 +79,14 @@ import Baner from './components/Baner'
 import WelcomeService from './components/WelcomeService'
 import InterestingPlaces from './components/InterestingPlaces'
 import News from './components/News'
+import Applications from './components/Applications'
 import BookHotel from './components/BookHotel'
 import Footer from './components/Footer'
 import { required, numeric } from 'vuelidate/lib/validators'
 
 export default {
     components: {
-        Header, Baner, WelcomeService, InterestingPlaces, BookHotel, Footer,News
+        Header, Baner, WelcomeService, InterestingPlaces, BookHotel, Footer,News,Applications
     },
     validations: {
         phone: {

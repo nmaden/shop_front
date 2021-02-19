@@ -117,6 +117,7 @@ export default {
     guest__notif__pending: "Pending",
     guest__notif__nothing: "No data",
     guest__notif__failed: "Failed",
+    news__title: "News",
     "menu_header": [
         {
             "name": "home",
@@ -131,6 +132,11 @@ export default {
         {
             "name": "migration gulde",
             "to": "/migration",
+            "url": false
+        },
+        {
+            "name": "News",
+            "to": "/news",
             "url": false
         },
         {

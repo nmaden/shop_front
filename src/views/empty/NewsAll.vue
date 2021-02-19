@@ -7,9 +7,9 @@
                 
 
                 <div class="news__row">
-                    <p class="news__tit">
-                        Новости
-                    </p>
+                    <h1 class="news__tit">
+                         {{$t('news__title')}}
+                    </h1>
 
                     <!-- <p class="news__yellow" @click="showNews">Посмотреть все</p> -->
                 </div>
@@ -19,9 +19,10 @@
 
                         <div class="news__item" v-for="(item,index) in news_all" :key="index">
                             <div class="news__item" @click="showDetail(item.id)">
-                                <img :src="get_api_back_end+item.file" alt="">
-                                <p class="news__date" v-if="item.created_at">{{item.created_at}}</p>
-                                <p class="news__title" v-if="item.title.length>30">{{item.title.substring(0,50)+'...'}}</p>
+                                <img v-if="item.file" :src="get_api_back_end+item.file" alt="">
+                                <div v-else></div>
+                                <p class="news__date" v-if="item.created_at">{{convert_date(item.created_at)}}</p>
+                                <p class="news__title" v-if="item.title.length>30">{{item.title.substring(0,45)+'...'}}</p>
                                 <p class="news__title" v-else>{{item.title}}</p>
 
                                 <div class="news__black"></div>
@@ -33,6 +34,7 @@
                 </div>
             </div>
             <BookHotel />
+            <Applications />
         </div>
         <Footer />
         
@@ -104,12 +106,13 @@ import Header from '../components/Header'
 import BookHotel from '../components/BookHotel'
 import Footer from '../components/Footer'
 
+import Applications from '../components/Applications'
 import Nav from '../components/NavHeader'
 import { required, numeric } from 'vuelidate/lib/validators'
 
 export default {
     components: {
-        Header,  BookHotel, Footer,Nav
+        Header,  BookHotel, Footer,Nav, Applications
     },
     validations: {
         phone: {
@@ -142,6 +145,13 @@ export default {
         this.news();
     },
     methods: {
+        convert_date(date) {
+            let day = date.split(" ")[0].split("-")[2];
+            let month = date.split(" ")[0].split("-")[1];
+            let year = date.split(" ")[0].split("-")[0];
+
+            return day+'.'+month+'.'+year;
+        },
         news() {
             this.$axios({ 
                     method: 'get',
@@ -219,6 +229,8 @@ export default {
         }
         .news__tit {
             font-size: 48px;
+            margin-bottom: 20px;
+            margin-top: 0;
             @media (max-width: @mobile) {
                 margin-bottom: 5px;
                 font-size: 26px;
@@ -248,7 +260,9 @@ export default {
             font-size: 36px;
             margin-bottom: 35px;
             margin-top: 0;
-            line-height: 1;
+          
+            font-family: "MediumExtraLight";
+            letter-spacing: 1px;
         }
         .news__image {
             margin-bottom: 35px;
@@ -303,6 +317,7 @@ export default {
 
             display: flex;
             flex-direction: column;
+            justify-content: flex-end;
             position: relative;
             transition:  .0.7s;
           
@@ -351,10 +366,10 @@ export default {
                line-height: 1;
                font-size: 18px;
                text-transform: uppercase;
-
-               position: absolute;
-               bottom: 10px;
-               left: 25px;
+               font-family: "MediumMedium";
+              
+               margin-left: 20px;
+               margin-top: 0;
                right: 10px;
                color: white;
                z-index: 10;
@@ -364,12 +379,11 @@ export default {
                 }
            }
            .news__date {
-               position: absolute;
                color: #F5C93C;
                font-size: 14px;
                text-transform: uppercase;
-               bottom: 46px;
-               left: 25px;
+               margin-left: 20px;
+               margin-top: 0;
                z-index: 10;
 
                
