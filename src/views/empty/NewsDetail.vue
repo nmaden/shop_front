@@ -120,44 +120,7 @@ export default {
             phone: '',
             message: '',
             name: '',
-            applications: [
-            {
-                title: 'AstraBus',
-                img: require('../../assets/logo/new.jpg'),
-                decription: "Завершение интеграция EQONAQ СИС ИСМП",
-                date: "04.03.2020"
-            },
-            {
-                title: 'AstraBus',
-                img: require('../../assets/logo/new.jpg'),
-                decription: "Завершение интеграция EQONAQ СИС ИСМП",
-                date: "04.03.2020"
-            },
-             {
-                title: 'AstraBus',
-                img: require('../../assets/logo/new.jpg'),
-                decription: "Завершение интеграция EQONAQ СИС ИСМП",
-                date: "04.03.2020"
-            },
-             {
-                title: 'AstraBus',
-                img: require('../../assets/logo/new.jpg'),
-                decription: "Завершение интеграция EQONAQ СИС ИСМП",
-                date: "04.03.2020"
-            },
-             {
-                title: 'AstraBus',
-                img: require('../../assets/logo/new.jpg'),
-                decription: "Завершение интеграция EQONAQ СИС ИСМП",
-                date: "04.03.2020"
-            },
-             {
-                title: 'AstraBus',
-                img: require('../../assets/logo/new.jpg'),
-                decription: "Завершение интеграция EQONAQ СИС ИСМП",
-                date: "04.03.2020"
-            },
-          ]
+           
         }
     },
     computed: {
