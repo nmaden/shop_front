@@ -1,15 +1,20 @@
 <template>
     <div class="news">
-        <h1>
-             {{$t('news__title')}}
-        </h1>
+
+        <div class="news__row">
+            <h1 >
+                {{$t('news__title')}}
+            </h1>
+            <p class="news__yellow" @click="showAll">Посмотреть все</p>
+        </div>
+       
 
         <div class="news__block__desktop">
 
             <div class="news__items">
 
                 <div class="news__item" v-for="(item,index) in news_all" :key="index">
-                    <div class="news__item" @click="showAll">
+                    <div class="news__item" @click="showDetail(item.id)" >
                         <img v-if="item.file" :src="get_api_back_end+item.file" alt="">
                         <div v-else></div>
                         <p class="news__date" v-if="item.created_at">{{convert_date(item.created_at)}}</p>
@@ -52,6 +57,9 @@ export default {
       },
     },
     methods: {
+        showDetail(id) {
+            this.$router.push("news-detail-"+id);
+        },
         convert_date(date) {
             let day = date.split(" ")[0].split("-")[2];
             let month = date.split(" ")[0].split("-")[1];
@@ -107,21 +115,38 @@ export default {
     width: 100%;
     margin-top: 40px;
     font-family: 'MontserratBold';
-    h1 {
-        font-weight: bold;
-        font-size: 48px;
-        line-height: 67px;
-        font-style: normal;
-        letter-spacing: -0.05em;
-        color: #000000;
-        font-family: 'MontserratBold';
-        margin-bottom: 20px;
-        @media (max-width: @mobile) {
+    .news__row {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      
+         h1 {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 48px;
+            line-height: 67px;
+            font-style: normal;
+            letter-spacing: -0.05em;
+            color: #000000;
+            font-family: 'MontserratBold';
+            margin-bottom: 20px;
+            @media (max-width: @mobile) {
+                margin-top: 0;
+            }
+        }
+
+        .news__yellow {
+            color: #F5C93C;
+            font-size: 18px;
+            cursor: pointer;
             margin-top: 0;
-            display: none;
+            margin-right: 10px;
         }
     }
 
+   
    
     @media (max-width: @mobile) {
         margin-top: 0px;

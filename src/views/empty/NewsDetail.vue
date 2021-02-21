@@ -28,6 +28,8 @@
 
                 </div>
 
+                
+
             </div>
 
             <Applications />
@@ -208,6 +210,8 @@ export default {
 @mobile__min: 375px;
 @planshet: 1200px;
 
+
+
 .news  {
     width: 100%;
     margin-top: 40px;
@@ -235,7 +239,7 @@ export default {
         }
         .news__date {
             color: #F5C93C;
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 15px;
             margin-top: 0;
             @media (max-width: @mobile) {
@@ -251,8 +255,7 @@ export default {
             @media (max-width: @mobile) {
                 font-size: 22px;
             
-            }
-                
+            }   
         }
         .news__image {
             margin-bottom: 35px;
@@ -299,107 +302,7 @@ export default {
             font-size: 17px;
             margin-top: 10px;
         }
-    }
-
-    .news__items {
-
-        display: flex;
-        flex-wrap: wrap;
-        @media (max-width: @mobile) {
-            width: 100%;
-            justify-content: center;
-        
-        }
-        .news__item:hover {
-            transform: scale(1.02);
-            transition: 0.7s;
-        }
-        .news__item {
-            cursor: pointer;
-            width: 387px;
-            height: 288px;
-            
-
-            margin-right: 13px;
-            margin-bottom: 20px;
-
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            transition:  .0.7s;
-          
-            @media (max-width: @mobile) {
-                width: 100%;
-                margin-right: 0;
-            }
-            @media (max-width: @planshet) {
-                width: 100%;
-                margin-right: 0;
-            }
-           img {
-             object-fit: cover;
-             width: 387px;
-             height: 288px; 
-             border-radius: 20px;
-             position: absolute;
-             top: 0;
-            @media (max-width: @mobile) {
-                width: 100%;
-            }
-            @media (max-width: @planshet) {
-                width: 100%;
-            }
-            
-           }
-          
-          
-           .news__black {
-               background-color: black;
-               width: 387px;
-               height: 288px; 
-               border-radius: 20px;
-               opacity: 0.4;
-               position: absolute;
-               top: 0;
-
-                @media (max-width: @mobile) {
-                    width: 100%;
-                }
-                @media (max-width: @planshet) {
-                    width: 100%;
-                }
-           }
-           .news__title {
-               line-height: 1;
-               font-size: 18px;
-               text-transform: uppercase;
-
-               position: absolute;
-               bottom: 10px;
-               left: 25px;
-               right: 10px;
-               color: white;
-               z-index: 10;
-               font-weight: normal !important;
-                @media (max-width: @mobile__min) {
-                    font-size: 16px;
-                }
-           }
-           .news__date {
-               position: absolute;
-               color: #F5C93C;
-               font-size: 14px;
-               text-transform: uppercase;
-               bottom: 46px;
-               left: 25px;
-               z-index: 10;
-
-               
-           }
-        }
-
-    }
-    
+    }   
 }
 
 .support__modal {
