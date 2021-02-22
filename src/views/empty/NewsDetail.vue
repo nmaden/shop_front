@@ -12,7 +12,7 @@
                         <p class="news__title">{{news[0].title}}</p>
 
                         <div class="news__image">
-                           <img :src="get_api_back_end+news[0].file" alt="">
+                           <img  v-if="news[0].file" :src="get_api_back_end+news[0].file" alt="">
                         </div>
 
                         <!-- <p class="news__text">
@@ -23,7 +23,46 @@
                             <p   class="news__text" v-else>{{i}}</p>
                         </div>
                     </div>
+                    <div class="eq__column news__right__side">
+                          <p class="rq__mb--l news__left__title">Другие новости</p>
+
+                          <div class="news__items" >
+                            
+                              <div class="eq__column news__item  rq__mb--l"  v-for="(item,index) in news_all" :key="index">
+
+                                  <div class="eq__column news__item news__item__line" @click="show_new(item.id)">
+
+                                    <div class="eq__row eq__ac eq__mb__xs">
+                                        <p class="news__date" v-if="item.created_at">{{convert_date(item.created_at)}}</p>
+                                        <div class="eq__row eq__ac news__view">
+                                            <img src="../../assets/icons/eye.svg" alt="">
+                                            <p>{{item.view_count}}</p>
+                                        </div>
+                                    </div>
                     
+                                    <p class="rq__mb--xs news__item__title">{{item.title}}</p>
+
+                                    <div class="eq__row">
+                                        
+                                       <!-- <div class="news__owner rq__mb--xs eq__mr--xl news__view">
+                                          <q-icon class="eq__table--eye" name="mdi-eye-outline"></q-icon>
+                                          <p v-if="item.view_count">{{item.view_count}}</p>
+                                          <p v-else>0</p>
+                                      </div> -->
+                                      <!-- <div class="news__owner rq__mb--xs ">
+                                        <q-icon name="mdi-account-outline"></q-icon>
+                                      </div> -->
+                                     
+                                    </div>
+                                    
+
+                                    <p class="rq__mb--s news__descr"> {{ item.text  }}</p>
+
+                                   
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
 
 
                 </div>
@@ -124,6 +163,7 @@ export default {
     },
     data () {
         return {
+            news_all: null,
             news: null,
             support: false,
             phone: '',
@@ -139,8 +179,22 @@ export default {
     },
     mounted() {
         this.show_new(this.$route.params.id);
+        this.all_news();
     },
     methods: {
+
+        all_news() {
+            this.$axios({ 
+                method: 'get',
+                url: this.$API_URL + 'v2/' + 'news/all', 
+            })
+            .then((response) => {
+                this.news_all = response.data.data
+            })
+            .catch((error) => {
+                console.warn(error);
+            });  
+        },
         convert_date(date) {
             let day = date.split(" ")[0].split("-")[2];
             let month = date.split(" ")[0].split("-")[1];
@@ -155,13 +209,28 @@ export default {
                 })
                 .then((response) => {
                     this.news = response.data.data
-
-                    console.log(this.news);
-                
+                    this.add_view_count(id);
                 })
                 .catch((error) => {
                     console.warn(error);
                 }); 
+        },
+        add_view_count(id) {
+         
+            this.$axios({ 
+                method: 'post',
+                url: this.$API_URL + 'v2/' + 'news/add/count',
+                data: {
+                    id:id
+                }
+            })
+            .then(() => {
+                
+                this.all_news();
+            })
+            .catch((error) => {
+                console.warn(error);
+            }); 
         },
         showNews() {
 
@@ -221,7 +290,7 @@ export default {
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-      
+       
         .news__tit {
             font-size: 48px;
         }
@@ -233,14 +302,117 @@ export default {
     }
 
     .news__detail {
+        display: flex;
+        flex-direction: row;
+
+        .news__right__side {
+            @media (max-width: @mobile) {
+               display: none;
+            }
+            @media (max-width: @planshet) {
+               width: 300px;
+            }
+            
+        }
+        .news__items {
+            overflow-y: auto;
+            height: 700px;
+            .eq__mb__xs {
+                margin-bottom: 10px;
+            }
+            .eq__row {
+                display: flex;
+                flex-direction: row;
+                .news__view {
+                    img {
+                        margin-right: 5px;
+                    }
+                    p {
+                        font-size: 12px;
+                        margin-bottom: 0;
+                    }
+                }
+                .news__date {
+                    margin-bottom: 0;
+                    margin-right: 10px;
+                }
+            }
+            .eq__ac {
+                align-items: center;
+            }
+            .news__item__line {
+                border-bottom: 1px solid #EAF3F9;
+            }
+            .news__item {
+                transition: all 5s;
+                cursor: pointer;
+                
+                padding-bottom: 10px;
+                p {
+                    margin-top: 0;
+                }
+                .news__date {
+                    color: #ccc;
+                    font-family: 'MediumExtraLight' !important;
+                    font-size: 14px;
+                }
+                .news__item__title {
+                    color: #2C2C2C;
+                    font-weight: 700;
+                    font-size: 16px;
+                }
+                .news__item__title:hover {
+                    color: #F5C93C;
+                }
+                
+                .news__title:hover {
+                    color: var(--main-text-hover-color);
+                }
+                .news__descr {
+                    font-family: 'MediumExtraLight' !important;
+                    color: #808080;
+                    font-size: 16px;
+                    overflow-y: auto;
+                    max-height: 80px;
+                    -webkit-mask-image: -webkit-gradient(linear,left 10%,left bottom,from(black),to(rgba(0,0,0,0)));
+                }
+                .news__descr::-webkit-scrollbar {
+                    width: 7px;
+                }
+
+                .news__descr::-webkit-scrollbar-track {
+                    border-radius: 2px;
+                    background-color: white;
+                }
+                .news__descr::-webkit-scrollbar-thumb {
+                    background-color: white;
+                    border-radius: 2px;
+                    height: 24px;
+                }
+            }
+        }
+        .news__items::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        .news__items::-webkit-scrollbar-track {
+            border-radius: 2px;
+            background-color: white;
+        }
+        .news__items::-webkit-scrollbar-thumb {
+            background-color: white;
+            border-radius: 2px;
+            height: 24px;
+        }
+
         .news__block {
             display: flex;
             flex-direction: column;
+            margin-right: 20px;
         }
         .news__date {
             color: #F5C93C;
             font-size: 20px;
-            margin-bottom: 15px;
             margin-top: 0;
             @media (max-width: @mobile) {
                 font-size: 16px;
@@ -265,7 +437,7 @@ export default {
                 width: 1140px;
                 height: 363px;
                 object-fit: cover;
-                border-radius: 10px;
+                border-radius: 15px;
                 @media (max-width: @mobile) {
           
                 width: 100%;
