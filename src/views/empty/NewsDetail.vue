@@ -15,13 +15,16 @@
                            <img  v-if="news[0].file" :src="get_api_back_end+news[0].file" alt="">
                         </div>
 
-                        <!-- <p class="news__text">
-                           {{news[0].text}}
-                        </p> -->
-                        <div v-for="(i, index) in news[0].text.split('/*')" :key="index" >
-                            <div v-if="i.length<=2"><br></div>
-                            <p   class="news__text" v-else>{{i}}</p>
+                    
+                        <div v-if="news.text && news.text.includes('/*')">
+                          <div v-for="(i, index) in news.text.split('/*')" :key="index" >
+                                    <div v-if="i.length<=2"><br></div>
+                                    <p   v-else>{{i}}</p>
+                          </div>  
                         </div>
+                        <p v-else>
+                          {{news.text}}
+                        </p>
                     </div>
                     <div class="eq__column news__right__side">
                           <p class="rq__mb--l news__left__title">Другие новости</p>
@@ -36,7 +39,8 @@
                                         <p class="news__date" v-if="item.created_at">{{convert_date(item.created_at)}}</p>
                                         <div class="eq__row eq__ac news__view">
                                             <img src="../../assets/icons/eye.svg" alt="">
-                                            <p>{{item.view_count}}</p>
+                                            <p v-if="item.view_count">{{item.view_count}}</p>
+                                            <p v-else>0</p>
                                         </div>
                                     </div>
                     
@@ -312,6 +316,9 @@ export default {
             @media (max-width: @planshet) {
                width: 300px;
             }
+            .news__left__title {
+                margin-top: 0;
+            }
             
         }
         .news__items {
@@ -371,7 +378,7 @@ export default {
                 .news__descr {
                     font-family: 'MediumExtraLight' !important;
                     color: #808080;
-                    font-size: 16px;
+                    font-size: 14px;
                     overflow-y: auto;
                     max-height: 80px;
                     -webkit-mask-image: -webkit-gradient(linear,left 10%,left bottom,from(black),to(rgba(0,0,0,0)));
