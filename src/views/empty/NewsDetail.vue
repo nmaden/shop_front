@@ -15,15 +15,15 @@
                            <img  v-if="news[0].file" :src="get_api_back_end+news[0].file" alt="">
                         </div>
 
-                    
-                        <div v-if="news.text && news.text.includes('/*')">
-                          <div v-for="(i, index) in news.text.split('/*')" :key="index" >
+                        <div v-if="news[0].text!='' && news[0].text.includes('/*')">
+                       
+                          <div v-for="(i, index) in news[0].text.split('/*')" :key="index" >
                                     <div v-if="i.length<=2"><br></div>
-                                    <p   v-else>{{i}}</p>
+                                    <p class="news__text"   v-else>{{i}}</p>
                           </div>  
                         </div>
-                        <p v-else>
-                          {{news.text}}
+                        <p v-else class="news__text">
+                          {{news[0].text}}
                         </p>
                     </div>
                     <div class="eq__column news__right__side">
@@ -60,7 +60,7 @@
                                     </div>
                                     
 
-                                    <p class="rq__mb--s news__descr"> {{ item.text  }}</p>
+                                    <p class="rq__mb--s news__descr"> {{ item.text.replace("/*","")  }}</p>
 
                                    
                                   </div>
@@ -367,6 +367,7 @@ export default {
                     color: #2C2C2C;
                     font-weight: 700;
                     font-size: 16px;
+                    margin-bottom: 5px;
                 }
                 .news__item__title:hover {
                     color: #F5C93C;
@@ -415,7 +416,13 @@ export default {
         .news__block {
             display: flex;
             flex-direction: column;
-            margin-right: 20px;
+            margin-right: 40px;
+            @media (max-width: @mobile) {
+               margin-right: 0;
+            }
+            @media (max-width: @planshet) {
+               margin-right: 30px;
+            }
         }
         .news__date {
             color: #F5C93C;

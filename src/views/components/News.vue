@@ -187,7 +187,11 @@ export default {
             flex-direction: column;
             justify-content: flex-end;
             position: relative;
-            transition:  .0.7s;
+            transition: 0.7s;
+            transition-property: all;
+            transition-duration: 0.7s;
+            transition-timing-function: ease;
+            transition-delay: 0s;
           
             @media (max-width: @mobile) {
                 width: 100%;
