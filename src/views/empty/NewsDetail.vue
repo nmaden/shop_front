@@ -15,16 +15,8 @@
                            <img  v-if="news[0].file" :src="get_api_back_end+news[0].file" alt="">
                         </div>
 
-                        <div v-if="news[0].text!='' && news[0].text.includes('/*')">
-                       
-                          <div v-for="(i, index) in news[0].text.split('/*')" :key="index" >
-                                    <div v-if="i.length<=2"><br></div>
-                                    <p class="news__text"   v-else>{{i}}</p>
-                          </div>  
-                        </div>
-                        <p v-else class="news__text">
-                          {{news[0].text}}
-                        </p>
+                    
+                        <div class="news__text" v-html="news[0].text"></div>
                     </div>
                     <div class="eq__column news__right__side">
                           <p class="rq__mb--l news__left__title">Другие новости</p>
@@ -60,8 +52,7 @@
                                     </div>
                                     
 
-                                    <p class="rq__mb--s news__descr"> {{ item.text.replace("/*","")  }}</p>
-
+                                    <div class="rq__mb--s news__descr" v-html="item.text"></div>
                                    
                                   </div>
                               </div>
