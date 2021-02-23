@@ -5,7 +5,14 @@
             <Nav />
             <div class="news">
                 
-
+                <!-- <div v-show="loader_scan" class="scan__preloader">
+                        <div class="scan__preloader__flex">
+                            <v-progress-circular
+                                indeterminate
+                                color="#FFCC47"
+                            ></v-progress-circular>
+                        </div>
+                </div> -->
                 <div class="news__row">
                     <h1 class="news__tit">
                          {{$t('news__title')}}
@@ -13,11 +20,13 @@
 
                     <!-- <p class="news__yellow" @click="showNews">Посмотреть все</p> -->
                 </div>
-
+                
+                
                 <div class="news__block__desktop">
                         <div class="news__items">
-
+                        <transition-group class="news__items__wrap" name="fade" mode="out-in" tag="div">
                         <div class="news__item" v-for="(item,index) in news_all" :key="index">
+                            
                             <div class="news__item" @click="showDetail(item.id)">
                                 <img v-if="item.file" :src="get_api_back_end+item.file" alt="">
                                 <div v-else></div>
@@ -30,11 +39,14 @@
 
                             </div>
                         </div>
+
+                            </transition-group>
+                      
                     </div>         
                 </div>
+                
             </div>
             <BookHotel />
-            <Applications />
         </div>
         <Footer />
         
@@ -105,14 +117,12 @@ import Header from '../components/Header'
 
 import BookHotel from '../components/BookHotel'
 import Footer from '../components/Footer'
-
-import Applications from '../components/Applications'
 import Nav from '../components/NavHeader'
 import { required, numeric } from 'vuelidate/lib/validators'
 
 export default {
     components: {
-        Header,  BookHotel, Footer,Nav, Applications
+        Header,  BookHotel, Footer,Nav
     },
     validations: {
         phone: {
@@ -133,6 +143,7 @@ export default {
     },
     data () {
         return {
+            loader_scan: true,
             news_all: [],
             support: false,
             phone: '',
@@ -142,6 +153,8 @@ export default {
         }
     },
     mounted() {
+
+        window.scrollTo(0,0);
         this.news();
     },
     methods: {
@@ -158,6 +171,7 @@ export default {
                     url: this.$API_URL + 'v2/' + 'news/all', 
                 })
                 .then((response) => {
+                    this.loader_scan = false;
                     this.news_all = response.data.data
                 
                 })
@@ -212,6 +226,32 @@ export default {
 @mobile__min: 375px;
 @planshet: 1200px;
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+.scan__preloader {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-items: center;
+    .scan__preloader__flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 100%;
+    }
+}
 .news  {
     width: 100%;
     margin-top: 40px;
@@ -297,6 +337,10 @@ export default {
 
         display: flex;
         flex-wrap: wrap;
+        .news__items__wrap {
+            display: flex;
+        flex-wrap: wrap;
+        }
         @media (max-width: @mobile) {
             width: 100%;
             justify-content: center;
@@ -307,6 +351,7 @@ export default {
             transition: 0.7s;
         }
         .news__item {
+            
             cursor: pointer;
             width: 387px;
             height: 288px;
@@ -324,6 +369,7 @@ export default {
             transition-duration: 0.7s;
             transition-timing-function: ease;
             transition-delay: 0s;
+
           
             @media (max-width: @mobile) {
                 width: 100%;
@@ -389,6 +435,7 @@ export default {
                margin-left: 20px;
                margin-top: 0;
                z-index: 10;
+               margin-bottom: 5px;
 
                
            }

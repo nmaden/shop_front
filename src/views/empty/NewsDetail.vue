@@ -8,8 +8,9 @@
 
 
                     <div class="news__block">
-                        <p class="news__date">{{convert_date(news[0].created_at)}}</p> 
                         <p class="news__title">{{news[0].title}}</p>
+
+                        <p class="news__date">{{convert_date(news[0].created_at)}}</p> 
 
                         <div class="news__image">
                            <img  v-if="news[0].file" :src="get_api_back_end+news[0].file" alt="">
@@ -333,6 +334,7 @@ export default {
                 .news__date {
                     margin-bottom: 0;
                     margin-right: 10px;
+                    font-family: 'system-ui';
                 }
             }
             .eq__ac {
@@ -368,7 +370,7 @@ export default {
                     color: var(--main-text-hover-color);
                 }
                 .news__descr {
-                    font-family: 'MediumExtraLight' !important;
+                    font-family: "system-ui";
                     color: #808080;
                     font-size: 14px;
                     overflow-y: auto;
@@ -426,7 +428,7 @@ export default {
         }
         .news__title {
             font-size: 36px;
-            margin-bottom: 35px;
+            margin-bottom: 15px;
             margin-top: 0;
             line-height: 1;
             @media (max-width: @mobile) {
@@ -464,8 +466,9 @@ export default {
         .news__text {
             font-size: 16px;
             margin-top: 0;
-            font-family: "MediumExtraLight";
+            font-family: "system-ui";
             letter-spacing: 1px;
+
         }
     }
     @media (max-width: @mobile) {

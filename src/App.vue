@@ -36,4 +36,5 @@ export default {
     font-family: "MontserratBold";
 }
 
+
 </style>
