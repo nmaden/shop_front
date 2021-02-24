@@ -252,6 +252,7 @@ export default {
                 }
            }
            .news__date {
+               margin-bottom: 5px;
                margin-top: 0;
                color: #F5C93C;
                font-size: 14px;

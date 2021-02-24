@@ -67,7 +67,7 @@
 
             </div>
 
-            <Applications />
+     
         </div>
         <Footer />
         
@@ -137,13 +137,12 @@ import Header from '../components/Header'
 
 import Footer from '../components/Footer'
 
-import Applications from '../components/Applications'
 import Nav from '../components/NavHeader'
 import { required, numeric } from 'vuelidate/lib/validators'
 
 export default {
     components: {
-        Header, Footer,Nav,Applications
+        Header, Footer,Nav
     },
     validations: {
         phone: {

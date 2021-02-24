@@ -451,7 +451,7 @@ export default {
                 
                 cursor: pointer;
                 margin-right: 10px;
-                margin-top: 12px;
+                margin-top: 10px;
                 font-style: normal;
                 font-weight: 500;
                 font-size: 18px;
@@ -480,16 +480,19 @@ export default {
         }
         .lang {
             width: 92px;
+            height: 45px;
+
             z-index: 99;
             font-family: 'MontserratBold';
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
         .user {
             margin-left: 15px;
             z-index: 99;
-            height: 40px;
+            height: 45px;
 
             .main__header__menu__user {
                 position: relative;
