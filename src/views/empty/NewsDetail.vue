@@ -369,7 +369,7 @@ export default {
                     color: var(--main-text-hover-color);
                 }
                 .news__descr {
-                    font-family: "system-ui";
+                    font-family: 'MediumLight';
                     color: #808080;
                     font-size: 14px;
                     overflow-y: auto;
