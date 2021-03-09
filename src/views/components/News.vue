@@ -133,7 +133,8 @@ export default {
             font-family: 'MontserratBold';
             margin-bottom: 20px;
             @media (max-width: @mobile) {
-                margin-top: 0;
+                margin-top: 0; 
+                font-size: 30px;
             }
         }
 
@@ -143,6 +144,9 @@ export default {
             cursor: pointer;
             margin-top: 0;
             margin-right: 10px;
+            @media (max-width: @mobile) {
+                font-size: 16px;
+            }
         }
     }
 

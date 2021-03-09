@@ -409,11 +409,13 @@ export default {
             display: flex;
             flex-direction: column;
             margin-right: 40px;
-            @media (max-width: @mobile) {
-               margin-right: 0;
-            }
+            
             @media (max-width: @planshet) {
                margin-right: 30px;
+            }
+            @media (max-width: @mobile) {
+               width: 100%;
+               margin-right: 0;
             }
         }
         .news__date {
@@ -432,7 +434,7 @@ export default {
             line-height: 1;
             @media (max-width: @mobile) {
                 font-size: 22px;
-            
+                margin-top: 15px;
             }   
         }
         .news__image {

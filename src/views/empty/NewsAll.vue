@@ -286,40 +286,7 @@ export default {
         }
     }
 
-    .news__detail {
-        .news__block {
-            display: flex;
-            flex-direction: column;
-        }
-        .news__date {
-            color: #F5C93C;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        .news__title {
-            font-size: 36px;
-            margin-bottom: 35px;
-            margin-top: 0;
-          
-            font-family: "MediumExtraLight";
-            letter-spacing: 1px;
-        }
-        .news__image {
-            margin-bottom: 35px;
-            width: 1140px;
-            height: 363px;
-            img {
-                width: 1140px;
-                height: 363px;
-                object-fit: cover;
-                border-radius: 10px;
-            }
-        }
-        .news__text {
-            font-size: 16px;
-            margin-top: 0;
-        }
-    }
+
     @media (max-width: @mobile) {
         margin-top: 0px;
     }
