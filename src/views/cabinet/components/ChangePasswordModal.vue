@@ -10,7 +10,6 @@
                  </h3>
                  <p>
                     {{$t('change__password__description')}} <br>
-                     (!, @, $, %, ^, &, *, -, +)
                  </p>
                  <div class="registrations__form">
                     <div class="input__block">
