@@ -266,7 +266,7 @@ export default {
             }
         },
         downloadDoc(link) {
-            window.open('http://127.0.0.1:8000'+link,"_blank");
+            window.open('https://api.greenclinic.kz'+link,"_blank");
         },
         openPurchases() {
             this.page = 1;
