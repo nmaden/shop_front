@@ -543,7 +543,7 @@ export default {
     flex-direction: column;
 }
 .applications {
-    width: 1440px;
+    width: 1280px;
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -577,7 +577,7 @@ export default {
         .contact__r {
            
             img {
-                width: 828px;
+                width: 690px;
                 height: 452px;
                 @media (max-width: @planshet) {
                     width: 100%;
@@ -621,6 +621,7 @@ export default {
         margin-top: 35px;
         background:  #FAFAFA;
         p,a {
+            text-decoration: none;
             margin: 11px 0 12px 26px;
             cursor: pointer;
             color: #BEBEBE;  
@@ -895,7 +896,7 @@ export default {
                 background: #FFFFFF;
                 box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.05);
                 margin-bottom: 20px;
-                width: 1072px;
+                width: 930px;
                 @media (max-width: @planshet) {
                     width: 100%;
                     flex-direction: column;

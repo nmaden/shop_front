@@ -1,9 +1,9 @@
 <template>
 
 <div>
-    <header >
+    <header  class="item__column item__ac">
          
-        <div class="container">
+        <div class="green__main">
 
             <div class="header__row">
 
@@ -45,9 +45,9 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="header__contact">
+                    <div class="header__contact item__row item__ac">
                         <div class="header__contact--icon">
-                            <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="39" height="39" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M44.9166 34.545V40.67C44.919 41.2386 44.8025 41.8014 44.5747 42.3224C44.3469 42.8434 44.0128 43.3111 43.5938 43.6955C43.1748 44.0799 42.6801 44.3725 42.1415 44.5547C41.6029 44.7369 41.0321 44.8045 40.4658 44.7533C34.1833 44.0707 28.1484 41.9239 22.8462 38.4854C17.9132 35.3508 13.7309 31.1684 10.5962 26.2354C7.14576 20.9091 4.99847 14.8449 4.32831 8.53416C4.27729 7.96957 4.34439 7.40055 4.52533 6.86331C4.70627 6.32608 4.9971 5.8324 5.37929 5.41372C5.76148 4.99504 6.22666 4.66053 6.74522 4.43148C7.26377 4.20243 7.82434 4.08386 8.39123 4.08333H14.5162C15.5071 4.07358 16.4676 4.42445 17.2189 5.07054C17.9702 5.71663 18.4609 6.61386 18.5996 7.59499C18.8581 9.55513 19.3375 11.4797 20.0287 13.3321C20.3034 14.0628 20.3629 14.857 20.2 15.6205C20.0372 16.3841 19.6589 17.0849 19.11 17.64L16.5171 20.2329C19.4235 25.3443 23.6557 29.5765 28.7671 32.4829L31.36 29.89C31.9151 29.3411 32.6159 28.9628 33.3794 28.7999C34.1429 28.6371 34.9371 28.6966 35.6679 28.9712C37.5202 29.6625 39.4448 30.1419 41.405 30.4004C42.3967 30.5403 43.3025 31.0399 43.95 31.804C44.5975 32.5682 44.9415 33.5437 44.9166 34.545Z" stroke="#0F1721" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
@@ -183,6 +183,10 @@ export default {
 <style scoped lang="less">
 @mobile: 900px;
 @planshet: 1200px;
+
+.green__main {
+    width: 1280px;
+}
 .rotateimg180 {
   -webkit-transform:rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -443,10 +447,11 @@ body{
 }
 
 .header__row {
+    height: 110px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 -15px;
+    
 }
 
 .header__logo {

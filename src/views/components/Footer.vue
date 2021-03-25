@@ -1,6 +1,6 @@
 <template>
-    <div class="footer">
-        <div class="container">
+    <div class="item__column item__ac footer">
+        <div class="green__main">
 
             <div class="footer__row">
 
@@ -121,6 +121,13 @@ export default {
 <style lang="less" scoped>
 @mobile: 900px;
 @planshet: 1200px;
+.item__column { 
+    display: flex;
+    flex-direction: column;
+}
+.item__ac {
+    align-items: center;
+}
 .footer {
     background: #FCFCFC;
     padding: 65px 0 50px 0;
@@ -235,6 +242,9 @@ export default {
 @mobile: 900px;
 @planshet: 1200px;
 
+.green__main {
+    width: 1280px;
+}
 .v-sheet.v-list {
     border-radius: 0;
     text-align: center;
