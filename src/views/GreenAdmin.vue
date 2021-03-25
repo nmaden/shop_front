@@ -293,6 +293,7 @@
 
         </div>
         <v-alert
+            
             type="success"
             :value ="savedData"
             transition="fade-transition"
@@ -450,7 +451,7 @@ export default {
                 this.getApplications();
                 window.setInterval(() => {
                     this.savedData = false;
-                }, 2000); 
+                }, 4000); 
             })
         },
         downloadDoc(link) {
@@ -482,7 +483,7 @@ export default {
                     
                     window.setInterval(() => {
                         this.savedData = false;
-                    }, 2000); 
+                    }, 4000); 
                     this.seePurchase = true;
             });
         },
@@ -517,7 +518,7 @@ export default {
                 this.getCategories();
                 window.setInterval(() => {
                     this.savedData = false;
-                },2000); 
+                },4000); 
             })
         },
         logout() {
@@ -573,7 +574,7 @@ export default {
                 this.savedData = true;
                 window.setInterval(() => {
                     this.savedData = false;
-                }, 2000); 
+                }, 4000); 
             })
         },
         editSave(index) {
@@ -603,7 +604,7 @@ export default {
                     this.getCategories();
                     window.setInterval(() => {
                         this.savedData = false;
-                    }, 2000); 
+                    }, 4000); 
                     
                     
             });
@@ -640,7 +641,7 @@ export default {
 
                 window.setInterval(() => {
                     this.savedData = false;
-                }, 2000);
+                }, 4000);
                 this.dialog = false;
             })
         },

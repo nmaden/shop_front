@@ -38,7 +38,7 @@
                                 <a href="https://purchases.greenclinic.kz">Закупки</a>
                             </li>
                             <li>
-                                <a href="#">Документация</a>
+                                <a href="https://purchases.greenclinic.kz">Документация</a>
                             </li>
                             <li>
                                 <a href="https://greenclinic.kz/contacts">Контакты</a>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="header__contact--info">
                             <a href="tel:+7 776 898 38 00" class="header__contact--phone">+7 776 898 38 00</a>
-                            <a class="header__contact--popap">Заказать звонок</a>
+                            <!-- <a class="header__contact--popap">Заказать звонок</a> -->
                         </div>
                     </div>
                     <div class="header__right--row">
@@ -104,15 +104,15 @@
                 
                 <div class="top__phone item__column">
                     <a href="tel:+7 776 898 38 00" >+7 776 898 38 00</a>
-                    <a >Заказать звонок</a>
+                    <!-- <a >Заказать звонок</a> -->
                 </div>
             </div>
              
             <img src="../../assets/all/x.svg" alt="" @click="show_left=false">
         </div>
 
-        <a href="" class="top__menu__item">О нас</a>
-        <a href="" class="top__menu__item">Новости</a>
+        <a href="https://greenclinic.kz/about" class="top__menu__item">О нас</a>
+        <a href="https://greenclinic.kz" class="top__menu__item">Новости</a>
         <div class="item__row item__ac" @click="item__show=!item__show">
             <a class="top__menu__item">Отделения</a>
             <img class="top__menu__item__icon"  v-if="!item__show"  src="../../assets/all/icon_down.png" alt="">
@@ -120,14 +120,14 @@
         </div>
 
         <div class="item__column item__ac" v-if="item__show">
-            <a href="" class="top__menu__item__min">Поликлиника</a>
-            <a href="" class="top__menu__item__min">Стационар</a>
-            <a href="" class="top__menu__item__min">Отделение лучевой <br> диагностики</a>
+            <a href="https://greenclinic.kz/departments/poliklinika" class="top__menu__item__min">Поликлиника</a>
+            <a href="https://greenclinic.kz/departments/stacionar" class="top__menu__item__min">Стационар</a>
+            <a href="https://greenclinic.kz/departments/luchevaya-diagnostika" class="top__menu__item__min">Отделение лучевой <br> диагностики</a>
         </div>
         
-        <a href="" class="top__menu__item">Закупки</a>
-        <a href="" class="top__menu__item">Документация</a>
-        <a href="" class="top__menu__item">Контакты</a>
+        <a href="https://purchases.greenclinic.kz/" class="top__menu__item">Закупки</a>
+        <a href="https://greenclinic.kz" class="top__menu__item">Документация</a>
+        <a href="https://greenclinic.kz/contacts" class="top__menu__item">Контакты</a>
     </div>
 </div>
     

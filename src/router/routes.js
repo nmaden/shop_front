@@ -24,7 +24,7 @@ export const routes = [
     },
 
   
- 
+    
     {
       path: '*',
       name: '404',

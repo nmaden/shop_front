@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="footer__left--linck">
-                        <a class="footer__left--popap">Получить консультацию</a>
+                        <!-- <a class="footer__left--popap">Получить консультацию</a> -->
                     </div>
                 </div>
 

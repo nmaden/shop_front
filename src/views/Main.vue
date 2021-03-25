@@ -6,7 +6,7 @@
         <div class="applications">
 
             <div class="applications__menu item__row item__ac">
-                <p>Главная</p>
+                <a href="https://greenclinic.kz/" target="_blank">Главная</a>
                 <p v-bind:class="{active__menu: page==1}" @click="openPurchases"> Закупки</p>
                 <p v-bind:class="{active__menu: page==2}" v-if="page==2">Подать заявку</p>
             </div>
@@ -132,17 +132,17 @@
 
                         <div class="item__column">
                             <p class="contact__b__title">Адрес</p>
-                            <p class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</p>
+                            <a href="https://yandex.kz/maps/-/CCUUqJFm~D" target="_blank" class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</a>
                         </div>
                     </div>
                     <div class="item__row item__mb__s">
                         <img class="contact__i" src="../assets/all/contact_i.png" alt="">
                         <div class="item__column">
                             <p class="contact__b__title">Телефон</p>
-                            <p class="contact__text">+7 (7172) 79 77 22</p>   
-                            <p class="contact__text">+7(71-72) 79-77-20 (отделение лучевой диагностики)</p>
-                            <p class="contact__text"> +7 776 898 38 00</p>
-                            <p class="contact__text">+7(771)-033-55-59 (отделение лучевой диагностики)</p>
+                            <a href="tel:+7 (7172) 79 77 22" class="contact__text">+7 (7172) 79 77 22</a>   
+                            <a href="tel:+7(71-72) 79-77-20" class="contact__text">+7(71-72) 79-77-20 (отделение лучевой диагностики)</a>
+                            <a href="tel:+7 776 898 38 00" class="contact__text"> +7 776 898 38 00</a>
+                            <a href="te:+7(771)-033-55-59" class="contact__text"> +7(771)-033-55-59 (отделение лучевой диагностики)</a>
                         </div>
                     </div>
                     <div class="item__row item__mb__s item__ac">
@@ -159,7 +159,7 @@
                         <img class="contact__i" src="../assets/all/post_i.png" alt="">
                         <div class="item__column">
                             <p class="contact__b__title">Электронная почта</p>
-                            <p class="contact__text">info@greenclinic.kz</p>
+                            <a href="mailto:info@greenclinic.kz" class="contact__text">info@greenclinic.kz</a>
                         </div>
                     </div>
 
@@ -608,7 +608,10 @@ export default {
         .contact__text {
            font-family: 'Regular'; 
            margin-bottom: 2px;
+           text-decoration: none;
+           color: #0F1721;
         }
+  
     }
     .active__menu {
         color: #85C418 !important;
@@ -617,12 +620,12 @@ export default {
     .applications__menu {
         margin-top: 35px;
         background:  #FAFAFA;
-        p {
+        p,a {
             margin: 11px 0 12px 26px;
             cursor: pointer;
             color: #BEBEBE;  
         }
-        p:hover {
+        p:hover,a:hover {
             color: #85C418;
         }
         .active {
