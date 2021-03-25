@@ -36,8 +36,15 @@ export const routes = [
     },
     {
       path: '/login',
-      name: 'Auth',
+      name: 'GreenLogin',
       component: () => import('../views/empty/Auth.vue'),
+      meta: {layout: 'not_authorized', requiresAuth: false},
+      beforeEnter: authGuard
+    },
+    {
+      path: '/green/admin',
+      name: 'GreenAdmin',
+      component: () => import('../views/empty/GreenAdmin.vue'),
       meta: {layout: 'not_authorized', requiresAuth: false},
       beforeEnter: authGuard
     },

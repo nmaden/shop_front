@@ -31,6 +31,14 @@ export default {
   font-family: "MediumMedium";
   src: url('./font/Montserrat-Medium.ttf');
 }
+@font-face {
+  font-family: "Regular";
+  src: url('./font/OpenSans-Regular.ttf');
+}
+@font-face {
+  font-family: "Bold";
+  src: url('./font/OpenSans-Bold.ttf');
+}
 
 .v-notices .v-toast .v-toast-text {
     font-family: "MontserratBold";

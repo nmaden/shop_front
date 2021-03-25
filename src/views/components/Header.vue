@@ -1,250 +1,136 @@
 <template>
-    <div>
-        <div class="header">
-            <div class="header__l">
-                <div class="icon__mobile">
-                    <img 
-                        @click="show_mobile_menu = true" 
-                        src="../../assets/icons/menu_icon_mobile.svg" 
-                        alt="menu"
-                    />
-                </div>
 
-                <router-link to="/">
-                    <img src="../../assets/logo/logo.svg" alt="logo">
-                </router-link>
-                <div class="menu__header__icon" @click="show_desctop_menu = true">
-                    <img src="../../assets/icons/menu__header__icons.svg" alt="menu">
-                    <p>
-                        {{$t('menu__header__title')}} 
-                    </p>
-                </div>
-                <div class="languages">
-                    <select
-                        v-model="lang"
-                        @change="sendLocale"
-                    >
-                        <option 
-                            v-for="lang in langs"
-                            :key="lang.type"
-                            :value="lang.type"
-                        >
-                            {{lang.label}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="header__r">
-                
-                <div class="search">
-                    <router-link to="/search">
-                        <img src="../../assets/icons/search.svg" alt="search">
-                    </router-link>
-                </div>
-                <div class="lang">
-                    <v-select
-                        :items="langs"
-                        :hide-details="true"
-                        :flat="true"
-                        item-text="label"
-                        item-value="type"
-                        item-color="#000"
-                        solo
-                        dense
-                        v-model="lang"
-                        @change="sendLocale"
-                    ></v-select>
-                </div>
-                <div class="user">
-                    
-                    <v-tooltip 
-                        v-if="GET_TOKEN.length == 0" 
-                        bottom
-                    >
+<div>
+    <header >
+         
+        <div class="container">
 
-                        <template v-slot:activator="{ on, attrs }">
-                            
-                            <div class="header__row">
-                                <p @click="route('/login')" >{{$t('header__sign__title')}}</p>
-                                <img  
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    @click="route('/login')" 
-                                    src="../../assets/icons/person_default.svg" 
-                                    alt="person_default"
-                                >
-                            </div>
-                            
+            <div class="header__row">
 
-
-                        </template>
-                        <span>{{$t('header__user__toast')}}</span>
-                    </v-tooltip>
-                   
-                    <div 
-                        class="main__header__menu__user" 
-                        @mouseleave="show_menu = false" 
-                        @mouseover="show_menu = true" 
-                        v-if="GET_TOKEN.length !== 0"
-                    >
-                        <div class="header__menu__user">
-                            <p>
-                                {{GET_USER_DATA.name}} 
-                            </p>
-                            <img src="../../assets/icons/person_default.svg" alt="person_default">
+                <div class="header__logo">
+                    <img src="../../assets/logo/logo.jpg" alt="logo">
+                </div>
+                <div class="header__right">
+                    <div class="header__menu">
+                        <ul class="menu">
+                            <li>
+                                <a href="https://greenclinic.kz/about">О нас</a>
+                            </li>
+                            <li>
+                                <a href="https://greenclinic.kz/">Новости</a>
+                            </li>
+                            <li class="menu-item-has-children">
+                                <div class="item__hover item__column">
+                                    
+                                    <div class="item__hover__label item__row item__ac">
+                                        <a  target="_blank" href="https://greenclinic.kz/departments" @mouseover="showDropdown">Отделения</a>
+                                        <img src="../../assets/all/icon_down.png" alt="" v-bind:class="{rotateimg180:dropdownShow==true}" @click="showDropdown"> 
+                                    </div>
+                                    <div class=" item__dropdown" v-if="dropdownShow"  @mouseleave="hideDropdown">
+                                        <a target="_blank" href="https://greenclinic.kz/departments/poliklinika">Поликлиника</a>
+                                        <a target="_blank" href="https://greenclinic.kz/departments/stacionar">Стационар</a>
+                                        <a target="_blank" href="https://greenclinic.kz/departments/luchevaya-diagnostika">Отделение лучевой<br> диагностики</a>
+                                    </div>
+                                </div>
+                                
+                            </li>
+                            <li>
+                                <a href="https://purchases.greenclinic.kz">Закупки</a>
+                            </li>
+                            <li>
+                                <a href="#">Документация</a>
+                            </li>
+                            <li>
+                                <a href="https://greenclinic.kz/contacts">Контакты</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="header__contact">
+                        <div class="header__contact--icon">
+                            <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M44.9166 34.545V40.67C44.919 41.2386 44.8025 41.8014 44.5747 42.3224C44.3469 42.8434 44.0128 43.3111 43.5938 43.6955C43.1748 44.0799 42.6801 44.3725 42.1415 44.5547C41.6029 44.7369 41.0321 44.8045 40.4658 44.7533C34.1833 44.0707 28.1484 41.9239 22.8462 38.4854C17.9132 35.3508 13.7309 31.1684 10.5962 26.2354C7.14576 20.9091 4.99847 14.8449 4.32831 8.53416C4.27729 7.96957 4.34439 7.40055 4.52533 6.86331C4.70627 6.32608 4.9971 5.8324 5.37929 5.41372C5.76148 4.99504 6.22666 4.66053 6.74522 4.43148C7.26377 4.20243 7.82434 4.08386 8.39123 4.08333H14.5162C15.5071 4.07358 16.4676 4.42445 17.2189 5.07054C17.9702 5.71663 18.4609 6.61386 18.5996 7.59499C18.8581 9.55513 19.3375 11.4797 20.0287 13.3321C20.3034 14.0628 20.3629 14.857 20.2 15.6205C20.0372 16.3841 19.6589 17.0849 19.11 17.64L16.5171 20.2329C19.4235 25.3443 23.6557 29.5765 28.7671 32.4829L31.36 29.89C31.9151 29.3411 32.6159 28.9628 33.3794 28.7999C34.1429 28.6371 34.9371 28.6966 35.6679 28.9712C37.5202 29.6625 39.4448 30.1419 41.405 30.4004C42.3967 30.5403 43.3025 31.0399 43.95 31.804C44.5975 32.5682 44.9415 33.5437 44.9166 34.545Z" stroke="#0F1721" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </div>
-
-                      
-                        
-                        <div v-show="show_menu == true" class="header__menu__user__hover">
-                            <div class="header__menu__user__hover__after">
-                                <div @click="route('/profile')" class="header__menu__user__hover__after__block">
-                                    <p>
-                                        {{$t('header__user__menu__cabinet')}} / {{GET_USER_DATA.name}} {{GET_USER_DATA.surname}}
-                                    </p>
-                                </div>
-                                <div @click="sign_out_modal = true" class="header__menu__user__hover__after__block">
-                                    <p>
-                                        {{$t('header__user__menu__sign__out')}}
-                                    </p>
-                                </div>
+                        <div class="header__contact--info">
+                            <a href="tel:+7 776 898 38 00" class="header__contact--phone">+7 776 898 38 00</a>
+                            <a class="header__contact--popap">Заказать звонок</a>
+                        </div>
+                    </div>
+                    <div class="header__right--row">
+                        <!-- <div class="header__right--version">
+                            <a class="version_visually">Версия для слабовидищих</a>
+                        </div> -->
+                        <div class="header__lang">
+                            <div class="header__lang--click">
+                                <a>Ru</a>
+                            </div>
+                            <div class="header__lang--menu">
+                                <ul>
+                                    <li class="header__lang--item">
+                                        <a href="#" data-lang="kz">Kz</a>
+                                    </li>
+                                    <li class="header__lang--item header__lang--active">
+                                        <a href="#" data-lang="ru">Ru</a>
+                                    </li>
+                                    <li class="header__lang--item">
+                                        <a href="#" data-lang="en">En</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="header__right--click" @click="show_left=true">
+                        <a class="click__mobile">
+                            <img src="../../assets/all/bar-left.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div class="item__column top__mobil item__ac" v-if="show_left">
+
+        <div class="top__contact item__row item__ac item__100 item__jb">
+            <div class="item__row item__ac">
+               
+                <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M44.9166 34.545V40.67C44.919 41.2386 44.8025 41.8014 44.5747 42.3224C44.3469 42.8434 44.0128 43.3111 43.5938 43.6955C43.1748 44.0799 42.6801 44.3725 42.1415 44.5547C41.6029 44.7369 41.0321 44.8045 40.4658 44.7533C34.1833 44.0707 28.1484 41.9239 22.8462 38.4854C17.9132 35.3508 13.7309 31.1684 10.5962 26.2354C7.14576 20.9091 4.99847 14.8449 4.32831 8.53416C4.27729 7.96957 4.34439 7.40055 4.52533 6.86331C4.70627 6.32608 4.9971 5.8324 5.37929 5.41372C5.76148 4.99504 6.22666 4.66053 6.74522 4.43148C7.26377 4.20243 7.82434 4.08386 8.39123 4.08333H14.5162C15.5071 4.07358 16.4676 4.42445 17.2189 5.07054C17.9702 5.71663 18.4609 6.61386 18.5996 7.59499C18.8581 9.55513 19.3375 11.4797 20.0287 13.3321C20.3034 14.0628 20.3629 14.857 20.2 15.6205C20.0372 16.3841 19.6589 17.0849 19.11 17.64L16.5171 20.2329C19.4235 25.3443 23.6557 29.5765 28.7671 32.4829L31.36 29.89C31.9151 29.3411 32.6159 28.9628 33.3794 28.7999C34.1429 28.6371 34.9371 28.6966 35.6679 28.9712C37.5202 29.6625 39.4448 30.1419 41.405 30.4004C42.3967 30.5403 43.3025 31.0399 43.95 31.804C44.5975 32.5682 44.9415 33.5437 44.9166 34.545Z" stroke="#0F1721" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+                <div class="top__phone item__column">
+                    <a href="tel:+7 776 898 38 00" >+7 776 898 38 00</a>
+                    <a >Заказать звонок</a>
                 </div>
             </div>
+             
+            <img src="../../assets/all/x.svg" alt="" @click="show_left=false">
+        </div>
+
+        <a href="" class="top__menu__item">О нас</a>
+        <a href="" class="top__menu__item">Новости</a>
+        <div class="item__row item__ac" @click="item__show=!item__show">
+            <a class="top__menu__item">Отделения</a>
+            <img class="top__menu__item__icon"  v-if="!item__show"  src="../../assets/all/icon_down.png" alt="">
+            <img class="top__menu__item__icon top__reverse__icon" v-if="item__show"   src="../../assets/all/icon_down.png" alt="">
+        </div>
+
+        <div class="item__column item__ac" v-if="item__show">
+            <a href="" class="top__menu__item__min">Поликлиника</a>
+            <a href="" class="top__menu__item__min">Стационар</a>
+            <a href="" class="top__menu__item__min">Отделение лучевой <br> диагностики</a>
         </div>
         
-        <transition name="slide-fade">
-            <div class="menu__left__open" v-show="show_desctop_menu == true" >
-                <div class="menu__left__open__header">
-                    <img src="../../assets/icons/menu__icon__left.svg" @click="show_desctop_menu = false" class="close__menu__header" alt="menu">
-                    <img src="../../assets/logo/logo__menu__header.svg" alt="menu">
-                    <router-link 
-                        to="/login"
-                        v-if="GET_TOKEN.length == 0" 
-                    >
-                        <button>
-                            {{$t('header__menu__auth')}}
-                        </button>
-                    </router-link>
-                </div>
-                <div class="menu__left__open__list">
-                    <a 
-                        v-for="menu_item in $t('menu_header')"
-                        :key="menu_item.name"
-                        @click="route(menu_item.to, menu_item.url)"
-                        :class="$route.path == menu_item.to ? 'menu__item__active' : 'menu__item'"
-                    >
-                        {{menu_item.name}}
-                    </a> 
-                </div>
-            </div>
-        </transition>
-        
-        <!-- mobile menu -->
-
-        <transition name="slide-fade">
-            <div 
-                v-show="show_mobile_menu == true" 
-                class="mobile__menu"
-            >
-                <div class="mobile__menu__position">
-                    <div class="mobile__menu__list">
-                        <div class="mobile__menu__list__header">
-                            <img 
-                                @click="show_mobile_menu = false" 
-                                src="../../assets/all/back__white.svg" 
-                                alt=""
-                            >
-                        </div>
-                        <div class="mobile__menu__list__header">
-                            <img src="../../assets/logo/logo__white.svg" alt="">
-                        </div>
-                        <div class="mobile__menu__list__flex">
-                            <div 
-                                class="mobile__menu__list__flex__block"
-                                v-for="menu_item in $t('menu_header')"
-                                :key="menu_item.name"
-                                @click="route(menu_item.to)"
-                            >
-                                <p>
-                                    {{menu_item.name}}
-                                </p>
-                            </div>
-                        </div>
-                        <div 
-                            v-if="GET_TOKEN.length == 0" 
-                            @click="route('/login')" 
-                            class="cabinet__block"
-                        >
-                            <img src="../../assets/icons/person_default.svg" alt="person_default">
-                            <p>
-                                {{$t('header__user__menu__cabinet')}}
-                            </p>
-                        </div>
-                        <div 
-                            v-if="GET_TOKEN.length !== 0" 
-                            @click="route('/profile')" 
-                            class="cabinet__block__user"
-                        >
-                            <img src="../../assets/icons/person_default.svg" alt="person_default">
-                            <p>
-                                {{$t('header__user__menu__cabinet')}}
-                            </p>
-                        </div>
-                        <div 
-                            v-if="GET_TOKEN.length !== 0"
-                            @click="sign_out_modal = true" 
-                            class="cabinet__block"
-                        >
-                            <p>
-                                {{$t('header__user__menu__sign__out')}}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="mobile__menu__img">
-                        <img src="../../assets/all/hotpng__black.svg" alt="hotpng__black">
-                    </div>
-                </div>
-            </div>
-        </transition>
-
-
-        <v-dialog
-            v-model="sign_out_modal"
-            max-width="350"
-            style="z-index: 9999"
-        >
-            <v-card>
-                <v-card-title class="headline">
-                    <h3 class="delete__dialog__title">
-                        Вы уверены, что хотите выйти?
-                    </h3>
-                </v-card-title>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-
-                    <v-btn
-                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
-                        color="#000"
-                        @click="sign_out"
-                    >
-                        Да
-                    </v-btn>
-
-                     <v-btn
-                        color="#000"
-                        @click="sign_out_modal = false"
-                        style="background: rgb(255 206 3); font-family: 'MontserratBold'"
-                    >
-                        Нет
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        <a href="" class="top__menu__item">Закупки</a>
+        <a href="" class="top__menu__item">Документация</a>
+        <a href="" class="top__menu__item">Контакты</a>
     </div>
+</div>
+    
 </template>
 
 <script>
@@ -253,6 +139,8 @@ import { mapGetters } from 'vuex'
 export default {
     data () {
       return {
+        show_left:false,
+        item__show: false,
         sign_out_modal: false,
         show_desctop_menu: false,
         langs: [
@@ -272,61 +160,22 @@ export default {
         lang: 'ru',
         show_menu: false,
         show_mobile_menu: false,
+        dropdownShow: false
       }
     },
     methods: {
-        getLocale () {
-            this.view__langs = !this.view__langs
+        showDropdown() {
+            this.dropdownShow = !this.dropdownShow;
         },
-        route (to, url) {
-            if (url == true) {
-                window.location.href = to
-            } else {
-                if (this.$route.path !== to) {
-                    this.$router.push(to)
-                } 
-            }
-            this.show_mobile_menu = false
-        },
-        sign_out () {
-            this.$Progress.finish()
-            this.sign_out_modal = false
-            this.$store.dispatch('SIGN_OUT_USER')
-
-            localStorage.removeItem('vuex');
-            this.$toast.open({
-                message: this.$i18n.t('header__user__menu__sign__out__toast'),
-                type: 'warning',
-                position: 'bottom',
-                duration: 4000,
-                queue: true
-            });
-        },
-        sendLocale () {
-            import(`../../localization/${this.lang}.js`)
-            .then((lang) => {
-                this.$i18n.setLocaleMessage(this.lang, lang.default)
-                this.$i18n.locale = this.lang
-            })
-        },
+        hideDropdown() {
+            this.dropdownShow = false;
+        }
     },
     computed: {
         ...mapGetters(['GET_TOKEN', 'GET_USER_DATA']),
     },
     created () {
-        let vm = this
-        document.addEventListener('click', function(event) {
-            var menu__left__open = document.querySelector('.menu__left__open').contains(event.target);
-            var menu__header__icon = document.querySelector('.menu__header__icon').contains(event.target);
-
-            if (!menu__header__icon) {
-                if (vm.show_desctop_menu == true) {
-                    if (!menu__left__open) {
-                        vm.show_desctop_menu = false
-                    }
-                }
-            } 
-        });
+      
     }
 }
 </script>
@@ -334,7 +183,201 @@ export default {
 <style scoped lang="less">
 @mobile: 900px;
 @planshet: 1200px;
+.rotateimg180 {
+  -webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.top__mobil {
+    position:fixed;
+    top: 0;
+    z-index: 10;
+    background: white;
+    height: 100vh;
+    width: 100%;
 
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+    
+    animation: fadeout 1s;
+    -moz-animation: fadeout 1s; /* Firefox */
+    -webkit-animation: fadeout 1s; /* Safari and Chrome */
+    -o-animation: fadeout 1s; /* Opera */
+
+    @keyframes fadein {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-moz-keyframes fadein { /* Firefox */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-webkit-keyframes fadein { /* Safari and Chrome */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-o-keyframes fadein { /* Opera */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+
+    @keyframes fadeout {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-moz-keyframes fadeout { /* Firefox */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-webkit-keyframes fadeout { /* Safari and Chrome */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-o-keyframes fadeout { /* Opera */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .top__reverse__icon {
+         transform: rotate(180deg);
+    }
+    .top__menu__item {
+        margin-bottom: 15px;
+        color: #0F1721;
+        font-size: 24px;
+        font-family: 'Regular';
+    }
+    .top__menu__item__min {
+        margin-bottom: 10px;
+        color: #5B5B5B;
+        font-size: 18px;
+        font-family: 'Regular';
+        text-align: center;
+        animation: fadein 1s;
+        -moz-animation: fadein 1s; /* Firefox */
+        -webkit-animation: fadein 1s; /* Safari and Chrome */
+        -o-animation: fadein 1s; /* Opera */
+    }
+    .top__menu__item__icon {
+        margin-left: 5px;
+        margin-bottom: 16px;
+        color: #0F1721;
+        font-size: 24px;
+    }
+    .top__contact {
+        padding: 15px;
+        margin-bottom: 40px;
+        svg {
+            margin-right: 8px;
+        }
+            i {
+                font-size: 32px;
+                font-weight: normal;
+            }
+        .top__phone {
+            
+            a {
+                font-size: 18px;
+            }
+            a:nth-child(1) {
+                font-family: 'Bold';
+                color: #0F1721;
+            }
+            a:nth-child(2) {
+                color: #85C418;
+            }
+          
+        }
+    }
+}
+
+
+.item__hover {
+    position: relative;
+    a {
+        font-size: 18px;
+        color: #0F1721;
+    }
+    .item__hover__label {
+        cursor: pointer;
+    }
+}
+.item__dropdown {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+
+    position: absolute;
+    
+    top: 25px;
+    left: 0;
+    
+    a {
+        text-decoration: none;
+        margin-bottom: 10px;
+    }
+    a:hover {
+        color: #85C418;
+    }
+}
+
+
+
+.item__jb {
+    justify-content: space-between;
+}
+.item__100 {
+    width: 100%;
+}
+.item__row {
+    display: flex;
+    flex-direction: row;
+}
+.item__ac {
+    align-items: center;
+}
+.item__column {
+    display: flex;
+    flex-direction: column;
+}
 .v-sheet.v-list {
     border-radius: 0;
     text-align: center;
@@ -361,430 +404,655 @@ export default {
         line-height: 15px; 
     }
 }
-.header {
-    width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    
-    @media (max-width: @mobile) {
-        width: 95%;
-    }
 
-    @media (max-width: @planshet) {
-        width: 95%;
-    }
+html,
+body {
+    overflow-x: hidden;
+    letter-spacing: -0.03em;
+    font-family: Montserrat;
 
-    .header__l {
-        width: 50%;
-        display: flex;
-        justify-content: flex-start;
-        img {
-            @media (max-width: @mobile) {
-                width: 134px;
-            }
-        }
-        @media (max-width: @mobile) {
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .languages {
-            width: 40px;
-            display: none;
-            @media (max-width: @mobile) {
-                display: block;
-            }
-            select {
-                font-size: 14px;
-                font-weight: bold;
-                width: 100%;
-                outline: none;
-            }
-        }
-        .menu__header__icon {
-            display: flex;
-            justify-content: flex-start;
-            cursor: pointer;
-            align-items: flex-start;
-            margin-left: 55px;
-            &:hover {
-                opacity: .7;
-            }
-            p {
-                font-weight: 500;
-                margin: 0;
-                margin-left: 7px;
-                font-size: 20px;
-                margin-top: 5px;
-                color: #000;
-            }
-            @media (max-width: @mobile) {
-                display: none;
-            }
-        }
-        .icon__mobile {
-            display: none;
-            @media (max-width: @mobile) {
-                display: block;
-            }
-            img {
-                width: auto;
-                cursor: pointer;
-            }
-        }
-        
-    }
-    .header__r {
-        width: 50%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-
-        .header__row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            p {
-                
-                cursor: pointer;
-                margin-right: 10px;
-                margin-top: 10px;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 18px;
-                line-height: 17px;
-                color: #000;
-                user-select: none;
-            }
-            p:hover {
-                opacity: 0.7;
-            }
-        }
-        @media (max-width: @mobile) {
-            display: none;
-        }
-        .search {
-            margin-right: 15px;
-            border-right: 2px solid #000;
-            padding-right: 15px;
-            display: none;
-            img {
-                cursor: pointer;
-                &:hover {
-                    opacity: .7;
-                }
-            }
-        }
-        .lang {
-            width: 92px;
-            height: 45px;
-
-            z-index: 99;
-            font-family: 'MontserratBold';
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .user {
-            margin-left: 15px;
-            z-index: 99;
-            height: 45px;
-
-            .main__header__menu__user {
-                position: relative;
-                z-index: 9999;
-
-                .header__menu__user__hover {
-                    position: absolute;
-                    width: 200px;
-                    top: 40px;
-                    right: 0px;
-                    .header__menu__user__hover__after {
-                        width: 100%;
-                        margin-top: 10px;
-                        background: #fff;
-                        border-radius: 5px;
-                        box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.25);
-                        padding: 10px 15px;
-                        &::after {
-                            content: '';
-                            display: block;
-                            position: absolute;
-                            right: 10px;
-                            top: -8px;
-                            transform: rotateZ(180deg);
-                            border: 10px solid transparent;
-                            border-top: 10px solid #fff;
-                        }
-                        &::before {
-                            content: '';
-                            display: block;
-                            position: absolute;
-                            right: 9px;
-                            top: -12px;
-                            transform: rotateZ(180deg);
-                            border: 11px solid transparent;
-                            border-top: 11px solid #dadada;
-                        }
-
-                        .header__menu__user__hover__after__block {
-                            width: 100%;
-                            border-bottom: 1px solid #F5F5FC;
-                            padding-top: 9px;
-                            cursor: pointer;
-                            padding-bottom: 9px;
-                            p {
-                                margin: 0;
-                                font-style: normal;
-                                font-weight: 500;
-                                font-size: 14px;
-                                line-height: 17px;
-                                color: #000;
-                                user-select: none;
-                            }
-                        }
-                    }
-                }
-                .header__menu__user {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    cursor: pointer;
-                    p {
-                        margin: 0;
-                        margin-right: 10px;
-                        color: #000;
-                        font-style: normal;
-                        font-weight: 500;
-                        font-size: 17px;
-                        line-height: 25px;
-                        user-select: none;
-                    }
-                }
-            }
-            
-            img {
-                cursor: pointer;
-                &:hover {
-                    opacity: .7;
-                }
-            }
-        }
-    }
+ 
 }
 
-.menu__left__open {
-    @media (max-width: @mobile) {
-        display: none;
-    }
-    display: block;
-    width: 553px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 9999;
-    padding: 40px 20px;
-    overflow-y: scroll;
-    background: rgba(23, 23, 23, 0.89);
+a {
+    text-decoration: none !important;
+}
 
-    &::-webkit-scrollbar {
-        width: 7px;
-    }
-    &::-webkit-scrollbar-track {
-        background: transparent; 
+body * {
+    outline: none;
+}
+.container {
+    max-width: 1440px;
+}
+body{
+	padding-top: 140px;
+	background-size: contain;
+    font-size: 16px;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
+    padding: 40px 0;
+  
+    width: 100%;
+    z-index: 10;
+
+   
+    
+}
+
+.header__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 -15px;
+}
+
+.header__logo {
+    margin-right: 50px;
+}
+
+.header__right {
+    display: flex;
+    align-items: center;
+}
+
+.header__menu .menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.header__menu .menu > li > a {
+    font-weight: normal;
+    font-size: 18px;
+    color: #0F1721;
+    transition: all 0.5s ease;
+}
+.header__menu .menu > li > a:hover {
+    color: #85C418;
+}
+.header__menu .menu > li {
+    margin: 0 20px;
+    padding: 10px 0;
+}
+
+.header__contact {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.header__contact--info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header__contact--icon {
+    margin-right: 10px;
+}
+
+.header__contact--phone {
+    font-weight: bold;
+    font-size: 18px;
+    color: #0F1721 !important;
+}
+
+a.header__contact--popap {
+    font-weight: 600;
+    font-size: 16px;
+    color: #85C418 !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+
+.header__lang--click {
+    display: none;
+}
+
+
+.header__lang--menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__lang--menu ul li {
+    margin-left: 15px;
+}
+
+.header__lang--menu ul li a {
+    color: #0F1721;
+    font-weight: normal;
+    font-size: 18px;
+    transition: all 0.5s ease;
+}
+.header__lang--menu ul li:hover a,
+.header__lang--menu ul li.header__lang--active a {
+    color: #85C418;
+}
+
+a.version_visually {
+    font-weight: 500;
+    font-size: 14px;
+    color: #85C418 !important;
+    line-height: 1.2;
+    display: block;
+    text-decoration-line: underline !important;
+    white-space: nowrap;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.header__right--version {
+    text-align: right;
+    margin-bottom: 12px;
+}
+
+.header__right--row {
+    margin-left: 30px;
+}
+
+a.version_visually:hover {
+    text-decoration-line: none !important;
+}
+.header__right--click{
+    display: none;
+}
+
+
+@media screen and (max-width: 1920px) {
+
+}
+@media screen and (max-width: 1800px) {
+
+}
+@media screen and (max-width: 1536px) {
+
+}
+@media screen and (max-width: 1400px) {
+    .header__lang--menu {
+        text-align: right;
     }
     
-    &::-webkit-scrollbar-thumb {
-        background: transparent; 
+    .header__menu .menu > li {
+        margin: 0 15px;
+    }
+    
+    .header__row {
+        margin: 0;
+    }
+    
+    a.version_visually {
+        white-space: normal;
+    }
+    
+    .header__contact {
+        margin-left: 10px;
+    }
+    
+    .header__right--row {
+        margin-left: 15px;
+    }
+    
+    .header__right--version {
+        margin-bottom: 5px;
+    }
+    
+    .header__menu .menu > li > a {
+        font-size: 16px;
+    }
+    
+    .section__banner {
+        padding-top: 110px;
+    }
+    
+    .advantage__item--text {
+        font-size: 14px;
+    }
+    
+    .section__margin .section__title {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .services__number--row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .services__filter--content {
+        margin: 0;
+    }
+    
+    .services__filter__item--active {
+        margin: 10px;
+        width: 205px;
+        height: 210px;
+    }
+    
+    .footer__row {
+        margin: 0;
+    }
+    
+    .contact__info {
+        margin-left: 0;
+    }
+}
+@media screen and (max-width: 1366px) {
+
+}
+@media screen and (max-width: 1300px) {
+
+    .header__menu {
+        display: none;
+    }
+    .header__right--click{
+        display: block;
+        margin-left: 45px;
+    }
+  
+
+    .footer__center {
+        width: auto;
     }
 
-    &::-webkit-scrollbar-thumb:hover {
-        background: transparent; 
+    .section__title--main {
+        font-size: 40px;
     }
 
-    .menu__left__open__header {
+    .section__title--main:before {
+        width: 70px;
+        top: 30px;
+    }
+
+    .section__margin .section__title {
+        padding-left: 80px;
+    }
+
+    .services__number--text {
+        font-size: 18px;
+    }
+
+    .section__banner {
+        height: auto;
+        padding-top: 60px;
+        padding-bottom: 100px;
+    }
+
+
+    
+    .services__filter__item--active {
+        width: 220px;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .departments__item--img img {
+        height: 100%;
+    }
+    
+    .departments__item--img {
+        height: 100%;
+    }
+    
+    .departments__item--title {
+        font-size: 25px;
+    }
+    
+    .departments__item--text {
+        font-size: 14px;
+    }
+    
+    .departments__item--linck a {
+        font-size: 16px;
+        padding: 15px 70px;
+    }
+    .departments__item--info {
+        padding: 30px 20px;
+    } 
+    .departments__item--text p:last-child {
+        margin-bottom: 0;
+    }
+}
+@media screen and (max-width: 1199px){
+
+}
+@media screen and (max-width: 1024px) {
+    .row.swiper-wrapper {
+        flex-wrap: nowrap;
+        margin: 0;
+    }
+
+
+    .consultant__form--title {
+        font-size: 30px;
+    }
+    
+    .contact__item--calendar div {
+        margin-right: 10px;
+    }
+    
+    .contact__item--text.contact__item--calendar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .footer__row {
+        flex-wrap: wrap;
+    }
+    
+    .footer__left {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .close__menu__header {
-            cursor: pointer;
-            &:hover {
-                opacity: .7;
-            }
-        }
-        button {
-            width: 164px;
-            height: 50px;
-            background: #FDE88D;
-            border: 3px solid #FDE88D;
-            font-size: 16px;
-            outline: none;
-            color: #000;
-            box-sizing: border-box;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-            border-radius: 30px;
-        }
+        margin-bottom: 30px;
     }
-    .menu__left__open__list {
-        width: 100%;
-        margin-top: 50px;
-        .menu__item__active {
-            float: left;
-            clear: both;
-            padding: 10px 26px;
-            border: 3px solid #FDE88D;
-            margin-bottom: 10px;
-            border-radius: 30px;
-            font-family: 'MontserratBold';
-            font-size: 16px;
-            font-style: normal;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: -0.05em;
-            user-select: none;
-            background: #FDE88D;
-            color: #000;
-            cursor: pointer;
-        }
-        .menu__item {
-            float: left;
-            clear: both;
-            padding: 10px 26px;
-            border: 3px solid #FDE88D;
-            margin-bottom: 10px;
-            border-radius: 30px;
-            font-family: 'MontserratBold';
-            font-size: 16px;
-            font-style: normal;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: -0.05em;
-            user-select: none;
-            color: #fff;
-            cursor: pointer;
-            &:hover {
-                background: #FDE88D;
-                color: #000;
-            }
-        }
+    
+    .footer__left--popap {
+        display: inline-block;
+    }
+    .footer__left--social {
+        margin: 0;
+    }
+    
+    .footer__left--logo {
+        margin: 0;
     }
 }
- 
-.mobile__menu {
-    width: 100%;
-    height: 100%;
-    z-index: 9997;
-    background: rgba(23, 23, 23, 0.9);
-    position: fixed;
-    top: 0;
+@media screen and (max-width: 992px) {
+    .services__filter__button--item {
+        margin: 0 20px;
+        font-size: 18px;
+    }
 
-    .mobile__menu__position {
+
+
+    .services__filter--content.swiper-wrapper {
+        flex-wrap: nowrap;
+        min-width: 100%;
+    }
+    .services__filter__item--active {
+        width: auto;
+        margin: 0;
+    }
+    .services__filter--slider {
+        padding: 0 15px;
+    }
+    .services__filter--item {
+        display: none;
+    }
+    .services__filter__item--active {
+        display: block;
+    }
+
+    .swiper-slide.services__filter--item {
+        width: 215px;
+        height: 210px;
+        opacity: 1;
+        margin: 0;
+        padding: 40px 5px 20px 5px;
+    }
+
+    .page__about--img {
+        margin-bottom: 40px;
+    }
+    .page__about--img img {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+    .page__about--mission {
+        padding: 40px;
+    }
+
+
+}
+@media screen and (max-width: 768px) {
+    .section__banner--title {
+        font-size: 35px;
+    }
+    
+    .section__banner--text {
+        display: none;
+    }
+    
+    .section__banner--linck {
+        margin-top: 10px;
+    }
+    
+    .section__advantages {
+        margin-top: -50px;
+    }
+    
+    .advantage__item--img img {
+        width: 95px;
+    }
+    
+    .section__title--main {
+        font-size: 36px;
+    }
+    
+    .section__title--main:before {
+        width: 50px;
+    }
+    
+    .section__margin .section__title {
+        padding-left: 70px;
+    }
+    
+    .section__title--desc {
+        font-size: 16px;
+        max-width: 315px;
+    }
+    
+    .services__number--number {
+        font-size: 64px;
+    }
+    
+    .services__number--number:before {
+        font-size: 96px;
+    }
+    
+    .services__number--text {
+        font-size: 16px;
+    }
+    
+    .services__number--item {
+        height: 150px;
+        padding-top: 30px;
+    }
+    
+    .services__filter__button--item {
+        font-size: 18px;
+    }
+    
+    .consultant__form--title {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+    
+    .form__input--item {
+        margin-bottom: 15px;
+    }
+    
+    .consultant__block {
+        height: auto;
+        padding: 25px 0;
+    }
+    .contact__info {
+        margin-bottom: 25px;
+    }
+    
+    .contact__map {
+        margin: 0 -15px;
+        height: 220px;
+    }
+    
+    .contact__map img {
         width: 100%;
         height: 100%;
-        position: relative;
-        .mobile__menu__list {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            top: 0;
-            z-index: 11;
-            .mobile__menu__list__header {
-                width: 100%;
-                margin-top: 20px;
-                img {
-                    cursor: pointer;
-                }
-            }
-            .mobile__menu__list__flex {
-                width: 100%;
-                margin-top: 7px;
-                height: 50%;
-                overflow-y: scroll;
-                .mobile__menu__list__flex__block {
-                    padding: 10px;
-                    border-radius: 12px;
-                    cursor: pointer;
-                    border: 2px solid #FDE88D;
-                    margin-right: 10px;
-                    margin-bottom: 10px;
-                    float: left;
-                    color: #fff;
-                    text-align: center;
-                    &:hover {
-                        background: #FDE88D;
-                        color: #000;
-                    }
-                    p {
-                        margin: 0;
-                        font-style: normal;
-                        text-transform: uppercase;
-                        font-weight: bold;
-                        font-size: 13px;
-                        line-height: 20px;
-                    }
-                }
-            }
-            .cabinet__block {
-                width: 90%;
-                padding: 10px;
-                display: flex;
-                background: #FDE88D;
-                cursor: pointer;
-                justify-content: flex-start;
-                position: absolute;
-                bottom: 20px;
-                align-items: center;
-                border-radius: 10px;
-                img {
-                    width: 30px;
-                }
-                p {
-                    margin: 0;
-                    color: #000;
-                    margin-left: 10px;
-                    font-weight: bold;
-                    user-select: none;
-                    font-size: 14px;
-                }
-            }
-            .cabinet__block__user {
-                width: 90%;
-                padding: 10px;
-                display: flex;
-                background: #FDE88D;
-                cursor: pointer;
-                justify-content: flex-start;
-                position: absolute;
-                bottom: 73px;
-                align-items: center;
-                border-radius: 10px;
-                img {
-                    width: 30px;
-                }
-                p {
-                    margin: 0;
-                    color: #000;
-                    margin-left: 10px;
-                    font-weight: bold;
-                    font-size: 13px;
-                    user-select: none;
-                }
-            }
-        }
-        .mobile__menu__img {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            z-index: 10;
-        }
+        object-fit: cover;
+    }
+    
+    .section__contact.section__margin {
+        margin-bottom: 0;
+    }
+    
+    footer {
+        padding: 20px 0 40px 0;
+    }
+    
+    .footer__center {
+        text-align: center;
+    }
+    
+    .footer__right {
+        text-align: center;
+        width: 100%;
+        margin-top: 25px;
+    }
+    .phone__fixed svg {
+        width: 90px;
+    }
+    .phone__fixed {
+        right: 15px;
+        bottom: 15px;
+    }
+
+
+    header .header__contact {
+        display: none;
+    }
+    header .header__right--version {
+        display: none;
+    }
+    header {
+        padding: 20px 0;
+    }
+    .services__filter--button {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    body {
+        padding-top: 100px;
+    }
+    .form__input-bott_desc {
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+}
+@media screen and (max-width: 568px) {
+    .footer__left--logo {
+        order: 1;
+    }
+    .footer__left--linck {
+        order: 2;
+    }
+    .footer__left--social {
+        order: 3;
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+    .footer__left {
+        flex-wrap: wrap;
+    }
+    .services__number--row {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .section__margin {
+        margin-bottom: 40px;
+    }
+    .about__mission--text {
+        font-size: 16px;
+    }
+    .page__about--mission {
+        padding: 40px 20px;
+    }
+    .section__title--main {
+        line-height: 1;
+    }
+    
+}
+@media screen and (max-width: 480px) {
+    .services__number--item {
+        height: 150px;
+    }
+    
+    .header__logo img {
+        max-width: 93px;
+    }
+    
+    .header__right--row {
+        margin-left: 0;
+    }
+    
+    .header__right--click {
+        margin-left: 15px;
+    }
+    
+    .header__logo {
+        margin-right: 10px;
+    }
+    
+    .section__banner--linck a {
+        padding: 15px 50px;
+    }
+    
+    body {
+        padding-top: 85px;
+    }
+    
+    .section__title--desc {
+        font-size: 14px;
+    }
+
+    .departments__item--linck a {
+        font-size: 14px;
+        padding: 15px 45px;
+    }
+    
+    .departments__item--title {
+        font-size: 20px;
     }
 }
+@media screen and (max-width: 400px) {
+    .consultant__form--title {
+        line-height: 1.2;
+        font-size: 20px;
+    }
+    .section__title--main {
+        font-size: 28px;
+    }
+    .section__title--main:before {
+        top: 20px;
+    }
+    .footer__left {
+        justify-content: center;
+    }
+    .footer__left--logo {
+        margin-bottom: 15px;
+    }
 
+    .departments__item--info {
+        padding: 20px;
+    }
+}
+@media screen and (max-width: 350px) {
+
+}
+@media screen and (max-width: 320px) {
+
+}
 </style>

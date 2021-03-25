@@ -1,30 +1,13 @@
 <template>
     <div class="telephones">
-        <Header />
-        <div class="main__base__margin">
-            <div class="flex__not__found">
-                <img src="../../assets/icons/not__found.svg" alt="404">
-                <h1>
-                    404
-                </h1>
-                <h1>
-                    {{$t('page__404__title')}}
-                </h1>
-                <router-link tag="a" to="/">
-                    {{$t('page__404__btn')}}
-                </router-link>
-            </div>
-        </div>
+       NOT FOUND
     </div>
 </template>
 
 <script>
-import Header from '../components/Header'
 
 export default {
-    components: {
-        Header,
-    },
+   
 }
 </script>
 

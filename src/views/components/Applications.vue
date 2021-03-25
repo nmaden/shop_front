@@ -121,6 +121,7 @@ export default {
     margin-top: 40px;
     margin-bottom: 40px;
     font-family: "MontserratBold";
+
     @media (max-width: @mobile) {
         margin-top: 0;
         margin-bottom: 20px;
