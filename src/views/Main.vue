@@ -119,55 +119,59 @@
 
 
             
-            <div class="item__row item__100 applications__contact">
-
-                <div class="contact__l">
-                    <div class="applications__top item__row item__mb">
+            <div class="item__column item__100 applications__contact">
+                <div class="applications__top item__row item__mb">
                         <div class="purchase__line"></div>
                         <p class="purchase__title">Контакты</p>
-                    </div>
+                </div>
 
-                    <div class="item__row item__mb__s">
-                        <img class="contact__i" src="../assets/all/location_i.png" alt="">
-
-                        <div class="item__column">
-                            <p class="contact__b__title">Адрес</p>
-                            <a href="https://yandex.kz/maps/-/CCUUqJFm~D" target="_blank" class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</a>
-                        </div>
-                    </div>
-                    <div class="item__row item__mb__s">
-                        <img class="contact__i" src="../assets/all/contact_i.png" alt="">
-                        <div class="item__column">
-                            <p class="contact__b__title">Телефон</p>
-                            <a href="tel:+7 (7172) 79 77 22" class="contact__text">+7 (7172) 79 77 22</a>   
-                            <a href="tel:+7(71-72) 79-77-20" class="contact__text">+7(71-72) 79-77-20 (отделение лучевой диагностики)</a>
-                            <a href="tel:+7 776 898 38 00" class="contact__text"> +7 776 898 38 00</a>
-                            <a href="te:+7(771)-033-55-59" class="contact__text"> +7(771)-033-55-59 (отделение лучевой диагностики)</a>
-                        </div>
-                    </div>
-                    <div class="item__row item__mb__s item__ac">
-                        <img class="contact__i" src="../assets/all/calendar_i.png" alt="">
+                <div class="item__row item__100 item__ac item__mb__s">
+                    <div class="contact__l">
                         
-                        <div class="item__row">
-                            <p class="contact__text">Пн-Пт: 08:00 - 20:00</p>
-                            <p class="contact__text">Сб: 08:00 - 18.00</p>
-                            <p class="contact__text">Вс: 09:00 - 14.00</p>
+
+                        <div class="item__row item__mb__xs">
+                            <img class="contact__i" src="../assets/all/location_i.png" alt="">
+
+                            <div class="item__column">
+                                <p class="contact__b__title">Адрес</p>
+                                <a href="https://yandex.kz/maps/-/CCUUqJFm~D" target="_blank" class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</a>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="item__row item__mb__s item__ac">
-                        <img class="contact__i" src="../assets/all/post_i.png" alt="">
-                        <div class="item__column">
-                            <p class="contact__b__title">Электронная почта</p>
-                            <a href="mailto:info@greenclinic.kz" class="contact__text">info@greenclinic.kz</a>
+                        <div class="item__row item__mb__xs">
+                            <img class="contact__i" src="../assets/all/contact_i.png" alt="">
+                            <div class="item__column">
+                                <p class="contact__b__title">Телефон</p>
+                                <a href="tel:+7 (7172) 79 77 22" class="contact__text">+7 (7172) 79 77 22</a>   
+                                <a href="tel:+7(71-72) 79-77-20" class="contact__text">+7(71-72) 79-77-20 (отделение лучевой диагностики)</a>
+                                <a href="tel:+7 776 898 38 00" class="contact__text"> +7 776 898 38 00</a>
+                                <a href="te:+7(771)-033-55-59" class="contact__text"> +7(771)-033-55-59 (отделение лучевой диагностики)</a>
+                            </div>
                         </div>
+                        <div class="item__row item__mb__xs item__ac">
+                            <img class="contact__i" src="../assets/all/calendar_i.png" alt="">
+                            
+                            <div class="item__row">
+                                <p class="contact__text">Пн-Пт: 08:00 - 20:00</p>
+                                <p class="contact__text">Сб: 08:00 - 18.00</p>
+                                <p class="contact__text">Вс: 09:00 - 14.00</p>
+                            </div>
+                        </div>
+
+                        <div class="item__row item__mb__xs item__ac">
+                            <img class="contact__i" src="../assets/all/post_i.png" alt="">
+                            <div class="item__column">
+                                <p class="contact__b__title">Электронная почта</p>
+                                <a href="mailto:info@greenclinic.kz" class="contact__text">info@greenclinic.kz</a>
+                            </div>
+                        </div>
+
                     </div>
+                    <div class="contact__r">
+                        <img src="../assets/all/contact_map.png" alt="">
 
+                    </div>
                 </div>
-                <div class="contact__r">
-                    <img src="../assets/all/contact_map.png" alt="">
-
-                </div>
+       
             </div>
 
 
@@ -508,7 +512,12 @@ export default {
     justify-content: space-between;
     min-height: 100vh;
 
-  
+     @media (max-width: @planshet) {
+          width: 100%;
+    }
+    @media (max-width: @mobile) {
+          width: 100%;
+    }
 }
 
 .item__finish {

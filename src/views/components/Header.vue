@@ -186,6 +186,12 @@ export default {
 
 .green__main {
     width: 1280px;
+     @media (max-width: @mobile) {
+        width: 100%;
+    }
+     @media (max-width: @planshet) {
+          width: 100%;
+    }
 }
 .rotateimg180 {
   -webkit-transform:rotate(180deg);
