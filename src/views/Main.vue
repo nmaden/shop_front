@@ -125,7 +125,7 @@
                         <p class="purchase__title">Контакты</p>
                 </div>
 
-                <div class="item__row item__100 item__ac item__mb__s">
+                <div class="applications__contact item__row item__100 item__ac item__mb__s">
                     <div class="contact__l">
                         
 
@@ -566,6 +566,7 @@ export default {
     .applications__contact {
         @media (max-width: @planshet) {
           width: 100%;
+          
         }
         @media (max-width: @mobile) {
             width: 100%;
