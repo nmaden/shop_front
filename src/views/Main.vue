@@ -129,7 +129,7 @@
                     <div class="contact__l">
                         
 
-                        <div class="item__row item__mb__xs">
+                        <div class="item__row ">
                             <img class="contact__i" src="../assets/all/location_i.png" alt="">
 
                             <div class="item__column">
@@ -137,7 +137,7 @@
                                 <a href="https://yandex.kz/maps/-/CCUUqJFm~D" target="_blank" class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</a>
                             </div>
                         </div>
-                        <div class="item__row item__mb__xs">
+                        <div class="item__row ">
                             <img class="contact__i" src="../assets/all/contact_i.png" alt="">
                             <div class="item__column">
                                 <p class="contact__b__title">Телефон</p>
@@ -147,7 +147,7 @@
                                 <a href="te:+7(771)-033-55-59" class="contact__text"> +7(771)-033-55-59 (отделение лучевой диагностики)</a>
                             </div>
                         </div>
-                        <div class="item__row item__mb__xs item__ac">
+                        <div class="item__row  item__ac">
                             <img class="contact__i" src="../assets/all/calendar_i.png" alt="">
                             
                             <div class="item__row">
@@ -157,7 +157,7 @@
                             </div>
                         </div>
 
-                        <div class="item__row item__mb__xs item__ac">
+                        <div class="item__row  item__ac">
                             <img class="contact__i" src="../assets/all/post_i.png" alt="">
                             <div class="item__column">
                                 <p class="contact__b__title">Электронная почта</p>
@@ -338,6 +338,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+
+.item__100 {
+    width: 100%;
+}
 @mobile: 900px;
 @planshet: 1200px;
 
@@ -583,6 +587,7 @@ export default {
             @media (max-width: @mobile) {
                  margin-right: 0;
             }
+           
         }
         .contact__r {
            
@@ -608,18 +613,28 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            @media (max-width: @mobile) {
+                width: 31px;
+                height: 25px;
+            }
         }
         .contact__b__title {
             color: #85C418;
             font-family: 'Bold';
             margin-bottom: 2px;
             font-size: 18px;
+             @media (max-width: @mobile) {
+                font-size: 14px;
+            }
         }
         .contact__text {
            font-family: 'Regular'; 
            margin-bottom: 2px;
            text-decoration: none;
            color: #0F1721;
+           @media (max-width: @mobile) {
+                font-size: 12px;
+            }
         }
   
     }
@@ -666,7 +681,7 @@ export default {
         margin-bottom: 0;
         font-family: 'Bold';
         @media (max-width: @mobile) {
-            font-size: 36px;
+            font-size: 32px;
         }
     }
     

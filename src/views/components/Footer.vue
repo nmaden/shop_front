@@ -34,7 +34,7 @@
 
                 <div class="footer__center">
                     <div class="footer__center--title">Услуги</div>
-                    <div class="row">
+                    <div class="row item__100">
 
                         <div class="col-lg-4">
                             <ul class="menu">
@@ -121,6 +121,10 @@ export default {
 <style lang="less" scoped>
 @mobile: 900px;
 @planshet: 1200px;
+
+.item__100 {
+    width: 100%;
+}
 .item__column { 
     display: flex;
     flex-direction: column;
@@ -133,7 +137,17 @@ export default {
     padding: 65px 0 50px 0;
 
 }
-.footer__center {max-width: 100%;width: 830px;}
+.footer__center {
+    max-width: 100%;
+    width: 830px;
+    @media (max-width: @mobile) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
 .footer__row {
     margin: 0 -15px;
     display: flex;
@@ -627,6 +641,10 @@ a.version_visually:hover {
         justify-content: space-between;
         align-items: center;
         margin-bottom: 30px;
+        @media (max-width: @mobile) {
+           justify-content: center;
+        }
+   
     }
     
     .footer__left--popap {
