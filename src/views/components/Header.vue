@@ -1,7 +1,7 @@
 <template>
 
 <div>
-    <header  class="item__column item__ac">
+    <header  class="header item__column item__ac">
          
         <div class="green__main">
 
@@ -13,35 +13,48 @@
                 <div class="header__right">
                     <div class="header__menu">
                         <ul class="menu">
-                            <li>
-                                <a href="https://greenclinic.kz/about">О нас</a>
-                            </li>
-                            <li>
-                                <a href="https://greenclinic.kz/">Новости</a>
-                            </li>
-                            <li class="menu-item-has-children">
+                            <li style="margin:0">
+                               
                                 <div class="item__hover item__column">
                                     
-                                    <div class="item__hover__label item__row item__ac">
-                                        <a  target="_blank" href="https://greenclinic.kz/departments" @mouseover="showDropdown">Отделения</a>
-                                        <img src="../../assets/all/icon_down.png" alt="" v-bind:class="{rotateimg180:dropdownShow==true}" @click="showDropdown"> 
+                                    <div class="item__hover__label item__row item__ac" @click="showDropdownAbout">
+                                        <a  target="_blank" href="https://greenclinic.kz/ru/o-nas/" >О нас</a>
+                                        <img src="../../assets/all/icon_down.png" alt="" v-bind:class="{rotateimg180:dropdownShowAbout==true}" > 
+                                    </div>
+                                    <div class=" item__dropdown" v-if="dropdownShowAbout"  @mouseleave="hideDropdownAbout">
+                                        <a target="_blank" href="https://greenclinic.kz/ru/dokumentacziya">Документация</a>
+                                    </div>
+                                 </div>
+                            </li>
+                           
+                            <li class="menu-item-has-children">
+                                <div class="item__hover item__column">
+                                    <div class="item__hover__label item__row item__ac"  @click="showDropdown">
+                                        <a  target="_blank" href="https://greenclinic.kz/departments" >Отделения</a>
+                                        <img src="../../assets/all/icon_down.png" alt="" v-bind:class="{rotateimg180:dropdownShow==true}"> 
                                     </div>
                                     <div class=" item__dropdown" v-if="dropdownShow"  @mouseleave="hideDropdown">
-                                        <a target="_blank" href="https://greenclinic.kz/departments/poliklinika">Поликлиника</a>
-                                        <a target="_blank" href="https://greenclinic.kz/departments/stacionar">Стационар</a>
-                                        <a target="_blank" href="https://greenclinic.kz/departments/luchevaya-diagnostika">Отделение лучевой<br> диагностики</a>
+                                        <a target="_blank" href="https://greenclinic.kz/departments/ru/departments/poliklinika/">Поликлиника</a>
+                                        <a target="_blank" href="https://greenclinic.kz/departments/ru/departments/staczionar/">Стационар</a>
+                                        <a target="_blank" href="https://greenclinic.kz/departments/ru/departments/otdelenie-luchevoj-diagnostiki/">Отделение лучевой<br> диагностики</a>
                                     </div>
                                 </div>
-                                
+                            </li>
+                            
+                            <li>
+                                <a href="https://greenclinic.kz/ru/control/">Услуги</a>
                             </li>
                             <li>
-                                <a href="https://purchases.greenclinic.kz">Закупки</a>
+                                <a href="https://greenclinic.kz/ru/doctor/">Врачи</a>
                             </li>
                             <li>
-                                <a href="https://purchases.greenclinic.kz">Документация</a>
+                                <a href="https://zakup.greenclinic.kz">Закупки</a>
                             </li>
                             <li>
-                                <a href="https://greenclinic.kz/contacts">Контакты</a>
+                                <a href="https://greenclinic.kz/ru/news/">Новости</a>
+                            </li>
+                            <li>
+                                <a href="https://greenclinic.kz/ru/kontakty/">Контакты</a>
                             </li>
                         </ul>
                     </div>
@@ -160,10 +173,17 @@ export default {
         lang: 'ru',
         show_menu: false,
         show_mobile_menu: false,
-        dropdownShow: false
+        dropdownShow: false,
+        dropdownShowAbout: false
       }
     },
     methods: {
+        showDropdownAbout() {
+            this.dropdownShowAbout = !this.dropdownShowAbout;
+        },
+        hideDropdownAbout() {
+            this.dropdownShowAbout = false;
+        },
         showDropdown() {
             this.dropdownShow = !this.dropdownShow;
         },
@@ -185,7 +205,7 @@ export default {
 @planshet: 1200px;
 
 .green__main {
-    width: 1280px;
+    width: 1400px;
      @media (max-width: @mobile) {
         width: 100%;
     }
@@ -291,13 +311,13 @@ export default {
         margin-bottom: 15px;
         color: #0F1721;
         font-size: 24px;
-        font-family: 'Regular';
+        font-family: 'Light';
     }
     .top__menu__item__min {
         margin-bottom: 10px;
         color: #5B5B5B;
         font-size: 18px;
-        font-family: 'Regular';
+        font-family: 'Light';
         text-align: center;
         animation: fadein 1s;
         -moz-animation: fadein 1s; /* Firefox */
@@ -349,12 +369,13 @@ export default {
     }
 }
 .item__dropdown {
-    width: 200px;
+    width: 230px;
     display: flex;
     flex-direction: column;
     background: white;
-    padding: 20px;
-
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0px 8px 40px rgb(0 0 0 / 50%);
     position: absolute;
     
     top: 25px;
@@ -443,7 +464,7 @@ body{
 .header {
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
-    padding: 40px 0;
+    padding: 15px 0;
   
     width: 100%;
     z-index: 10;

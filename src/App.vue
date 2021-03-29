@@ -32,6 +32,10 @@ export default {
   src: url('./font/Montserrat-Medium.ttf');
 }
 @font-face {
+  font-family: "Light";
+  src: url('./font/Montserrat-Medium.ttf');
+}
+@font-face {
   font-family: "Regular";
   src: url('./font/OpenSans-Regular.ttf');
 }

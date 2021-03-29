@@ -257,7 +257,7 @@ export default {
 @planshet: 1200px;
 
 .green__main {
-    width: 1280px;
+    width: 1400px;
     @media (max-width: @mobile) {
         width: 100%;
     }

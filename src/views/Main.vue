@@ -1,8 +1,6 @@
 <template>
     <div class="main">
         <Header />
-
-
         <div class="applications">
 
             <div class="applications__menu item__row item__ac">
@@ -119,13 +117,13 @@
 
 
             
-            <div class="item__column item__100 applications__contact">
+            <div class="item__column item__100 applications__contact ">
                 <div class="applications__top item__row item__mb">
                         <div class="purchase__line"></div>
                         <p class="purchase__title">Контакты</p>
                 </div>
 
-                <div class="applications__contact item__row item__100 item__ac item__mb__s">
+                <div class="applications__contact item__row item__100 item__ac item__mb__s item__jb">
                     <div class="contact__l">
                         
 
@@ -555,8 +553,11 @@ export default {
     display: flex;
     flex-direction: column;
 }
+.item__jb {
+    justify-content: space-between;
+}
 .applications {
-    width: 1280px;
+    width: 1400px;
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -677,9 +678,9 @@ export default {
         font-size: 48px;
         line-height: 65px;
         color: #85C418;
-        font-weight: bold;
+
         margin-bottom: 0;
-        font-family: 'Bold';
+        font-family: 'MontserratBold';
         @media (max-width: @mobile) {
             font-size: 32px;
         }
@@ -921,7 +922,7 @@ export default {
                 background: #FFFFFF;
                 box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.05);
                 margin-bottom: 20px;
-                width: 930px;
+                width: 1040px;
                 @media (max-width: @planshet) {
                     width: 100%;
                     flex-direction: column;
