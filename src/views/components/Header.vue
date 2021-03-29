@@ -375,7 +375,6 @@ export default {
     background: white;
     padding: 25px;
     text-align: center;
-    box-shadow: 0px 8px 40px rgb(0 0 0 / 50%);
     position: absolute;
     
     top: 25px;
