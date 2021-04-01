@@ -4,7 +4,7 @@
         <div class="applications ">
 
             <div class="applications__menu item__row item__ac">
-                <a href="https://greenclinic.kz/" target="_blank">Главная</a>
+                <a href="http://test.crocos.kz/ru/" target="_blank">Главная</a>
                 <p v-bind:class="{active__menu: page==1}" @click="openPurchases"> Закупки</p>
                 <p v-bind:class="{active__menu: page==2}" v-if="page==2">Подать заявку</p>
             </div>
@@ -412,6 +412,8 @@ export default {
        }
    } 
    .modal__input {
+
+        font-family: "MontserratRegular";
         background: #ffffff;
         border: 1px solid #f2f2f2;
         box-sizing: border-box;
@@ -423,7 +425,7 @@ export default {
         margin-bottom: 15px;
    }
    .modal__submit {
-         width: 100%;
+        width: 100%;
         padding: 15px 25px;
         color: #0f1721;
         height: 58px;
@@ -432,10 +434,15 @@ export default {
         font-weight: normal;
         font-size: 18px;
         border: 0;
+        font-family: "MontserratRegular";
+   }
+   .modal__submit:hover {
+       opacity: 0.8;
    }
    .modal__text {
       
 
+        font-family: "MontserratRegular";
         text-align: center;
         margin-top: 25px;
         font-weight: normal;
@@ -880,14 +887,17 @@ export default {
         @media (max-width: @mobile) {
            padding: 30px;
         }
+        input {
+             font-family: "MontserratRegular";
+        }
         .item__checkbox__text {
             font-size: 14px;
-            font-family: 'Monserrat';
+            font-family: 'MontserratRegular';
         }
         .form__title {
             color: #0F1721;
             font-size: 24px;
-            font-family: 'Monserrat'; 
+            font-family: 'MontserratBold'; 
         }
 
         .form__wrap {
@@ -899,7 +909,7 @@ export default {
             
             .item__column {
                 p {
-                    font-family: 'Monserrat'  !important;
+                    font-family: 'MontserratRegular'  !important;
                 }
             }
             div {
@@ -909,6 +919,7 @@ export default {
                 }
             }
             input {
+                
                 height: 42px;
                 border: 1px solid #737373;
                 border-radius: 2px;
@@ -946,13 +957,16 @@ export default {
             position: relative;
             .form__file__text {
                 margin-bottom: 2px ;
+                font-family: "MontserratRegular";
             }
             .form__inside__text {
                 position:absolute;
                 top: 35px;
                 left: 10px;
                 color: #0F1721;
-                font-family: 'Monserrat';
+                
+                font-family: "MontserratRegular";
+                
             }
         }
        
@@ -964,6 +978,7 @@ export default {
             font-size: 18px;
             margin-bottom: 35px;
             border-radius: 2px;
+            font-family: "MontserratRegular";
             @media (max-width: @mobile) {
                 width: 100%;
                 text-align: center;
@@ -978,11 +993,11 @@ export default {
         }
 
         .form__agree__first {
-            font-family: "Monserrat";
+            font-family: "MontserratRegular";
             margin-bottom: 0;
         }
         .form__agree__second {
-            font-family: "Monserrat";
+            font-family: "MontserratRegular";
         }
     
     }

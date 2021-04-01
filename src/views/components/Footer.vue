@@ -72,12 +72,12 @@
 
                 <div class="footer__right">
                     <ul class="menu">
-                        <li><a href="https://greenclinic.kz/about">О нас</a></li>
-                        <li><a href="https://greenclinic.kz/news">Новости</a></li>
-                        <li><a href="https://greenclinic.kz/departments">Отделения</a></li>
+                        <li><a href="http://test.crocos.kz/ru/about">О нас</a></li>
+                        <li><a href="http://test.crocos.kz/ru/news">Новости</a></li>
+                        <li><a href="http://test.crocos.kz/ru/departments">Отделения</a></li>
                         <li><a href="https://purchases.greenclinic.kz/">Закупки</a></li>
-                        <li><a href="https://greenclinic.kz/documents">Документация</a></li>
-                        <li><a href="https://greenclinic.kz/contacts">Контакты</a></li>
+                        <li><a href="http://test.crocos.kz/ru/documents">Документация</a></li>
+                        <li><a href="http://test.crocos.kz/ru/contacts">Контакты</a></li>
                     </ul>
                 </div>
             </div>
