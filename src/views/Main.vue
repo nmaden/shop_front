@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <Header />
-        <div class="applications">
+        <div class="applications ">
 
             <div class="applications__menu item__row item__ac">
                 <a href="https://greenclinic.kz/" target="_blank">Главная</a>
@@ -148,10 +148,10 @@
                         <div class="item__row  item__ac">
                             <img class="contact__i" src="../assets/all/calendar_i.png" alt="">
                             
-                            <div class="item__row">
-                                <p class="contact__text">Пн-Пт: 08:00 - 20:00</p>
-                                <p class="contact__text">Сб: 08:00 - 18.00</p>
-                                <p class="contact__text">Вс: 09:00 - 14.00</p>
+                            <div class="item__row item__days">
+                                <p class="contact__text item__mr__m">Пн-Пт: 08:00 - 20:00</p>
+                                <p class="contact__text item__red item__mr__m">  Сб: 08:00 - 18.00</p>
+                                <p class="contact__text item__red">Вс: 09:00 - 14.00</p>
                             </div>
                         </div>
 
@@ -165,14 +165,42 @@
 
                     </div>
                     <div class="contact__r">
-                        <img src="../assets/all/contact_map.png" alt="">
-
+                        <!-- <img src="../assets/all/contact_map.png" alt=""> -->
+                          <div id="map" style="width: 600px; height: 400px"></div>
                     </div>
                 </div>
        
             </div>
+            <div class="item__call" @click="contactDialog=true">
+                <img   src="../assets/all/call.svg" alt="">
+            </div>
+        </div>
 
+        <div class=" text-center">
+            <v-dialog
+            v-model="contactDialog"
+            width="700"
+            class="rounded-0"
+            >
+        
+            <v-card class="rounded-0 modal item__column item__ac">
+              
+                <div class="modal__header">
+                      <h2>Заказать звонок</h2>
+                </div>
+                <svg class="modal__close" @click="contactDialog=false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M6 6L18 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
 
+               
+                <input type="text"  class="modal__input" placeholder="Ваше имя"/>
+                <input type="text" v-model="phoneModal"  v-mask="mask" class="modal__input" placeholder="Ваш телефон*"/>
+
+                <button class="modal__submit">Отправить</button>
+                <p class="modal__text">Нажмите “Отправить” наши консультанты с вами свяжуться и помогут</p>
+            </v-card>
+            </v-dialog>
         </div>
         <v-row justify="center" >
             <v-alert
@@ -227,6 +255,7 @@ export default {
     },
     data () {
         return {
+            contactDialog: false,
             imageNames: [],
             dialogAccept: false,
             savedData: false,
@@ -241,12 +270,17 @@ export default {
             address: null,
             phone: null,
             email: null,
-            document: []
-
+            document: [],
+            categories: [],
+            mask: ['+7(', /\d/, /\d/, /\d/, ') ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+            phoneModal: '+7'
 
         }
     },
     methods: {
+        openModal() {
+            this.contactDialog = true;
+        },
          convert_date(date) {
      
             let day = date.split("T")[0].split("-")[2];
@@ -342,8 +376,93 @@ export default {
 }
 @mobile: 900px;
 @planshet: 1200px;
+.applications  {
+    max-width: 1440px;
+}
+.modal {
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 60px 46px;
+    justify-content: center;
+    background-color: #fff;
+    position:relative;
+    .modal__close {
+        position:absolute;
+        right: 30px;
+        top: 20px;
+        cursor: pointer;
+    }
+    button,input {
+        border: none;
+        outline: none;
+    }
+   .modal__header {
+       h2 {
+            font-family: 'MontserratBold';
+            font-style: 'bold';
+            font-weight: bold;
+            font-size: 31px;
+            line-height: 42px;
+            letter-spacing: -0.03em;
+            margin: 0;
+            text-align: center;
+            margin-bottom: 23px;
+       }
+   } 
+   .modal__input {
+        background: #ffffff;
+        border: 1px solid #f2f2f2;
+        box-sizing: border-box;
+        border-radius: 2px;
+        width: 100%;
+        padding: 15px 25px;
+        color: #0f1721;
+        height: 58px;
+        margin-bottom: 15px;
+   }
+   .modal__submit {
+         width: 100%;
+        padding: 15px 25px;
+        color: #0f1721;
+        height: 58px;
+        background: #ffcf55;
+        border-radius: 2px;
+        font-weight: normal;
+        font-size: 18px;
+        border: 0;
+   }
+   .modal__text {
+      
 
-
+        text-align: center;
+        margin-top: 25px;
+        font-weight: normal;
+        font-size: 18px;
+        color: #9c9c9c;
+}
+   
+}
+.item__call {
+    cursor: pointer;
+    position: fixed;
+    right: 50px;
+    z-index: 5;
+    bottom: 50px;
+    animation: circle-fill-anim 2.3s infinite ease-in-out;
+}
+@keyframes circle-fill-anim {
+  0% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
 .item__paper {
     background-color: #85C418;
     padding: 10px;
@@ -527,7 +646,7 @@ export default {
     text-align: center;
     p {
         font-size: 24px;
-        font-family: 'Bold';
+        font-family: 'Monserrat';
     }
     button {
         outline: none;
@@ -557,7 +676,7 @@ export default {
     justify-content: space-between;
 }
 .applications {
-    width: 1400px;
+   
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -592,7 +711,7 @@ export default {
         }
         .contact__r {
            
-            img {
+            #map {
                 width: 690px;
                 height: 452px;
                 @media (max-width: @planshet) {
@@ -621,19 +740,26 @@ export default {
         }
         .contact__b__title {
             color: #85C418;
-            font-family: 'Bold';
+            font-family: 'MontserratBold';
             margin-bottom: 2px;
             font-size: 18px;
              @media (max-width: @mobile) {
                 font-size: 14px;
             }
         }
+
+        .item__days {
+            @media (max-width: @mobile) {
+                flex-direction: column;
+            }
+        }
         .contact__text {
-           font-family: 'Regular'; 
+           font-family: 'MontserratRegular'; 
            margin-bottom: 2px;
            text-decoration: none;
            color: #0F1721;
-           @media (max-width: @mobile) {
+           font-size: 14px;
+            @media (max-width: @mobile) {
                 font-size: 12px;
             }
         }
@@ -651,6 +777,8 @@ export default {
             margin: 11px 0 12px 26px;
             cursor: pointer;
             color: #BEBEBE;  
+            font-family: 'MontserratRegular';
+            font-size: 14px;
         }
         p:hover,a:hover {
             color: #85C418;
@@ -675,6 +803,7 @@ export default {
         }
     }
     .purchase__title {
+        
         font-size: 48px;
         line-height: 65px;
         color: #85C418;
@@ -685,7 +814,12 @@ export default {
             font-size: 32px;
         }
     }
-    
+    .item__red {
+        color: #da3f3f !important;
+    }
+    .item__mr__m {
+        margin-right: 20px;
+    }
     .item__mr__xs {
         margin-right: 10px;
     }
@@ -728,7 +862,9 @@ export default {
             opacity: 1;
         }
     }
-
+    p {
+        font-weight: normal;
+    }
     .application__form {
         padding: 60px;
         background: #FFFFFF;
@@ -746,12 +882,12 @@ export default {
         }
         .item__checkbox__text {
             font-size: 14px;
-            font-family: 'Regular';
+            font-family: 'Monserrat';
         }
         .form__title {
             color: #0F1721;
             font-size: 24px;
-            font-family: 'Bold'; 
+            font-family: 'Monserrat'; 
         }
 
         .form__wrap {
@@ -763,7 +899,7 @@ export default {
             
             .item__column {
                 p {
-                    font-family: 'Regular'  !important;
+                    font-family: 'Monserrat'  !important;
                 }
             }
             div {
@@ -816,7 +952,7 @@ export default {
                 top: 35px;
                 left: 10px;
                 color: #0F1721;
-                font-family: 'Regular';
+                font-family: 'Monserrat';
             }
         }
        
@@ -842,11 +978,11 @@ export default {
         }
 
         .form__agree__first {
-            font-family: "Regular";
+            font-family: "Monserrat";
             margin-bottom: 0;
         }
         .form__agree__second {
-            font-family: "Regular";
+            font-family: "Monserrat";
         }
     
     }
@@ -869,7 +1005,7 @@ export default {
       
 
         .applications__l {
-            width: 338px;
+            min-width: 338px;
             display: flex;
             flex-direction: column;
             background: #FFFFFF;
@@ -894,6 +1030,7 @@ export default {
             p {
                 margin-bottom: 15px;
                 cursor: pointer;
+                font-family: 'MontserratSemiBold';
             }
             p:hover {
                 color: #85C418;
@@ -916,13 +1053,13 @@ export default {
             }
 
             .applications__item {
+                width: 1080px;
                 padding: 30px 40px;
                 display: flex;
                 flex-direction: row;
                 background: #FFFFFF;
                 box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.05);
                 margin-bottom: 20px;
-                width: 1040px;
                 @media (max-width: @planshet) {
                     width: 100%;
                     flex-direction: column;
@@ -932,7 +1069,7 @@ export default {
                     flex-direction: column;
                 }
                 .item__download {
-                    font-weight: bold;
+                    font-family: 'MontserratBold';
                     color: #85C418;
                     font-size: 18px;
                     cursor: pointer;
@@ -949,7 +1086,8 @@ export default {
                     color: #DBC926;
                     font-size: 18px;
                     cursor: pointer;
-                    font-weight: bold;
+                    
+                    font-family: 'MontserratBold';
                     @media (max-width: @mobile) {
                         font-size: 14px;
                         white-space: nowrap;
@@ -963,7 +1101,7 @@ export default {
                     margin-right: 40px;
                     cursor: pointer;
                     p {
-                        font-family: 'Regular';
+                        font-family: 'MontserratBold';
                     }
                 }
                 .item__r {
@@ -972,21 +1110,18 @@ export default {
 
                     .item__count,.item__date {
                         color: #C0C0C0;
-                        font-family: 'Regular';
+                        font-family: 'MontserratLight';
+                      
                     }
                     .item__title {
                         font-size: 16px;
-                        font-family: 'Bold';
+                        font-family: 'MontserratBold';
                     }
                     .item__description {
                         font-size: 14px;
-                        font-family: 'Regular';
+                        font-family: 'MontserratLight';
                     }
-                    .item__row {
-                        p {
-                           font-family: 'Bold';  
-                        }
-                    }
+                  
                 }
 
             }

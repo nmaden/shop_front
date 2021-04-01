@@ -3,13 +3,13 @@
 <div>
     <header  class="header item__column item__ac">
          
-        <div class="green__main">
+        <div class="container green__main">
 
             <div class="header__row">
 
-                <div class="header__logo">
-                    <img src="../../assets/logo/logo.jpg" alt="logo">
-                </div>
+                <a href="http://test.crocos.kz/ru" class="header__logo">
+                    <img src="../../assets/all/green_logo.svg" alt="logo">
+                </a>
                 <div class="header__right">
                     <div class="header__menu">
                         <ul class="menu">
@@ -66,13 +66,13 @@
                         </div>
                         <div class="header__contact--info">
                             <a href="tel:+7 776 898 38 00" class="header__contact--phone">+7 776 898 38 00</a>
-                            <!-- <a class="header__contact--popap">Заказать звонок</a> -->
+                            <a @click="$parent.openModal()" class="header__contact--popap">Заказать звонок</a>
                         </div>
                     </div>
                     <div class="header__right--row">
-                        <!-- <div class="header__right--version">
+                        <div class="header__right--version">
                             <a class="version_visually">Версия для слабовидищих</a>
-                        </div> -->
+                        </div>
                         <div class="header__lang">
                             <div class="header__lang--click">
                                 <a>Ru</a>
@@ -106,7 +106,7 @@
     </header>
 
 
-    <div class="item__column top__mobil item__ac" v-if="show_left">
+    <div class="item__column top__mobil item__ac" v-if="show_left" v-bind:class="{slide:show_left}">
 
         <div class="top__contact item__row item__ac item__100 item__jb">
             <div class="item__row item__ac">
@@ -117,14 +117,23 @@
                 
                 <div class="top__phone item__column">
                     <a href="tel:+7 776 898 38 00" >+7 776 898 38 00</a>
-                    <!-- <a >Заказать звонок</a> -->
+                    <a class="top__phone__a" @click="$parent.openModal()">Заказать звонок</a>
                 </div>
             </div>
              
             <img src="../../assets/all/x.svg" alt="" @click="show_left=false">
         </div>
 
-        <a href="https://greenclinic.kz/about" class="top__menu__item">О нас</a>
+        
+        <div class="item__row item__ac">
+            <a href="https://greenclinic.kz/about" @click="dropdownShowAbout=!dropdownShowAbout" class="top__menu__item">О нас</a>
+            <img class="top__menu__item__icon"  v-if="!dropdownShowAbout"  src="../../assets/all/icon_down.png" alt="">
+            <img class="top__menu__item__icon top__reverse__icon" v-if="dropdownShowAbout"   src="../../assets/all/icon_down.png" alt="">
+        </div>
+        <div class="item__column item__ac" v-if="dropdownShowAbout">
+            <a href="https://greenclinic.kz/departments/poliklinika" class="top__menu__item__min">Документация</a>
+        </div>
+
         <a href="https://greenclinic.kz" class="top__menu__item">Новости</a>
         <div class="item__row item__ac" @click="item__show=!item__show">
             <a class="top__menu__item">Отделения</a>
@@ -205,7 +214,7 @@ export default {
 @planshet: 1200px;
 
 .green__main {
-    width: 1400px;
+    max-width: 1440px;
      @media (max-width: @mobile) {
         width: 100%;
     }
@@ -220,98 +229,26 @@ export default {
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
+
 .top__mobil {
     position:fixed;
     top: 0;
+    right: -1200px;
     z-index: 10;
     background: white;
     height: 100vh;
     width: 100%;
-
-    animation: fadein 1s;
-    -moz-animation: fadein 1s; /* Firefox */
-    -webkit-animation: fadein 1s; /* Safari and Chrome */
-    -o-animation: fadein 1s; /* Opera */
     
-    animation: fadeout 1s;
-    -moz-animation: fadeout 1s; /* Firefox */
-    -webkit-animation: fadeout 1s; /* Safari and Chrome */
-    -o-animation: fadeout 1s; /* Opera */
-
-    @keyframes fadein {
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-moz-keyframes fadein { /* Firefox */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-webkit-keyframes fadein { /* Safari and Chrome */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-o-keyframes fadein { /* Opera */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-
-    @keyframes fadeout {
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-moz-keyframes fadeout { /* Firefox */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-webkit-keyframes fadeout { /* Safari and Chrome */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-o-keyframes fadeout { /* Opera */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
+ 
+    
     .top__reverse__icon {
          transform: rotate(180deg);
     }
     .top__menu__item {
         margin-bottom: 15px;
         color: #0F1721;
-        font-size: 24px;
-        font-family: 'Light';
+        font-size: 30px;
+        font-family: 'MontserratRegular';
     }
     .top__menu__item__min {
         margin-bottom: 10px;
@@ -344,17 +281,32 @@ export default {
             
             a {
                 font-size: 18px;
+                font-family: 'MontserratBold';
             }
             a:nth-child(1) {
-                font-family: 'Bold';
                 color: #0F1721;
             }
             a:nth-child(2) {
                 color: #85C418;
+                text-decoration: underline !important;
             }
+
           
         }
     }
+}
+.slide {
+    -webkit-animation: slide 0.2s forwards;
+    -webkit-animation-delay: 0.2s;
+    animation: slide 0.2s forwards;
+    animation-delay: 0.2s;
+}
+@-webkit-keyframes slide {
+    100% { right: 0; }
+}
+
+@keyframes slide {
+    100% { right: 0; }
 }
 
 
@@ -363,6 +315,9 @@ export default {
     a {
         font-size: 18px;
         color: #0F1721;
+    }
+    a:hover {
+        color: #85C418;
     }
     .item__hover__label {
         cursor: pointer;
@@ -463,13 +418,10 @@ body{
 .header {
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
-    padding: 15px 0;
+    padding: 8px 0;
   
     width: 100%;
-    z-index: 10;
-
-   
-    
+    z-index: 10;  
 }
 
 .header__row {
@@ -477,11 +429,22 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: @mobile) {
+        padding: 15px;
+    }
+
     
 }
 
 .header__logo {
+    text-decoration: none;
     margin-right: 50px;
+    width: 123px;
+    height: 60px;
+    img {
+        width: 113px;
+        height: 60px;
+    }
 }
 
 .header__right {
@@ -496,10 +459,19 @@ body{
     display: flex;
     align-items: center;
 }
-
+.header__menu {
+    a {
+        font-family: 'MontserratRegular';
+        font-weight: normal;
+        font-size: 18px;
+        color: #0F1721;
+        transition: all 0.5s ease;
+    }
+}
 .header__menu .menu > li > a {
+    font-family: 'MontserratRegular';
     font-weight: normal;
-    font-size: 18px;
+
     color: #0F1721;
     transition: all 0.5s ease;
 }
@@ -507,7 +479,7 @@ body{
     color: #85C418;
 }
 .header__menu .menu > li {
-    margin: 0 20px;
+    margin: 0 10px;
     padding: 10px 0;
 }
 
@@ -528,8 +500,8 @@ body{
 }
 
 .header__contact--phone {
-    font-weight: bold;
-    font-size: 18px;
+    font-family: 'MontserratBold';
+    font-size: 16px;
     color: #0F1721 !important;
 }
 
@@ -560,8 +532,8 @@ a.header__contact--popap {
 
 .header__lang--menu ul li a {
     color: #0F1721;
-    font-weight: normal;
-    font-size: 18px;
+    font-family: 'MontserratSemiBold';
+    font-size: 16px;
     transition: all 0.5s ease;
 }
 .header__lang--menu ul li:hover a,

@@ -1,6 +1,6 @@
 <template>
     <div class="item__column item__ac footer">
-        <div class="green__main">
+        <div class="container green__main">
 
             <div class="footer__row">
 
@@ -27,8 +27,8 @@
                             </a>
                         </div>
                     </div>
-                    <div class="footer__left--linck">
-                        <!-- <a class="footer__left--popap">Получить консультацию</a> -->
+                    <div @click="$parent.openModal()" class="footer__left--linck">
+                        <a class="footer__left--popap">Получить консультацию</a>
                     </div>
                 </div>
 
@@ -192,7 +192,7 @@ export default {
 }
 
 .footer__right ul.menu li a {
-    font-weight: bold;
+    font-family: 'MontserratBold';
     font-size: 16px;
     color: #939393;
 }
@@ -206,7 +206,7 @@ export default {
 }
 
 .footer__center--title {
-    font-weight: bold;
+    font-family: 'MontserratBold';
     font-size: 16px;
     color: #939393;
     margin-bottom: 15px;
@@ -222,6 +222,7 @@ export default {
     font-weight: normal;
     font-size: 14px;
     color: #CACACA;
+    font-family: 'MontserratSemiBold';
 }
 
 .footer__center ul.menu li {
@@ -257,7 +258,6 @@ export default {
 @planshet: 1200px;
 
 .green__main {
-    width: 1400px;
     @media (max-width: @mobile) {
         width: 100%;
     }
@@ -643,6 +643,7 @@ a.version_visually:hover {
         margin-bottom: 30px;
         @media (max-width: @mobile) {
            justify-content: center;
+           flex-direction: column;
         }
    
     }

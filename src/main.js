@@ -13,6 +13,8 @@ import IdleVue from 'idle-vue-3'
 import { i18n } from './plugins/i18n'
 import Scroll from './plugins/scroll'
 
+import VueMask from 'v-mask'
+Vue.use(VueMask)
 
 // options -------------------
 const options = {
@@ -41,7 +43,8 @@ Vue.prototype.$API_URL = process.env.VUE_APP_API_URL;
 
 
 Vue.prototype.$http = axios.create({
-  baseURL: 'https://api.greenclinic.kz/api/v1',
+  baseURL: 'http://127.0.0.1:8000/api/v1',
+  // https://api.greenclinic.kz
 });
 
 // events ----------------------
