@@ -42,7 +42,7 @@
                             </li>
                             
                             <li>
-                                <a href="http://test.crocos.kz/ru/ru/control/">Услуги</a>
+                                <a href="http://test.crocos.kz/ru/control/">Услуги</a>
                             </li>
                             <li>
                                 <a href="http://test.crocos.kz/ru/doctor/">Врачи</a>
