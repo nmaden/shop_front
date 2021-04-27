@@ -194,10 +194,10 @@
                 </svg>
 
                
-                <input type="text"  class="modal__input" placeholder="Ваше имя"/>
+                <input type="text"  v-model="nameModal" class="modal__input" placeholder="Ваше имя"/>
                 <input type="text" v-model="phoneModal"  v-mask="mask" class="modal__input" placeholder="Ваш телефон*"/>
 
-                <button class="modal__submit">Отправить</button>
+                <button class="modal__submit" @click="sendRequest">Отправить</button>
                 <p class="modal__text">Нажмите “Отправить” наши консультанты с вами свяжуться и помогут</p>
             </v-card>
             </v-dialog>
@@ -211,6 +211,15 @@
             >  {{'Успешно сохранен'}}
             </v-alert>
         </v-row>
+        <v-row justify="bottom" >
+            <v-alert
+                type="success"
+                :value ="savedData2"
+                transition="fade-transition"
+            
+            >  {{'Успешно сохранен'}}
+            </v-alert>
+        </v-row>
         <v-dialog
             v-model="dialogAccept"
             max-width="500"
@@ -218,12 +227,23 @@
             
             <v-card>
                 <div class="item__finish item__column item__ac">
-                    <p>Ваше коммерческое предложение отправлено успешно!</p>
+                    <p class="item__finish__text">Ваше коммерческое предложение отправлено успешно!</p>
                     <button @click="dialogAccept=false">Вернуться на главную</button>
                 </div>
             </v-card>
         </v-dialog>
-       
+        <v-dialog
+            v-model="dialogAccept2"
+            max-width="500"
+            >
+            
+            <v-card>
+                <div class="item__finish item__column item__ac">
+                    <p class="item__finish__text">Ваша заявка отправлено успешно!</p>
+                    <button @click="dialogAccept2=false">Вернуться на главную</button>
+                </div>
+            </v-card>
+        </v-dialog>
         <Footer />
 
        
@@ -255,9 +275,12 @@ export default {
     },
     data () {
         return {
+            savedData2: false,
+            nameModal: '',
             contactDialog: false,
             imageNames: [],
             dialogAccept: false,
+            dialogAccept2: false,
             savedData: false,
             support: false,
           
@@ -278,6 +301,31 @@ export default {
         }
     },
     methods: {
+        sendRequest() {
+          
+            let data = {
+                name: this.nameModal,
+                phone: this.phoneModal
+            };
+            this.$http.post('/send/request',data,
+                {
+              
+            })
+            .then(res => {
+                console.log(res);
+               
+                this.savedData = true;
+
+
+                this.contactDialog = false;
+                this.dialogAccept2 = true;
+         
+
+                this.phoneModal = '';
+                this.nameModal = '';
+                
+            })
+        },
         openModal() {
             this.contactDialog = true;
         },
@@ -378,6 +426,11 @@ export default {
 @planshet: 1200px;
 .applications  {
     max-width: 1440px;
+}
+
+.item__finish__text {
+    
+        font-family: "MontserratRegular" !important;
 }
 .modal {
     width: 700px;

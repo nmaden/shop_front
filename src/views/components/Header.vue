@@ -238,9 +238,6 @@ export default {
     background: white;
     height: 100vh;
     width: 100%;
-    
- 
-    
     .top__reverse__icon {
          transform: rotate(180deg);
     }
