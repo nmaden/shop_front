@@ -133,6 +133,7 @@
                             <div class="item__column">
                                 <p class="contact__b__title">Адрес</p>
                                 <a href="https://yandex.kz/maps/-/CCUUqJFm~D"   class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</a>
+                                <a href="https://yandex.kz/maps/-/CCUUqJFm~D"   class="contact__text">г. Нур-Султан, ул. Сарайшык 11/1 (филиал)</a>
                             </div>
                         </div>
                         <div class="item__row ">
@@ -140,9 +141,9 @@
                             <div class="item__column">
                                 <p class="contact__b__title">Телефон</p>
                                 <a href="tel:+7 (7172) 79 77 22" class="contact__text">+7 (7172) 79 77 22</a>   
-                                <a href="tel:+7(71-72) 79-77-20" class="contact__text">+7(71-72) 79-77-20 (отделение лучевой диагностики)</a>
+                                <!-- <a href="tel:+7(71-72) 79-77-20" class="contact__text">+7(71-72) 79-77-20 (отделение лучевой диагностики)</a>
                                 <a href="tel:+7 776 898 38 00" class="contact__text"> +7 776 898 38 00</a>
-                                <a href="te:+7(771)-033-55-59" class="contact__text"> +7(771)-033-55-59 (отделение лучевой диагностики)</a>
+                                <a href="te:+7(771)-033-55-59" class="contact__text"> +7(771)-033-55-59 (отделение лучевой диагностики)</a> -->
                             </div>
                         </div>
                         <div class="item__row  item__ac">
@@ -802,7 +803,7 @@ export default {
             color: #85C418;
             font-family: 'MontserratBold';
             margin-bottom: 2px;
-            font-size: 18px;
+            font-size: 20px;
              @media (max-width: @mobile) {
                 font-size: 14px;
             }
@@ -818,7 +819,7 @@ export default {
            margin-bottom: 2px;
            text-decoration: none;
            color: #0F1721;
-           font-size: 14px;
+           font-size: 16px;
             @media (max-width: @mobile) {
                 font-size: 12px;
             }

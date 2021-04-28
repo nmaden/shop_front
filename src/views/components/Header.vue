@@ -65,7 +65,7 @@
                             </svg>
                         </div>
                         <div class="header__contact--info">
-                            <a href="tel:+7 776 898 38 00" class="header__contact--phone">+7 776 898 38 00</a>
+                            <a href="tel:+7 (7172) 79 77 22" class="header__contact--phone">+7 (7172) 79 77 22</a>
                             <a @click="$parent.openModal()" class="header__contact--popap">Заказать звонок</a>
                         </div>
                     </div>
