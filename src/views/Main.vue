@@ -426,7 +426,7 @@ export default {
 @mobile: 900px;
 @planshet: 1200px;
 .applications  {
-    max-width: 1420px;
+    max-width: 1390px;
 }
 
 .item__finish__text {
@@ -1058,7 +1058,7 @@ export default {
     }
 
     .applications__line {
-        width: 1420px;
+        width: 1390px;
         min-height: 50vh;
         display: flex;
         flex-direction: row;

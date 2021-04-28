@@ -167,7 +167,7 @@ export default {
 }
 .footer__center {
     margin-top: 20px;
-    width: 1420px;
+    width: 1390px;
     max-width: 100%;
 
     @media (max-width: @mobile) {
@@ -347,7 +347,7 @@ body * {
     outline: none;
 }
 .container {
-    max-width: 1420px;
+    max-width: 1390px;
 }
 body{
 	padding-top: 140px;
@@ -500,7 +500,7 @@ a.version_visually:hover {
 @media screen and (max-width: 1536px) {
 
 }
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1390px) {
     .header__lang--menu {
         text-align: right;
     }

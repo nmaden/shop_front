@@ -214,7 +214,7 @@ export default {
 @planshet: 1200px;
 
 .green__main {
-    max-width: 1420px;
+    max-width: 1390px;
      @media (max-width: @mobile) {
         width: 100%;
     }
@@ -404,7 +404,7 @@ body * {
     outline: none;
 }
 .container {
-    max-width: 1420px;
+    max-width: 1390px;
 }
 body{
 	padding-top: 140px;
@@ -576,7 +576,7 @@ a.version_visually:hover {
 @media screen and (max-width: 1536px) {
 
 }
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1390px) {
     .header__lang--menu {
         text-align: right;
     }
