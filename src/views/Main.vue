@@ -1015,11 +1015,12 @@ export default {
             }
             .form__inside__text {
                 position:absolute;
-                top: 35px;
+                top: 38px;
                 left: 10px;
                 color: #0F1721;
-                
+                opacity: 0.9;
                 font-family: "MontserratRegular";
+                font-size: 14px;
                 
             }
         }
