@@ -7,7 +7,7 @@
 
             <div class="header__row">
 
-                <a href="http://test.crocos.kz/ru" class="header__logo">
+                <a href="https://greenclinic.kz/ru" class="header__logo">
                     <img src="../../assets/all/green_logo.svg" alt="logo">
                 </a>
                 <div class="header__right">
@@ -18,11 +18,11 @@
                                 <div class="item__hover item__column">
                                     
                                     <div class="item__hover__label item__row item__ac" @click="showDropdownAbout">
-                                        <a  target="_blank" href="http://test.crocos.kz/ru/o-nas/" >О нас</a>
+                                        <a    href="https://greenclinic.kz/ru/o-nas/" >О нас</a>
                                         <img src="../../assets/all/icon_down.png" alt="" v-bind:class="{rotateimg180:dropdownShowAbout==true}" > 
                                     </div>
                                     <div class=" item__dropdown" v-if="dropdownShowAbout"  @mouseleave="hideDropdownAbout">
-                                        <a target="_blank" href="http://test.crocos.kz/ru/dokumentacziya">Документация</a>
+                                        <a   href="https://greenclinic.kz/ru/dokumentacziya">Документация</a>
                                     </div>
                                  </div>
                             </li>
@@ -30,31 +30,31 @@
                             <li class="menu-item-has-children">
                                 <div class="item__hover item__column">
                                     <div class="item__hover__label item__row item__ac"  @click="showDropdown">
-                                        <a  target="_blank" href="http://test.crocos.kz/ru/departments" >Отделения</a>
+                                        <a    href="https://greenclinic.kz/ru/departments" >Отделения</a>
                                         <img src="../../assets/all/icon_down.png" alt="" v-bind:class="{rotateimg180:dropdownShow==true}"> 
                                     </div>
                                     <div class=" item__dropdown" v-if="dropdownShow"  @mouseleave="hideDropdown">
-                                        <a target="_blank" href="http://test.crocos.kz/ru/departments/poliklinika/">Поликлиника</a>
-                                        <a target="_blank" href="http://test.crocos.kz/ru/departments/staczionar/">Стационар</a>
-                                        <a target="_blank" href="http://test.crocos.kz/ru/departments/otdelenie-luchevoj-diagnostiki/">Отделение лучевой<br> диагностики</a>
+                                        <a   href="https://greenclinic.kz/ru/departments/poliklinika/">Поликлиника</a>
+                                        <a   href="https://greenclinic.kz/ru/departments/staczionar/">Стационар</a>
+                                        <a   href="https://greenclinic.kz/ru/departments/otdelenie-luchevoj-diagnostiki/">Отделение лучевой<br> диагностики</a>
                                     </div>
                                 </div>
                             </li>
                             
                             <li>
-                                <a href="http://test.crocos.kz/ru/control/">Услуги</a>
+                                <a href="https://greenclinic.kz/ru/control/">Услуги</a>
                             </li>
                             <li>
-                                <a href="http://test.crocos.kz/ru/doctor/">Врачи</a>
+                                <a href="https://greenclinic.kz/ru/doctor/">Врачи</a>
                             </li>
                             <li>
                                 <a href="https://zakup.greenclinic.kz">Закупки</a>
                             </li>
                             <li>
-                                <a href="http://test.crocos.kz/ru/news/">Новости</a>
+                                <a href="https://greenclinic.kz/ru/news/">Новости</a>
                             </li>
                             <li>
-                                <a href="http://test.crocos.kz/ru/kontakty/">Контакты</a>
+                                <a href="https://greenclinic.kz/ru/kontakty/">Контакты</a>
                             </li>
                         </ul>
                     </div>
@@ -126,12 +126,12 @@
 
         
         <div class="item__row item__ac">
-            <a href="http://test.crocos.kz/ru/about" @click="dropdownShowAbout=!dropdownShowAbout" class="top__menu__item">О нас</a>
+            <a href="https://greenclinic.kz/ru/about" @click="dropdownShowAbout=!dropdownShowAbout" class="top__menu__item">О нас</a>
             <img class="top__menu__item__icon"  v-if="!dropdownShowAbout"  src="../../assets/all/icon_down.png" alt="">
             <img class="top__menu__item__icon top__reverse__icon" v-if="dropdownShowAbout"   src="../../assets/all/icon_down.png" alt="">
         </div>
         <div class="item__column item__ac" v-if="dropdownShowAbout">
-            <a href="http://test.crocos.kz/ru/departments/poliklinika" class="top__menu__item__min">Документация</a>
+            <a href="https://greenclinic.kz/ru/departments/poliklinika" class="top__menu__item__min">Документация</a>
         </div>
 
         <a href="https://greenclinic.kz" class="top__menu__item">Новости</a>
@@ -142,14 +142,14 @@
         </div>
 
         <div class="item__column item__ac" v-if="item__show">
-            <a href="http://test.crocos.kz/ru/departments/poliklinika" class="top__menu__item__min">Поликлиника</a>
-            <a href="http://test.crocos.kz/ru/departments/stacionar" class="top__menu__item__min">Стационар</a>
-            <a href="http://test.crocos.kz/ru/departments/luchevaya-diagnostika" class="top__menu__item__min">Отделение лучевой <br> диагностики</a>
+            <a href="https://greenclinic.kz/ru/departments/poliklinika" class="top__menu__item__min">Поликлиника</a>
+            <a href="https://greenclinic.kz/ru/departments/stacionar" class="top__menu__item__min">Стационар</a>
+            <a href="https://greenclinic.kz/ru/departments/luchevaya-diagnostika" class="top__menu__item__min">Отделение лучевой <br> диагностики</a>
         </div>
         
         <a href="https://zakup.greenclinic.kz/" class="top__menu__item">Закупки</a>
-        <a href="http://test.crocos.kz/ru/dokumentacziya" class="top__menu__item">Документация</a>
-        <a href="http://test.crocos.kz/ru/contacts" class="top__menu__item">Контакты</a>
+        <a href="https://greenclinic.kz/ru/dokumentacziya" class="top__menu__item">Документация</a>
+        <a href="https://greenclinic.kz/ru/contacts" class="top__menu__item">Контакты</a>
     </div>
 </div>
     
@@ -214,7 +214,7 @@ export default {
 @planshet: 1200px;
 
 .green__main {
-    max-width: 1440px;
+    max-width: 1420px;
      @media (max-width: @mobile) {
         width: 100%;
     }
@@ -404,7 +404,7 @@ body * {
     outline: none;
 }
 .container {
-    max-width: 1440px;
+    max-width: 1420px;
 }
 body{
 	padding-top: 140px;

@@ -32,57 +32,85 @@
                     </div>
                 </div>
 
-                <div class="footer__center">
+                <div class="footer__right">
+                    <ul class="menu">
+                        <li><a href="https://greenclinic.kz/ru/about">О нас</a></li>
+                        <li><a href="https://greenclinic.kz/ru/news">Новости</a></li>
+                        <li><a href="https://greenclinic.kz/ru/departments">Отделения</a></li>
+                        <li><a href="https://purchases.greenclinic.kz/">Закупки</a></li>
+                        <li><a href="https://greenclinic.kz/ru/documents">Документация</a></li>
+                        <li><a href="https://greenclinic.kz/ru/contacts">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+
+            <div class="footer__center">
                     <div class="footer__center--title">Услуги</div>
                     <div class="row item__100">
 
-                        <div class="col-lg-4">
-                            <ul class="menu">
-                                <li><a href="#">Кардиология</a></li>
-                                <li><a href="#">Гинекология</a></li>
-                                <li><a href="#">Урология</a></li>
-                                <li><a href="#">Хирургия</a></li>
-                                <li><a href="#">Маммология. Онкология</a></li>
-                                <li><a href="#">Травматология</a></li>
+                        <div class="col-lg-3">
+                            <ul class="menu"><li id="menu-item-446" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-446"><a href="https://greenclinic.kz/ru/control/oftalmologiya/">Офтальмология</a></li>
+                                <li id="menu-item-677" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-677"><a href="https://greenclinic.kz/ru/control/terapiya/">Терапия</a></li>
+                                <li id="menu-item-448" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-448"><a href="https://greenclinic.kz/ru/control/urologiya/">Урология</a></li>
+                                <li id="menu-item-449" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-449"><a href="https://greenclinic.kz/ru/control/otolaringologiya/">Отоларингология</a></li>
+                                <li id="menu-item-450" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-450"><a href="https://greenclinic.kz/ru/control/kardiologiya/">Кардиология</a></li>
+                                <li id="menu-item-451" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-451"><a href="https://greenclinic.kz/ru/control/dermatologiya-i-venerologiya/">Дерматология и венерология</a></li>
+                                <li id="menu-item-452" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-452"><a href="https://greenclinic.kz/ru/control/gastroenterologiya/">Гастроэнтерология</a></li>
+                                <li id="menu-item-453" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-453"><a href="https://greenclinic.kz/ru/control/nevrologiya/">Неврология</a></li>
+                                <li id="menu-item-454" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-454"><a href="https://greenclinic.kz/ru/control/endokrinologiya/">Эндокринология</a></li>
+                                <li id="menu-item-455" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-455"><a href="https://greenclinic.kz/ru/control/stomatologiya/">Стоматология</a></li>
+                                <li id="menu-item-456" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-456"><a href="https://greenclinic.kz/ru/control/endoskopiya/">Эндоскопия</a></li>
+                                <li id="menu-item-457" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-457"><a href="https://greenclinic.kz/ru/control/fizioterapevticheskie-proczedury/">Физиотерапевтические процедуры</a></li>
                             </ul>
                         </div>
-                        <div class="col-lg-4">
-                            <ul class="menu">
-                                <li><a href="#">Отоларингология</a></li>
-                                <li><a href="#">Эндоскопия</a></li>
-                                <li><a href="#">Неврология</a></li>
-                                <li><a href="#">Офтальмология</a></li>
-                                <li><a href="#">Дерматология и венерология</a></li>
-                                <li><a href="#">Физиотерапевтические процедуры</a></li>
+                        <div class="col-lg-3">
+                            <ul class="menu"><li id="menu-item-702" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-702"><a href="https://greenclinic.kz/ru/control/pediatriya/">Педиатрия</a></li>
+                                <li id="menu-item-703" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-703"><a href="https://greenclinic.kz/ru/control/angiohirurgiya/">Ангиохирургия</a></li>
+                                <li id="menu-item-704" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-704"><a href="https://greenclinic.kz/ru/control/travmatologiya/">Травматология</a></li>
+                                <li id="menu-item-705" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-705"><a href="https://greenclinic.kz/ru/control/ginekologiya/">Гинекология</a></li>
+                                <li id="menu-item-706" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-706"><a href="https://greenclinic.kz/ru/control/revmatologiya/">Ревматология</a></li>
+                                <li id="menu-item-707" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-707"><a href="https://greenclinic.kz/ru/control/ultrazvukovoe-issledovanie/">Ультразвуковое исследование</a></li>
+                                <li id="menu-item-708" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-708"><a href="https://greenclinic.kz/ru/control/allergologiya/">Аллергология</a></li>
+                                <li id="menu-item-709" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-709"><a href="https://greenclinic.kz/ru/control/vertebrologiya/">Вертебрология</a></li>
+                                <li id="menu-item-710" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-710"><a href="https://greenclinic.kz/ru/control/koordinacziya/">Координация</a></li>
+                                <li id="menu-item-711" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-711"><a href="https://greenclinic.kz/ru/control/karboksiterapiya/">Карбокситерапия</a></li>
+                                <li id="menu-item-712" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-712"><a href="https://greenclinic.kz/ru/control/laboratoriya-laboratoriya-infekczionnoj-bolniczy-poliklinika/">Исследование на инфекцию</a></li>
+                                <li id="menu-item-713" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-713"><a href="https://greenclinic.kz/ru/control/laboratoriya-laboratoriya-patologo-anatomicheskogo-byuro-poliklinika/">Гистологические исследования</a></li>
                             </ul>
                         </div>
-                        <div class="col-lg-4">
-                            <ul class="menu">
-                                <li><a href="#">Массаж</a></li>
-                                <li><a href="#">Магнитно-резонансная томография</a></li>
-                                <li><a href="#">Рентгенология</a></li>
-                                <li><a href="#">Компьютерная томография</a></li>
-                                <li><a href="#">Услуги процедурного кабинета</a></li>
-                                <li><a href="#">Ультразвуковое исследование</a></li>
+                        <div class="col-lg-3">
+                            <ul class="menu"><li id="menu-item-470" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-470"><a href="https://greenclinic.kz/ru/control/urologiya/">Урология</a></li>
+                                <li id="menu-item-471" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-471"><a href="https://greenclinic.kz/ru/control/kardiologiya/">Кардиология</a></li>
+                                <li id="menu-item-692" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-692"><a href="https://greenclinic.kz/ru/control/nevrologiya/">Неврология</a></li>
+                                <li id="menu-item-478" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-478"><a href="https://greenclinic.kz/ru/control/obshhaya-hirurgiya/">Общая хирургия</a></li>
+                                <li id="menu-item-693" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-693"><a href="https://greenclinic.kz/ru/control/angiohirurgiya/">Ангиохирургия</a></li>
+                                <li id="menu-item-694" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-694"><a href="https://greenclinic.kz/ru/control/bariatricheskaya-hirurgiya/">Бариатрическая хирургия</a></li>
+                                <li id="menu-item-695" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-695"><a href="https://greenclinic.kz/ru/control/ginekologiya/">Гинекология</a></li>
+                                <li id="menu-item-696" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-696"><a href="https://greenclinic.kz/ru/control/travmotologiya-i-ortopediya/">Травмотология и ортопедия</a></li>
+                                <li id="menu-item-697" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-697"><a href="https://greenclinic.kz/ru/control/anestezialogiya-i-reanimatologiya/">Анестезиалогия и реаниматология</a></li>
+                                <li id="menu-item-698" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-698"><a href="https://greenclinic.kz/ru/control/plasticheskaya-hirurgiya/">Пластическая хирургия</a></li>
+                                <li id="menu-item-699" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-699"><a href="https://greenclinic.kz/ru/control/kompleksnye-obsledovaniya/">Комплексные обследования</a></li>
+                                <li id="menu-item-700" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-700"><a href="https://greenclinic.kz/ru/control/detskaya-ortopediya/">Детская ортопедия</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3">
+                            <ul class="menu"><li id="menu-item-300" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-300"><a href="https://greenclinic.kz/ru/control/magnitno-rezonansnaya-tomografiya/">Магнитно-резонансная  томография</a></li>
+                                <li id="menu-item-482" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-482"><a href="https://greenclinic.kz/ru/control/kompyuternaya-tomografiya/">Компьютерная томография</a></li>
+                                <li id="menu-item-701" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-701"><a href="https://greenclinic.kz/ru/control/rentenokologiya/">Ренгенография</a></li>
+                                <li id="menu-item-714" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-714"><a href="https://greenclinic.kz/ru/control/mammologiya-onkologiya/">Маммология.Онкология</a></li>
+                                <li id="menu-item-715" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-715"><a href="https://greenclinic.kz/ru/control/mammologiya-onkologiya/">Маммология.Онкология</a></li>
+                                <li id="menu-item-716" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-716"><a href="https://greenclinic.kz/ru/control/massazh/">Массаж</a></li>
+                                <li id="menu-item-717" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-717"><a href="https://greenclinic.kz/ru/control/uslugi-proczedurnogo-kabineta/">Услуги процедурного кабинета</a></li>
+                                <li id="menu-item-718" class="menu-item menu-item-type-post_type menu-item-object-control menu-item-718"><a href="https://greenclinic.kz/ru/control/ambulatoriya/">Амбулатория</a></li>
                             </ul>
                         </div>
 
                     </div>
                 </div>
-
-                <div class="footer__right">
-                    <ul class="menu">
-                        <li><a href="http://test.crocos.kz/ru/about">О нас</a></li>
-                        <li><a href="http://test.crocos.kz/ru/news">Новости</a></li>
-                        <li><a href="http://test.crocos.kz/ru/departments">Отделения</a></li>
-                        <li><a href="https://purchases.greenclinic.kz/">Закупки</a></li>
-                        <li><a href="http://test.crocos.kz/ru/documents">Документация</a></li>
-                        <li><a href="http://test.crocos.kz/ru/contacts">Контакты</a></li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
     </div>
 </template>
 
@@ -138,8 +166,10 @@ export default {
 
 }
 .footer__center {
+    margin-top: 20px;
+    width: 1420px;
     max-width: 100%;
-    width: 830px;
+
     @media (max-width: @mobile) {
         display: flex;
         flex-direction: column;
@@ -189,12 +219,20 @@ export default {
     margin: 0;
     padding: 0;
     list-style: none;
+    display: flex;
+    flex-direction: row;
+    @media (max-width: @mobile) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .footer__right ul.menu li a {
     font-family: 'MontserratBold';
     font-size: 16px;
     color: #939393;
+    margin-right: 19px;
 }
 
 .footer__right ul.menu li {
@@ -309,7 +347,7 @@ body * {
     outline: none;
 }
 .container {
-    max-width: 1440px;
+    max-width: 1420px;
 }
 body{
 	padding-top: 140px;

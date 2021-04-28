@@ -4,7 +4,7 @@
         <div class="applications ">
 
             <div class="applications__menu item__row item__ac">
-                <a href="http://test.crocos.kz/ru/" target="_blank">Главная</a>
+                <a href="https://greenclinic.kz/ru/"  >Главная</a>
                 <p v-bind:class="{active__menu: page==1}" @click="openPurchases"> Закупки</p>
                 <p v-bind:class="{active__menu: page==2}" v-if="page==2">Подать заявку</p>
             </div>
@@ -132,7 +132,7 @@
 
                             <div class="item__column">
                                 <p class="contact__b__title">Адрес</p>
-                                <a href="https://yandex.kz/maps/-/CCUUqJFm~D" target="_blank" class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</a>
+                                <a href="https://yandex.kz/maps/-/CCUUqJFm~D"   class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</a>
                             </div>
                         </div>
                         <div class="item__row ">
@@ -425,7 +425,7 @@ export default {
 @mobile: 900px;
 @planshet: 1200px;
 .applications  {
-    max-width: 1440px;
+    max-width: 1420px;
 }
 
 .item__finish__text {
@@ -1056,7 +1056,7 @@ export default {
     }
 
     .applications__line {
-        width: 1440px;
+        width: 1420px;
         min-height: 50vh;
         display: flex;
         flex-direction: row;
@@ -1073,7 +1073,7 @@ export default {
       
 
         .applications__l {
-            min-width: 338px;
+            width: 338px;
             display: flex;
             flex-direction: column;
             background: #FFFFFF;
