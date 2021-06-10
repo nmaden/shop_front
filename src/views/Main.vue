@@ -1,1202 +1,931 @@
+<!-- template -->
 <template>
-    <div class="main">
-        <Header />
-        <div class="applications ">
-
-            <div class="applications__menu item__row item__ac">
-                <a href="https://greenclinic.kz/ru/"  >Главная</a>
-                <p v-bind:class="{active__menu: page==1}" @click="openPurchases"> Закупки</p>
-                <p v-bind:class="{active__menu: page==2}" v-if="page==2">Подать заявку</p>
+  <div class="main">
+        <div class="header">
+            <div class="header__menu header__tab">
+                <p class="header__logo__text">КЕҢЕС</p>
+                <!-- <router-link to="#">О нашем магазине</router-link>
+                <router-link to="#">О доставке</router-link>
+                <router-link to="#">Об оплате</router-link> -->
+                <!-- <router-link to="#">Отзывы</router-link> -->
             </div>
+            <div class="header__menu">
+                <!-- <p class="header__purple">Перезвоните нам</p> -->
+                <!-- <p class="header__purple">Задать вопрос</p> -->
 
-            <div class="applications__top item__row item__mb">
-                <div class="purchase__line"></div>
-                <p class="purchase__title">Закупки</p>
-            </div>
-            
+                <div class="item__row item__ac header__basket">
 
-            <div class="applications__line" v-if="page==1" >
-
-                    <div class="applications__l">
-                        <p v-for="(item,index) in categories" :key="index" @click="getByCategory(item.id)">{{item.name}}</p>
-                    </div>
-
-                    <div class="applications__r">
-
-
-                        <div class="applications__item" v-for="(item,index) in purchases" :key="index">
-                            <div class="item__l" @click="downloadDoc(item.link_document)">
-                                <img src="../assets/all/ico_pdf.jpg" alt="">
-                            </div>
-                            <div class="item__r">
-                                <div class="item__row item__ac">
-                                    <p class="item__date item__mr__l">{{convert_date(item.created_at)}}</p>
-                                    <p class="item__count">Количество заявок: {{item.count_purchase?item.count_purchase:0}}</p>
-                                </div>
-                                <p class="item__title">{{item.title}}</p>
-                                <p class="item__description">{{item.description}}</p>
-
-                                <div class="item__row  item__ac item__actions">
-                                    <p class="item__download item__mr__xs" @click="downloadDoc(item.link_document)">Скачать документ</p>
-                                    <p class="item__purchase" @click="openApplication(item.id)">Подать заявку</p>
-                                </div>
-                            </div>
-                            
+                    <div class="div header__count" @click="openB">
+                        <div class="header__round item__abs">
+                            <span>{{all_count}}</span>
                         </div>
-
-                    </div>
-            </div>
-
-
-            <div class="item__column application__form" v-if="page==2">
-                <p class="form__title">Подать заявку</p>
-                
-
-                <form @submit.prevent="sendApplication">
-                    <div class="form__wrap">
-                        <div class="form__name item__column">
-                            <p>Наименование компании</p>
-                            <input type="text" required v-model="name">
-                        </div>
-                        <div class="form__bin item__column">
-                            <p>БИН</p>
-                            <input type="number" v-model="bin">
-                        </div>
-                        <div class="form__ur item__column">
-                            <p>Юридический адрес</p>
-                            <input type="text" v-model="address" required>
-                        </div>
-                        <div class="form__phone item__column">
-                            <p>Телефон</p>
-                            <input type="text" v-model="phone" required>
-                        </div>
-                        <div class="form__email item__column">
-                            <p>Email</p>
-                            <input type="email" v-model="email" required>
-                        </div>
-                    </div>
-
-                    <div class="form__file item__column item__mb__s">
-                        <p class="form__file__text">Прикрепить коммерческое предложение</p>
-
-                        <p class="form__inside__text">Загрузить документ</p>
-                        <div class="item__row item__ac">
-                            <div class="item__column">
-                                <input type="file"  style="width: 255px" @change="uploadDoc" class="custom-temp-input"  name="image" required >
-                            </div>
-                    
-                            <div class="item__paper">
-                                <img src="../assets/all/file.png" alt="">
-                            </div>
-                        </div>
-                        <div class="item__row" >
-                            <p v-for="(i,index) in imageNames" :key="index">{{i}}</p>
-                        </div>
-                    </div>
-                    <div class=" item__row item__ac item__mb__s">
-                        <v-checkbox
-                        style="margin-top: 0"
-                        color="success"
-                        value="success"
-                        required
-                        ></v-checkbox>
-                        <p class=" item__checkbox__text" style="margin-bottom: 20px">Продукция соответствует требованиям технической спецификации</p>
-                    </div>
-                
-                    <button type="submit" class="form__send">Отправить</button>
-                    
-                    <div class="item__row item__ac item__mb__xs">
-                        <p class="form__agree__first">Правила подачи заявки на участие в тендеры. Для того чтобы подробно ознакомиться со всеми этапами работы, вы можете посмотреть инструкцию.</p>
+                        <i class="mdi mdi-shopping"></i>
                     </div>
                     
-                    <p class="form__agree__second">По правилам подачи заявки, документация на участие в закупках разрабатывается на двух языках, соответственно государственном и русском языках по правилам оформления конкурсной документации.</p>
-                
-                </form>
-                
-            </div>
-
-
-            
-            <div class="item__column item__100 applications__contact ">
-                <div class="applications__top item__row item__mb">
-                        <div class="purchase__line"></div>
-                        <p class="purchase__title">Контакты</p>
-                </div>
-
-                <div class="applications__contact item__row item__100 item__ac item__mb__s item__jb">
-                    <div class="contact__l">
-                        
-
-                        <div class="item__row ">
-                            <img class="contact__i" src="../assets/all/location_i.png" alt="">
-
-                            <div class="item__column">
-                                <p class="contact__b__title">Адрес</p>
-                                <a href="https://yandex.kz/maps/-/CCUUqJFm~D"   class="contact__text">г.Нур-Султан, ул. Хусейн бен Талал 25/1</a>
-                                <a href="https://yandex.kz/maps/-/CCUUqJFm~D"   class="contact__text">г. Нур-Султан, ул. Сарайшык 11/1 (филиал)</a>
-                            </div>
-                        </div>
-                        <div class="item__row ">
-                            <img class="contact__i" src="../assets/all/contact_i.png" alt="">
-                            <div class="item__column">
-                                <p class="contact__b__title">Телефон</p>
-                                <a href="tel:+7 (7172) 79 77 22" class="contact__text">+7 (7172) 79 77 22</a>   
-                                <!-- <a href="tel:+7(71-72) 79-77-20" class="contact__text">+7(71-72) 79-77-20 (отделение лучевой диагностики)</a>
-                                <a href="tel:+7 776 898 38 00" class="contact__text"> +7 776 898 38 00</a>
-                                <a href="te:+7(771)-033-55-59" class="contact__text"> +7(771)-033-55-59 (отделение лучевой диагностики)</a> -->
-                            </div>
-                        </div>
-                        <div class="item__row  item__ac">
-                            <img class="contact__i" src="../assets/all/calendar_i.png" alt="">
-                            
-                            <div class="item__row item__days">
-                                <p class="contact__text item__mr__m">Пн-Пт: 08:00 - 20:00</p>
-                                <p class="contact__text item__red item__mr__m">  Сб: 08:00 - 18.00</p>
-                                <p class="contact__text item__red">Вс: 09:00 - 14.00</p>
-                            </div>
-                        </div>
-
-                        <div class="item__row  item__ac">
-                            <img class="contact__i" src="../assets/all/post_i.png" alt="">
-                            <div class="item__column">
-                                <p class="contact__b__title">Электронная почта</p>
-                                <a href="mailto:info@greenclinic.kz" class="contact__text">info@greenclinic.kz</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="contact__r">
-                        <!-- <img src="../assets/all/contact_map.png" alt=""> -->
-                          <div id="map" style="width: 600px; height: 400px"></div>
+                    <div class="header__menu__last">
+                        <p class="header__purple">8 777 777 777</p>
+                        <p class="header__gray">- по будням с 9:00 - 21:00</p>
                     </div>
                 </div>
-       
-            </div>
-            <div class="item__call" @click="contactDialog=true">
-                <img   src="../assets/all/call.svg" alt="">
+                
             </div>
         </div>
 
-        <div class=" text-center">
-            <v-dialog
-            v-model="contactDialog"
-            width="700"
-            class="rounded-0"
-            >
-        
-            <v-card class="rounded-0 modal item__column item__ac">
-              
-                <div class="modal__header">
-                      <h2>Заказать звонок</h2>
-                </div>
-                <svg class="modal__close" @click="contactDialog=false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 6L6 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M6 6L18 18" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-
+        <div class="main__row" style="margin-top: 100px">
+            <div class="main__block">
                
-                <input type="text"  v-model="nameModal" class="modal__input" placeholder="Ваше имя"/>
-                <input type="text" v-model="phoneModal"  v-mask="mask" class="modal__input" placeholder="Ваш телефон*"/>
 
-                <button class="modal__submit" @click="sendRequest">Отправить</button>
-                <p class="modal__text">Нажмите “Отправить” наши консультанты с вами свяжуться и помогут</p>
-            </v-card>
-            </v-dialog>
+                <div class="main__block__title">
+                    <div class="main__block__round"></div>
+                    <p>Категории</p>
+                </div>
+                <div class="item__column">
+                <div class="main__block__categories" v-if="!subcategory && showLoaderCategory">
+                        <div class="main__block__category" v-for="(i,j) in 10" :key="j">
+                            <v-skeleton-loader type="card-avatar" ></v-skeleton-loader>     
+                        </div>      
+                </div>
+                <div class="main__block__categories" v-if="!subcategory && !showLoaderCategory">
+                        <div class="main__block__category" v-for="(item,index) in categories" :key="index">
+                            <p @click="openSubCategory(item.id,categories)">{{item.name}}</p>
+                        </div>    
+                </div>    
+                <i class="mdi mdi-keyboard-backspace main__category__back" v-if="!subcategory"></i>
+                </div>
+                <div class="main__block__categories" v-if="subcategory">
+                    <div class="item__column">
+                        <div class="item__row main__block__bread">  
+                            <p  class="main__link" v-for="(link,l) in bread" :key="l" @click="openBread(link.id,l)">{{ link.name+' / '}}</p>
+                        </div>
+                        <div class="item__row">
+                        <div class="main__block__category" v-for="(item,index) in nested" :key="index" >
+                            
+                            <p @click="openSubCategory(item.id,nested)">{{item.name}}</p>
+                        </div>
+                        </div>
+                        <i class="mdi mdi-keyboard-backspace main__category__back"></i>
+                    </div>
+                </div>
+
+
+                <router-view :openBasket="openBasket"></router-view>
+
+                <div class="main__block__title">
+                    <div class="main__block__round"></div>
+                    <p>О нашем магазине</p>
+                </div>
+
+                <div class="main__block__description">
+                    <p class="main__block__description">
+                        Мы – семейная компания, основанная в 1997 году, которая соединила в себе знания и опыт производства мебели, промышленного дизайна и способ жизни.
+                    </p>
+                </div>
+
+                <div class="main__block__title">
+                    <div class="main__block__round"></div>
+                    <p>Почему с нами работают?</p>
+                </div>
+
+                <div class="main__block__pluses">
+
+                    <div class="main__block__plus center__column">
+                        
+                       
+                        <div class="main__block__star center__row__g">
+                            <i class="mdi mdi-shield-star-outline"></i>
+                        </div>
+                        <div>
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <p class="plus__title">Бесплатная доставка до квартиры</p>
+                        
+                        <p class="plus__description">
+                            Бесплатно выезжаем на обьект и замеряем параметры изделия
+                        </p>
+                    </div>
+
+                    <div class="main__block__plus center__column">
+                        
+                        <div class="main__block__star center__row__g">
+                             <i class="mdi mdi-shield-star-outline"></i>
+                        </div>
+                        <div>
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <p class="plus__title">Качественная фурнитура и компоненты</p>
+                       
+                        <p class="plus__description">
+                            Идеальная фурнитура и компоненты для сборки
+                        </p>
+                    </div>
+                    <div class="main__block__plus center__column">
+                        
+                        <div class="main__block__star center__row__g">
+                             <i class="mdi mdi-shield-star-outline"></i>
+                        </div>
+                        <div>
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <p class="plus__title">Бесплатная доставка до квартиры</p>
+                        
+                        <p class="plus__description">
+                            Бесплатно выезжаем на обьект и замеряем параметры изделия
+                        </p>
+                    </div>
+                    <div class="main__block__plus center__column">
+                        <div class="main__block__star center__row__g">
+                             <i class="mdi mdi-shield-star-outline"></i>
+                        </div>
+                         <div>
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <p class="plus__title">Качественная фурнитура и компоненты</p>
+                        
+                        <p class="plus__description">
+                            Идеальная фурнитура и компоненты для сборки
+                        </p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
         </div>
-        <v-row justify="center" >
-            <v-alert
-                type="success"
-                :value ="savedData"
-                transition="fade-transition"
-            
-            >  {{'Успешно сохранен'}}
-            </v-alert>
-        </v-row>
-        <v-row justify="bottom" >
-            <v-alert
-                type="success"
-                :value ="savedData2"
-                transition="fade-transition"
-            
-            >  {{'Успешно сохранен'}}
-            </v-alert>
-        </v-row>
-        <v-dialog
-            v-model="dialogAccept"
-            max-width="500"
-            >
-            
-            <v-card>
-                <div class="item__finish item__column item__ac">
-                    <p class="item__finish__text">Ваше коммерческое предложение отправлено успешно!</p>
-                    <button @click="dialogAccept=false">Вернуться на главную</button>
-                </div>
-            </v-card>
-        </v-dialog>
-        <v-dialog
-            v-model="dialogAccept2"
-            max-width="500"
-            >
-            
-            <v-card>
-                <div class="item__finish item__column item__ac">
-                    <p class="item__finish__text">Ваша заявка отправлено успешно!</p>
-                    <button @click="dialogAccept2=false">Вернуться на главную</button>
-                </div>
-            </v-card>
-        </v-dialog>
-        <Footer />
 
-       
-         
-    </div>
+        <div class="footer">
+            <div class="footer__first">
+                <p class="footer__phone"></p>
+
+                <div>
+                    <p></p>
+                    <p></p>
+                </div>
+                <div>
+                    <p></p>
+                    <p></p>
+                </div>
+
+                <p></p>
+
+                <div>
+                    <p></p>
+                    <p></p>
+                </div>
+
+                <div>
+                    <p></p>
+                    <div>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__first"></div>
+            <div class="footer__first"></div>
+            <div class="footer__first"></div>
+        </div>
+  </div>  
 </template>
 
+<!-- scripts -->
 <script>
-import Header from './components/Header'
-import Footer from './components/Footer'
-
-import { required, numeric } from 'vuelidate/lib/validators'
-
-export default {
-    components: {
-        Header,Footer
-    },
-    validations: {
-        phone: {
-            required, 
-            numeric
-        },
-        name: {
-            required, 
-        },
-        message: {
-            required, 
-        }
-    },
-    data () {
-        return {
-            savedData2: false,
-            nameModal: '',
-            contactDialog: false,
-            imageNames: [],
-            dialogAccept: false,
-            dialogAccept2: false,
-            savedData: false,
-            support: false,
-          
-            message: '',
-         
-            purchases: [],
-            page: 1,
-            name: null,
-            bin: null,
-            address: null,
-            phone: null,
-            email: null,
-            document: [],
-            categories: [],
-            mask: ['+7(', /\d/, /\d/, /\d/, ') ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-            phoneModal: '+7'
-
-        }
-    },
-    methods: {
-        sendRequest() {
-          
-            let data = {
-                name: this.nameModal,
-                phone: this.phoneModal
-            };
-            this.$http.post('/send/request',data,
-                {
-              
-            })
-            .then(res => {
-                console.log(res);
-               
-                this.savedData = true;
-
-
-                this.contactDialog = false;
-                this.dialogAccept2 = true;
-         
-
-                this.phoneModal = '';
-                this.nameModal = '';
+ 
+    export default {
+        data() {
+            return {
+                amount: 0,
+                orders:[],
+                count: 0,
+                all_count: 0,
+                isActive: true,
+                openBasket: false,
+                subcategory: false,
+                showLoaderCategory:true,
+                categories: [],
+                nested:  [],
+                bread: [],
+                bread_categories: []
                 
-            })
-        },
-        openModal() {
-            this.contactDialog = true;
-        },
-         convert_date(date) {
-     
-            let day = date.split("T")[0].split("-")[2];
-            let month = date.split("T")[0].split("-")[1];
-            let year = date.split("T")[0].split("-")[0];
-
-            let hour = date.split("T")[1].split(":")[0];
-            let minute = date.split("T")[1].split(":")[1];
-            let ready  = day+'.'+month+'.'+year;
-
-            return ready+' '+hour+':'+minute;
-        },
-        uploadDoc(e) {
-            this.document =e.target.files[0];
-
-            const file = e.target.files
-            for (var i=0; i < file.length; i++) {
-                this.imageNames.push(file[i].name);
             }
         },
-        downloadDoc(link) {
-            window.open('https://api.greenclinic.kz'+link,"_blank");
-        },
-        openPurchases() {
-            this.page = 1;
-        },
-        openApplication(id) {
-            this.page = 2;
-            this.purchase_id = id;
-        },
-        getByCategory(id) {
-         
-            this.$http.get('/get/by/category?id='+id)
-            .then(res => {
-                this.purchases = res.data
-            });
-        },
-        sendApplication() {
-
-            let fd= new FormData();
-            fd.append('purchase_id', this.purchase_id);
-            fd.append('name', this.name);
-            fd.append('bin',this.bin);
-            fd.append('address',this.address);
-            fd.append('phone',this.phone);
-            fd.append('email',this.email);
-            fd.append('document',this.document);
-            this.$http.post('/create/application',fd,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-                ).then(res => {
-                    this.page = 1;
-                   
-                    console.log(res);
-                    this.savedData = true;
-
-                    window.setInterval(() => {
-                        this.savedData = false;
-                    }, 2000); 
-                    this.dialogAccept = true;
-                    this.imageNames = [];
-                    this.name = null;
-                    this.bin=  null;
-                    this.address=null;
-                    this.phone=null;
-                    this.email = null;
-                    this.purchase_id = null;
-                    this.document = [];
-               
-            });
-        },
-    },
-    mounted() {
-        this.$http.get('/get/categories')
-        .then(res => {
+        mounted() {
+            if(localStorage.getItem("goods")) {
+                this.all_count =  JSON.parse(localStorage.getItem("goods")).length;
+            }
+            this.getCategories();   
            
-            this.purchases = res.data[0].purchases;
+    
+        },
+        methods: {
+             getCategories(){
+                
+                const config = {
+                    headers: { 'Authorization': `Bearer ${this.token}` }
+                };
+                this.$http.get('/get/categories',  config)
+                .then(res => {
+                    this.categories = res.data
+                    this.showLoaderCategory = false;
+                })
+            },
+            openBread(id,index) {       
+              this.nested = this.bread_categories[index];
+              this.bread = this.bread.filter((item) => item.id !== id);
 
-            this.categories = res.data;
+              this.bread.length = index;
+              if(index==0) {
+                this.bread_categories = [];
+              }
 
-        });
+            },
+            openSubCategory(id,before) {
+              let obj = this.categories.filter((item) => item.id === id);
+              if(obj.length==0) {
+                obj = this.nested.filter((item) => item.id === id);
+                if(!obj) {
+                  return false;
+                }
+              }
+              if(obj[0].children.length!=0) {
+                  this.bread.push(obj[0]);
+                  this.bread_categories.push(before);
+              }
+              else {
+                  return false;
+              }
+
+
+              this.before_category = before;
+              this.subcategory = true;
+              if (obj[0].children.length!=0) {
+                  this.nested = obj[0].children;
+              }
+
+              this.$router.push('/category/'+id);
+            },
+            openB() {
+                this.$router.push("/basket");
+            },
+            getCount(index) {
+                this.all_count =  this.all_count+index;
+            }
+        }
     }
-}
+    
 </script>
 
-<style scoped lang="less">
+<style lang="scss">
 
-.item__100 {
-    width: 100%;
+:root {
+    --main-kenes-blue: #449DED; 
 }
-@mobile: 900px;
-@planshet: 1200px;
-.applications  {
-    max-width: 1390px;
+p,a,input {
+    font-family: "MontserratRegular";
 }
-
-.item__finish__text {
-    
-        font-family: "MontserratRegular" !important;
+p {
+    margin-bottom: 0 !important;
 }
-.modal {
-    width: 700px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 60px 46px;
-    justify-content: center;
-    background-color: #fff;
-    position:relative;
-    .modal__close {
-        position:absolute;
-        right: 30px;
-        top: 20px;
-        cursor: pointer;
-    }
-    button,input {
-        border: none;
-        outline: none;
-    }
-   .modal__header {
-       h2 {
-            font-family: 'MontserratBold';
-            font-style: 'bold';
-            font-weight: bold;
-            font-size: 31px;
-            line-height: 42px;
-            letter-spacing: -0.03em;
-            margin: 0;
-            text-align: center;
-            margin-bottom: 23px;
-       }
-   } 
-   .modal__input {
-
-        font-family: "MontserratRegular";
-        background: #ffffff;
-        border: 1px solid #f2f2f2;
-        box-sizing: border-box;
-        border-radius: 2px;
-        width: 100%;
-        padding: 15px 25px;
-        color: #0f1721;
-        height: 58px;
-        margin-bottom: 15px;
-   }
-   .modal__submit {
-        width: 100%;
-        padding: 15px 25px;
-        color: #0f1721;
-        height: 58px;
-        background: #ffcf55;
-        border-radius: 2px;
-        font-weight: normal;
-        font-size: 18px;
-        border: 0;
-        font-family: "MontserratRegular";
-   }
-   .modal__submit:hover {
-       opacity: 0.8;
-   }
-   .modal__text {
-      
-
-        font-family: "MontserratRegular";
-        text-align: center;
-        margin-top: 25px;
-        font-weight: normal;
-        font-size: 18px;
-        color: #9c9c9c;
-}
-   
-}
-.item__call {
-    cursor: pointer;
-    position: fixed;
-    right: 50px;
-    z-index: 5;
-    bottom: 50px;
-    animation: circle-fill-anim 2.3s infinite ease-in-out;
-}
-@keyframes circle-fill-anim {
-  0% {
-    transform: rotate(10deg);
-  }
-  50% {
-    transform: rotate(-10deg);
-  }
-  100% {
-    transform: rotate(10deg);
-  }
-}
-.item__paper {
-    background-color: #85C418;
-    padding: 10px;
+.item__abs {
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-.custom-temp-input {
-    outline: none;
-    color: transparent;
-    height: 44px;
-}
-.custom-temp-input::-webkit-file-upload-button {
-  visibility: hidden;
-}
-
-.custom-temp-input::before {
-  cursor: pointer;
-  content: 'Загрузить документ';
- 
-  display: inline-block;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px;
-
-  padding-right: 30px;
-  height: 44px;
-  background-color: white;
-  border: 1px solid #D4D4D4;
-  border-right:none;
-  border-radius: 2px 0 0 2px;
-  width: 260px;
-  outline: none;
-}
-.item__mb__none {
-    margin-bottom: 0;
-}
-  /* ---  checkbox  --- */
-
-  /* The container2 */
-  .container2 {
-    
-    display: block;
-    position: relative;
-    margin-top: 5px;
-    padding-left: 28px;
-    padding-right: 8px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    p {
-      color: black;
-    }
-  }
-  
-  /* Hide the browser's default checkbox */
-  .container2 input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    border: 1px solid  #D4D4D4;
-    border-radius: 2px;
-  
-  }
-
-  /* When the checkbox is checked, add a blue background */
-  .container2 input:checked ~ .checkmark {
-    border: 1px solid   #85C418;
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  
-  }
-  
-  /* Show the checkmark when checked */
-  .container2 input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the checkmark/indicator */
-  .container2 .checkmark:after {
-      
-    left: 5px;
-    top: 3px;
-    width: 7px;
-    height: 10px;
-    border: solid #85C418;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  
-    .checkmark__text__color {
-      color: var(--main-red-color) !important;
-    }
-    /* Create a custom checkbox */
-    .checkmark .checkmark--red {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 20px;
-      width: 20px;
-      border: 1px solid  #D4D4D4;
-      border-radius: 2px;
-    
-    }
-  
-    /* When the checkbox is checked, add a blue background */
-    .container2 input:checked ~ .checkmark--red {
-      border: 1px solid   var(--main-red-color);
-      
-    }
-    
-    /* Create the checkmark/indicator (hidden when not checked) */
-    .checkmark:after {
-      content: "";
-      position: absolute;
-      display: none;
-    
-    }
-    
-    /* Show the checkmark when checked */
-    .container2 input:checked ~ .checkmark:after {
-      display: block;
-    }
-    
-    /* Style the checkmark/indicator */
-    .container2 .checkmark--red:after {
-      left: 5px;
-      top: 3px;
-      width: 7px;
-      height: 10px;
-      border: solid var(--main-red-color);
-      border-width: 0 2px 2px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-    }
-/*--- --- */
-
-.main {
-    background: url("../assets/all/green_bg.jpg");
-
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100vh;
-
-     @media (max-width: @planshet) {
-          width: 100%;
-    }
-    @media (max-width: @mobile) {
-          width: 100%;
-    }
-}
-
-.item__finish {
-    padding: 20px;
-    text-align: center;
-    p {
-        font-size: 24px;
-        font-family: 'Monserrat';
-    }
-    button {
-        outline: none;
-        border:none;
-        background-color: #85C418;
-        color: white;
-        padding: 20px;
-    }
-}
-
-.item__mb__s {
-    margin-bottom: 20px;
-}
-
-.item__row {
-    display: flex;
-    flex-direction: row;
-}
-.item__ac {
     align-items: center;
 }
 .item__column {
     display: flex;
     flex-direction: column;
 }
-.item__jb {
-    justify-content: space-between;
+.item__ac {
+    align-items: center;
 }
-.applications {
-   
+.item__row {
+    display: flex;
+    flex-direction: row;
+}
+.main__column {
     display: flex;
     flex-direction: column;
-    align-self: center;
-    @media (max-width: @planshet) {
-          width: 100%;
-    }
-    @media (max-width: @mobile) {
-          width: 100%;
-    }
-
-    .applications__contact {
-        @media (max-width: @planshet) {
-          width: 100%;
-          
-        }
-        @media (max-width: @mobile) {
-            width: 100%;
-            flex-direction: column;
-        }
-        .contact__l {
-            .item__row {
-                padding: 10px;
-            }
-            margin-right: 100px;
-            @media (max-width: @planshet) {
-                    margin-right: 0;
-            }
-            @media (max-width: @mobile) {
-                 margin-right: 0;
-            }
-           
-        }
-        .contact__r {
-           
-            #map {
-                width: 690px;
-                height: 452px;
-                @media (max-width: @planshet) {
-                    width: 100%;
-                    height: 100%;
-                }
-                @media (max-width: @mobile) {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-        }
-        .contact__i {
-            color: #0F1721;
-            margin-right: 20px;
-            width: 51px;
-            height: 40px;
-            font-size: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            @media (max-width: @mobile) {
-                width: 31px;
-                height: 25px;
-            }
-        }
-        .contact__b__title {
-            color: #85C418;
-            font-family: 'MontserratBold';
-            margin-bottom: 2px;
-            font-size: 20px;
-             @media (max-width: @mobile) {
-                font-size: 14px;
-            }
-        }
-
-        .item__days {
-            @media (max-width: @mobile) {
-                flex-direction: column;
-            }
-        }
-        .contact__text {
-           font-family: 'MontserratRegular'; 
-           margin-bottom: 2px;
-           text-decoration: none;
-           color: #0F1721;
-           font-size: 16px;
-            @media (max-width: @mobile) {
-                font-size: 12px;
-            }
-        }
-  
-    }
-    .active__menu {
-        color: #85C418 !important;
-    }
-
-    .applications__menu {
-        margin-top: 35px;
-        background:  #FAFAFA;
-        p,a {
-            text-decoration: none;
-            margin: 11px 0 12px 26px;
-            cursor: pointer;
-            color: #BEBEBE;  
-            font-family: 'MontserratRegular';
-            font-size: 14px;
-        }
-        p:hover,a:hover {
-            color: #85C418;
-        }
-        .active {
-            color: #85C418;
-        }
-    }
-    .applications__top {
-        margin-bottom: 35px;
-    }
-    
-    .purchase__line {
-        background: rgba(133, 196, 24, 0.13);
-        height: 5px;
-        margin-right: 30px;
-        width: 215px;
-        margin-top: 22px;
-        @media (max-width: @mobile) {
-            width: 49px;
-            height: 3px;
-        }
-    }
-    .purchase__title {
-        
-        font-size: 48px;
-        line-height: 65px;
-        color: #85C418;
-
-        margin-bottom: 0;
-        font-family: 'MontserratBold';
-        @media (max-width: @mobile) {
-            font-size: 32px;
-        }
-    }
-    .item__red {
-        color: #da3f3f !important;
-    }
-    .item__mr__m {
-        margin-right: 20px;
-    }
-    .item__mr__xs {
-        margin-right: 10px;
-    }
-    .item__mr__l {
-        margin-right: 40px;
-    }
-    .item__mb__xs {
-        margin-bottom: 10px;
-    }
-
-    @keyframes fadein {
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-moz-keyframes fadein { /* Firefox */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-webkit-keyframes fadein { /* Safari and Chrome */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-o-keyframes fadein { /* Opera */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-    p {
-        font-weight: normal;
-    }
-    .application__form {
-        padding: 60px;
-        background: #FFFFFF;
-        box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.05);
-        border-radius: 2px;
-        margin-bottom: 30px;
-
-        animation: fadein 1s;
-        -moz-animation: fadein 1s; /* Firefox */
-        -webkit-animation: fadein 1s; /* Safari and Chrome */
-        -o-animation: fadein 1s; /* Opera */
-
-        @media (max-width: @mobile) {
-           padding: 30px;
-        }
-        input {
-             font-family: "MontserratRegular";
-        }
-        .item__checkbox__text {
-            font-size: 14px;
-            font-family: 'MontserratRegular';
-        }
-        .form__title {
-            color: #0F1721;
-            font-size: 24px;
-            font-family: 'MontserratBold'; 
-        }
-
-        .form__wrap {
-            display: flex;
-            flex-wrap: wrap;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #E6E6E6;
-            margin-bottom: 20px;
-            
-            .item__column {
-                p {
-                    font-family: 'MontserratRegular'  !important;
-                }
-            }
-            div {
-                margin-bottom: 10px;
-                p {
-                    margin-bottom: 2px;
-                }
-            }
-            input {
-                
-                height: 42px;
-                border: 1px solid #737373;
-                border-radius: 2px;
-                margin-right: 10px;
-                padding-left: 10px;
-
-                @media (max-width: @mobile) {
-                    width: 100% !important;
-                }
-            }
-            .form__name {
-                width: 543px;
-            
-            }
-            .form__bin {
-                width: 276px;
-            }
-            .form__ur {
-                width: 407px;
-            }
-
-            
-            .form__phone,.form__email {
-                input {
-                border: 1px solid #737373;
-                border-radius: 2px;
-                }
-                width: 220px;
-                @media (max-width: @mobile) {
-                    width: 100% !important;
-                }
-            }
-        }
-        .form__file {
-            position: relative;
-            .form__file__text {
-                margin-bottom: 2px ;
-                font-family: "MontserratRegular";
-            }
-            .form__inside__text {
-                position:absolute;
-                top: 38px;
-                left: 10px;
-                color: #0F1721;
-                opacity: 0.9;
-                font-family: "MontserratRegular";
-                font-size: 14px;
-                
-            }
-        }
-       
-        button {
-            outline: none;
-            border:none;
-            padding: 16px 123px;
-            background: #FFCF55;
-            font-size: 18px;
-            margin-bottom: 35px;
-            border-radius: 2px;
-            font-family: "MontserratRegular";
-            @media (max-width: @mobile) {
-                width: 100%;
-                text-align: center;
-                padding: 0;
-                height: 48px;
-            }
-        }
-
-        button:hover {
-            opacity: 0.9;
-            color: white;
-        }
-
-        .form__agree__first {
-            font-family: "MontserratRegular";
-            margin-bottom: 0;
-        }
-        .form__agree__second {
-            font-family: "MontserratRegular";
-        }
-    
-    }
-
-    .applications__line {
-        width: 1390px;
-        min-height: 50vh;
+}
+    .product__order {
         display: flex;
         flex-direction: row;
-        margin-bottom: 30px;
-        @media (max-width: @planshet) {
-            width: 100%;
-            
+        align-items: center;
+        cursor: pointer;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 20px;
+        width: 150px;
+        justify-content: center;
+        
+
+        background-color: var(--main-kenes-blue);
+        i {
+            margin-right: 10px;
+            font-size: 16px;
+            color: white;
         }
-
-        @media (max-width: @mobile) {
-            width: 100%;
-            flex-direction: column;
-        }
-      
-
-        .applications__l {
-            width: 338px;
-            display: flex;
-            flex-direction: column;
-            background: #FFFFFF;
-            box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.05);
-            margin-right: 20px;
-            padding: 40px 20px 44px 48px;
-            animation: fadein 1s;
-            -moz-animation: fadein 1s; /* Firefox */
-            -webkit-animation: fadein 1s; /* Safari and Chrome */
-            -o-animation: fadein 1s; /* Opera */
-
-            @media (max-width: @planshet) {
-                width: 30%;
-             
-            }
-            @media (max-width: @mobile) {
-                width: 100%;
-                margin-left: 0;
-                margin-bottom: 20px;
-                align-items: flex-start;
-            }
-            p {
-                margin-bottom: 15px;
-                cursor: pointer;
-                font-family: 'MontserratSemiBold';
-            }
-            p:hover {
-                color: #85C418;
-            }
-        }
-
-        .applications__r {
-            display: flex;
-            flex-direction: column;
-            animation: fadein 1s;
-            -moz-animation: fadein 1s; /* Firefox */
-            -webkit-animation: fadein 1s; /* Safari and Chrome */
-            -o-animation: fadein 1s; /* Opera */
-
-            @media (max-width: @planshet) {
-                width: 70%;
-            }
-             @media (max-width: @mobile) {
-                width: 100%;
-            }
-
-            .applications__item {
-                width: 1080px;
-                padding: 30px 40px;
-                display: flex;
-                flex-direction: row;
-                background: #FFFFFF;
-                box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.05);
-                margin-bottom: 20px;
-                @media (max-width: @planshet) {
-                    width: 100%;
-                    flex-direction: column;
-                }
-                @media (max-width: @mobile) {
-                    width: 100%;
-                    flex-direction: column;
-                }
-                .item__download {
-                    font-family: 'MontserratBold';
-                    color: #85C418;
-                    font-size: 18px;
-                    cursor: pointer;
-                    @media (max-width: @mobile) {
-                        font-size: 14px;
-                        white-space: nowrap;
-                    }
-                }
-                .item__download:hover {
-                    opacity: 0.6;
-                }
-
-                .item__purchase {
-                    color: #DBC926;
-                    font-size: 18px;
-                    cursor: pointer;
-                    
-                    font-family: 'MontserratBold';
-                    @media (max-width: @mobile) {
-                        font-size: 14px;
-                        white-space: nowrap;
-                    }
-                }
-                .item__purchase:hover {
-                    opacity: 0.6;
-                }
-
-                .item__l {
-                    margin-right: 40px;
-                    cursor: pointer;
-                    p {
-                        font-family: 'MontserratBold';
-                    }
-                }
-                .item__r {
-                    display: flex;
-                    flex-direction: column;
-
-                    .item__count,.item__date {
-                        color: #C0C0C0;
-                        font-family: 'MontserratLight';
-                      
-                    }
-                    .item__title {
-                        font-size: 16px;
-                        font-family: 'MontserratBold';
-                    }
-                    .item__description {
-                        font-size: 14px;
-                        font-family: 'MontserratLight';
-                    }
-                  
-                }
-
-            }
+        p {
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
         }
     }
-}
+    .product__order:hover {
+        opacity: 0.8;
+    } 
+    body {
+        background-color: white !important;
+    }
+    p {
+        padding: 0;
+        margin: 0;
+    }
 
+    .center__row__g {
+        display: flex;
+        flex-direction: row;
+        align-items: center; 
+        justify-content: center;
+    }
+    .center__column__g {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center;
+    }
+    .centered__row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .center__column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main {
+        font-family: Lato;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        .header {
+            background: white;
+            position: fixed;
+            top: 0;
+            z-index: 2;
+            width: 80%;
+            
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            justify-content: space-between;
+            border-bottom: 4px solid #fcfbfb;
+            margin-bottom: 20px;
+
+            @media (max-width: 1200px) {
+                width: 100%;
+            }
+            @media (max-width: 900px) {
+                width: 100%;
+                padding: 10px 0;
+                justify-content: space-between;
+            }
+
+        .header__menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .header__logo__text {
+                font-size: 24px;
+                font-weight: bold;
+                color: var(--main-kenes-blue);
+                @media (max-width: 900px) {
+                    font-size: 20px;
+                    padding-left: 10px;
+                }
+            }
+            a {
+                cursor: pointer;
+                margin-right: 40px;
+                text-decoration: none;
+                border-bottom: 2px solid white;
+                
+            }
+            a:hover {
+                color: var(--main-kenes-text-color);
+                border-bottom: 2px solid var(--main-kenes-text-color);
+            }
+            .header__basket {
+                .header__count {
+                    cursor: pointer;
+                    position: relative;
+                    .header__round {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 7.5px;
+                        background: #a5c137;
+                        position: absolute;
+                        right: -10px;
+                        top: 0px;
+                        span {
+                            line-height: 1;
+                            font-size: 12px;
+                            color: white;
+                        }
+                        
+                    }
+                }
+              
+                i {
+                    font-size: 24px;
+                    color: var(--main-kenes-blue);
+                }
+                i:hover {
+                    opacity: 0.8;
+                }
+            }
+            .header__menu__last {
+                margin-left: 20px;
+                @media (max-width: 900px) {
+                    padding: 10px 15px 10px 0;
+                    margin-left: 20px;
+                }
+            }
+            .header__purple {
+                cursor: pointer;
+                margin-right: 40px;
+                text-decoration: none;
+                border-bottom: 2px solid white;
+                @media (max-width: 900px) {
+                    font-size: 14px;
+                }
+            }
+            .header__purple:hover {
+                color: var(--main-kenes-text-color);
+                border-bottom: 2px solid var(--main-kenes-text-color);
+            }
+            .header__gray {
+                color: gray;
+                font-size: 14px;
+            }
+
+        }
+        .header__tab {
+                       
+            @media (max-width: 900px) {
+            
+            }
+        }
+     
+        }
+        .main__row {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            .main__actions {
+                width: 28%;
+                display: flex;
+                flex-direction: column;
+                align-items:center;
+
+                .main__actions__title {
+                    cursor: pointer;
+                    font-size: 30px;
+                    font-weight: 900;
+                    margin-bottom: 20px;
+                    align-self: center;
+                }
+                .main__sale {
+                    margin: 0 20px;
+                    width: 200px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    padding: 20px 30px;
+                    height: 230px;
+                    margin-bottom: 20px;
+                    border-radius: 5px;
+                    background-color: var(--main-kenes-text-color);
+                    .main__sale__title {
+                        color: white;
+                        font-size: 32px;
+                        margin-bottom: 20px;
+                        font-weight: 700;
+                        
+                    }
+                    .main__sale__button {
+                        border-radius: 10px;
+                        border:none;
+                        outline: none;
+                        padding: 10px 20px;
+                        width: 120px;
+                        background: #a7c23b;
+
+                        i {
+                            color: white;
+                            margin-right: 4px;
+                        }
+                        p {
+                            font-weight: 400;
+                            font-size: 12px;
+                            color: white;
+                            text-transform: uppercase;
+                        }
+                    }
+                    .main__sale__mini {
+                        font-size: 12px;
+                        color: white;
+                    }
+                }
+            }
+
+            .main__block {
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+                 @media (max-width: 900px) {
+                    width: 100%;
+                  
+                }
+                .main__block__header {
+                    margin-bottom: 20px;
+                    @media (max-width: 900px) {
+                        text-align: center;
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                    
+                    }
+                }
+                .main__filter {
+                    font-size: 32px;
+                    color: #000;
+                    margin-left: 15px;
+                    cursor: pointer;
+                }
+                .main__filter:hover {
+                    opacity: 0.8;
+                }
+                .main__block__search {
+                    width: 97%;
+                    border-radius: 10px;
+                    background-color: #f5f5f5;
+                    padding: 10px;
+                    padding-left: 20px;
+                    @media (max-width: 900px) {
+                        width: 90%;
+                        align-self: center;
+                    }
+                
+                    ::placeholder {
+                        color:gray;
+                    }
+                    i {
+                        color: gray;
+                    }
+                    input {
+                        color: gray;
+                        outline: none;
+                        width: 400px;
+                        padding: 10px;
+                        border: none;
+                        background-color: #f5f5f5;
+                        @media (max-width: 900px) {
+                            width: 90%;
+                        }
+                    }
+                }
+                .main__next {
+                    cursor: pointer;
+                    background: var(--main-kenes-blue);
+                    padding: 10px;
+                    border-radius: 20px;
+                    color: white;
+                    width: 200px;
+                    font-weight: bold;
+                    align-self: center;
+                }
+                .main__next:hover {
+                    opacity: 0.8;
+                    color: black;
+                }
+                .main__block__title {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    color: #333;
+                    font-size: 28px;
+                    font-weight: bold;
+                    
+                    @media (max-width: 900px) {
+                        font-size: 22px;
+                        width: 90%;
+                        align-self: center;
+                    }
+                    .main__block__round {
+                        width: 16px;
+                        height: 16px;
+                        border-radius: 8px;
+                        background-color: var(--main-kenes-blue);
+                        margin-right: 10px;
+                    }
+                }
+                .main__block__description {
+                    font-size: 18px;
+                    color: #ccc;
+                    margin-bottom: 40px;
+                    @media (max-width: 900px) {
+                        width: 90%;
+                        overflow-x:scroll;
+                        align-self: center;
+                    }
+
+                }
+
+                
+
+                .main__block__categories::-webkit-scrollbar {
+                    height: 5px;
+                }
+
+                .main__block__categories::-webkit-scrollbar-track {
+                    border-radius: 2px;
+                    background-color: transparent;
+                }
+                .main__block__categories::-webkit-scrollbar-thumb {
+                    background-color: transparent;
+                    border-radius: 2px;
+                    height: 24px;
+                    width: 50px;
+                }
+                .main__category__back {
+                    font-size: 32px;
+                    align-self: flex-end;
+                    color: var(--main-kenes-blue);
+
+                    -webkit-transform:rotate(180deg);
+                    -moz-transform: rotate(180deg);
+                    -ms-transform: rotate(180deg);
+                    -o-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                }
+                .main__block__categories {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    overflow-x: auto;
+                    margin-bottom: 20px;
+                    
+                  
+                    .item__column {
+                        width: 100%;
+                    }
+                    .main__link {
+                        cursor: pointer;
+                        color: gray;
+                        font-weight: bold;
+                        margin-right: 2px;
+                        margin-left: 2px;
+                    }
+                    .main__link:hover {
+                        opacity: 0.8;
+                       
+                    }
+                    @media (max-width: 900px) {
+                        width: 100%;
+                        overflow-x:scroll;
+                    }
+
+                    .main__block__arrow {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        i {
+                            color: #333;
+                        }
+                    }
+                 
+                    .main__block__category {
+                        cursor: pointer;
+                        text-align: center;
+                        width: 150px;
+                        height: 120px;
+                        margin-right: 10px;
+                        margin-top: 10px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 20px;
+                        border-radius: 5px;
+                        background-color: #f5f5f5;
+                        p {
+                            font-weight: bold;
+                            color: var(--main-kenes-blue);
+                        }
+                        p:hover {
+                            opacity: 0.8;
+                        }
+                        @media (max-width: 900px) {
+                            width: 40%;
+                            margin: 20px;
+                            margin-bottom: 0;
+                       
+                        }
+                    }
+                }
+
+                ///
+                .main__select {
+                    border: 1px solid #ccc;
+                    padding: 15px;
+                    width: 200px;
+                }
+                .main__block__products {
+                    display: flex;
+                    flex-wrap: wrap;
+                    margin-bottom: 20px;
+                    @media(max-width: 900px) {
+                        justify-content: center;
+                    }
+                    
+                    .main__block__product {
+                        width: 266px;
+                        border-radius: 5px;
+                        display: flex;
+                        flex-direction: column;
+                        background-color: #f5f5f5;
+                        padding: 20px;
+                        margin-right: 40px;
+                 
+                        margin-bottom: 20px;
+                        // box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+                        @media(max-width: 900px) {
+                            width: 90%;
+                            margin: 0;
+                            margin-bottom: 20px;
+                            
+                        }
+                        .v-skeleton-loader--is-loading {
+                            
+                                width: 100%;
+                        
+                        }
+                        .product__item {
+                            width: 90%;
+                            align-self:center;
+                        
+                        }
+                        .product__sale {
+                                margin: 10px;
+                                align-self: flex-end;
+                                text-align: center;
+                                
+                                height: 20px;
+                                padding: 10px;
+                                border-radius: 10px;
+                                background-color: var(--main-kenes-red);
+                  
+                                i {
+                                    color: white;
+                                }
+                                p   {
+                                    color: white;
+                                }
+                        }
+                        .product__images {
+                            cursor:pointer;
+                            display: flex;
+                            flex-direction: column;
+                            
+                            background-color: white;
+                            width: 100%;
+                            height: 250px;
+                            border-radius: 10px;
+                            margin-bottom: 20px;
+                            position:relative;
+                            .product__img {
+                                height: 250px;
+                                object-fit: cover;
+                                border-radius: 5px;
+                            }  
+                            .product__levels {
+                                
+                                display: flex;
+                                flex-direction: row;
+                                align-self: center;
+                                position: absolute;
+                                bottom: 10px;
+                                .product__level {
+                                    width: 16px;
+                                    height: 16px;
+                                    border-radius: 8px;
+                                    background-color: #f5f5f5;
+                                    margin: 5px;
+                                }
+                                .product__level__active {
+                                    background-color: #a5c137 !important;
+                                }
+                            }
+
+                        }  
+                        .product__name {
+                            font-size: 24px;
+                            font-weight: 400;
+                            margin-bottom: 5px;
+                        }
+                        .product__size {
+                            font-size: 14px;
+                            color: gray;
+                            margin-bottom: 10px;
+                        }
+                       
+                        .product__prices {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            .product__price {
+                                margin-right: 3px;
+                                line-height: 2;
+                                font-weight: bold;
+                            }
+                            .product__sale {
+
+                            }
+                        }
+                    } 
+                }
+
+                .main__block__pluses {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    @media(max-width:900px) {
+                        width: 100%;
+                        margin-bottom: 40px;
+                        overflow-x: scroll;
+                    }
+                    .plus__title {
+                        color: var(--main-kenes-blue);
+                        font-size: 18px;
+                        font-weight: 700;
+                        margin-bottom: 20px;
+                    }
+                    .plus__description {
+                        @media(max-width:900px) {
+                            width: 290px;
+                      
+                        }  
+                    }
+                  
+                    .main__block__plus {
+                        width: 200px;
+                        border-radius: 10px;
+                        padding: 20px;
+                        background-color: #f7f6f7;
+                        text-align: center;
+                        @media(max-width:900px) {
+                            width: 100%;
+                            margin-right: 20px;
+                            margin-left: 20px;
+                      
+                        }
+
+                        .fa-truck,.fa-cubes {
+                            font-size: 36px;
+                            align-self: center;
+                            margin-bottom: 20px;
+                        }
+                        
+                        .main__block__star {
+                            align-self: flex-start;
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 25px;
+                            background-color: var(--main-kenes-blue);
+                            margin-bottom: 40px;
+                            .fa-star,i {
+                                color: white;
+                                font-size: 26px;
+                            }
+                        }
+                    }
+                    // .main__block__plus:last-child {
+                    //     margin-left: 0;
+                    //     margin-right: 40px;
+                    // }
+                }
+            }
+
+            
+        }
+    }
 </style>
+

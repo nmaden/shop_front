@@ -1,5 +1,4 @@
 import router from '../../router'
-import axios from 'axios'
 
 export default {
     state: {
@@ -17,26 +16,13 @@ export default {
             if (router.history.current.path !== '/') {
                 router.push('/')
             } 
-            axios({ 
-                method: 'post',
-                url: process.env.VUE_APP_API_URL + process.env.VUE_APP_API_VERSION + 'auth/logout',
-                headers: {
-                    'Authorization': `Bearer ${token}` 
-                },
-                data: {}
-            })
-            .then((response) => {
-                if (response.status == 200) {
-                    state.token = []
-                } 
-            })
-            .then(() => {
-                localStorage.clear()
-                location.reload()
-            })
-            .catch((error) => {
-                console.log(error);
-            });    
+            state.token = []
+     
+            console.log(token);
+        
+            localStorage.clear()
+            location.reload()
+            
         }
     },
     actions: {

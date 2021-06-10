@@ -117,4 +117,30 @@ body {
 }
 
 
+.item__row {
+  display: flex;
+  flex-direction: row;
+}
+.item__column {
+  display: flex;
+  flex-direction: column;
+}
+.item__ac {
+  align-items: center;
+}
+.item__jb {
+  justify-content: space-between;
+}
+.item__100 {
+  width: 100%;
+}
+.item__abs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item__c {
+  justify-content: center;
+}
+
 </style>

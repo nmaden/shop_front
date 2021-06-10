@@ -18,7 +18,6 @@ export default {
 .telephones {
     width: 100%;
     height: 100%;
-    background: url('../../assets/all/hotpng_bg.png') no-repeat;
     background-position: right bottom;
     background-size: 15%;
     font-family: "MontserratBold";

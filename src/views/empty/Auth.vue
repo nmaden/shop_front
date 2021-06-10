@@ -2,7 +2,7 @@
 <template>
         <div class="sign__page">
 
-            <p class="sign__page__title">GREEN CLINIC</p>
+            <p class="sign__page__title">KENES SHOP</p>
             <form class="sign__page__block" @submit.prevent="login_sign">
                 <input type="text" placeholder="Логин" v-model="login" >
                 <input type="text" placeholder="Пароль" v-model="password" >
@@ -14,6 +14,7 @@
 
 <!-- scripts -->
 <script>
+    import { mapActions } from 'vuex'
     export default {
       data() {
           return {
@@ -28,6 +29,9 @@
         
       },
       methods: {
+        ...mapActions([
+            'SIGN_IN_USER',
+        ]),
         login_sign() {
               let obj = {
                     email: this.login,
@@ -39,6 +43,11 @@
               .then(res => {
                   localStorage.setItem("access_token",res.data.token);
 
+                  // let data__profile = {
+                  //     token: res.data.token,
+                  //     type: true,
+                  // }
+                  // this.SIGN_IN_USER(data__profile)
                   this.token = localStorage.getItem("access_token");
                   this.get_profile();
               })
@@ -50,7 +59,8 @@
             this.$http.post('/get/user/me', 
             {
         
-            }, {
+            }, 
+            {
                 headers: {
                     'Authorization': `Bearer ${this.token}` 
                 }
@@ -59,7 +69,7 @@
             .then(res => { 
                 this.user.role = res.data.name
                 if(this.user.role == "Администратор системы") {
-                    this.$router.push("/green/admin");
+                    this.$router.push("/admin");
                 }else {
                     this.$router.push("/404");
                 }
