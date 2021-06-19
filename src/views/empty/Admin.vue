@@ -393,16 +393,32 @@
                             
                         </div>
 
-                        <div class="green__column green__edit" v-for="(data,j) in orders" :key="j">
-                            <p class="green__data green__mb__xs" >Название: {{data.name}}</p>
-                            <p class="green__data green__mb__xs" >Количество: {{data.count}}</p>
-                            <p class="green__data green__mb__xs" >Цена заказа: {{data.price}} тнг.</p>
-                            <p class="green__data green__mb__xs" >Дата заказа: {{convert_date(data.created_at)}}</p>
-                        </div>
+                      <div class="green__column green__edit" v-for="(data,j) in orders" :key="j">
+                        <p class="green__data green__mb__xs" >Имя заказщика: {{data.name_user}}</p>
+                        <p class="green__data green__mb__xs" v-if="data.delivery_type==1">Доставка</p>
+                        <p class="green__data green__mb__xs" v-if="data.delivery_type==2">Самовывоз</p>
+                        <p class="green__data green__mb__xs"  v-if="data.delivery_type==1">Адрес: {{data.address}}</p>
+                        <a class="green__data green__mb__xs" :href="'tel:'+data.phone">Телефон: {{data.phone}}</a>
+                        <p class="green__data green__mb__xs" >Дата заказа: {{convert_date(data.created_at)}}</p>
 
-                        <i class="mdi mdi-close"></i>
+                          <div class="item__column green__user__orders" v-for="(item,j) in data.orders" :key="j">
+                            <p class="green__user__title">Заказы:</p>
+                            <div class="item__column">
+                              <p class="green__data green__mb__xs" >Название: {{item.name}}</p>
+                              <p class="green__data green__mb__xs" >Количество: {{item.count}}</p>
+                              <p class="green__data green__mb__xs" >Цена заказа: {{item.price}} тнг.</p>
+<!--                          <p class="green__data green__mb__xs" >Дата заказа: {{convert_date(data.created_at)}}</p>-->
+
+                            </div>
+                          </div>
+                      </div>
+
+
+                      <i class="mdi mdi-close"></i>
 
                     </div>
+
+
 
                  
 
@@ -1114,7 +1130,7 @@ export default {
                 i {
                     font-size: 22px;
                 }
-                i:hover {
+                i:hovr {
                     color: #85C418;
                 }
             }
@@ -1159,6 +1175,22 @@ export default {
                 border: 1px solid #ccc;
                 padding: 20px;
 
+                a {
+                  color: var(--main-kenes-blue) !important;
+                }
+
+
+                .green__user__orders {
+                  margin-top: 30px;
+                  margin-left: 10px;
+
+                  .green__user__title {
+                    font-weight: bold;
+                    font-size: 18px;
+                  }
+
+                }
+
                 @media (max-width: @mobile) {
                     margin-left: 0;  
                 }
@@ -1170,6 +1202,8 @@ export default {
 
                 .green__data {
                     margin-bottom: 10px;
+                    color: var(--main-kenes-blue);
+                    font-size: 18px;
                 }
                 .green__save__btn {
                     color:#85C418;

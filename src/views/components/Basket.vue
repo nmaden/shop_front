@@ -44,14 +44,25 @@
 
                     <div class="item__column basket__contact">
 
-                        
+
                         <div class="item__column">
                           <p>Имя</p>
                           <input type="text" v-model="name" class="sms__digits">
                         </div>
+
                         <div class="item__column">
                           <p>Телефон</p>
-                          <masked-input class="sms__digits" v-model.trim="phone_number" mask="7(111) 111-11-11" />
+                          <masked-input class="sms__digits" v-model.trim="phone_number" mask="8(111) 111-11-11" />
+                        </div>
+
+                        <div class="item__row item__ac basket__delivery item__jb">
+                          <div class="basket__delivery__type" v-bind:class="{basket__delivery__type__active: delivery_type==1}"  @click="chooseDelivery(1)"><p>Доставка</p></div>
+                          <div class="basket__delivery__type" v-bind:class="{basket__delivery__type__active: delivery_type==2}" @click="chooseDelivery(2)"><p>Самовывоз</p></div>
+                        </div>
+
+                        <div class="item__column" v-if="delivery_type==1">
+                          <p>Адрес</p>
+                          <input type="text" v-model="address" class="sms__digits">
                         </div>
                     </div>
 
@@ -123,18 +134,33 @@ export default {
     validations: {
         phone_number: {
             required
-        }
+        },
+        address: {
+          required
+        },
+        name: {
+          required
+        },
+        // delivery_type: {
+        //   required
+        // }
     },
     data () {
       return {
+
+          delivery_type: null,
           basket: [],
           basket_amount: 0,
           orderCreated: false,
+          address: '',
           phone_number: '',
           name: ''
       }
     },
     methods: {
+         chooseDelivery(type) {
+            this.delivery_type = type;
+         },
         createOrder() {
                 if (this.$v.$invalid) {
                     this.$toast.open({
@@ -148,7 +174,11 @@ export default {
                     return 
                 }else {
                   let data = {
-                      orders: this.basket
+                      orders: this.basket,
+                      delivery_type: this.delivery_type,
+                      address: this.address,
+                      name: this.name,
+                      phone_number: this.phone_number
                   };
 
                   this.$http.post('/create/order',data,
@@ -223,6 +253,12 @@ export default {
     mounted() {
         if(localStorage.getItem("goods")) {
             this.basket = JSON.parse(localStorage.getItem("goods"));
+            for (let i = 0; i <this.basket.length; i++) {
+              if(!this.basket[i].order_count) {
+                this.basket[i].order_count = 1;
+              }
+
+            }
             this.basketAmount();        
         }
 
@@ -234,6 +270,28 @@ export default {
 <style scoped lang="less">
 @mobile: 900px;
 @planshet: 1200px;
+
+
+.basket__delivery {
+   width: 400px;
+   margin-bottom: 20px;
+  .basket__delivery__type {
+    text-align: center;
+    width: 180px;
+    border-radius: 25px;
+    cursor: pointer;
+    color: white;
+    padding: 15px;
+    background: var(--main-kenes-blue);
+  }
+  .basket__delivery__type__active {
+    background: #9a0f0f;
+  }
+
+  .basket__delivery__type:hover {
+    opacity: 0.8;
+  }
+}
 
 .basket__contact {
   p {
@@ -326,7 +384,7 @@ export default {
            width: 200px;
            padding: 15px;
            border-radius: 30px;
-           background: #9a0f0f;
+           background: var(--main-kenes-blue);
            
             @media (max-width: 900px) {
               margin-left: 20px;
@@ -334,7 +392,7 @@ export default {
             }
            p {
              color: white;
-             text-transform: uppercase;
+             font-weight: bold;
            }
         }
         .basket__buy:hover {
