@@ -290,6 +290,7 @@ export default {
   @media (max-width: 900px) {
     width: 100%;
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .basket__delivery__type {
@@ -300,6 +301,9 @@ export default {
     color: white;
     padding: 15px;
     background: var(--main-kenes-blue);
+    @media (max-width: 900px) {
+      margin-bottom: 15px;
+    }
   }
   .basket__delivery__type__active {
     background: #9a0f0f;
@@ -311,6 +315,9 @@ export default {
 }
 
 .basket__contact {
+  @media (max-width: 900px) {
+    padding: 20px;
+  }
   p {
     font-weight: bold;
   }
@@ -496,6 +503,7 @@ export default {
               @media (max-width: 900px) {
                   position: unset;
                   margin-right: 20px;
+                  margin-bottom: 10px;
               }
              i {
                font-weight: bold;

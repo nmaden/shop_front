@@ -3,7 +3,7 @@
   <div class="main">
         <div class="header">
             <div class="header__menu header__tab">
-                <p class="header__logo__text">КЕҢЕС</p>
+                <p class="header__logo__text" @click="$router.push('/')">КЕҢЕС</p>
                 <!-- <router-link to="#">О нашем магазине</router-link>
                 <router-link to="#">О доставке</router-link>
                 <router-link to="#">Об оплате</router-link> -->

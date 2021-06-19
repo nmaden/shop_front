@@ -1,7 +1,13 @@
 <template>
     <div class="item__column" style="width: 100%;">
     <div class="main__bottom item__column item__ac " v-if="description.name" >
-        
+
+
+      <div class="main__block__title product__title" @click="$router.push('/')">
+<!--        <div class="main__block__round"></div>-->
+        <i class="mdi mdi-keyboard-backspace"></i>
+        <p>Назад</p>
+      </div>
         <div class="main__block__title product__title">
             <div class="main__block__round"></div>
             <p>{{description.name}}</p>
