@@ -135,7 +135,7 @@ export default {
               if(this.basket.length!=0) {
                 if (!this.checkHasEl()) {
                     this.description.order_price = this.description.price;
-                    this.basket.push(this.description);
+                    this.bsket.push(this.description);
                     this.$parent.getCount(1);
                 }
             }

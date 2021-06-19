@@ -74,7 +74,7 @@
                         </div>
                     </div>
 
-                    <div class="basket__buy item__abs" @click="createOrder"><p>Купить</p></div>
+                    <button :disabled="isActive" class="basket__buy item__abs" @click="createOrder"><p>Купить</p></button>
                 </div>
             </div>
 
@@ -147,7 +147,7 @@ export default {
     },
     data () {
       return {
-
+          isActive: false,
           delivery_type: null,
           basket: [],
           basket_amount: 0,
@@ -162,6 +162,17 @@ export default {
             this.delivery_type = type;
          },
         createOrder() {
+
+                if(this.delivery_type==1 && this.address=='') {
+                    this.$toast.open({
+                      message: 'Заполните поле адрес',
+                      type: 'warning',
+                      position: 'bottom',
+                      duration: 5000,
+                      queue: true
+                    });
+                }
+
                 if (this.$v.$invalid) {
                     this.$toast.open({
                         message: 'Заполните необходимые поля',
@@ -180,15 +191,13 @@ export default {
                       name: this.name,
                       phone_number: this.phone_number
                   };
+                  this.isActive = true;
 
                   this.$http.post('/create/order',data,
                   {
                   
                   })
                   .then(res => {
-                      // window.open(res.data.url,"_blank");
-                 
-                      // this.orderCreated = true;
 
                       this.$toast.open({
                           message:  res.data.message,
@@ -198,6 +207,8 @@ export default {
                           duration: 5000,
                           queue: true
                       });
+
+
                   })
                 }
                 
