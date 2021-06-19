@@ -135,15 +135,15 @@ export default {
         phone_number: {
             required
         },
-        address: {
-          required
-        },
+        // address: {
+        //   required
+        // },
         name: {
           required
         },
-        // delivery_type: {
-        //   required
-        // }
+        delivery_type: {
+          required
+        }
     },
     data () {
       return {
