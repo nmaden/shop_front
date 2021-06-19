@@ -286,6 +286,12 @@ export default {
 .basket__delivery {
    width: 400px;
    margin-bottom: 20px;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    flex-direction: column;
+  }
+
   .basket__delivery__type {
     text-align: center;
     width: 180px;
@@ -431,6 +437,11 @@ export default {
           }
             .basket__actions {
               margin-top: 20px;
+
+              @media (max-width: 900px) {
+                flex-direction: column;
+                align-items: flex-start;
+              }
             }
            .basket__info {
               margin-right: 30px;
