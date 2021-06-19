@@ -932,15 +932,15 @@ export default {
             )
             .then(res => { 
                 this.user.role = res.data.name;
-                if(this.user.role == "Администратор системы") {
+                // if(this.user.name == "Администратор системы") {
                     this.getOrders();
                     this.getProducts();
                     this.getCategories();
                     this.getApplications();
                     this.$router.push("/admin");
-                }else {
-                    this.$router.push("/login");
-                }
+                // }else {
+                //     this.$router.push("/login");
+                // }
             });
         }
         else {  

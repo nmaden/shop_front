@@ -68,11 +68,11 @@
             )
             .then(res => { 
                 this.user.role = res.data.name
-                if(this.user.role == "Администратор системы") {
+                // if(this.user.name == "Администратор системы") {
                     this.$router.push("/admin");
-                }else {
-                    this.$router.push("/404");
-                }
+                // }else {
+                //     this.$router.push("/404");
+                // }
             });
         }
       }

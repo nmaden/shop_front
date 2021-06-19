@@ -1,25 +1,5 @@
 <template>
   <div class="main__column">
-
-         
-
-
-<!--     
-            <v-dialog
-                class="modal"
-                v-model="open_filter"
-                max-width="400"
-            >
-                <v-card >
-                  
-                </v-card>
-            </v-dialog> -->
-
-
-            
-           
-
-
      <div class="main__block__header">
           
           <div class="item__row item__ac">
@@ -56,9 +36,6 @@
             ></v-select>
           </v-col>
       </div> -->
-
-
-   
 
     <div class="main__block__title">
           <div class="main__block__round"></div>

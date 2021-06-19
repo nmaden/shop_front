@@ -23,7 +23,7 @@ export const routes = [
       path: '/admin',
       name: 'Admin',
       component: () => import('../views/empty/Admin'),
-      meta: {layout: 'authorized', requiresAuth: true},
+      // meta: {layout: 'authorized', requiresAuth: true},
       // beforeEnter: authGuard
     },
     {
