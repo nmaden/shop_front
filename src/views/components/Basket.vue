@@ -11,7 +11,7 @@
                     
                     <div class="basket__list item__row" v-for="(item,b) in basket" :key="b">
                         <div class="item__column">
-                          <img :src="'http://127.0.0.1:8000'+item.images[0].image_path" alt="">
+                          <img :src="'https://api.sogym-aktobe.kz/'+item.images[0].image_path" alt="">
                           <div class="item__row item__ac basket__actions">
                             <div class="item__row item__ac basket__addition">
                               <i class="mdi mdi-minus" @click="addCount(-1,item.id,b)"></i>

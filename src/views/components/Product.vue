@@ -21,14 +21,14 @@
                     <p>%</p>
                   </div> -->
                 
-                  <img v-if="!description.corousel_index"  :src="'http://127.0.0.1:8000'+description.images[0].image_path"  >
-                  <img v-else :src="'http://127.0.0.1:8000'+description.images[description.corousel_index].image_path" alt="">
+                  <img v-if="!description.corousel_index"  :src="'https://api.sogym-aktobe.kz/'+description.images[0].image_path"  >
+                  <img v-else :src="'https://api.sogym-aktobe.kz/'+description.images[description.corousel_index].image_path" alt="">
               </div>
 
               <div class="product__row product__corousels">
                   <div class="product__corousel" v-for="(cor,i) in description.images" :key="i" @click="corousel_img(i)">
-                      <img  :src="'http://127.0.0.1:8000'+cor.image_path" v-if="!description.corousel_index"  v-bind:class="{product__corousel__active: i==0}">
-                      <img  :src="'http://127.0.0.1:8000'+cor.image_path" v-else v-bind:class="{product__corousel__active: description.corousel_index==i}">
+                      <img  :src="'https://api.sogym-aktobe.kz/'+cor.image_path" v-if="!description.corousel_index"  v-bind:class="{product__corousel__active: i==0}">
+                      <img  :src="'https://api.sogym-aktobe.kz/'+cor.image_path" v-else v-bind:class="{product__corousel__active: description.corousel_index==i}">
                   </div>
 
               </div>
