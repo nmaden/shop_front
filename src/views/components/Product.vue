@@ -17,7 +17,7 @@
 
           <div class="product__column produc__column__c product__gallery">
               <div class="product__item product__column">
-              
+
                   <img v-if="!description.corousel_index"  :src="'https://api.sogym-aktobe.kz/'+description.images[0].image_path"  >
                   <img v-else :src="'https://api.sogym-aktobe.kz/'+description.images[description.corousel_index].image_path" alt="">
               </div>

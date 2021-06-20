@@ -48,8 +48,8 @@
                 <div class="product__images">
 
                     <transition name="fade" mode="out-in">
-                        <img v-if="!product.scroll_index && products.length!=0"  class="product__img" :src="'http://127.0.0.1:8000'+product.images[0].image_path"  >
-                        <img v-if="product.scroll_index && products.length!=0" class="product__img" :src="'http://127.0.0.1:8000'+product.images[product.scroll_index].image_path"  >
+                        <img v-if="!product.scroll_index && products.length!=0"  class="product__img" :src="'https://api.sogym-aktobe.kz'+product.images[0].image_path"  >
+                        <img v-if="product.scroll_index && products.length!=0" class="product__img" :src="'https://api.sogym-aktobe.kz'+product.images[product.scroll_index].image_path"  >
                     </transition>
                     
 

@@ -264,7 +264,7 @@
                             <div class="item__row green__product__images__main">
                                 <div class="green__product__images green__row green__ac green__mr__xs" v-for="(image,i) in item.images" :key="i">
                                     
-                                    <img :src="'http://127.0.0.1:8000'+image.image_path" alt="">
+                                    <img :src="'https://api.sogym-aktobe.kz'+image.image_path" alt="">
                                     <div  class="green__btn green__pointer green__row green__ac green__mb__s" @click="openDelete(4,image.id)">
                                         <i class="fas fa-trash-alt green__mr__xs"></i>
                                         <p>Удалить</p>
