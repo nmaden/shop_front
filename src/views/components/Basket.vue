@@ -174,7 +174,6 @@ export default {
             this.delivery_type = type;
          },
         createOrder() {
-                this.showLoader = true;
                 if(this.delivery_type==1 && this.address=='') {
                     this.$toast.open({
                       message: 'Заполните поле адрес',
@@ -183,6 +182,7 @@ export default {
                       duration: 5000,
                       queue: true
                     });
+
                 }
 
                 if (this.$v.$invalid) {
@@ -193,9 +193,12 @@ export default {
                         duration: 5000,
                         queue: true
                     });
+
                     this.$v.$touch()
                     return 
                 }else {
+
+                  this.showLoader = true;
                   let data = {
                       orders: this.basket,
                       delivery_type: this.delivery_type,

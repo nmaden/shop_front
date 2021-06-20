@@ -43,7 +43,7 @@ Vue.prototype.$API_URL = process.env.VUE_APP_API_URL;
 
 
 Vue.prototype.$http = axios.create({
-  baseURL: 'http://back.frezerovka04.kz/api/v1',
+  baseURL: 'https://api.kenesmebel.kz/api/v1',
 });
 
 // events ----------------------
