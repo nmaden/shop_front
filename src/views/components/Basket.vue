@@ -3,14 +3,28 @@
 <div class="item__column">
      <div class="main__basket item__column" >
               
-                <div class="item__row item__ac">
+                <div class="item__row item__ac basket__top">
                   <i class="mdi mdi-keyboard-backspace main__basket__close" @click="$router.push('/')"></i>
                   <p class="main__basket__title">Корзина</p>
                 </div>  
                 <div class="basket__lists item__column"> 
                     
-                    <div class="basket__list item__row item__ac" v-for="(item,b) in basket" :key="b">
-                        <img :src="'http://127.0.0.1:8000'+item.images[0].image_path" alt="">
+                    <div class="basket__list item__row" v-for="(item,b) in basket" :key="b">
+                        <div class="item__column">
+                          <img :src="'http://127.0.0.1:8000'+item.images[0].image_path" alt="">
+                          <div class="item__row item__ac basket__actions">
+                            <div class="item__row item__ac basket__addition">
+                              <i class="mdi mdi-minus" @click="addCount(-1,item.id,b)"></i>
+                              <p v-if="!item.order_count">1</p>
+                              <p v-else>{{item.order_count}}</p>
+                              <i class="mdi mdi-plus" @click="addCount(1,item.id,b)"></i>
+                            </div>
+
+                            <div class="basket__delete item__abs" @click="deleteEl(item.id,b)">
+                              <i class="mdi mdi-close "></i>
+                            </div>
+                          </div>
+                        </div>
                         <div class="item__row item__ac basket__right__side">
                           <div class="item__column basket__info">
                             <p class="basket__name">{{item.name}}</p>
@@ -26,18 +40,7 @@
                             </div>
                           </div>
 
-                          <div class="item__row item__ac basket__actions">
-                            <div class="item__row item__ac basket__addition"> 
-                                <i class="mdi mdi-minus" @click="addCount(-1,item.id,b)"></i>
-                                <p v-if="!item.order_count">1</p>
-                                <p v-else>{{item.order_count}}</p>
-                                <i class="mdi mdi-plus" @click="addCount(1,item.id,b)"></i>
-                            </div>
 
-                            <div class="basket__delete item__abs" @click="deleteEl(item.id,b)">
-                                <i class="mdi mdi-close "></i>
-                            </div>
-                          </div>
                         
                         </div>
                     </div>
@@ -289,8 +292,7 @@ export default {
 
   @media (max-width: 900px) {
     width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+
   }
 
   .basket__delivery__type {
@@ -302,7 +304,9 @@ export default {
     padding: 15px;
     background: var(--main-kenes-blue);
     @media (max-width: 900px) {
+      width: 44%;
       margin-bottom: 15px;
+      font-size: 14px;
     }
   }
   .basket__delivery__type__active {
@@ -329,7 +333,7 @@ export default {
     color: gray;
     width: 40%;
     @media (max-width: 900px) {
-          width: 90%;
+          width: 100%;
     }
   }
 }
@@ -351,14 +355,24 @@ export default {
 
   .main__basket {
       display: flex;
-      position: fixed;
-      top: 0;
       background: white;
-      height: 100vh;
       width: 100%;
-      z-index: 10;
-      overflow-y: scroll;
       margin-bottom: 20px;
+      .basket__top {
+        width: 90%;
+        align-self: center;
+        margin-bottom: 20px;
+        color: var(--main-kenes-blue);
+        i {
+          font-size: 34px;
+        }
+
+        .main__basket__title {
+          font-size: 22px;
+        }
+
+      }
+
       .main__basket__title {
         font-size: 28px;
         font-weight: bold;
@@ -368,14 +382,14 @@ export default {
       .main__basket__close {
         cursor: pointer;
         font-size: 50px;
-        color: black;
       }
       .main__basket__close:hover {
          opacity: 0.8;
       }
 
       .basket__lists {
-         width: 60%;
+         width: 90%;
+        align-self: center;
           @media (max-width: 900px) {
                 width: 100%;
           }
@@ -384,6 +398,7 @@ export default {
           @media (max-width: 900px) {
             padding: 20px;
             margin-bottom: 0;
+            padding-top: 0;
           }
           .basket__amount__t {
             margin-right: 20px;
@@ -411,7 +426,9 @@ export default {
            background: var(--main-kenes-blue);
            
             @media (max-width: 900px) {
-              margin-left: 20px;
+              width: 90%;
+              align-self: center;
+
               margin-bottom: 50px;
             }
            p {
@@ -428,6 +445,10 @@ export default {
            padding: 20px;
            border-radius: 10px;
            margin-bottom: 20px;
+            @media (max-width: 900px) {
+              width: 90%;
+              align-self: center;
+            }
          
            img {
              width: 200px;
@@ -435,6 +456,10 @@ export default {
              object-fit: cover;
              border-radius: 10px;
              margin-right: 20px;
+             @media (max-width: 900px) {
+               width: 180px;
+               height: 120px;
+             }
            }
           .basket__right__side {
              @media (max-width: 900px) {
@@ -446,8 +471,7 @@ export default {
               margin-top: 20px;
 
               @media (max-width: 900px) {
-                flex-direction: column;
-                align-items: flex-start;
+
               }
             }
            .basket__info {
@@ -473,8 +497,6 @@ export default {
                 position: absolute;
                 bottom: 20px;
                 right: 10px;
-                
-
                 width: 44px;
                 height: 44px;
                 border-radius: 22px;
@@ -501,9 +523,9 @@ export default {
              justify-content: center;
              margin-right: 50px;
               @media (max-width: 900px) {
+                  width: 80px;
                   position: unset;
-                  margin-right: 20px;
-                  margin-bottom: 10px;
+                  margin-right: 10px;
               }
              i {
                font-weight: bold;

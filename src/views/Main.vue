@@ -23,8 +23,8 @@
                     </div>
                     
                     <div class="header__menu__last">
-                        <p class="header__purple">8 777 777 777</p>
-                        <p class="header__gray">- по будням с 9:00 - 21:00</p>
+<!--                        <p class="header__purple">8 777 777 777</p>-->
+                        <p class="header__gray">по будням с 9:00 - 21:00</p>
                     </div>
                 </div>
                 
@@ -318,9 +318,12 @@ p {
         border-radius: 20px;
         width: 150px;
         justify-content: center;
-        
-
         background-color: var(--main-kenes-blue);
+        @media (max-width: 900px) {
+          width: 100%;
+          padding: 7px;
+
+        }
         i {
             margin-right: 10px;
             font-size: 16px;
@@ -330,6 +333,10 @@ p {
             font-size: 14px;
             color: white;
             font-weight: bold;
+            @media (max-width: 900px) {
+             font-size: 12px;
+
+            }
         }
     }
     .product__order:hover {
@@ -405,8 +412,9 @@ p {
                 font-weight: bold;
                 color: var(--main-kenes-blue);
                 @media (max-width: 900px) {
-                    font-size: 20px;
+                    font-size: 18px;
                     padding-left: 10px;
+                    font-weight: bold;
                 }
             }
             a {
@@ -605,6 +613,7 @@ p {
                     cursor: pointer;
                     background: var(--main-kenes-blue);
                     padding: 10px;
+                    margin-bottom: 20px;
                     border-radius: 20px;
                     color: white;
                     width: 200px;
@@ -734,10 +743,12 @@ p {
                             opacity: 0.8;
                         }
                         @media (max-width: 900px) {
+
                             width: 40%;
-                            margin: 20px;
+                            padding: 10px 40px 10px 40px;
                             margin-bottom: 0;
-                       
+                            margin-left: 15px;
+
                         }
                     }
                 }
@@ -753,7 +764,9 @@ p {
                     flex-wrap: wrap;
                     margin-bottom: 20px;
                     @media(max-width: 900px) {
-                        justify-content: center;
+                        width: 90%;
+                        align-self: center;
+                        justify-content: space-between;
                     }
                     
                     .main__block__product {
@@ -768,9 +781,10 @@ p {
                         margin-bottom: 20px;
                         // box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
                         @media(max-width: 900px) {
-                            width: 90%;
+                            width: 48%;
                             margin: 0;
                             margin-bottom: 20px;
+                            padding: 15px;
                             
                         }
                         .v-skeleton-loader--is-loading {
@@ -811,11 +825,18 @@ p {
                             border-radius: 10px;
                             margin-bottom: 20px;
                             position:relative;
+
+                            @media(max-width: 900px) {
+                                height: unset;
+                            }
                             .product__img {
                                 height: 250px;
                                 object-fit: cover;
                                 border-radius: 5px;
-                            }  
+                                @media(max-width: 900px) {
+                                   height: 150px;
+                                }
+                            }
                             .product__levels {
                                 
                                 display: flex;
@@ -837,9 +858,14 @@ p {
 
                         }  
                         .product__name {
+                            color: var(--main-kenes-blue);
                             font-size: 24px;
                             font-weight: 400;
                             margin-bottom: 5px;
+                            @media(max-width: 900px) {
+                              font-weight: bold;
+                              font-size: 16px;
+                            }
                         }
                         .product__size {
                             font-size: 14px;

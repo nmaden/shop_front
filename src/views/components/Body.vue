@@ -2,7 +2,7 @@
   <div class="main__column">
      <div class="main__block__header">
           
-          <div class="item__row item__ac">
+          <div class="item__row item__ac item__90">
             <div class="main__block__search">
                 <i class="mdi mdi-briefcase-search-outline"></i>
                 <input type="text" v-model="nameProduct" placeholder="Название или модель изделия" @input="searchProduct">
@@ -132,8 +132,8 @@
 
         </div>
 
-
-    <div class="main__next item__abs" @click="showMore()" v-if="all_products.length!=total_page">
+<!--    v-if="all_products.length!=total_page"-->
+    <div class="main__next item__abs" @click="showMore()" v-if="all_products.length!=total_page" >
         <p v-if="!showLoader">Посмотреть еще</p>
         <v-progress-circular
         indeterminate

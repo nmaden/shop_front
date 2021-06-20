@@ -8,9 +8,16 @@ export const routes = [
       children: [
         { path: '/', component: () => import('../views/components/Body.vue')},
         { path: '/category/:id', component: () => import('../views/components/Body.vue')},
-        { path: '/basket', component: () => import('../views/components/Basket.vue')},
+        // { path: '/basket', component: () => import('../views/components/Basket.vue')},
         { path: '/category/:category/product/:id', component: () => import('../views/components/Product.vue')},
       ]
+    },
+    {
+        path: '/basket',
+        name: 'Basket',
+        component: () => import('../views/components/Basket.vue'),
+        // meta: {layout: 'not_authorized', requiresAuth: false},
+
     },
     {
       path: '/login',

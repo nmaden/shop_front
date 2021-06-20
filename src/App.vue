@@ -116,6 +116,13 @@ body {
     font-family: "MontserratBold";
 }
 
+.item__90 {
+  width: 90%;
+}
+.item__as {
+  align-self: center;
+}
+
 
 .item__row {
   display: flex;

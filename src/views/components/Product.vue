@@ -171,6 +171,7 @@ export default {
       
     },
     mounted() {
+        window.scrollTo(0, 30);
         if(localStorage.getItem("goods")) {
             this.basket = JSON.parse(localStorage.getItem("goods"));
             this.basketAmount();        
@@ -258,6 +259,7 @@ export default {
       border-radius: 10px;
       margin-bottom: 20px;
       @media (max-width: @mobile) {
+        width: 90%;
         height: unset;
       }
       img {
@@ -298,6 +300,9 @@ export default {
       margin-bottom: 20px;
       justify-content:flex-start;
       overflow-x: auto;
+      @media (max-width: @mobile) {
+        width: 90%;
+      }
       .product__corousel {
         cursor: pointer;
         padding: 30px;
@@ -330,8 +335,10 @@ export default {
       background-color: #f5f5f5;
       padding: 20px;
       @media (max-width: @mobile) {
-        width: 100%;
+        align-self: center;
+        width: 90%;
         align-items: center;
+        margin-bottom: 15px;
       }
 
       .product__price__l {
