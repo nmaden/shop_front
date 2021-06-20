@@ -3,7 +3,7 @@
   <div class="main">
         <div class="header">
             <div class="header__menu header__tab">
-                <p class="header__logo__text" @click="$router.push('/')">КЕҢЕС</p>
+                <p class="header__logo__text" @click="$router.push('/')">SOĞYM</p>
                 <!-- <router-link to="#">О нашем магазине</router-link>
                 <router-link to="#">О доставке</router-link>
                 <router-link to="#">Об оплате</router-link> -->
@@ -77,76 +77,78 @@
 
                 <div class="main__block__description">
                     <p class="main__block__description">
-                        Мы – семейная компания, основанная в 1997 году, которая соединила в себе знания и опыт производства мебели, промышленного дизайна и способ жизни.
+                      Более 15 лет мы ответственно работаем вместе с несколькими тщательно отобранными фермерскими хозяйствами центральной части
+                      Казахстана и вместе производим по-настоящему лучшее мясо для наших покупателей по доступной цене.
                     </p>
                 </div>
 
-                <div class="main__block__title">
-                    <div class="main__block__round"></div>
-                    <p>Почему с нами работают?</p>
-                </div>
+<!--                <div class="main__block__title">-->
+<!--                    <div class="main__block__round"></div>-->
+<!--                    <p>Почему с нами работают?</p>-->
+<!--                </div>-->
 
-                <div class="main__block__pluses">
 
-                    <div class="main__block__plus center__column">
-                        
-                       
-                        <div class="main__block__star center__row__g">
-                            <i class="mdi mdi-shield-star-outline"></i>
-                        </div>
-                        <div>
-                            <i class="fas fa-truck"></i>
-                        </div>
-                        <p class="plus__title">Бесплатная доставка до квартиры</p>
-                        
-                        <p class="plus__description">
-                            Бесплатно выезжаем на обьект и замеряем параметры изделия
-                        </p>
-                    </div>
+<!--                <div class="main__block__pluses">-->
 
-                    <div class="main__block__plus center__column">
-                        
-                        <div class="main__block__star center__row__g">
-                             <i class="mdi mdi-shield-star-outline"></i>
-                        </div>
-                        <div>
-                            <i class="fas fa-cubes"></i>
-                        </div>
-                        <p class="plus__title">Качественная фурнитура и компоненты</p>
-                       
-                        <p class="plus__description">
-                            Идеальная фурнитура и компоненты для сборки
-                        </p>
-                    </div>
-                    <div class="main__block__plus center__column">
-                        
-                        <div class="main__block__star center__row__g">
-                             <i class="mdi mdi-shield-star-outline"></i>
-                        </div>
-                        <div>
-                            <i class="fas fa-truck"></i>
-                        </div>
-                        <p class="plus__title">Бесплатная доставка до квартиры</p>
-                        
-                        <p class="plus__description">
-                            Бесплатно выезжаем на обьект и замеряем параметры изделия
-                        </p>
-                    </div>
-                    <div class="main__block__plus center__column">
-                        <div class="main__block__star center__row__g">
-                             <i class="mdi mdi-shield-star-outline"></i>
-                        </div>
-                         <div>
-                            <i class="fas fa-cubes"></i>
-                        </div>
-                        <p class="plus__title">Качественная фурнитура и компоненты</p>
-                        
-                        <p class="plus__description">
-                            Идеальная фурнитура и компоненты для сборки
-                        </p>
-                    </div>
+<!--                    <div class="main__block__plus center__column">-->
+<!--                        -->
+<!--                       -->
+<!--                        <div class="main__block__star center__row__g">-->
+<!--                            <i class="mdi mdi-shield-star-outline"></i>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <i class="fas fa-truck"></i>-->
+<!--                        </div>-->
+<!--                        <p class="plus__title">Бесплатная доставка до квартиры</p>-->
+<!--                        -->
+<!--                        <p class="plus__description">-->
+<!--                            Бесплатно выезжаем на обьект и замеряем параметры изделия-->
+<!--                        </p>-->
+<!--                    </div>-->
 
-                </div>
+<!--                    <div class="main__block__plus center__column">-->
+<!--                        -->
+<!--                        <div class="main__block__star center__row__g">-->
+<!--                             <i class="mdi mdi-shield-star-outline"></i>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <i class="fas fa-cubes"></i>-->
+<!--                        </div>-->
+<!--                        <p class="plus__title">Качественная фурнитура и компоненты</p>-->
+<!--                       -->
+<!--                        <p class="plus__description">-->
+<!--                            Идеальная фурнитура и компоненты для сборки-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="main__block__plus center__column">-->
+<!--                        -->
+<!--                        <div class="main__block__star center__row__g">-->
+<!--                             <i class="mdi mdi-shield-star-outline"></i>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <i class="fas fa-truck"></i>-->
+<!--                        </div>-->
+<!--                        <p class="plus__title">Бесплатная доставка до квартиры</p>-->
+<!--                        -->
+<!--                        <p class="plus__description">-->
+<!--                            Бесплатно выезжаем на обьект и замеряем параметры изделия-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="main__block__plus center__column">-->
+<!--                        <div class="main__block__star center__row__g">-->
+<!--                             <i class="mdi mdi-shield-star-outline"></i>-->
+<!--                        </div>-->
+<!--                         <div>-->
+<!--                            <i class="fas fa-cubes"></i>-->
+<!--                        </div>-->
+<!--                        <p class="plus__title">Качественная фурнитура и компоненты</p>-->
+<!--                        -->
+<!--                        <p class="plus__description">-->
+<!--                            Идеальная фурнитура и компоненты для сборки-->
+<!--                        </p>-->
+<!--                    </div>-->
+
+<!--                </div>-->
 
 
 
@@ -279,8 +281,9 @@
 
 <style lang="scss">
 
+//#449DED;
 :root {
-    --main-kenes-blue: #449DED; 
+    --main-kenes-blue: #f26b33;
 }
 p,a,input {
     font-family: "MontserratRegular";
