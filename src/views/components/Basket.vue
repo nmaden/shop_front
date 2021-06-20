@@ -49,7 +49,7 @@
 
 
                         <div class="item__column">
-                          <p>Имя</p>
+                          <p>Ваше имя</p>
                           <input type="text" v-model="name" class="sms__digits">
                         </div>
 
@@ -77,7 +77,15 @@
                         </div>
                     </div>
 
-                    <button :disabled="isActive" class="basket__buy item__abs" @click="createOrder"><p>Купить</p></button>
+                    <button :disabled="isActive" class="basket__buy item__abs" @click="createOrder">
+                      <p v-if="!showLoader">Заказать</p>
+                      <v-progress-circular
+                          indeterminate
+                          color="white"
+                          v-if="showLoader"
+                      ></v-progress-circular>
+
+                    </button>
                 </div>
             </div>
 
@@ -150,6 +158,7 @@ export default {
     },
     data () {
       return {
+          showLoader:false,
           isActive: false,
           delivery_type: null,
           basket: [],
@@ -165,7 +174,7 @@ export default {
             this.delivery_type = type;
          },
         createOrder() {
-
+                this.showLoader = true;
                 if(this.delivery_type==1 && this.address=='') {
                     this.$toast.open({
                       message: 'Заполните поле адрес',
@@ -201,15 +210,17 @@ export default {
                   
                   })
                   .then(res => {
-
+                      this.showLoader = false;
                       this.$toast.open({
                           message:  res.data.message,
                           type: 'success',
                           background: '#449DED',
                           position: 'bottom',
-                          duration: 5000,
+                          duration: 6000,
                           queue: true
                       });
+
+
 
 
                   })
