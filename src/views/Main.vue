@@ -47,7 +47,7 @@
                 </div>
                 <div class="main__block__categories" v-if="!subcategory && !showLoaderCategory">
                       <div  v-for="(item,index) in categories" :key="index">
-                        <div class="main__block__category" v-bind:class="{main__block__category__active:item.active && item.active==true}">
+                        <div class="main__block__category" >
                           <p @click="openSubCategory(item,item.id,categories)">{{item.name}}</p>
                         </div>
                       </div>

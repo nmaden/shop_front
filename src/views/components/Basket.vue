@@ -29,8 +29,8 @@
                           <div class="item__column basket__info">
                             <p class="basket__name">{{item.name}}</p>
 
-                            <p class="baset__description">Размер: {{item.size}}</p>
-                            
+<!--                            <p class="baset__description">Размер: {{item.size}}</p>-->
+<!--                            -->
                             <p class="baset__description">{{item.description}}</p>
                             
                             <div class="item__row item__ac ">
