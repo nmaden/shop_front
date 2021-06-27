@@ -133,34 +133,11 @@
                                 <button type="submit">Сохранить</button>
                             </form>
                             <div class="green__row green__ac" v-if="category_name_edit!=''">
-                                <!-- <div  class="green__btn green__pointer green__row green__ac green__mb__s green__mr__xs" @click="editCategory()">
-                                    <i class="fas fa-pencil-alt green__mr__xs"></i>
-                                    <p>Редактировать</p>
-                                </div> --> 
                                 <div  class="green__btn green__pointer green__row green__ac green__mb__s" @click="openDelete(1,category_id_edit)">
                                     <i class="fas fa-trash-alt green__mr__xs"></i>
                                     <p>Удалить</p>
                                 </div>
                             </div>
-
-
-                            <!-- <p class="green__data" v-if="item.edit==true">{{item.name}}</p>
-
-                            
-                            
-                            <div class="green__row green__ac">
-                                <div  class="green__btn green__pointer green__row green__ac green__mb__s green__mr__xs" @click="editCategory(index)">
-                                    <i class="fas fa-pencil-alt green__mr__xs"></i>
-                                    <p>Редактировать</p>
-                                </div>
-                                 
-                                <div  class="green__btn green__pointer green__row green__ac green__mb__s" @click="openDelete(1,item.id)">
-                                    <i class="fas fa-trash-alt green__mr__xs"></i>
-                                    <p>Удалить</p>
-                                </div>
-                            </div> -->
-                            
-
                         </div>
                     </div>
                 </div>
@@ -212,80 +189,117 @@
                         </div>
 
 
-                        <div class="green__column green__edit" v-for="(item,index) in products" :key="index">
+                      <div class="green__column" v-if="showSkeleton">
+                        <v-skeleton-loader type="card-avatar, actions" ></v-skeleton-loader>
+                        <v-skeleton-loader type="card-avatar, actions" ></v-skeleton-loader>
+                        <v-skeleton-loader type="card-avatar, actions" ></v-skeleton-loader>
+                        <v-skeleton-loader type="card-avatar, actions" ></v-skeleton-loader>
 
-                            <p class="green__data"><b>Название:</b>  {{item.name}}</p>
-                            <p class="green__data"><b>Описание:</b> {{item.description}}</p>
-                            <p class="green__data"><b>Создано:</b> {{convert_date(item.created_at)}}</p>
-                            <form  class="green__mb__s"  @submit.prevent="editSave(index)" v-if="item.edit">
-                                <div class="green__column green__input">
-                                    <p>Выберите категорию</p>
+                      </div>
 
-                                    <p>{{ item.category_id }}</p>
-                                    <v-select
-                                   
-                                        v-model="item.category_id"
-                                        :items="categories"
-                                        item-text="name"
-                                        item-value="id"
-                                        label="Выберите категорию"
-                                        outlined
-                                    ></v-select>
-                                </div>
-                                <div class="green__column green__input">
-                                    <p>Название</p>
-                                    <v-text-field
-                                        v-model="item.name"
-                                        label="Название категории"
-                                        required
-                                        outlined
-                                    ></v-text-field>
-                                </div>
-                                <div class="green__column green__input">
-                                    <p>Описание</p>
-                                    <v-text-field
-                                        v-model="item.description"
-                                        label="Описание"
-                                        outlined
-                                    ></v-text-field>
-                                </div>
-                          
-                                <div class="green__column green__input green__mb__s">
-                                        <p>Добавить файл</p>
-                                        <input type="file" multiple  @change="uploadDoc" required/> 
-                                </div>
-                                
-                                <button type="submit">Сохранить</button>
-                            </form>
-                            
 
-                            <p class="green__images__title">Список рисунок</p>
-                            
-                            <div class="item__row green__product__images__main">
-                                <div class="green__product__images green__row green__ac green__mr__xs" v-for="(image,i) in item.images" :key="i">
-                                    
-                                    <img :src="'https://api.sogym-aktobe.kz'+image.image_path" alt="">
-                                    <div  class="green__btn green__pointer green__row green__ac green__mb__s" @click="openDelete(4,image.id)">
-                                        <i class="fas fa-trash-alt green__mr__xs"></i>
-                                        <p>Удалить</p>
-                                    </div>
-                                </div>
+                      <div class="green__column" v-else>
+                        <div class="green__column green__edit"   v-for="(item,index) in products" :key="index">
+
+                          <p class="green__data"><b>Название:</b>  {{item.name}}</p>
+                          <p class="green__data"><b>Описание:</b> {{item.description}}</p>
+                          <p class="green__data"><b>Создано:</b> {{convert_date(item.created_at)}}</p>
+                          <form  class="green__mb__s"  @submit.prevent="editSave(index)" v-if="item.edit">
+                            <div class="green__column green__input">
+                              <p>Выберите категорию</p>
+
+                              <p>{{ item.category_id }}</p>
+                              <v-select
+
+                                  v-model="item.category_id"
+                                  :items="categories"
+                                  item-text="name"
+                                  item-value="id"
+                                  label="Выберите категорию"
+                                  outlined
+                              ></v-select>
                             </div>
-                            
+                            <div class="green__column green__input">
+                              <p>Название</p>
+                              <v-text-field
+                                  v-model="item.name"
+                                  label="Название категории"
+                                  required
+                                  outlined
+                              ></v-text-field>
+                            </div>
+
                             <div class="green__row green__ac">
-                                <div  class="green__btn green__pointer green__row green__ac green__mb__s green__mr__xs" @click="editPurchase(index)">
-                                    <i class="fas fa-pencil-alt green__mr__xs"></i>
-                                    <p>Редактировать</p>
-                                </div>
-                                 
-                                <div  class="green__btn green__pointer green__row green__ac green__mb__s" @click="openDelete(2,item.id)">
-                                    <i class="fas fa-trash-alt green__mr__xs"></i>
-                                    <p>Удалить</p>
-                                </div>
+                              <div class="green__column  green__mr__xs green__input">
+                                <p>Цена</p>
+                                <v-text-field
+                                    v-model="item.price"
+                                    label="Цена"
+                                    required
+                                    outlined
+                                ></v-text-field>
+                              </div>
+
+                              <div class="green__column green__input">
+                                <p class="green__mb__xs">Измерение</p>
+                                <v-select
+                                    v-model="item.count_type"
+                                    :items="count_types"
+                                    item-text="name"
+                                    item-value="id"
+                                    label="Выберите измерение"
+                                    outlined
+                                    required
+                                ></v-select>
+                              </div>
                             </div>
-                            
+                            <div class="green__column green__input">
+                              <p>Описание</p>
+                              <v-text-field
+                                  v-model="item.description"
+                                  label="Описание"
+                                  outlined
+                              ></v-text-field>
+                            </div>
+
+                            <div class="green__column green__input green__mb__s">
+                              <p>Добавить файл</p>
+                              <input type="file" multiple  @change="uploadDoc" />
+                            </div>
+
+                            <button type="submit">Сохранить</button>
+                          </form>
+
+
+                          <p class="green__images__title">Список рисунок</p>
+
+                          <div class="item__row green__product__images__main">
+                            <div class="green__product__images green__row green__ac green__mr__xs" v-for="(image,i) in item.images" :key="i">
+
+                              <img :src="'https://api.sogym-aktobe.kz'+image.image_path" alt="">
+                              <div  class="green__btn green__pointer green__row green__ac green__mb__s" @click="openDelete(4,image.id)">
+                                <i class="fas fa-trash-alt green__mr__xs"></i>
+                                <p>Удалить</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="green__row green__ac">
+                            <div  class="green__btn green__pointer green__row green__ac green__mb__s green__mr__xs" @click="editPurchase(index)">
+                              <i class="fas fa-pencil-alt green__mr__xs"></i>
+                              <p>Редактировать</p>
+                            </div>
+
+                            <div  class="green__btn green__pointer green__row green__ac green__mb__s" @click="openDelete(2,item.id)">
+                              <i class="fas fa-trash-alt green__mr__xs"></i>
+                              <p>Удалить</p>
+                            </div>
+                          </div>
+
 
                         </div>
+                      </div>
+
 
 
                     </div>
@@ -337,15 +351,34 @@
                                 outlined
                             ></v-text-field>
                         </div>
-                        <div class="green__column green__input">
-                            <p>Цена</p>
-                            <v-text-field
-                                v-model="price"
-                                label="Цена"
-                                required
-                                outlined
-                            ></v-text-field>
+
+
+                      <div class="green__row green__ac">
+                        <div class="green__column  green__mr__xs green__input">
+                          <p>Цена</p>
+                          <v-text-field
+                              v-model="price"
+                              label="Цена"
+                              required
+                              outlined
+                          ></v-text-field>
                         </div>
+
+                        <div class="green__column green__input">
+                            <p class="green__mb__xs">Измерение</p>
+                            <v-select
+                                v-model="count_type"
+                                :items="count_types"
+                                item-text="name"
+                                item-value="id"
+                                label="Выберите измерение"
+                                outlined
+                                required
+                            ></v-select>
+                        </div>
+                      </div>
+
+
                         <div class="green__column green__input">
                             <p>Количество</p>
                             <v-text-field
@@ -364,6 +397,8 @@
                                 outlined
                             ></v-text-field>
                         </div>
+
+
 
                         <div class="green__column green__input green__mb__s">
                                 <p>Добавить файл</p>
@@ -513,6 +548,23 @@
 export default {
     data () {
         return {
+            showSkeleton: false,
+            category_type: null,
+            count_type: null,
+            count_types:[
+              {
+                id: 1,
+                name: 'Шт'
+              },
+              {
+                id: 2,
+                name: 'Кг'
+              },
+              {
+                id: 3,
+                name: 'Литр'
+              }
+            ],
             documents: [],
             rules: {
                 select: [(v) => !!v || "Выберите категорию"],
@@ -591,38 +643,37 @@ export default {
             this.category_for_product = t[0].name;
         },
         getProductByCategory(id,type) {
+            this.showSkeleton = true;
             let t = '';
+
+
+            if(!type) {
+              type = this.category_type;
+            }
+
             if(type=='child') {
-                   t = this.nested.filter(item => item.id === id);
+              t = this.nested.filter(item => item.id === id);
             }
             else {
-                   t = this.categories.filter(item => item.id === id);
+              t = this.categories.filter(item => item.id === id);
             }
+
             this.selected_category = t[0].name;
-
             this.dialogApplication = false;
-
 
             let data = {
                 category_id: id
             };
-            this.$http.post('/get/products/admin/by/category',data,
-                {
+            this.$http.post('/get/products/admin/by/category',data, {
                 headers: {
                     'Authorization': `Bearer ${this.token}` 
                 }
+
             })
             .then(res => {
-           
                 this.message_notif = res.data.message;
-                // this.savedData = true;
-
                 this.products = res.data;
-
-                
-                // window.setInterval(() => {
-                //     this.savedData = false;
-                // }, 4000); 
+                this.showSkeleton = false;
             })
         },
         chooseParentMain(type) {
@@ -674,7 +725,8 @@ export default {
             this.dialogApplication = false;
         },
         convert_date(date) {
-     
+
+          if(date) {
             let day = date.split("T")[0].split("-")[2];
             let month = date.split("T")[0].split("-")[1];
             let year = date.split("T")[0].split("-")[0];
@@ -684,6 +736,8 @@ export default {
             let ready  = day+'.'+month+'.'+year;
 
             return ready+' '+hour+':'+minute;
+          }
+
         },
         okApplication(app_id,purchase_id) {
 
@@ -740,6 +794,7 @@ export default {
             fd.append('category_id',this.category_id);
             fd.append('price',this.price);
             fd.append('count',this.count);
+            fd.append('count_type',this.count_type);
         
             for (var i = 0; i < this.documents.length; i++) {
                 fd.append('images[]', this.documents[i])
@@ -755,14 +810,17 @@ export default {
                 ).then(res => {
                     this.document = [];
                     this.message_notif = res.data.message;
-                    this.savedData = true;
-
                     this.getProducts();
                     this.getCategories();
-                    
-                    window.setInterval(() => {
-                        this.savedData = false;
-                    }, 4000); 
+
+                    this.getProductByCategory(this.category_id,null);
+                    this.$toast.open({
+                      message: res.data.message,
+                      type: 'success',
+                      position: 'bottom',
+                      duration: 5000,
+                      queue: true
+                    });
                     this.seePurchase = true;
             });
         },
@@ -866,6 +924,9 @@ export default {
             fd.append('category_id', this.products[index].category_id);
             fd.append('price',this.products[index].price);
             fd.append('count',this.products[index].count);
+
+            fd.append('count_type',this.products[index].count_type);
+
             for (var i = 0; i < this.documents.length; i++) {
                 fd.append('images[]', this.documents[i])
             }
@@ -882,14 +943,22 @@ export default {
                 ).then(res => {
                     this.document = [];
                     this.message_notif = res.data.message;
-                    this.savedData = true;
 
                     this.getProducts();
                     this.getCategories();
-                    window.setInterval(() => {
-                        this.savedData = false;
-                    }, 4000); 
+
+                    this.getProductByCategory(this.products[index].category_id,null)
                     this.seePurchase = true;
+
+                  this.$toast.open({
+                    message: res.data.message,
+                    type: 'success',
+                    position: 'bottom',
+                    duration: 5000,
+                    queue: true
+                  });
+
+
             });
         },
        
@@ -919,10 +988,12 @@ export default {
             .then(res => {
                 this.products = res.data
                 this.message_notif = res.data.message;
-                
-                this.getProducts();
+
                 this.getCategories();
                 this.getApplications();
+
+
+                this.getProductByCategory(this.category_id,null)
 
                 this.savedData = true;
 

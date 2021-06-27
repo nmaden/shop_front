@@ -18,14 +18,14 @@
           <div class="product__column produc__column__c product__gallery">
               <div class="product__item product__column">
 
-                  <img v-if="!description.corousel_index"  :src="'https://api.sogym-aktobe.kz/'+description.images[0].image_path"  >
-                  <img v-else :src="'https://api.sogym-aktobe.kz/'+description.images[description.corousel_index].image_path" alt="">
+                  <img v-if="!description.corousel_index && description.images.length!=0"  :src="'https://api.sogym-aktobe.kz/'+description.images[0].image_path"  >
+                  <img v-else-if="description.images.length!=0" :src="'https://api.sogym-aktobe.kz/'+description.images[description.corousel_index].image_path" alt="">
               </div>
 
               <div class="product__row product__corousels">
                   <div class="product__corousel" v-for="(cor,i) in description.images" :key="i" @click="corousel_img(i)">
-                      <img  :src="'https://api.sogym-aktobe.kz/'+cor.image_path" v-if="!description.corousel_index"  v-bind:class="{product__corousel__active: i==0}">
-                      <img  :src="'https://api.sogym-aktobe.kz/'+cor.image_path" v-else v-bind:class="{product__corousel__active: description.corousel_index==i}">
+                      <img  :src="'https://api.sogym-aktobe.kz/'+cor.image_path" v-if="!description.corousel_index && description.images.length!=0"  v-bind:class="{product__corousel__active: i==0}">
+                      <img  :src="'https://api.sogym-aktobe.kz/'+cor.image_path" v-else-if="description.images.length!=0" v-bind:class="{product__corousel__active: description.corousel_index==i}">
                   </div>
 
               </div>
@@ -135,20 +135,24 @@ export default {
             this.description = permanent;
         },
         sendBasket() {
-              if(this.basket.length!=0) {
+            if(this.basket.length!=0) {
                 if (!this.checkHasEl()) {
                     this.description.order_price = this.description.price;
                     this.basket.push(this.description);
-                    this.$parent.getCount(1);
+
                 }
             }
             else {
-            this.description.order_price = this.description.price;
-            this.basket.push(this.description);
-            this.$parent.getCount(1);
+                this.description.order_price = this.description.price;
+                this.basket.push(this.description);
+
             }
+
+
             localStorage.setItem("goods",JSON.stringify(this.basket));
             this.basketAmount();
+
+            this.$parent.getCount();
         },
         checkHasEl() {
             var found = false;
@@ -167,6 +171,7 @@ export default {
     created () {
       
     },
+
     mounted() {
         window.scrollTo(0, 30);
         if(localStorage.getItem("goods")) {

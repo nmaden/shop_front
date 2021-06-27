@@ -48,8 +48,8 @@
                 <div class="product__images">
 
                     <transition name="fade" mode="out-in">
-                        <img v-if="!product.scroll_index && products.length!=0"  class="product__img" :src="'https://api.sogym-aktobe.kz'+product.images[0].image_path"  >
-                        <img v-if="product.scroll_index && products.length!=0" class="product__img" :src="'https://api.sogym-aktobe.kz'+product.images[product.scroll_index].image_path"  >
+                        <img v-if="product.images.length!=0 && !product.scroll_index && products.length!=0"  class="product__img" :src="'https://api.sogym-aktobe.kz'+product.images[0].image_path"  >
+                        <img v-if="product.images.length!=0 && product.scroll_index && products.length!=0" class="product__img" :src="'https://api.sogym-aktobe.kz'+product.images[product.scroll_index].image_path"  >
                     </transition>
                     
 
@@ -77,8 +77,14 @@
                     
 
                     <div class="item__row item__ac">
-                        <p class="product__price">{{product.price}}</p>
-                        <i class="fas fa-tenge"></i>
+                        <p class="product__price">{{product.price+' тнг '}}</p>
+<!--                        <i class="fas fa-tenge"></i>-->
+
+
+                        <p class="product__price" v-if="product.count_type==2">{{'/ '}}кг</p>
+                        <p class="product__price" v-if="product.count_type==3">{{'/ '}}литр</p>
+
+
                     </div>
                     <!-- <div class="product__sale">
                         <p>-20%</p>
@@ -95,11 +101,7 @@
      <div class="main__block__products"  v-if="showLoaderProducts" >
 
             <div class="item__column item__ac main__block__product item__js__c">
-                    <v-skeleton-loader
-                
-                    type="card-avatar, actions"
-                    ></v-skeleton-loader>
-
+                    <v-skeleton-loader type="card-avatar, actions"></v-skeleton-loader>
             </div>
             <div class="item__column item__ac main__block__product item__js__c">
                 <v-skeleton-loader
@@ -201,6 +203,13 @@
             }
             this.getProducts();
         },
+        watch: {
+            $route() {
+              if(this.$route.params.id) {
+                  this.getCategory();
+              }
+            }
+        },
         methods: {
             searchProduct() {
                 this.all_products = [];
@@ -210,7 +219,6 @@
                     this.total_page = res.data.total;
                     this.next_page_url = res.data.next_page_url;
 
-                    console.log(this.next_page_url);
                     this.products = res.data.data;
 
                     for (let index = 0; index < this.products.length; index++) {
@@ -252,7 +260,7 @@
                 localStorage.setItem("goods",JSON.stringify(this.basket));
                 localStorage.setItem("basket_amount",this.basket_amount);
 
-                this.$parent.getCount(-1);
+                // this.$parent.getCount(-1);
             },
            
             checkHasEl() {
@@ -318,14 +326,26 @@
             },
            
             getCategory(){
+                this.all_products = [];
                 this.showLoaderProducts = true;
                 this.$http.get('guest/get/products/by/category?category_id='+this.$route.params.id)
                 .then(res => {
-                    this.products = res.data;
+
+                  this.next_page_url = res.data.next_page_url;
+                  this.total_page = res.data.total;
+
+                  this.products = res.data.data;
+
                     let permanent = this.products;
                     this.products = [];
                     this.products = permanent;
-                    this.showLoaderProducts = false;
+
+                    for (let index = 0; index < this.products.length; index++) {
+                      this.all_products.push(this.products[index]);
+                    }
+
+                  this.showLoaderProducts = false;
+
                 })
             },
    

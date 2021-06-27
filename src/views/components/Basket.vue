@@ -269,7 +269,7 @@ export default {
             localStorage.setItem("goods",JSON.stringify(this.basket));
             localStorage.setItem("basket_amount",this.basket_amount);
 
-            this.$parent.getCount(-1);
+            // this.$parent.getCount(-1);
         },
     },
     computed: {

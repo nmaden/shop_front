@@ -46,9 +46,12 @@
                         </div>      
                 </div>
                 <div class="main__block__categories" v-if="!subcategory && !showLoaderCategory">
-                        <div class="main__block__category" v-for="(item,index) in categories" :key="index">
-                            <p @click="openSubCategory(item.id,categories)">{{item.name}}</p>
-                        </div>    
+                      <div  v-for="(item,index) in categories" :key="index">
+                        <div class="main__block__category" v-bind:class="{main__block__category__active:item.active && item.active==true}">
+                          <p @click="openSubCategory(item,item.id,categories)">{{item.name}}</p>
+                        </div>
+                      </div>
+
                 </div>    
                 <i class="mdi mdi-keyboard-backspace main__category__back" v-if="!subcategory"></i>
                 </div>
@@ -60,12 +63,14 @@
                         <div class="item__row">
                         <div class="main__block__category" v-for="(item,index) in nested" :key="index" >
                             
-                            <p @click="openSubCategory(item.id,nested)">{{item.name}}</p>
+
+                            <p @click="openSubCategory(item,item.id,nested)">{{item.name}}</p>
                         </div>
                         </div>
                         <i class="mdi mdi-keyboard-backspace main__category__back"></i>
                     </div>
                 </div>
+
 
 
                 <router-view :openBasket="openBasket"></router-view>
@@ -74,7 +79,6 @@
                     <div class="main__block__round"></div>
                     <p>О нашем магазине</p>
                 </div>
-
                 <div class="main__block__description">
                     <p class="main__block__description">
                       Более 15 лет мы ответственно работаем вместе с несколькими тщательно отобранными фермерскими хозяйствами центральной части
@@ -213,6 +217,7 @@
                 
             }
         },
+
         mounted() {
             if(localStorage.getItem("goods")) {
                 this.all_count =  JSON.parse(localStorage.getItem("goods")).length;
@@ -222,6 +227,9 @@
     
         },
         methods: {
+              getCount() {
+                this.all_count =  JSON.parse(localStorage.getItem("goods")).length;
+              },
              getCategories(){
                 
                 const config = {
@@ -243,37 +251,30 @@
               }
 
             },
-            openSubCategory(id,before) {
+            openSubCategory(item,id,before) {
+              item.active = true;
+              this.$router.push('/category/'+id).catch(()=>{});
               let obj = this.categories.filter((item) => item.id === id);
               if(obj.length==0) {
                 obj = this.nested.filter((item) => item.id === id);
                 if(!obj) {
-                  return false;
+                  this.$router.push('/category/'+id).catch(()=>{});
                 }
               }
               if(obj[0].children.length!=0) {
                   this.bread.push(obj[0]);
                   this.bread_categories.push(before);
+
+                  this.nested = obj[0].children;
+                  this.subcategory = true;
               }
               else {
-                  return false;
+                this.$router.push('/category/'+id).catch(()=>{});
               }
-
-
-              this.before_category = before;
-              this.subcategory = true;
-              if (obj[0].children.length!=0) {
-                  this.nested = obj[0].children;
-              }
-
-              this.$router.push('/category/'+id);
             },
             openB() {
                 this.$router.push("/basket");
             },
-            getCount(index) {
-                this.all_count =  this.all_count+index;
-            }
         }
     }
     
@@ -723,7 +724,7 @@ p {
                             color: #333;
                         }
                     }
-                 
+
                     .main__block__category {
                         cursor: pointer;
                         text-align: center;
@@ -754,6 +755,10 @@ p {
 
                         }
                     }
+                    .main__block__category__active {
+                        background: var(--main-kenes-blue) !important;
+                        color: white;
+                    }
                 }
 
                 ///
@@ -777,6 +782,7 @@ p {
                         border-radius: 5px;
                         display: flex;
                         flex-direction: column;
+                        justify-content: space-between;
                         background-color: #f5f5f5;
                         padding: 20px;
                         margin-right: 40px;
@@ -862,8 +868,8 @@ p {
                         }  
                         .product__name {
                             color: var(--main-kenes-blue);
-                            font-size: 24px;
-                            font-weight: 400;
+                            font-size: 16px;
+                            font-weight: bold;
                             margin-bottom: 5px;
                             @media(max-width: 900px) {
                               font-weight: bold;
