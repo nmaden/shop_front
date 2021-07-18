@@ -284,7 +284,8 @@
 
 //#449DED;
 :root {
-    --main-kenes-blue: #f26b33;
+    --main-kenes-blue: #019030;
+    //#f26b33;
 }
 p,a,input {
     font-family: "MontserratRegular";
