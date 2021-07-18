@@ -11,7 +11,7 @@
                     
                     <div class="basket__list item__row" v-for="(item,b) in basket" :key="b">
                         <div class="item__column">
-                          <img :src="'https://api.sogym-aktobe.kz/'+item.images[0].image_path" alt="">
+                          <img v-if="item.images && item.images.length!=0" :src="'https://api.kenesmebel.kz/'+item.images[0].image_path" alt="">
                           <div class="item__row item__ac basket__actions">
                             <div class="item__row item__ac basket__addition">
                               <i class="mdi mdi-minus" @click="addCount(-1,item.id,b)"></i>
@@ -34,8 +34,8 @@
                             <p class="baset__description">{{item.description}}</p>
                             
                             <div class="item__row item__ac ">
-                              <p class="basket__price" v-if="!item.order_count">{{item.price}}</p>
-                              <p class="basket__price" v-else>{{item.order_price}}</p>
+                              <p class="basket__price" v-if="!item.order_count">{{formatNumber(item.price)}}</p>
+                              <p class="basket__price" v-else>{{formatNumber(item.order_price)}}</p>
                               <i class="fas fa-tenge"></i>
                             </div>
                           </div>
@@ -72,7 +72,7 @@
                     <div class="item__row item__ac basket__amount" >
                         <p class="basket__amount__t">Сумма</p>
                         <div class="item__row item__ac basket__amount__value">
-                            <p>{{ basket_amount}}</p>
+                            <p>{{ formatNumber(basket_amount) }}</p>
                             <i class="fas fa-tenge"></i>
                         </div>
                     </div>
@@ -170,6 +170,14 @@ export default {
       }
     },
     methods: {
+        formatNumber(number) {
+          if(!number) {
+            return 0;
+          }
+          let parts = number.toString().split(".");
+          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+          return parts.join(".");
+        },
          chooseDelivery(type) {
             this.delivery_type = type;
          },
@@ -345,7 +353,7 @@ export default {
     outline: none;
     border: 1px solid #ccc;
     color: gray;
-    width: 40%;
+    width: 25%;
     @media (max-width: 900px) {
           width: 100%;
     }
@@ -459,6 +467,7 @@ export default {
            padding: 20px;
            border-radius: 10px;
            margin-bottom: 20px;
+           width: 600px;
             @media (max-width: 900px) {
               width: 90%;
               align-self: center;

@@ -38,12 +38,14 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 Vue.prototype.$API_VERSION = process.env.VUE_APP_API_VERSION;
 Vue.prototype.$API_VERSION_2 = process.env.VUE_APP_API_VERSION_2;
-Vue.prototype.$API_URL = process.env.VUE_APP_API_URL;
+Vue.prototype.$API_URL = process.env.VUE_SERVER;
+
+
 
 
 
 Vue.prototype.$http = axios.create({
-  baseURL: 'https://api.kenesmebel.kz/api/v1',
+  baseURL: 'https://api.kenesmebel.kz/api/v1'
 });
 
 // events ----------------------

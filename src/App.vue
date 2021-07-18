@@ -23,6 +23,7 @@ export default {
 body {
   overflow-x: hidden;
   letter-spacing: -0.03em;
+  background-color: white !important;
   font-weight: 400;
   line-height: 1.5;
 }

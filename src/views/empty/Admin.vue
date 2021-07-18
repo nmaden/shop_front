@@ -18,7 +18,7 @@
                     <p class="" @click="openPage(3)" >Список заказов</p>
                 </div>
                 
-                
+
             </div>
 
             <div class="green__right green__100">
@@ -253,13 +253,23 @@
                                 ></v-select>
                               </div>
                             </div>
+
+                            <div class="green__column green__input">
+                              <p>Артикул</p>
+                              <v-text-field
+                                  v-model="item.articul"
+                                  label="Артикул"
+                                  outlined
+                              ></v-text-field>
+                            </div>
+
                             <div class="green__column green__input">
                               <p>Описание</p>
-                              <v-text-field
+                              <v-textarea
                                   v-model="item.description"
                                   label="Описание"
                                   outlined
-                              ></v-text-field>
+                              ></v-textarea>
                             </div>
 
                             <div class="green__column green__input green__mb__s">
@@ -276,7 +286,7 @@
                           <div class="item__row green__product__images__main">
                             <div class="green__product__images green__row green__ac green__mr__xs" v-for="(image,i) in item.images" :key="i">
 
-                              <img :src="'https://api.sogym-aktobe.kz'+image.image_path" alt="">
+                              <img :src="'https://api.kenesmebel.kz'+image.image_path" alt="">
                               <div  class="green__btn green__pointer green__row green__ac green__mb__s" @click="openDelete(4,image.id)">
                                 <i class="fas fa-trash-alt green__mr__xs"></i>
                                 <p>Удалить</p>
@@ -388,14 +398,23 @@
                                 outlined
                             ></v-text-field>
                         </div>
+                      <div class="green__column green__input">
+                        <p>Артикул</p>
+                        <v-text-field
+                            v-model="articul"
+                            label="Артикул"
+                            outlined
+                        ></v-text-field>
+                      </div>
+
                         <div class="green__column green__input">
                             <p>Описание</p>
-                            <v-text-field
+                            <v-textarea
                                 v-model="description"
                                 label="Описание"
                                 required
                                 outlined
-                            ></v-text-field>
+                            ></v-textarea>
                         </div>
 
 
@@ -573,6 +592,7 @@ export default {
             name: null,
             price: null,
             count: null,
+            articul: null,
             message_notif : null,
             dialogApplication:false,
             dialog: false,
@@ -795,6 +815,7 @@ export default {
             fd.append('price',this.price);
             fd.append('count',this.count);
             fd.append('count_type',this.count_type);
+            fd.append('articul',this.articul);
         
             for (var i = 0; i < this.documents.length; i++) {
                 fd.append('images[]', this.documents[i])
@@ -849,14 +870,17 @@ export default {
                     }
                 })
             .then(res => {
-                this.message_notif = res.data.message;
-                this.savedData = true;
-
                 this.getproducts();
                 this.getCategories();
-                window.setInterval(() => {
-                    this.savedData = false;
-                },4000); 
+
+                this.$toast.open({
+                  message: res.data.message,
+                  type: 'success',
+                  position: 'bottom',
+                  duration: 5000,
+                  queue: true
+                });
+
             })
         },
         logout() {
@@ -909,12 +933,15 @@ export default {
                     }
                 })
             .then(res => {
-                this.message_notif = res.data.message;
-                this.savedData = true;
+                this.$toast.open({
+                  message: res.data.message,
+                  type: 'success',
+                  position: 'bottom',
+                  duration: 5000,
+                  queue: true
+                });
                 this.getCategories();
-                window.setInterval(() => {
-                    this.savedData = false;
-                }, 4000); 
+
             })
         },
         editSave(index) {

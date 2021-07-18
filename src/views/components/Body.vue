@@ -1,21 +1,60 @@
 <template>
   <div class="main__column">
      <div class="main__block__header">
-          
-          <div class="item__row item__ac item__90">
+
+          <div class="item__row item__ac item__90 main__mb__m">
             <div class="main__block__search">
                 <i class="mdi mdi-briefcase-search-outline"></i>
                 <input type="text" v-model="nameProduct" placeholder="Название или модель изделия" @input="searchProduct">
-                
             </div>
-            <i class="mdi mdi-filter-variant main__filter" ></i>
-          </div>
-          <div>
-              <i></i>
-              <p></p>
-          </div>
-          <div>
 
+            <svg focusable="false" viewBox="0 0 24 24" class="plp-svg-icon plp-pill__icon" v-bind:class="{'main__color__filter':showSort==true}" @click="showSort=!showSort" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M6 5h2v1h12v2H8v1H6V8H4V6h2V5zm12 8h2v-2h-2v-1h-2v1H4v2h12v1h2v-1zm-5.94 5H20v-2h-7.94v-1h-2v1H4v2h6.06v1h2v-1z"></path></svg>
+          </div>
+          <div class="item__row main__sorts" v-if="showSort">
+            <div class="item__column main__mr__m main__sort">
+              <p class="">Сортировка</p>
+              <v-col
+                  class="d-flex pa-0"
+                  cols="12"
+                  sm="11"
+              >
+              <v-select
+                  @change="getCategory"
+                  v-model="sort"
+                  :items="sorts"
+                  item-text="value"
+                  item-value="id"
+                  label="Сортировка"
+                  outlined
+                  required
+                  dense
+              ></v-select>
+              </v-col>
+            </div>
+
+            <div class="item__column main__mr__m main__sort">
+              <p class="">Цена</p>
+              <div class="item__row">
+                <div class="main__mr__s">
+                  <v-text-field
+                      type="number"
+                      v-model="priceFrom"
+                      label="От"
+                      outlined
+                      @input="getCategory"
+                      dense
+                  ></v-text-field>
+                </div>
+                <v-text-field
+                    type="number"
+                    v-model="priceTo"
+                    label="До"
+                    outlined
+                    @input="getCategory"
+                    dense
+                ></v-text-field>
+              </div>
+            </div>
           </div>
       </div>
 
@@ -48,8 +87,8 @@
                 <div class="product__images">
 
                     <transition name="fade" mode="out-in">
-                        <img v-if="product.images.length!=0 && !product.scroll_index && products.length!=0"  class="product__img" :src="'https://api.sogym-aktobe.kz'+product.images[0].image_path"  >
-                        <img v-if="product.images.length!=0 && product.scroll_index && products.length!=0" class="product__img" :src="'https://api.sogym-aktobe.kz'+product.images[product.scroll_index].image_path"  >
+                        <img v-if="product.images.length!=0 && !product.scroll_index && products.length!=0"  class="product__img" :src="'https://api.kenesmebel.kz'+product.images[0].image_path"  >
+                        <img v-if="product.images.length!=0 && product.scroll_index && products.length!=0" class="product__img" :src="'https://api.kenesmebel.kz'+product.images[product.scroll_index].image_path"  >
                     </transition>
                     
 
@@ -77,7 +116,7 @@
                     
 
                     <div class="item__row item__ac">
-                        <p class="product__price">{{product.price+' тнг '}}</p>
+                        <p class="product__price">{{formatNumber(product.price)+' тнг '}}</p>
 <!--                        <i class="fas fa-tenge"></i>-->
 
 
@@ -154,6 +193,28 @@
         props:['openBasket'],
         data() {
             return {
+              showSort: true,
+              priceTo: '',
+              priceFrom: '',
+              sort: null,
+              sorts:[
+                {
+                  id:1,
+                  value: 'Популярные'
+                },
+                {
+                  id:2,
+                  value: 'Новинки'
+                },
+                {
+                  id:3,
+                  value: 'Сначала дешевые'
+                },
+                {
+                  id:4,
+                  value: 'Сначала дорогие'
+                }
+              ],
                 items: [
                   {
                     value: 1,
@@ -210,7 +271,16 @@
               }
             }
         },
+
         methods: {
+            formatNumber(number) {
+              if(!number) {
+                return 0;
+              }
+              let parts = number.toString().split(".");
+              parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+              return parts.join(".");
+            },
             searchProduct() {
                 this.all_products = [];
                 this.$http.get('/search/product?name='+this.nameProduct)
@@ -228,9 +298,6 @@
                 })
             },
             showMore() {
-                
-                
-
                 if(!this.next_page_url) {
                   return false;
                 }
@@ -328,7 +395,13 @@
             getCategory(){
                 this.all_products = [];
                 this.showLoaderProducts = true;
-                this.$http.get('guest/get/products/by/category?category_id='+this.$route.params.id)
+                let data = {
+                  category_id:this.$route.params.id,
+                  sort: this.sort,
+                  priceFrom: this.priceFrom,
+                  priceTo: this.priceTo
+                };
+                this.$http.post('guest/get/products/by/category',data,{})
                 .then(res => {
 
                   this.next_page_url = res.data.next_page_url;
@@ -361,11 +434,43 @@
   display: flex;
   justify-content: center;
 }
+.main__color__filter {
+  color: var(--main-kenes-blue) !important;
+}
+.plp-svg-icon {
+  font-size: 14px;
+  width: 35px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+  .main__sort {
+    width: 300px;
+    @media (max-width: 900px) {
+      align-items: flex-start;
+      justify-content: center;
+      width: 80%;
+      margin-right: 0;
+    }
+    p {
+      font-weight: bold;
+      margin-bottom: 8px !important;
+    }
+    v-select__selections {
+      @media (max-width: 900px) {
+        width: 100%;
+      }
+    }
+  }
 
 
-
-  
-    
+  .main__sorts {
+    @media (max-width: 900px) {
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+    }
+  }
 
   .ab_center {
     display: flex;
@@ -397,13 +502,13 @@
     margin-right: 20px;
   }
   .main__mb__xs {
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
   }
   .main__mb__s {
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
   }
   .main__mb__m {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
   .main__mb__l {
     margin-bottom: 25px;

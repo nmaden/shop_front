@@ -18,14 +18,14 @@
           <div class="product__column produc__column__c product__gallery">
               <div class="product__item product__column">
 
-                  <img v-if="!description.corousel_index && description.images.length!=0"  :src="'https://api.sogym-aktobe.kz/'+description.images[0].image_path"  >
-                  <img v-else-if="description.images.length!=0" :src="'https://api.sogym-aktobe.kz/'+description.images[description.corousel_index].image_path" alt="">
+                  <img v-if="!description.corousel_index && description.images.length!=0"  :src="'https://api.kenesmebel.kz/'+description.images[0].image_path"  >
+                  <img v-else-if="description.images.length!=0" :src="'https://api.kenesmebel.kz/'+description.images[description.corousel_index].image_path" alt="">
               </div>
 
               <div class="product__row product__corousels">
                   <div class="product__corousel" v-for="(cor,i) in description.images" :key="i" @click="corousel_img(i)">
-                      <img  :src="'https://api.sogym-aktobe.kz/'+cor.image_path" v-if="!description.corousel_index && description.images.length!=0"  v-bind:class="{product__corousel__active: i==0}">
-                      <img  :src="'https://api.sogym-aktobe.kz/'+cor.image_path" v-else-if="description.images.length!=0" v-bind:class="{product__corousel__active: description.corousel_index==i}">
+                      <img  :src="'https://api.kenesmebel.kz/'+cor.image_path" v-if="!description.corousel_index && description.images.length!=0"  v-bind:class="{product__corousel__active: i==0}">
+                      <img  :src="'https://api.kenesmebel.kz/'+cor.image_path" v-else-if="description.images.length!=0" v-bind:class="{product__corousel__active: description.corousel_index==i}">
                   </div>
 
               </div>
@@ -39,7 +39,7 @@
 
           
 
-          <div class="product__column product__info">
+          <div class="product__column product__info item__column item__ac">
               <div class="product__stars main__mb__s">
 
                 <!-- <i class="fas fa-star main__mr__xs"></i>
@@ -52,7 +52,7 @@
 
                 <div class="product__row product__row__c">
                   <!-- <p class="main__mr__xs">62 900 tng</p> -->
-                  <p class="main__mr__xs product__price__l">Цена: {{description.price}} тнг</p>
+                  <p class="main__mr__xs product__price__l">Цена: {{formatNumber(description.price)}} тнг</p>
                   <!-- <div class="product__sale">
                       <p>20%</p>
                   </div> -->
@@ -116,6 +116,14 @@ export default {
       }
     },
     methods: {
+        formatNumber(number) {
+          if(!number) {
+            return 0;
+          }
+          let parts = number.toString().split(".");
+          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+          return parts.join(".");
+        },
         basketAmount() {
             this.basket_amount = 0;
             for (let index = 0; index < this.basket.length; index++) {
@@ -268,7 +276,7 @@ export default {
         width: 100%;
         height: 300px;
         align-self: center;
-        object-fit: cover;
+        object-fit: contain;
         border-radius: 10px;
         @media (max-width: @mobile) {
           width: 80%;
@@ -307,7 +315,6 @@ export default {
       }
       .product__corousel {
         cursor: pointer;
-        padding: 30px;
         border-radius: 10px;
         background-color: #f5f5f5;
         width: 120px;
@@ -332,7 +339,7 @@ export default {
     }
 
     .product__info {
-      width: 230px;
+      width: 350px;
       border-radius: 10px;
       background-color: #f5f5f5;
       padding: 20px;

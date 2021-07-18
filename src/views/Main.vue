@@ -275,7 +275,10 @@
             openB() {
                 this.$router.push("/basket");
             },
-        }
+        },
+        get_api_back_end() {
+          return process.env.BACK_END;
+        },
     }
     
 </script>
@@ -284,11 +287,11 @@
 
 //#449DED;
 :root {
-    --main-kenes-blue: #019030;
+    --main-kenes-blue: #5f0099;
     //#f26b33;
 }
-p,a,input {
-    font-family: "MontserratRegular";
+p,a,input,.v-select__selections,v-text-field__slot,label {
+    font-family: "MontserratRegular" !important;
 }
 p {
     margin-bottom: 0 !important;
@@ -346,15 +349,7 @@ p {
     }
     .product__order:hover {
         opacity: 0.8;
-    } 
-    body {
-        background-color: white !important;
     }
-    p {
-        padding: 0;
-        margin: 0;
-    }
-
     .center__row__g {
         display: flex;
         flex-direction: row;
@@ -413,6 +408,7 @@ p {
             flex-direction: row;
             align-items: center;
             .header__logo__text {
+                cursor: pointer;
                 font-size: 24px;
                 font-weight: bold;
                 color: var(--main-kenes-blue);
@@ -572,6 +568,8 @@ p {
                         text-align: center;
                         width: 100%;
                         display: flex;
+                        flex-direction: column;
+                        align-items: center;
                         justify-content: center;
                     
                     }
@@ -748,8 +746,6 @@ p {
                             opacity: 0.8;
                         }
                         @media (max-width: 900px) {
-
-                            width: 40%;
                             padding: 10px 40px 10px 40px;
                             margin-bottom: 0;
                             margin-left: 15px;
