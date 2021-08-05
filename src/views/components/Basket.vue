@@ -31,7 +31,10 @@
 
 <!--                            <p class="baset__description">Размер: {{item.size}}</p>-->
 <!--                            -->
-                            <p class="baset__description">{{item.description}}</p>
+                            <p class="baset__description" v-if="item.description">{{item.description}}</p>
+
+                            <p class="baset__description" v-if="item.count">Остаток {{item.count}}</p>
+                            <p class="baset__description" v-else>Остаток 0</p>
                             
                             <div class="item__row item__ac ">
                               <p class="basket__price" v-if="!item.order_count">{{formatNumber(item.price)}}</p>
@@ -254,7 +257,7 @@ export default {
                 this.basket[index].order_count = 1;
                 this.basket[index].order_price = this.basket[index].price;
             }
-            if(this.basket[index].order_count<=item.count) {
+            if(this.basket[index].order_count<item.count) {
               this.basket[index].order_count = this.basket[index].order_count+count;
             }
 
