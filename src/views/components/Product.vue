@@ -1,6 +1,6 @@
 <template>
     <div class="item__column" style="width: 100%;">
-    <div class="main__bottom item__column item__ac " v-if="description.name" >
+    <div class="main__bottom item__column item__ac " v-if="description.name_product" >
 
 
       <div class="main__block__title product__title" @click="$router.push('/')">
@@ -10,7 +10,7 @@
       </div>
         <div class="main__block__title product__title">
             <div class="main__block__round"></div>
-            <p>{{description.name}}</p>
+            <p>{{description.name_product}}</p>
         </div>
 
       <div class="product product__row">
@@ -147,16 +147,12 @@ export default {
                 if (!this.checkHasEl()) {
                     this.description.order_price = this.description.price;
                     this.basket.push(this.description);
-
                 }
             }
             else {
                 this.description.order_price = this.description.price;
                 this.basket.push(this.description);
-
             }
-
-
             localStorage.setItem("goods",JSON.stringify(this.basket));
             this.basketAmount();
 

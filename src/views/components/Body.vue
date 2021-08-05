@@ -109,7 +109,7 @@
 
                 </div>
 
-                <p class="product__name">{{product.name}}</p>
+                <p class="product__name">{{product.name_product}}</p>
                 <p class="product__size" v-if="product.size">Размеры: {{product.size}}</p>
                 
                 <div class="product__prices">

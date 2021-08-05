@@ -14,10 +14,10 @@
                           <img v-if="item.images && item.images.length!=0" :src="'https://api.kenesmebel.kz/'+item.images[0].image_path" alt="">
                           <div class="item__row item__ac basket__actions">
                             <div class="item__row item__ac basket__addition">
-                              <i class="mdi mdi-minus" @click="addCount(-1,item.id,b)"></i>
+                              <i class="mdi mdi-minus" @click="addCount(-1,item.id,b,item)"></i>
                               <p v-if="!item.order_count">1</p>
                               <p v-else>{{item.order_count}}</p>
-                              <i class="mdi mdi-plus" @click="addCount(1,item.id,b)"></i>
+                              <i class="mdi mdi-plus" @click="addCount(1,item.id,b,item)"></i>
                             </div>
 
                             <div class="basket__delete item__abs" @click="deleteEl(item.id,b)">
@@ -27,7 +27,7 @@
                         </div>
                         <div class="item__row item__ac basket__right__side">
                           <div class="item__column basket__info">
-                            <p class="basket__name">{{item.name}}</p>
+                            <p class="basket__name">{{item.name_product}}</p>
 
 <!--                            <p class="baset__description">Размер: {{item.size}}</p>-->
 <!--                            -->
@@ -249,13 +249,15 @@ export default {
             this.basket_amount = p;
             localStorage.setItem("basket_amount",this.basket_amount);
         },
-        addCount(count,id,index) {
+        addCount(count,id,index,item) {
             if(!this.basket[index].order_count) {
                 this.basket[index].order_count = 1;
                 this.basket[index].order_price = this.basket[index].price;
             }
-            
-            this.basket[index].order_count = this.basket[index].order_count+count;
+            if(this.basket[index].order_count<=item.count) {
+              this.basket[index].order_count = this.basket[index].order_count+count;
+            }
+
             if (this.basket[index].order_count<=0) {
                 this.basket[index].order_count = 1;
             }
