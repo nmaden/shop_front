@@ -110,6 +110,8 @@
                 </div>
 
                 <p class="product__name">{{product.name_product}}</p>
+
+                <p class="product__size" v-if="product.count">Остаток на складе {{product.count}}</p>
                 <p class="product__size" v-if="product.size">Размеры: {{product.size}}</p>
                 
                 <div class="product__prices">
