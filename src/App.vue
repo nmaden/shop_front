@@ -124,6 +124,10 @@ body {
   align-self: center;
 }
 
+.item__mb {
+  margin-bottom: 20px;
+}
+
 
 .item__row {
   display: flex;

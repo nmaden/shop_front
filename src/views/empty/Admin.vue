@@ -17,7 +17,13 @@
                     <i class="fas fa-directions green__mr__xs"></i>
                     <p class="" @click="openPage(3)" >Список заказов</p>
                 </div>
-                
+
+                <div class="green__row green__ac green__mb__s green__btn">
+                  <i class="fas fa-directions green__mr__xs"></i>
+                  <p class="" @click="openPage(4)" >Слайдер</p>
+                </div>
+
+
 
             </div>
 
@@ -471,11 +477,27 @@
                       <i class="mdi mdi-close"></i>
 
                     </div>
+                </div>
+
+
+                <div  class="green__products" v-if="page==4">
+
+                  <form action="" @submit.prevent="createSlider" class="green__column green__message" style="padding: 20px" >
+                    <div class="green__column green__input item__mb">
+                      <b class="item__mb">Загрузить рисунок для банера</b>
+                      <input type="file" multiple  @change="uploadBanner" />
+                    </div>
+                    <button type="submit" >Отправить</button>
+                  </form>
 
 
 
-                 
-
+                  <div class="item__row item__ac banners">
+                    <div class="item__column green__mr__xs" v-for="item in banner_images" :key="item.id">
+                      <img class="item__mb"  :src="'https://api.kenesmebel.kz'+item.image_path" alt="">
+                      <i class="fas fa-trash-alt" @click="deleteBanner(item.id)"></i>
+                    </div>
+                  </div>
                 </div>
 
                
@@ -625,7 +647,9 @@ export default {
             category_for_product: null,
             selected_category: null,
             category_name_edit: '',
-            category_id_edit: null
+            category_id_edit: null,
+            banners: [],
+            banner_images: []
         }
     },
     computed: {
@@ -634,6 +658,65 @@ export default {
       }
     },
     methods: {
+        deleteBanner(id) {
+          let data = {
+            id: id
+          };
+          this.$http.post('/del/banner',data,
+              {
+                headers: {
+                  'Authorization': `Bearer ${this.token}`
+                }
+              })
+              .then(res => {
+                this.$toast.open({
+                  message: res.data.message,
+                  type: 'success',
+                  position: 'bottom',
+                  duration: 5000,
+                  queue: true
+                });
+                this.getBanner()
+              })
+        },
+        uploadBanner(e) {
+          const file = e.target.files
+          for (var i=0; i < file.length; i++) {
+            this.banners.push(file[i])
+          }
+        },
+        getBanner() {
+          const config = {
+            headers: { 'Authorization': `Bearer ${this.token}` }
+          };
+          this.$http.get('/get/banners',  config)
+              .then(res => {
+                this.banner_images = res.data
+              });
+        },
+        createSlider() {
+          let fd= new FormData()
+          for (var i = 0; i < this.banners.length; i++) {
+            fd.append('images[]', this.banners[i])
+          }
+          this.$http.post('/create/banner',fd,
+              {
+                headers: {
+                  'Authorization': `Bearer ${this.token}`,
+                  'Content-Type': 'multipart/form-data'
+                }
+              }
+          ).then(res => {
+            this.$toast.open({
+              message: res.data.message,
+              type: 'success',
+              position: 'bottom',
+              duration: 5000,
+              queue: true
+            });
+            this.getBanner();
+          });
+        },
         openPage(type) {
             this.page = type;
 
@@ -1032,6 +1115,7 @@ export default {
        
     },
     mounted() {
+
         if(localStorage.getItem("access_token")) {
 
            this.token = localStorage.getItem("access_token");
@@ -1051,6 +1135,7 @@ export default {
                     this.getProducts();
                     this.getCategories();
                     this.getApplications();
+                   this.getBanner();
                     this.$router.push("/admin");
                 // }else {
                 //     this.$router.push("/login");
@@ -1066,7 +1151,17 @@ export default {
 <style scoped lang="less">
 @mobile: 900px;
 @planshet: 1200px;
-    
+    .banners {
+      overflow-x: scroll;
+      i {
+        cursor: pointer;
+      }
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+    }
     .green__notif_position {
         bottom: 200px;
     }

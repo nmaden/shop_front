@@ -31,7 +31,20 @@
             </div>
         </div>
 
-        <div class="main__row" style="margin-top: 100px">
+        <Slider/>
+
+
+        <div class="item__column main__links">
+          <a @click="openBlank(1)">
+            <i class="mdi mdi-whatsapp"></i>
+          </a>
+          <a @click="openBlank(2)">
+            <i class="mdi mdi-instagram"></i>
+          </a>
+        </div>
+
+
+        <div class="main__row" style="margin-top: 20px">
             <div class="main__block">
                
 
@@ -192,14 +205,19 @@
             <div class="footer__first"></div>
             <div class="footer__first"></div>
             <div class="footer__first"></div>
+
         </div>
   </div>  
 </template>
 
 <!-- scripts -->
 <script>
- 
+import Slider from "./Slider";
+
     export default {
+      components: {
+        Slider
+      },
         data() {
             return {
                 amount: 0,
@@ -227,6 +245,13 @@
     
         },
         methods: {
+              openBlank(type) {
+                  if(type==1) {
+                    window.open('https://www.instagram.com/kenes_mebel_aktobe/','_blank')
+                  }else {
+                    window.open('https://wa.me/+77762906435','_blank')
+                  }
+              },
               getCount() {
                 this.all_count =  JSON.parse(localStorage.getItem("goods")).length;
               },
@@ -316,6 +341,12 @@ p {
     display: flex;
     flex-direction: column;
 }
+
+.v-image {
+  @media(max-width: 900px) {
+    height: unset !important;
+  }
+}
     .product__order {
         display: flex;
         flex-direction: row;
@@ -378,6 +409,20 @@ p {
         flex-direction: column;
         width: 100%;
         align-items: center;
+        position: relative;
+
+        .main__links {
+          position: fixed;
+          right: 15px;
+          bottom: 40px;
+          i {
+            font-size: 32px;
+            color: var(--main-kenes-blue);
+          }
+          i:hover {
+            opacity: 0.4;
+          }
+        }
         .header {
             background: white;
             position: fixed;
@@ -420,14 +465,11 @@ p {
             }
             a {
                 cursor: pointer;
-                margin-right: 40px;
+                margin-right: 10px;
                 text-decoration: none;
-                border-bottom: 2px solid white;
-                
             }
             a:hover {
                 color: var(--main-kenes-text-color);
-                border-bottom: 2px solid var(--main-kenes-text-color);
             }
             .header__basket {
                 .header__count {
@@ -831,6 +873,21 @@ p {
                             border-radius: 10px;
                             margin-bottom: 20px;
                             position:relative;
+
+                            @media(max-width: 900px) {
+                              height: unset;
+                            }
+
+
+                            .product__slider {
+                                width: 100%;
+                              @media(max-width: 900px) {
+                                height: unset;
+                              }
+                              img {
+                                cursor: pointer;
+                              }
+                            }
 
                             @media(max-width: 900px) {
                                 height: unset;

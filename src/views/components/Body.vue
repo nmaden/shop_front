@@ -86,27 +86,25 @@
 
                 <div class="product__images">
 
-                    <transition name="fade" mode="out-in">
-                        <img v-if="product.images.length!=0 && !product.scroll_index && products.length!=0"  class="product__img" :src="'https://api.kenesmebel.kz'+product.images[0].image_path"  >
-                        <img v-if="product.images.length!=0 && product.scroll_index && products.length!=0" class="product__img" :src="'https://api.kenesmebel.kz'+product.images[product.scroll_index].image_path"  >
-                    </transition>
-                    
-
-                    <div class="item__column" v-if=" product.images.length>=2">
-                      <div class="product__levels" v-if="!product.scroll_index && product.images.length<2">
-                          <div v-for="(active,a) in  product.images" :key="a" class="product__level" v-bind:class="{product__level__active: a==0}" @click="scrollImage(index,a)"></div>
-                      </div>
-                      <div class="product__levels" v-if="!product.scroll_index && product.images.length>=2">
-                          <div v-for="(active,a) in  3" :key="a" class="product__level" v-bind:class="{product__level__active: a==0}" @click="scrollImage(index,a)"></div>
-                      </div>
-                   
-                      <div class="product__levels"  v-if="product.scroll_index && product.images.length>=2">
-                          <div v-for="(active,a) in  3" :key="a" class="product__level" v-bind:class="{product__level__active: a==product.scroll_index}" @click="scrollImage(index,a)"></div>
-                      </div>
-   
-                    </div>
+<!--                    <transition name="fade" mode="out-in">-->
+<!--                        <img v-if="product.images.length!=0 && !product.scroll_index && products.length!=0"  class="product__img" :src="'https://api.kenesmebel.kz'+product.images[0].image_path"  >-->
+<!--                        <img v-if="product.images.length!=0 && product.scroll_index && products.length!=0" class="product__img" :src="'https://api.kenesmebel.kz'+product.images[product.scroll_index].image_path"  >-->
+<!--                    </transition>-->
 
 
+                  <v-carousel
+                      v-if="product.images.length!=0"
+                      class="product__slider"
+                      cycle
+                      hide-delimiter-background
+                  >
+                    <v-carousel-item
+                        v-for="(slide, i) in product.images"
+                        :key="i"
+                    >
+                      <img :src="'https://api.kenesmebel.kz'+slide.image_path" alt="">
+                    </v-carousel-item>
+                  </v-carousel>
                 </div>
 
                 <p class="product__name">{{product.name_product}}</p>
@@ -253,18 +251,22 @@
                 bread_categories: [],
                 all_products: [],
                 next_page_url: '',
-                total_page: 0
+                total_page: 0,
+                resized: false
             }
         },
         mounted() {
-            if(localStorage.getItem("goods")) {
-                this.basket = JSON.parse(localStorage.getItem("goods"));
-                this.basketAmount();        
-            }
-            if(localStorage.getItem("basket_amount")) {
-              this.basket_amount = parseInt(localStorage.getItem("basket_amount"));
-            }
-            this.getProducts();
+              if(window.screen.width<900) {
+                  this.resized = true;
+              }
+              if(localStorage.getItem("goods")) {
+                  this.basket = JSON.parse(localStorage.getItem("goods"));
+                  this.basketAmount();
+              }
+              if(localStorage.getItem("basket_amount")) {
+                this.basket_amount = parseInt(localStorage.getItem("basket_amount"));
+              }
+              this.getProducts();
         },
         watch: {
             $route() {
