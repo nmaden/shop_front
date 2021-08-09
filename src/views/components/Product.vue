@@ -52,7 +52,7 @@
 
                 <div class="product__row product__row__c">
                   <!-- <p class="main__mr__xs">62 900 tng</p> -->
-                  <p class="main__mr__xs product__price__l">Цена: {{formatNumber(description.price)}} тнг</p>
+                  <p class="main__mr__xs product__price__l">Цена: {{formatNumber(description.price)}} ₸</p>
                   <!-- <div class="product__sale">
                       <p>20%</p>
                   </div> -->

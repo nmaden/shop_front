@@ -33,7 +33,8 @@
 <!--                            -->
                             <p class="baset__description" v-if="item.description">{{item.description}}</p>
 
-                            <p class="baset__description" v-if="item.count">Остаток {{item.count}}</p>
+                            <p class="baset__description" v-if="item.count>2">Есть в наличии</p>
+                            <p class="baset__description" v-if="item.count<=2">Уточните у менеджера</p>
                             <p class="baset__description" v-else>Остаток 0</p>
                             
                             <div class="item__row item__ac ">
@@ -474,8 +475,10 @@ export default {
            margin-bottom: 20px;
            width: 600px;
             @media (max-width: 900px) {
+              position: relative;
               width: 90%;
               align-self: center;
+              flex-direction: row-reverse;
             }
          
            img {
@@ -499,7 +502,9 @@ export default {
               margin-top: 20px;
 
               @media (max-width: 900px) {
-
+                  position: absolute;
+                  bottom: 10px;
+                  right: 10px;
               }
             }
            .basket__info {
@@ -508,6 +513,9 @@ export default {
                  font-size: 20px;
                  font-weight: bold;
                  margin-bottom: 10px;
+                @media (max-width: 900px) {
+                  font-size: 14px;
+                }
               }
               .basket__description {
                 font-size: 14px;
@@ -534,10 +542,17 @@ export default {
                   font-size: 24px;
                   cursor: pointer;
                   color: #9a0f0f;
+
+                  @media (max-width: 900px) {
+                    font-size: 18px;
+                  }
                 }
 
                 @media (max-width: 900px) {
                     position: unset;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 15px;
                 }
             }
            .basket__addition {
@@ -554,6 +569,7 @@ export default {
                   width: 80px;
                   position: unset;
                   margin-right: 10px;
+                  padding: 0;
               }
              i {
                font-weight: bold;
@@ -562,6 +578,9 @@ export default {
                color: var(--main-kenes-blue);
                margin-left: 3px;
                margin-right: 3px;
+               @media (max-width: 900px) {
+                 font-size: 18px;
+               }
              }
              i:hover {
                opacity: 0.8;

@@ -1,33 +1,20 @@
 <template>
-  <v-carousel
-      class="corousel__shop"
-      cycle
-      height="400"
-      width="1150"
-      hide-delimiter-background
-  >
-    <v-carousel-item
-        v-for="(slide, i) in slides"
-        :key="i"
+  <div class="slider__div">
+    <v-carousel
+        class="corousel__shop"
+        cycle
+        height="400"
+        width="1150"
+        hide-delimiter-background
     >
-      <v-sheet
-          v-if="banners.length==0"
-          :color="colors[i]"
-          height="100%"
+      <v-carousel-item
+          v-for="(slide, i) in slides"
+          :key="i"
       >
-        <v-row
-            class="fill-height"
-            align="center"
-            justify="center"
-        >
-          <div class="text-h2">
-            {{ slide }}
-          </div>
-        </v-row>
-      </v-sheet>
-      <img :src="'https://api.kenesmebel.kz'+slide.image_path" alt="">
-    </v-carousel-item>
-  </v-carousel>
+        <img :src="'https://api.kenesmebel.kz'+slide.image_path" alt="">
+      </v-carousel-item>
+    </v-carousel>
+  </div>
 </template>
 
 <script>
@@ -70,6 +57,12 @@ export default {
 </script>
 
 <style lang="scss">
+
+.slider__div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
   .corousel__shop {
     margin-top: 100px;
     width: 80%;

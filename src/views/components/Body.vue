@@ -109,14 +109,14 @@
 
                 <p class="product__name">{{product.name_product}}</p>
 
-                <p class="product__size" v-if="product.count">Остаток на складе {{product.count}}</p>
                 <p class="product__size" v-if="product.size">Размеры: {{product.size}}</p>
-                
+
+
                 <div class="product__prices">
                     
 
                     <div class="item__row item__ac">
-                        <p class="product__price">{{formatNumber(product.price)+' тнг '}}</p>
+                        <p class="product__price">{{formatNumber(product.price)+' ₸ '}}</p>
 <!--                        <i class="fas fa-tenge"></i>-->
 
 
@@ -129,7 +129,11 @@
                         <p>-20%</p>
                     </div> -->
                 </div>
-                <div class="product__order" @click="openProduct(product.id,product.category_id,index)">
+
+              <p class="product__has" v-if="product.count>2">Есть в наличии</p>
+              <p class="product__has__yellow" v-if="product.count<=2">Уточните у менеджера</p>
+
+              <div class="product__order" @click="openProduct(product.id,product.category_id,index)">
                     <!-- <i class="fas fa-cart-arrow-down"></i> -->
                     <p>Подробнее</p>
                 </div>

@@ -3,7 +3,7 @@
   <div class="main">
         <div class="header">
             <div class="header__menu header__tab">
-                <p class="header__logo__text" @click="$router.push('/')">КЕҢЕС</p>
+                <p class="header__logo__text" @click="$router.push('/')">KENES</p>
                 <!-- <router-link to="#">О нашем магазине</router-link>
                 <router-link to="#">О доставке</router-link>
                 <router-link to="#">Об оплате</router-link> -->
@@ -416,8 +416,8 @@ p {
           right: 15px;
           bottom: 40px;
           i {
-            font-size: 32px;
-            color: var(--main-kenes-blue);
+            font-size: 28px;
+            color: gray;
           }
           i:hover {
             opacity: 0.4;
@@ -456,7 +456,7 @@ p {
                 cursor: pointer;
                 font-size: 24px;
                 font-weight: bold;
-                color: var(--main-kenes-blue);
+                color: #0e0c0c;
                 @media (max-width: 900px) {
                     font-size: 18px;
                     padding-left: 10px;
@@ -494,7 +494,7 @@ p {
               
                 i {
                     font-size: 24px;
-                    color: var(--main-kenes-blue);
+                    color: gray;
                 }
                 i:hover {
                     opacity: 0.8;
@@ -919,7 +919,14 @@ p {
                                 }
                             }
 
-                        }  
+                        }
+                        .product__has {
+
+
+                        }
+                        .product__has__yellow {
+
+                        }
                         .product__name {
                             color: var(--main-kenes-blue);
                             font-size: 16px;
@@ -942,8 +949,8 @@ p {
                             align-items: center;
                             .product__price {
                                 margin-right: 3px;
-                                line-height: 2;
                                 font-weight: bold;
+                                font-size: 24px;
                             }
                             .product__sale {
 
