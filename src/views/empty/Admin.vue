@@ -13,15 +13,25 @@
                     <i class="fas fa-directions green__mr__xs"></i>
                     <p class="" @click="openPage(2)" >Товары</p>
                 </div>
+
                 <div class="green__row green__ac green__mb__s green__btn">
+                  <i class="fas fa-directions green__mr__xs"></i>
+                  <p class="" @click="openPage(5)" >Товары от 1C</p>
+                </div>
+
+
+              <div class="green__row green__ac green__mb__s green__btn">
                     <i class="fas fa-directions green__mr__xs"></i>
                     <p class="" @click="openPage(3)" >Список заказов</p>
                 </div>
+
 
                 <div class="green__row green__ac green__mb__s green__btn">
                   <i class="fas fa-directions green__mr__xs"></i>
                   <p class="" @click="openPage(4)" >Слайдер</p>
                 </div>
+
+
 
 
 
@@ -149,28 +159,18 @@
                 </div>
 
                 <div class="green__products" v-if="page==2">
-                    
-
-
-                   
                     <div class="green__row green__ac">
-                        <div @click="seePurchase=false"  class="green__btn green__mr__xs green__pointer green__see green__row green__ac green__mb__s">
-                            <i class="fas fa-plus green__mr__xs"></i>
-                            <p>Добавить товар</p>
-                        </div>
-                        <div @click="seePurchase=true"  class="green__btn  green__pointer green__see green__row green__ac green__mb__s">
+<!--                        <div @click="seePurchase=false"  class="green__btn green__mr__xs green__pointer green__see green__row green__ac green__mb__s">-->
+<!--                            <i class="fas fa-plus green__mr__xs"></i>-->
+<!--                            <p>Добавить товар</p>-->
+<!--                        </div>-->
+                        <div @click="showListCategories()"  class="green__btn  green__pointer green__see green__row green__ac green__mb__s">
                             <i class="fas fa-eye green__mr__xs"></i>
                             <p>Список товаров</p>
                         </div>
-                        
                     </div>
-                    
+                    <div class="green__column">
 
-
-                    <div class="green__column" v-if="seePurchase">
-                        
-
-                        
                         <div   class="green__btn  green__pointer green__see green__row green__ac green__mb__s">
                             <p>Выберите категорию</p>
                         </div>
@@ -204,10 +204,10 @@
                       </div>
 
 
-                      <div class="green__column" v-else>
+                      <div class="green__column">
                         <div class="green__column green__edit"   v-for="(item,index) in products" :key="index">
 
-                          <p class="green__data"><b>Название:</b>  {{item.name}}</p>
+                          <p class="green__data"><b>Название:</b>  {{item.name_product}}</p>
                           <p class="green__data"><b>Описание:</b> {{item.description}}</p>
                           <p class="green__data"><b>Создано:</b> {{convert_date(item.created_at)}}</p>
                           <form  class="green__mb__s"  @submit.prevent="editSave(index)" v-if="item.edit">
@@ -228,8 +228,8 @@
                             <div class="green__column green__input">
                               <p>Название</p>
                               <v-text-field
-                                  v-model="item.name"
-                                  label="Название категории"
+                                  v-model="item.name_product"
+                                  label="Название"
                                   required
                                   outlined
                               ></v-text-field>
@@ -315,130 +315,11 @@
 
                         </div>
                       </div>
-
-
-
                     </div>
-                    <form action="" @submit.prevent="createProduct" v-else>
-
-                        <div   class="green__btn  green__pointer green__see green__row green__ac green__mb__s">
-                            <p>Выберите категорию</p>
-                        </div>
-                        <div class="item__column green__parents" >
-                            <div class="item__row item__ac">
-                                <div class="item__row item__ac green__mb__xs green__parents" v-for="(cat,c) in categories" :key="c">
-                                    <p  class="green__category__el green__mr__xs" >{{cat.name}}</p>
-                                    <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i class="mdi mdi-keyboard-return green__pointer"   v-bind="attrs" v-on="on" @click="chooseCategoryForProduct(cat.id,'parent')"></i></template><span>Выбрать категорию</span></v-tooltip>
-                                    <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i v-bind="attrs" v-on="on" class="mdi mdi-format-list-bulleted green__mr__xs green__pointer" @click="getChilds(cat.id,'parent')"></i></template><span>Показать список</span></v-tooltip> 
-                                    
-                                </div>
-                            </div>
-
-                            <div class="item__column"  v-if="nested.length!=0">
-                                <div class="item__row item__ac green__mb__xs green__parents" v-for="(cat,c) in nested" :key="c">
-                                    <p  class="green__category__el green__mr__xs" >{{cat.name}}</p>  
-                                    <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i class="mdi mdi-keyboard-return green__pointer"   v-bind="attrs" v-on="on" @click="chooseCategoryForProduct(cat.id,'child')"></i></template><span>Выбрать категорию</span></v-tooltip>
-                                    <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i v-bind="attrs" v-on="on" class="mdi mdi-format-list-bulleted green__mr__xs green__pointer" @click="getChilds(cat.id,'child')"></i></template><span>Показать список</span></v-tooltip> 
-                                </div>
-                            </div>
-                            <p v-if="category_for_product" class="green__mb__s">Выбранный  категория: <b>{{category_for_product}}</b></p>
-                        </div>
-
-                        <!-- <div class="green__column green__input">
-                            <p>Выберите категорию</p>
-                            <v-select
-                                v-model="category_id"
-                                :items="categories"
-                                item-text="name"
-                                item-value="id"
-                                label="Выберите категорию"
-                                outlined
-                                required
-                                :rules="rules.select"
-                            ></v-select>
-                        </div> -->
-
-                        <div class="green__column green__input">
-                            <p>Название товара</p>
-                            <v-text-field
-                                v-model="title"
-                                label="Название товара"
-                                required
-                                outlined
-                            ></v-text-field>
-                        </div>
-
-
-                      <div class="green__row green__ac">
-                        <div class="green__column  green__mr__xs green__input">
-                          <p>Цена</p>
-                          <v-text-field
-                              v-model="price"
-                              label="Цена"
-                              required
-                              outlined
-                          ></v-text-field>
-                        </div>
-
-                        <div class="green__column green__input">
-                            <p class="green__mb__xs">Измерение</p>
-                            <v-select
-                                v-model="count_type"
-                                :items="count_types"
-                                item-text="name"
-                                item-value="id"
-                                label="Выберите измерение"
-                                outlined
-                                required
-                            ></v-select>
-                        </div>
-                      </div>
-
-
-                        <div class="green__column green__input">
-                            <p>Количество</p>
-                            <v-text-field
-                                v-model="count"
-                                label="Количество"
-                                required
-                                outlined
-                            ></v-text-field>
-                        </div>
-                      <div class="green__column green__input">
-                        <p>Артикул</p>
-                        <v-text-field
-                            v-model="articul"
-                            label="Артикул"
-                            outlined
-                        ></v-text-field>
-                      </div>
-
-                        <div class="green__column green__input">
-                            <p>Описание</p>
-                            <v-textarea
-                                v-model="description"
-                                label="Описание"
-                                required
-                                outlined
-                            ></v-textarea>
-                        </div>
-
-
-
-                        <div class="green__column green__input green__mb__s">
-                                <p>Добавить файл</p>
-                                <input type="file"  multiple  @change="uploadDoc" required/> 
-                        </div>
-                        <button type="submit">Сохранить</button>
-                    </form>
-                    
-                   
                 </div>
 
                 <div class="green__products" v-if="page==3">
-
                     <div class="green__row green__ac">
-                        
                         <div  class="green__btn  green__pointer green__see green__row green__ac green__mb__s">
                             <p>Список заказов</p>
                         </div>
@@ -500,8 +381,14 @@
                   </div>
                 </div>
 
-               
-            </div>
+                <div  class="green__products" v-if="page==5">
+                    <setCategory></setCategory>
+                </div>
+
+
+              </div>
+
+
 
         </div>
         <v-alert
@@ -586,9 +473,14 @@
 </template>
 
 <script>
+import setCategory from '../components/setCategory';
 export default {
+    components: {
+      setCategory
+    },
     data () {
         return {
+            choosen_type: '',
             showSkeleton: false,
             category_type: null,
             count_type: null,
@@ -658,6 +550,10 @@ export default {
       }
     },
     methods: {
+       showListCategories() {
+         this.seePurchase=false;
+         this.getCategories();
+       },
         deleteBanner(id) {
           let data = {
             id: id
@@ -746,24 +642,22 @@ export default {
             this.category_for_product = t[0].name;
         },
         getProductByCategory(id,type) {
+
             this.showSkeleton = true;
-            let t = '';
-
-
+            let t = ''
             if(!type) {
               type = this.category_type;
             }
+            this.choosen_type = type;
 
             if(type=='child') {
-              t = this.nested.filter(item => item.id === id);
+              t = this.nested.filter(item => item.id == id);
             }
             else {
-              t = this.categories.filter(item => item.id === id);
+              t = this.categories.filter(item => item.id == id);
             }
-
             this.selected_category = t[0].name;
             this.dialogApplication = false;
-
             let data = {
                 category_id: id
             };
@@ -771,13 +665,40 @@ export default {
                 headers: {
                     'Authorization': `Bearer ${this.token}` 
                 }
-
             })
             .then(res => {
                 this.message_notif = res.data.message;
                 this.products = res.data;
                 this.showSkeleton = false;
             })
+        },
+        getProductByCategorySecond(id,type) {
+          this.showSkeleton = true;
+          let t = ''
+          if(!type) {
+            type = this.category_type;
+          }
+          if(type=='child') {
+            t = this.nested.filter(item => item.id == id);
+          }
+          else {
+            t = this.categories.filter(item => item.id == id);
+          }
+          this.selected_category = t[0]['name'];
+          this.dialogApplication = false;
+          let data = {
+            category_id: id
+          };
+          this.$http.post('/get/products/admin/by/category',data, {
+            headers: {
+              'Authorization': `Bearer ${this.token}`
+            }
+          })
+              .then(res => {
+                this.message_notif = res.data.message;
+                this.products = res.data;
+                this.showSkeleton = false;
+              })
         },
         chooseParentMain(type) {
             this.nested = [];
@@ -867,10 +788,7 @@ export default {
                  this.application_index = null;
                 this.message_notif = res.data.message;
                 this.savedData = true;
-
-                this.getproducts();
                 this.getCategories();
-                this.getApplications();
                 window.setInterval(() => {
                     this.savedData = false;
                 }, 4000); 
@@ -914,7 +832,6 @@ export default {
                 ).then(res => {
                     this.document = [];
                     this.message_notif = res.data.message;
-                    this.getProducts();
                     this.getCategories();
 
                     this.getProductByCategory(this.category_id,null);
@@ -926,16 +843,6 @@ export default {
                       queue: true
                     });
                     this.seePurchase = true;
-            });
-        },
-
-        getApplications() {
-            const config = {
-                headers: { 'Authorization': `Bearer ${this.token}` }
-            };
-            this.$http.get('/get/applications',  config)
-            .then(res => {
-                this.applications = res.data
             });
         },
         addCategory() {
@@ -953,9 +860,7 @@ export default {
                     }
                 })
             .then(res => {
-                this.getproducts();
                 this.getCategories();
-
                 this.$toast.open({
                   message: res.data.message,
                   type: 'success',
@@ -992,15 +897,6 @@ export default {
                     this.categories = res.data
                 })
         },
-        getProducts() {
-            const config = {
-                headers: { 'Authorization': `Bearer ${this.token}` }
-            };
-            this.$http.get('/guest/get/all/products',  config)
-            .then(res => {
-                this.products = res.data.data
-            })
-        },
         editSaveCategory() {
 
  
@@ -1030,19 +926,15 @@ export default {
         editSave(index) {
             let fd= new FormData();
             fd.append('id', this.products[index].id);
-            fd.append('name', this.products[index].name);
+            fd.append('name_product', this.products[index].name_product);
             fd.append('category_id', this.products[index].category_id);
             fd.append('price',this.products[index].price);
             fd.append('count',this.products[index].count);
-
             fd.append('count_type',this.products[index].count_type);
-
             for (var i = 0; i < this.documents.length; i++) {
                 fd.append('images[]', this.documents[i])
             }
             fd.append('description',this.description);
-
-
             this.$http.post('/update/product',fd,
                 {
                     headers: {
@@ -1051,24 +943,20 @@ export default {
                     }
                 }
                 ).then(res => {
+                    this.$toast.open({
+                      message: res.data.message,
+                      type: 'success',
+                      position: 'bottom',
+                      duration: 5000,
+                      queue: true
+                    });
                     this.document = [];
                     this.message_notif = res.data.message;
-
-                    this.getProducts();
                     this.getCategories();
-
-                    this.getProductByCategory(this.products[index].category_id,null)
-                    this.seePurchase = true;
-
-                  this.$toast.open({
-                    message: res.data.message,
-                    type: 'success',
-                    position: 'bottom',
-                    duration: 5000,
-                    queue: true
-                  });
+                    this.getProductByCategorySecond(this.products[index].category_id,this.choosen_type);
 
 
+                    this.seePurchase = false;
             });
         },
        
@@ -1098,13 +986,8 @@ export default {
             .then(res => {
                 this.products = res.data
                 this.message_notif = res.data.message;
-
                 this.getCategories();
-                this.getApplications();
-
-
                 this.getProductByCategory(this.category_id,null)
-
                 this.savedData = true;
 
                 window.setInterval(() => {
@@ -1132,10 +1015,8 @@ export default {
                 this.user.role = res.data.name;
                 // if(this.user.name == "Администратор системы") {
                     this.getOrders();
-                    this.getProducts();
                     this.getCategories();
-                    this.getApplications();
-                   this.getBanner();
+                    this.getBanner();
                     this.$router.push("/admin");
                 // }else {
                 //     this.$router.push("/login");

@@ -35,7 +35,7 @@
 
                             <p class="baset__description" v-if="item.count>2">Есть в наличии</p>
                             <p class="baset__description" v-if="item.count<=2">Уточните у менеджера</p>
-                            <p class="baset__description" v-else>Остаток 0</p>
+<!--                            <p class="baset__description" v-else>Остаток 0</p>-->
                             
                             <div class="item__row item__ac ">
                               <p class="basket__price" v-if="!item.order_count">{{formatNumber(item.price)}}</p>
@@ -43,9 +43,6 @@
                               <i class="fas fa-tenge"></i>
                             </div>
                           </div>
-
-
-                        
                         </div>
                     </div>
 

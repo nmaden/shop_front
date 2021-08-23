@@ -30,7 +30,9 @@ export const routes = [
       path: '/admin',
       name: 'Admin',
       component: () => import('../views/empty/Admin'),
-      // meta: {layout: 'authorized', requiresAuth: true},
+        children: [
+            { path: '/set/category', component: () => import('../views/components/setCategory.vue')},
+        ]
       // beforeEnter: authGuard
     },
     {

@@ -415,8 +415,7 @@
                   this.next_page_url = res.data.next_page_url;
                   this.total_page = res.data.total;
 
-                  this.products = res.data.data;
-
+                    this.products = res.data.data;
                     let permanent = this.products;
                     this.products = [];
                     this.products = permanent;
