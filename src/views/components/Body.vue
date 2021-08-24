@@ -83,15 +83,7 @@
 
       <div class="main__block__products">
             <div class="main__block__product" v-for="(product,index) in all_products" :key="index"  >
-
-                <div class="product__images">
-
-<!--                    <transition name="fade" mode="out-in">-->
-<!--                        <img v-if="product.images.length!=0 && !product.scroll_index && products.length!=0"  class="product__img" :src="'https://api.kenesmebel.kz'+product.images[0].image_path"  >-->
-<!--                        <img v-if="product.images.length!=0 && product.scroll_index && products.length!=0" class="product__img" :src="'https://api.kenesmebel.kz'+product.images[product.scroll_index].image_path"  >-->
-<!--                    </transition>-->
-
-
+                <div class="product__images item__abs">
                   <v-carousel
                       v-if="product.images.length!=0"
                       class="product__slider"
@@ -102,42 +94,46 @@
                         v-for="(slide, i) in product.images"
                         :key="i"
                     >
-                      <img :src="'https://api.kenesmebel.kz'+slide.image_path" alt="">
+                      <img @click="openProduct(product.id,product.category_id,index)" :src="'https://api.kenesmebel.kz'+slide.image_path" class="product__slider__img" alt="">
                     </v-carousel-item>
                   </v-carousel>
+                  <div class="item__column" v-else>
+                    <i class="mdi mdi-package-variant main__empty" @click="openProduct(product.id,product.category_id,index)"></i>
+                  </div>
                 </div>
 
-                <p class="product__name">{{product.name_product}}</p>
-
-                <p class="product__size" v-if="product.size">Размеры: {{product.size}}</p>
-
-
-                <div class="product__prices">
-                    
-
-                    <div class="item__row item__ac">
+                <div class="main__product__bottom" @click="openProduct(product.id,product.category_id,index)">
+                    <p class="product__name" @click="openProduct(product.id,product.category_id,index)">{{product.name_product}}</p>
+                    <p class="product__size" v-if="product.size">Размеры: {{product.size}}</p>
+                    <div class="product__prices">
+                      <div class="item__column" v-if="product.price_sale">
+                        <div class="item__row item__ac">
+                          <p class="product__price">{{ product.price_sale+' ₸ ' }}</p>
+                          <p class="product__price" v-if="product.count_type==2">{{'/ '}}кг</p>
+                          <p class="product__price" v-if="product.count_type==3">{{'/ '}}литр</p>
+                        </div>
+                        <div class="item__row item__ac">
+                          <p class="product__price__has__sale"><s>{{formatNumber(product.price)+' ₸ '}}</s></p>
+                          <p class="product__price" v-if="product.count_type==2">{{'/ '}}кг</p>
+                          <p class="product__price" v-if="product.count_type==3">{{'/ '}}литр</p>
+                        </div>
+                      </div>
+                      <div class="item__row item__ac" v-else>
                         <p class="product__price">{{formatNumber(product.price)+' ₸ '}}</p>
-<!--                        <i class="fas fa-tenge"></i>-->
-
-
                         <p class="product__price" v-if="product.count_type==2">{{'/ '}}кг</p>
                         <p class="product__price" v-if="product.count_type==3">{{'/ '}}литр</p>
-
-
+                      </div>
                     </div>
-                    <!-- <div class="product__sale">
-                        <p>-20%</p>
-                    </div> -->
-                </div>
+                    <div class="product__sale" v-if="product.percent">
+                      <p >-{{product.percent}} &nbsp;%</p>
+                    </div>
 
-              <p class="product__has" v-if="product.percent">Скидка: {{ product.percent+'%' }}</p>
-              <p class="product__has" v-if="product.price_sale">Цена со скидкой: {{ product.price_sale+' ₸ ' }}</p>
-              <p class="product__has" v-if="product.count>2">Есть в наличии</p>
-              <p class="product__has__yellow" v-if="product.count<=2">Уточните у менеджера</p>
 
-              <div class="product__order" @click="openProduct(product.id,product.category_id,index)">
-                    <!-- <i class="fas fa-cart-arrow-down"></i> -->
-                    <p>Подробнее</p>
+                    <p class="product__has" v-if="product.count>2">Есть в наличии</p>
+                    <p class="product__has__yellow" v-if="product.count<=2">Уточните у менеджера</p>
+                    <!--              <div class="product__order" @click="openProduct(product.id,product.category_id,index)">-->
+                    <!--                    <p>Подробнее</p>-->
+                    <!--                </div>-->
                 </div>
             </div>
     </div>

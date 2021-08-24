@@ -3,8 +3,7 @@
     <div class="main__bottom item__column item__ac " v-if="description.name_product" >
 
 
-      <div class="main__block__title product__title" @click="$router.push('/')">
-<!--        <div class="main__block__round"></div>-->
+      <div class="main__block__title product__title main__back" @click="$router.push('/')">
         <i class="mdi mdi-keyboard-backspace"></i>
         <p>Назад</p>
       </div>
@@ -16,20 +15,17 @@
       <div class="product product__row">
 
           <div class="product__column produc__column__c product__gallery">
-              <div class="product__item product__column">
-
+              <div class="product__item product__column item__abs">
                   <img v-if="!description.corousel_index && description.images.length!=0"  :src="'https://api.kenesmebel.kz/'+description.images[0].image_path"  >
                   <img v-else-if="description.images.length!=0" :src="'https://api.kenesmebel.kz/'+description.images[description.corousel_index].image_path" alt="">
+                  <i  v-else class="mdi mdi-package-variant product__empty"></i>
               </div>
-
               <div class="product__row product__corousels">
                   <div class="product__corousel" v-for="(cor,i) in description.images" :key="i" @click="corousel_img(i)">
                       <img  :src="'https://api.kenesmebel.kz/'+cor.image_path" v-if="!description.corousel_index && description.images.length!=0"  v-bind:class="{product__corousel__active: i==0}">
                       <img  :src="'https://api.kenesmebel.kz/'+cor.image_path" v-else-if="description.images.length!=0" v-bind:class="{product__corousel__active: description.corousel_index==i}">
                   </div>
-
               </div>
-
               <div class="product__levels">
                 <div class="product__level"></div>
                 <div class="product__level"></div>
@@ -49,8 +45,14 @@
                 <i class="fas fa-star"></i> -->
               </div>
 
-              <div class="product__row product__row__c">
-                <p class="main__mr__xs product__price__l">Цена: {{formatNumber(description.price)}} ₸</p>
+              <div class="product__row product__row__c" v-if="description.price__sale">
+                <div class="item__column">
+                  <p class="main__mr__xs product__price__l">{{formatNumber(description.price)}} ₸</p>
+                  <p class="main__mr__xs product__price__sale"><s>{{formatNumber(description.price)}} ₸</s></p>
+                </div>
+              </div>
+              <div class="product__row product__row__c" v-else>
+                <p class="main__mr__xs product__price__l">{{formatNumber(description.price)}} ₸</p>
               </div>
 
               <div class="product__row product__price main__mb__s">
@@ -214,7 +216,12 @@ export default {
         width: 100%;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
-   
+        .main__back {
+          cursor: pointer;
+        }
+        .main__back:hover {
+          opacity: 0.8;
+        }
         .product__title {
             width: 100%;
             margin-top: 20px;
@@ -270,11 +277,15 @@ export default {
         width: 90%;
         height: unset;
       }
+      .product__empty {
+        font-size: 200px;
+        color: #ccc;
+      }
       img {
         width: 100%;
         height: 300px;
         align-self: center;
-        object-fit: contain;
+        object-fit: cover;
         border-radius: 10px;
         @media (max-width: @mobile) {
           width: 80%;
@@ -351,7 +362,10 @@ export default {
       .product__price__l {
         font-size: 20px;
         font-weight: bold;
-      } 
+      }
+      .product__price__sale {
+        font-size: 16px;
+      }
       .pr__val {
 
         i {

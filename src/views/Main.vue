@@ -815,8 +815,11 @@ p {
                         align-self: center;
                         justify-content: space-between;
                     }
-                    
+                    .main__block__product:hover {
+                      box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+                    }
                     .main__block__product {
+                        cursor: pointer;
                         width: 266px;
                         border-radius: 5px;
                         display: flex;
@@ -825,8 +828,8 @@ p {
                         background-color: #f5f5f5;
                         padding: 20px;
                         margin-right: 40px;
-                 
                         margin-bottom: 20px;
+                        position: relative;
                         // box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
                         @media(max-width: 900px) {
                             width: 48%;
@@ -835,10 +838,18 @@ p {
                             padding: 15px;
                             
                         }
+                        .main__empty {
+                          font-size: 120px;
+                          color: #ccc;
+                          @media(max-width: 900px) {
+                            font-size: 60px;
+                          }
+                        }
+                        .main__empty__text {
+                          color: #ccc !important;
+                        }
                         .v-skeleton-loader--is-loading {
-                            
                                 width: 100%;
-                        
                         }
                         .product__item {
                             width: 90%;
@@ -846,21 +857,22 @@ p {
                         
                         }
                         .product__sale {
-                                margin: 10px;
-                                align-self: flex-end;
-                                text-align: center;
-                                
-                                height: 20px;
-                                padding: 10px;
-                                border-radius: 10px;
-                                background-color: var(--main-kenes-red);
-                  
-                                i {
-                                    color: white;
-                                }
-                                p   {
-                                    color: white;
-                                }
+                            position: absolute;
+                            left: 20px;
+                            top:20px;
+                            margin: 10px;
+                            text-align: center;
+                            padding: 2px 8px;
+                            border-radius: 5px;
+                            background-color: rgb(115, 190, 111);
+                            i {
+                                color: white;
+                            }
+                            p   {
+                                color: white;
+                                font-size: 12px;
+                                font-weight: bold;
+                            }
                         }
                         .product__images {
                             cursor:pointer;
@@ -881,19 +893,28 @@ p {
 
                             .product__slider {
                                 width: 100%;
+                                height: 250px !important;
+                                @media(max-width: 900px) {
+                                  height: 100px !important;
+                                }
+                                img {
+                                  cursor: pointer;
+                                }
+                            }
+                            .product__slider__img {
+                              object-fit: cover;
+                              width: 100%;
+                              height: 250px;
+                              border-radius: 10px;
                               @media(max-width: 900px) {
-                                height: unset;
-                              }
-                              img {
-                                cursor: pointer;
+                                height: 100px;
                               }
                             }
-
                             @media(max-width: 900px) {
                                 height: unset;
                             }
                             .product__img {
-                                height: 250px;
+                                //height: 250px;
                                 object-fit: cover;
                                 border-radius: 5px;
                                 @media(max-width: 900px) {
@@ -928,6 +949,7 @@ p {
 
                         }
                         .product__name {
+                            cursor: pointer;
                             color: var(--main-kenes-blue);
                             font-size: 16px;
                             font-weight: bold;
@@ -936,6 +958,13 @@ p {
                               font-weight: bold;
                               font-size: 16px;
                             }
+                            @media(max-width: 320px) {
+                              font-weight: bold;
+                              font-size: 14px;
+                            }
+                        }
+                        .product__name:hover {
+                          opacity: 0.7;
                         }
                         .product__size {
                             font-size: 14px;
@@ -950,10 +979,14 @@ p {
                             .product__price {
                                 margin-right: 3px;
                                 font-weight: bold;
-                                font-size: 24px;
+                                font-size: 20px;
                             }
-                            .product__sale {
+                            .product__price__sale {
 
+                            }
+                           .product__price__has__sale {
+                               font-size: 16px;
+                               color: gray;
                             }
                         }
                     } 

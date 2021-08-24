@@ -12,12 +12,13 @@
                     <div class="basket__list item__row" v-for="(item,b) in basket" :key="b">
                         <div class="item__column">
                           <img v-if="item.images && item.images.length!=0" :src="'https://api.kenesmebel.kz/'+item.images[0].image_path" alt="">
+                          <i  v-else class="mdi mdi-package-variant basket__empty item__abs"></i>
                           <div class="item__row item__ac basket__actions">
                             <div class="item__row item__ac basket__addition">
                               <i class="mdi mdi-minus" @click="addCount(-1,item.id,b,item)"></i>
                               <p v-if="!item.order_count">1</p>
                               <p v-else>{{item.order_count}}</p>
-                              <i class="mdi mdi-plus" @click="addCount(1,item.id,b,item)"></i>
+                              <i class="mdi mdi-plus " @click="addCount(1,item.id,b,item)"></i>
                             </div>
 
                             <div class="basket__delete item__abs" @click="deleteEl(item.id,b)">
@@ -319,10 +320,9 @@ export default {
 .basket__delivery {
    width: 400px;
    margin-bottom: 20px;
-
   @media (max-width: 900px) {
     width: 100%;
-
+    margin-bottom: 0;
   }
 
   .basket__delivery__type {
@@ -337,6 +337,7 @@ export default {
       width: 44%;
       margin-bottom: 15px;
       font-size: 14px;
+      padding: 10px;
     }
   }
   .basket__delivery__type__active {
@@ -458,8 +459,8 @@ export default {
             @media (max-width: 900px) {
               width: 90%;
               align-self: center;
-
               margin-bottom: 50px;
+              padding: 10px;
             }
            p {
              color: white;
@@ -480,9 +481,17 @@ export default {
               position: relative;
               width: 90%;
               align-self: center;
-              flex-direction: row-reverse;
+              flex-direction: column;
             }
-         
+           .basket__empty {
+             width: 200px;
+             height: 140px;
+             font-size: 120px;
+             color: #ccc;
+             @media (max-width: 900px) {
+               width: 100%;
+             }
+           }
            img {
              width: 200px;
              height: 140px;
@@ -490,7 +499,7 @@ export default {
              border-radius: 10px;
              margin-right: 20px;
              @media (max-width: 900px) {
-               width: 180px;
+               width: 100%;
                height: 120px;
              }
            }
@@ -517,6 +526,7 @@ export default {
                  margin-bottom: 10px;
                 @media (max-width: 900px) {
                   font-size: 14px;
+                  margin-top: 10px;
                 }
               }
               .basket__description {
