@@ -130,6 +130,8 @@
                     </div> -->
                 </div>
 
+              <p class="product__has" v-if="product.percent">Скидка: {{ product.percent+'%' }}</p>
+              <p class="product__has" v-if="product.price_sale">Цена со скидкой: {{ product.price_sale+' ₸ ' }}</p>
               <p class="product__has" v-if="product.count>2">Есть в наличии</p>
               <p class="product__has__yellow" v-if="product.count<=2">Уточните у менеджера</p>
 

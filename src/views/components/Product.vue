@@ -48,16 +48,18 @@
                 <i class="fas fa-star main__mr__xs"></i>
                 <i class="fas fa-star"></i> -->
               </div>
-              <div class="product__row product__price main__mb__s">
 
-                <div class="product__row product__row__c">
-                  <!-- <p class="main__mr__xs">62 900 tng</p> -->
-                  <p class="main__mr__xs product__price__l">Цена: {{formatNumber(description.price)}} ₸</p>
-                  <!-- <div class="product__sale">
-                      <p>20%</p>
-                  </div> -->
-                </div>
-                
+              <div class="product__row product__row__c">
+                <p class="main__mr__xs product__price__l">Цена: {{formatNumber(description.price)}} ₸</p>
+              </div>
+
+              <div class="product__row product__price main__mb__s">
+                  <div class="product__row product__row__c">
+                    <p class="main__mr__xs product__price__l" v-if="description.price_sale">Цена со скидкой: {{formatNumber(description.price_sale)}} ₸</p>
+                    <div class="product__sale" v-if="description.percent">
+                        <p>{{description.percent}}%</p>
+                    </div>
+                  </div>
               </div>
 
               <div class="product__size main__mb__xl" v-if="description.size">

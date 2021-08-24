@@ -42,6 +42,11 @@
                               <p class="basket__price" v-else>{{formatNumber(item.order_price)}}</p>
                               <i class="fas fa-tenge"></i>
                             </div>
+
+                            <div class="item__row item__ac ">
+                              <p class="basket__price" v-if="item.price_sale">Цена со скидкой: {{formatNumber(item.price_sale)}}</p>
+                              <i class="fas fa-tenge" v-if="item.price_sale"></i>
+                            </div>
                           </div>
                         </div>
                     </div>
