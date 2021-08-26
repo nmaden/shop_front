@@ -36,7 +36,7 @@
           
 
           <div class="product__column product__info item__column item__ac">
-              <div class="product__percent">
+              <div class="product__percent" v-if="description.percent">
                   <p>{{-description.percent}}&nbsp; %</p>
               </div>
               <div class="product__row product__row__c" v-if="description.price_sale">
