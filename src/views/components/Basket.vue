@@ -64,7 +64,6 @@
                             <div class="item__row item__ac" v-else>
                               <p class="basket__price" >{{formatNumber(item.price)}}&nbsp;₸</p>
 <!--                              <p class="basket__price" >{{formatNumber(item.order_price)}}</p>-->
-                              <i class="fas fa-tenge"></i>
                             </div>
 
                           </div>
