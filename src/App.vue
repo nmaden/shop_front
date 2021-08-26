@@ -18,8 +18,11 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
+:root {
+  --main-kenes-blue: #5f0099;
+//#f26b33;
+}
 body {
   overflow-x: hidden;
   letter-spacing: -0.03em;
@@ -113,6 +116,12 @@ body {
   font-weight: 800;
   font-style: normal;
 }
+p,a,input,.v-select__selections,v-text-field__slot,label {
+  font-family: "MontserratRegular" !important;
+}
+p {
+  margin-bottom: 0 !important;
+}
 .v-notices .v-toast .v-toast-text {
     font-family: "MontserratBold";
 }
@@ -126,6 +135,9 @@ body {
 
 .item__mb {
   margin-bottom: 20px;
+}
+.item__mt {
+  margin-top: 15px;
 }
 
 

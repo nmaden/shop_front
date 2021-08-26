@@ -311,10 +311,7 @@ import Slider from "./Slider";
 <style lang="scss">
 
 //#449DED;
-:root {
-    --main-kenes-blue: #5f0099;
-    //#f26b33;
-}
+
 p,a,input,.v-select__selections,v-text-field__slot,label {
     font-family: "MontserratRegular" !important;
 }
@@ -889,8 +886,6 @@ p {
                             @media(max-width: 900px) {
                               height: unset;
                             }
-
-
                             .product__slider {
                                 width: 100%;
                                 height: 250px !important;

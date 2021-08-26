@@ -7,11 +7,10 @@
                 <i class="mdi mdi-briefcase-search-outline"></i>
                 <input type="text" v-model="nameProduct" placeholder="Название или модель изделия" @input="searchProduct">
             </div>
-
             <svg focusable="false" viewBox="0 0 24 24" class="plp-svg-icon plp-pill__icon" v-bind:class="{'main__color__filter':showSort==true}" @click="showSort=!showSort" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M6 5h2v1h12v2H8v1H6V8H4V6h2V5zm12 8h2v-2h-2v-1h-2v1H4v2h12v1h2v-1zm-5.94 5H20v-2h-7.94v-1h-2v1H4v2h6.06v1h2v-1z"></path></svg>
           </div>
           <div class="item__row main__sorts" v-if="showSort">
-            <div class="item__column main__mr__m main__sort">
+            <div class="item__column main__mr__m main__sort item__mt">
               <p class="">Сортировка</p>
               <v-col
                   class="d-flex pa-0"
@@ -28,11 +27,12 @@
                   outlined
                   required
                   dense
+                  hide-details
               ></v-select>
               </v-col>
             </div>
 
-            <div class="item__column main__mr__m main__sort">
+            <div class="item__column main__mr__m main__sort item__mt">
               <p class="">Цена</p>
               <div class="item__row">
                 <div class="main__mr__s">
@@ -43,6 +43,7 @@
                       outlined
                       @input="getCategory"
                       dense
+                      hide-details
                   ></v-text-field>
                 </div>
                 <v-text-field
@@ -52,6 +53,7 @@
                     outlined
                     @input="getCategory"
                     dense
+                    hide-details
                 ></v-text-field>
               </div>
             </div>

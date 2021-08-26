@@ -2,9 +2,23 @@
 
 <div class="item__column">
      <div class="main__basket item__column" >
-              
-                <div class="item__row item__ac basket__top">
-                  <i class="mdi mdi-keyboard-backspace main__basket__close" @click="$router.push('/')"></i>
+                <v-dialog
+                    v-model="dialog"
+                    max-width="600"
+                    transition="dialog-bottom-transition"
+                    class="main__basket__modal"
+                >
+                  <v-card>
+                    <div class="item__column item__ac main__basket__alert">
+                      <v-icon class="main__modal__close" @click="dialog=false">mdi-close</v-icon>
+                      <img src="../../assets/images/img.png">
+                      <p class="main__basket__toptext">Спасибо за заказ</p>
+                      <p class="main__basket__bottomtext">В ближайшее время наш менеджер свяжется с вами</p>
+                    </div>
+                  </v-card>
+                </v-dialog>
+                <div class="item__row item__ac basket__top" @click="$router.push('/')">
+                  <i class="mdi mdi-keyboard-backspace main__basket__close"></i>
                   <p class="main__basket__title">Корзина</p>
                 </div>  
                 <div class="basket__lists item__column"> 
@@ -37,17 +51,22 @@
                             <p class="baset__description" v-if="item.count>2">Есть в наличии</p>
                             <p class="baset__description" v-if="item.count<=2">Уточните у менеджера</p>
 <!--                            <p class="baset__description" v-else>Остаток 0</p>-->
-                            
-                            <div class="item__row item__ac ">
-                              <p class="basket__price" v-if="!item.order_count">{{formatNumber(item.price)}}</p>
-                              <p class="basket__price" v-else>{{formatNumber(item.order_price)}}</p>
+
+                            <div class="item__column"  v-if="item.price_sale">
+                              <div class="item__row item__ac">
+                                <p class="basket__price" >{{formatNumber(item.price_sale)}}&nbsp;₸</p>
+                              </div>
+                              <div class="item__row item__ac">
+                                <p class="basket__price__lined" ><s>{{formatNumber(item.price)}}&nbsp;₸</s></p>
+
+                              </div>
+                            </div>
+                            <div class="item__row item__ac" v-else>
+                              <p class="basket__price" >{{formatNumber(item.price)}}&nbsp;₸</p>
+<!--                              <p class="basket__price" >{{formatNumber(item.order_price)}}</p>-->
                               <i class="fas fa-tenge"></i>
                             </div>
 
-                            <div class="item__row item__ac ">
-                              <p class="basket__price" v-if="item.price_sale">Цена со скидкой: {{formatNumber(item.price_sale)}}</p>
-                              <i class="fas fa-tenge" v-if="item.price_sale"></i>
-                            </div>
                           </div>
                         </div>
                     </div>
@@ -173,7 +192,8 @@ export default {
           orderCreated: false,
           address: '',
           phone_number: '',
-          name: ''
+          name: '',
+          dialog: false
       }
     },
     methods: {
@@ -228,19 +248,9 @@ export default {
                   
                   })
                   .then(res => {
+                      console.log(res);
                       this.showLoader = false;
-                      this.$toast.open({
-                          message:  res.data.message,
-                          type: 'success',
-                          background: '#449DED',
-                          position: 'bottom',
-                          duration: 6000,
-                          queue: true
-                      });
-
-
-
-
+                      this.dialog = true;
                   })
                 }
                 
@@ -248,7 +258,7 @@ export default {
         basketAmount() {
             this.basket_amount = 0;
             for (let index = 0; index < this.basket.length; index++) {
-                this.basket_amount = this.basket_amount +this.basket[index].order_price;
+                this.basket_amount = this.basket_amount+parseInt(this.basket[index].order_price);
             }
 
             let p = this.basket_amount;
@@ -260,16 +270,27 @@ export default {
             if(!this.basket[index].order_count) {
                 this.basket[index].order_count = 1;
                 this.basket[index].order_price = this.basket[index].price;
+
+                if(this.basket[index].price_sale) {
+                  this.basket[index].order_price = this.basket[index].price_sale;
+
+                }
             }
-            if(this.basket[index].order_count<item.count) {
+
+
+            if(this.basket[index].order_count<item.count || count<0) {
               this.basket[index].order_count = this.basket[index].order_count+count;
             }
 
             if (this.basket[index].order_count<=0) {
                 this.basket[index].order_count = 1;
             }
-            
-            this.basket[index].order_price = this.basket[index].price*this.basket[index].order_count;
+
+            if(!this.basket[index].price_sale) {
+              this.basket[index].order_price = this.basket[index].price*this.basket[index].order_count;
+            }else {
+              this.basket[index].order_price = this.basket[index].price_sale*this.basket[index].order_count;
+            }
 
             let p = this.basket;
             this.basket = [];
@@ -306,7 +327,7 @@ export default {
             }
             this.basketAmount();        
         }
-
+        console.log("basket");
         console.log(this.basket);
     }
 }
@@ -316,7 +337,47 @@ export default {
 @mobile: 900px;
 @planshet: 1200px;
 
-
+p {
+  margin-bottom: 0;
+}
+.main__basket__modal {
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+}
+.main__basket__alert {
+  position: relative;
+  .main__modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    cursor: pointer;
+  }
+  text-align: center;
+  img {
+    width: 300px;
+    @media (max-width: 900px) {
+      width: 250px;
+    }
+  }
+  .main__basket__toptext {
+    color: var(--main-kenes-blue);
+    font-weight: bold;
+    font-size: 32px;
+    @media (max-width: 900px) {
+      font-size: 26px;
+    }
+  }
+  .main__basket__bottomtext {
+    color: gray;
+    font-size: 20px;
+    padding-bottom: 40px;
+    @media (max-width: 900px) {
+      font-size: 16px;
+    }
+  }
+}
 .basket__delivery {
    width: 400px;
    margin-bottom: 20px;
@@ -397,17 +458,19 @@ export default {
         i {
           font-size: 34px;
         }
-
         .main__basket__title {
           font-size: 22px;
+          cursor: pointer;
         }
-
+      }
+      .basket__top:hover {
+        opacity: 0.8;
       }
 
       .main__basket__title {
         font-size: 28px;
         font-weight: bold;
-        margin-left: 20px;
+        margin-left: 5px;
       }
 
       .main__basket__close {
@@ -455,7 +518,7 @@ export default {
            padding: 15px;
            border-radius: 30px;
            background: var(--main-kenes-blue);
-           
+
             @media (max-width: 900px) {
               width: 90%;
               align-self: center;
@@ -538,6 +601,7 @@ export default {
                 font-size: 22px;
                 font-weight: bold;
                 margin-right: 5px;
+                color: var(--main-kenes-blue);
               }
            }
 
@@ -601,5 +665,5 @@ export default {
         }
       }
   }
-  
+
 </style>

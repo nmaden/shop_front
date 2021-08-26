@@ -36,32 +36,17 @@
           
 
           <div class="product__column product__info item__column item__ac">
-              <div class="product__stars main__mb__s">
-
-                <!-- <i class="fas fa-star main__mr__xs"></i>
-                <i class="fas fa-star main__mr__xs"></i>
-                <i class="fas fa-star main__mr__xs"></i>
-                <i class="fas fa-star main__mr__xs"></i>
-                <i class="fas fa-star"></i> -->
+              <div class="product__percent">
+                  <p>{{-description.percent}}&nbsp; %</p>
               </div>
-
-              <div class="product__row product__row__c" v-if="description.price__sale">
+              <div class="product__row product__row__c" v-if="description.price_sale">
                 <div class="item__column">
-                  <p class="main__mr__xs product__price__l">{{formatNumber(description.price)}} ₸</p>
+                  <p class="main__mr__xs product__price__l">{{formatNumber(description.price_sale)}} ₸</p>
                   <p class="main__mr__xs product__price__sale"><s>{{formatNumber(description.price)}} ₸</s></p>
                 </div>
               </div>
               <div class="product__row product__row__c" v-else>
                 <p class="main__mr__xs product__price__l">{{formatNumber(description.price)}} ₸</p>
-              </div>
-
-              <div class="product__row product__price main__mb__s">
-                  <div class="product__row product__row__c">
-                    <p class="main__mr__xs product__price__l" v-if="description.price_sale">Цена со скидкой: {{formatNumber(description.price_sale)}} ₸</p>
-                    <div class="product__sale" v-if="description.percent">
-                        <p>{{description.percent}}%</p>
-                    </div>
-                  </div>
               </div>
 
               <div class="product__size main__mb__xl" v-if="description.size">
@@ -149,12 +134,12 @@ export default {
         sendBasket() {
             if(this.basket.length!=0) {
                 if (!this.checkHasEl()) {
-                    this.description.order_price = this.description.price;
+                    this.description.order_price = this.description.price_sale? this.description.price_sale:this.description.price;
                     this.basket.push(this.description);
                 }
             }
             else {
-                this.description.order_price = this.description.price;
+                this.description.order_price = this.description.price_sale? this.description.price_sale:this.description.price;
                 this.basket.push(this.description);
             }
             localStorage.setItem("goods",JSON.stringify(this.basket));
@@ -181,7 +166,7 @@ export default {
     },
 
     mounted() {
-        window.scrollTo(0, 30);
+        window.scrollTo(0, 1600);
         if(localStorage.getItem("goods")) {
             this.basket = JSON.parse(localStorage.getItem("goods"));
             this.basketAmount();        
@@ -197,8 +182,6 @@ export default {
         .then(res => {
             this.open_description  = true;
             this.description = res.data;
-
-            console.log(this.description)
         });
     }
 }
@@ -352,6 +335,20 @@ export default {
       border-radius: 10px;
       background-color: #f5f5f5;
       padding: 20px;
+      position: relative;
+
+      .product__percent {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        padding: 2px 10px;
+        background: red;
+        font-weight: bold;
+        border-radius: 2px;
+        font-size: 12px;
+        color: white;
+        background: #73be6f;
+      }
       @media (max-width: @mobile) {
         align-self: center;
         width: 90%;
