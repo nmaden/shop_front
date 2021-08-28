@@ -1,20 +1,20 @@
 <template>
   <div>
-      <div class="set__category item__column">
 
-          <v-text-field
-              v-model="name"
-              label="Поиск товара"
-              hide-details="auto"
-              outlined
-              class="mb-10 set__category__input"
-              @input="searchProduct()"
-          ></v-text-field>
+      <v-text-field
+          v-model="name"
+          label="Поиск товара"
+          hide-details="auto"
+          outlined
+          class="mb-10 set__category__input"
+          @input="searchProduct()"
+      ></v-text-field>
+      <div class="set__category item__wrap">
           <div class="set__category__item item__column"  v-for="(item,index) in all_products" :key="index">
 
               <div class="item__column">
                 <p>{{ item.name_product}}</p>
-                <div class="item__row item__ac item__jb">
+                <div class="item__wrap item__ac item__jb">
                   <p>Количество: {{ item.count}} шт</p>
                   <p>Цена: {{ item.price}}  тнг</p>
                   <v-switch
@@ -33,7 +33,7 @@
                   ></v-switch>
                 </div>
                   <p v-if="item.category && item.category.name!=''">{{'Категория: '+ item.category.name }}</p>
-                  <button class="set__category__btn item__abs" v-if="item.category && item.category.name!=''" @click="openSetCategory(item.id,item.category.id)">Изменить категорию</button>
+                  <button class="set__category__btn item__abs" v-if="item.category && item.category.name!=''" @click="openSetCategory(item.id,item.category.id)"><p>Изменить категорию</p></button>
                   <button class="set__category__btn item__abs" v-else  @click="openSetCategory(item.id,null)"><p>Добавить категорию</p></button>
 
               </div>
@@ -177,7 +177,20 @@ export default {
       name: ''
     }
   },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   methods: {
+    handleScroll (event) {
+      console.log(event);
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+      if (bottomOfWindow) {
+        setTimeout(function () { this.showMore() }.bind(this), 100);
+      }
+    },
     searchProduct() {
       this.all_products = [];
       this.$http.get('/search/product?name='+this.name)
@@ -299,13 +312,14 @@ export default {
       this.$http.get('/get/categories')
           .then(res => {
             this.categories = res.data;
+            let permanent = this.categories
+            this.categories = [];
+            this.categories = permanent;
+
           });
     }
   },
   computed: {
-  },
-  created () {
-
   },
   mounted() {
     if(localStorage.getItem('access_token')) {
@@ -324,14 +338,16 @@ export default {
   }
   .main__next {
     cursor: pointer;
-    background: blue;
+    background: var(--main-kenes-blue);
     padding: 10px;
     margin-bottom: 20px;
-    border-radius: 20px;
     color: white;
     width: 200px;
     font-weight: bold;
     align-self: center;
+    @media (max-width: 900px) {
+      width: 100%;
+    }
   }
   .main__next:hover {
     opacity: 0.8;
@@ -339,21 +355,26 @@ export default {
   }
 
   .set__category {
+    flex-wrap: wrap;
     .set__category__input {
       width: 500px;
     }
   }
   .set__category__item {
+      border-radius: 4px;
       width: 500px;
       padding: 15px;
       border-radius: 3px;
       margin-bottom: 15px;
       background: white;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-
+      @media (max-width: 900px) {
+        width: 100%;
+      }
       .set__category__btn {
          padding: 10px;
          border: 1px solid black;
+         color: white;
          background-color: var(--main-kenes-blue);
       }
   }

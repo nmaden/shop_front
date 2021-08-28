@@ -6,35 +6,30 @@
             <div class="green__left green__column">
 
                 <div class="green__row green__ac green__mb__s green__btn">
-                    <i class="fas fa-directions green__mr__xs"></i>
-                    <p class="" @click="openPage(1)">Категории</p>
+                    <i class="fas fa-directions green__mr__xs" v-bind:class="{'green__active':page==1}"></i>
+                    <p class="" @click="openPage(1)" v-bind:class="{'green__active':page==1}">Категории</p>
                 </div>
                 <div class="green__row green__ac green__mb__s green__btn">
-                    <i class="fas fa-directions green__mr__xs"></i>
-                    <p class="" @click="openPage(2)" >Товары</p>
+                    <i class="fas fa-directions green__mr__xs" v-bind:class="{'green__active':page==2}"></i>
+                    <p class="" @click="openPage(2)" v-bind:class="{'green__active':page==2}">Товары</p>
                 </div>
 
                 <div class="green__row green__ac green__mb__s green__btn">
-                  <i class="fas fa-directions green__mr__xs"></i>
-                  <p class="" @click="openPage(5)" >Товары от 1C</p>
+                  <i class="fas fa-directions green__mr__xs" v-bind:class="{'green__active':page==5}"></i>
+                  <p class="" @click="openPage(5)" v-bind:class="{'green__active':page==5}">Товары от 1C</p>
                 </div>
 
 
               <div class="green__row green__ac green__mb__s green__btn">
-                    <i class="fas fa-directions green__mr__xs"></i>
-                    <p class="" @click="openPage(3)" >Список заказов</p>
+                    <i class="fas fa-directions green__mr__xs" v-bind:class="{'green__active':page==3}"></i>
+                    <p class="" @click="openPage(3)" v-bind:class="{'green__active':page==3}">Список заказов</p>
                 </div>
 
 
                 <div class="green__row green__ac green__mb__s green__btn">
-                  <i class="fas fa-directions green__mr__xs"></i>
-                  <p class="" @click="openPage(4)" >Слайдер</p>
+                  <i class="fas fa-directions green__mr__xs" v-bind:class="{'green__active':page==4}"></i>
+                  <p class="" @click="openPage(4)" v-bind:class="{'green__active':page==4}">Слайдер</p>
                 </div>
-
-
-
-
-
             </div>
 
             <div class="green__right green__100">
@@ -64,37 +59,24 @@
 
 
                             <div class="item__column green__parents" v-if="page_category==2">
-                                <div class="item__row item__ac">
 
-                                    
+                                <div class="item__wrap item__ac">
                                     <div class="item__row item__ac green__mb__xs green__parents" v-for="(cat,c) in categories" :key="c">
                                         <p  class="green__category__el green__mr__xs" >{{cat.name}}</p>
-
                                         <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i class="mdi mdi-keyboard-return green__pointer"   v-bind="attrs" v-on="on" @click="chooseParent(cat.id,'parent')"></i></template><span>Выбрать категорию</span></v-tooltip>
-
-
-                                        <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i v-bind="attrs" v-on="on" class="mdi mdi-format-list-bulleted green__mr__xs green__pointer" @click="getChilds(cat.id,'parent')"></i></template><span>Показать список</span></v-tooltip> 
-                                        
+                                        <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i v-bind="attrs" v-on="on" class="mdi mdi-format-list-bulleted green__mr__xs green__pointer" @click="getChilds(cat.id,'parent')"></i></template><span>Показать список</span></v-tooltip>
                                     </div>
-
-
                                 </div>
 
                                 <div class="item__column"  v-if="nested.length!=0">
-                                
                                     <div class="item__row item__ac green__mb__xs green__parents" v-for="(cat,c) in nested" :key="c">
                                         <p  class="green__category__el green__mr__xs" >{{cat.name}}</p>
-                                        
                                         <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i class="mdi mdi-keyboard-return green__pointer"   v-bind="attrs" v-on="on" @click="chooseParent(cat.id,'child')"></i></template><span>Выбрать категорию</span></v-tooltip>
-
-
-                                        <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i v-bind="attrs" v-on="on" class="mdi mdi-format-list-bulleted green__mr__xs green__pointer" @click="getChilds(cat.id,'child')"></i></template><span>Показать список</span></v-tooltip> 
-                                        
+                                        <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i v-bind="attrs" v-on="on" class="mdi mdi-format-list-bulleted green__mr__xs green__pointer" @click="getChilds(cat.id,'child')"></i></template><span>Показать список</span></v-tooltip>
                                     </div>
-
                                 </div>
 
-                                <p v-if="parent_category_name" class="green__mb__s">Выбранный родительский элемент: <b>{{parent_category_name}}</b></p>
+                                <p v-if="parent_category_name" class="green__mb__s">Выбранный категория: <b>{{parent_category_name}}</b></p>
                             
                             </div>
 
@@ -117,7 +99,7 @@
                                 <p>Выберите категорию</p>
                             </div>
                             <div class="item__column green__parents" >
-                                <div class="item__row item__ac">
+                                <div class="item__wrap item__ac">
                                     <div class="item__row item__ac green__mb__xs green__parents" v-for="(cat,c) in categories" :key="c">
                                         <p  class="green__category__el green__mr__xs" >{{cat.name}}</p>
                                         <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i class="mdi mdi-keyboard-return green__pointer"   v-bind="attrs" v-on="on" @click="getCategoryEdit(cat.id,'parent')"></i></template><span>Выбрать категорию</span></v-tooltip>
@@ -175,7 +157,8 @@
                             <p>Выберите категорию</p>
                         </div>
                         <div class="item__column green__parents" >
-                            <div class="item__row item__ac">
+
+                            <div class="item__wrap item__ac">
                                 <div class="item__row item__ac green__mb__xs green__parents" v-for="(cat,c) in categories" :key="c">
                                     <p  class="green__category__el green__mr__xs" >{{cat.name}}</p>
                                     <v-tooltip bottom><template  v-slot:activator="{ on , attrs }"><i class="mdi mdi-keyboard-return green__pointer"   v-bind="attrs" v-on="on" @click="getProductByCategory(cat.id,'parent')"></i></template><span>Выбрать категорию</span></v-tooltip>
@@ -287,7 +270,7 @@
                           </form>
 
 
-                          <p class="green__images__title">Список рисунок</p>
+                          <p class="green__images__title">Фотографий</p>
 
                           <div class="item__row green__product__images__main">
                             <div class="green__product__images green__row green__ac green__mr__xs" v-for="(image,i) in item.images" :key="i">
@@ -323,9 +306,6 @@
                         <div  class="green__btn  green__pointer green__see green__row green__ac green__mb__s">
                             <p>Список заказов</p>
                         </div>
-
-                        
-                        
                     </div>
 
                     <div class="green__purchases" v-if="page==3">
@@ -1032,6 +1012,10 @@ export default {
 <style scoped lang="less">
 @mobile: 900px;
 @planshet: 1200px;
+
+.green__active {
+  color: #0069ff;
+}
     .banners {
       overflow-x: scroll;
       i {
@@ -1092,10 +1076,10 @@ export default {
         cursor: pointer;
     }
     .green__btn:hover {
-        color: #85C418;
+        color: #0069ff;
     }
     .green__btn__color {
-        color: #85C418; 
+        color: #0069ff; 
     }
     .green__btn__color:hover {
         opacity: 0.6;
@@ -1111,10 +1095,14 @@ export default {
         .green__see {
             font-size: 24px;
             font-weight: bold;
+            @media (max-width: 900px) {
+              font-size: 12px;
+              white-space: nowrap;
+            }
         }
         .green__images__title {
             margin-top: 40px;
-            color: #85C418;
+            color: #0069ff;
             font-size: 16px;
             font-weight: bold;
             text-transform: uppercase;
@@ -1130,7 +1118,7 @@ export default {
             background-color: #ccc;
         }
         .green__product__images__main::-webkit-scrollbar-thumb {
-            background-color: #85C418;
+            background-color: #0069ff;
             border-radius: 2px;
             height: 24px;
             width: 50px;
@@ -1155,7 +1143,7 @@ export default {
         .green__logout {
             align-self: flex-end;
             padding: 10px;
-            background: #85C418;
+            background: #0069ff;
             color: white;
             margin-bottom: 20px;
             width: 140px;
@@ -1185,7 +1173,7 @@ export default {
                 cursor: pointer;
             }
             p:hover {
-                color: #85C418;
+                color: #0069ff;
             }
         }
 
@@ -1204,8 +1192,8 @@ export default {
                 i {
                     font-size: 22px;
                 }
-                i:hovr {
-                    color: #85C418;
+                i:hover {
+                    color: #0069ff;
                 }
             }
             .green__choose  {
@@ -1216,10 +1204,13 @@ export default {
                     background:black;
                     margin-right: 10px;
                     color: white;
+                    @media (max-width: @mobile) {
+                      font-size: 14px;
+                    }
                    
                 }
                 .green__category__active {
-                    background: #85C418;
+                    background: #0069ff;
                 }
 
             }
@@ -1234,7 +1225,7 @@ export default {
                 width: 300px;
                 outline: none;
                 border:none;
-                background-color: #85C418;
+                background-color: #0069ff;
                 color: white;
                 padding: 20px;
                 @media (max-width: @mobile) {
@@ -1250,7 +1241,7 @@ export default {
                 padding: 20px;
 
                 a {
-                  color: var(--main-kenes-blue) !important;
+                  color: #0069ff !important;
                 }
 
 
@@ -1276,18 +1267,18 @@ export default {
 
                 .green__data {
                     margin-bottom: 10px;
-                    color: var(--main-kenes-blue);
+                    color: #0069ff;
                     font-size: 18px;
                 }
                 .green__save__btn {
-                    color:#85C418;
+                    color:#0069ff;
                 }
 
                 button {
                     width: 300px;
                     outline: none;
                     border:none;
-                    background-color: #85C418;
+                    background-color: #0069ff;
                     color: white;
                     padding: 20px;
                     @media (max-width: @mobile) {
@@ -1302,7 +1293,7 @@ export default {
         button {
             outline: none;
             border:none;
-            background-color: #85C418;
+            background-color: #0069ff;
             color: white;
             padding: 20px;
         }

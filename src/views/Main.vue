@@ -272,6 +272,7 @@ import Slider from "./Slider";
 
               this.bread.length = index;
               if(index==0) {
+                this.$router.push('/').catch(()=>{});
                 this.bread_categories = [];
               }
 

@@ -276,11 +276,26 @@
             $route() {
               if(this.$route.params.id) {
                   this.getCategory();
+              }else {
+                this.all_products = [];
+                this.getProducts();
               }
             }
         },
-
+        created () {
+          window.addEventListener('scroll', this.handleScroll);
+        },
+        destroyed () {
+          window.removeEventListener('scroll', this.handleScroll);
+        },
         methods: {
+            handleScroll (event) {
+                console.log(event);
+              let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+              if (bottomOfWindow) {
+                setTimeout(function () { this.showMore() }.bind(this), 100);
+              }
+            },
             formatNumber(number) {
               if(!number) {
                 return 0;
