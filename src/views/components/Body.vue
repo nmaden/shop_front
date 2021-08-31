@@ -105,10 +105,10 @@
                 </div>
 
                 <div class="main__product__bottom" @click="openProduct(product.id,product.category_id,index)">
-                    <p class="product__name" @click="openProduct(product.id,product.category_id,index)">{{product.name_product}}</p>
+                    <p class="product__name" @click="openProduct(product.id,product.category_id,index)">{{product.name_product+' '+product.c_id}}</p>
                     <p class="product__size" v-if="product.size">Размеры: {{product.size}}</p>
                     <div class="product__prices">
-                      <div class="item__column" v-if="product.price_sale">
+                      <div class="item__column" v-if="product.price_sale && product.price_sale!=product.price">
                         <div class="item__row item__ac">
                           <p class="product__price">{{ product.price_sale+' ₸ ' }}</p>
                           <p class="product__price" v-if="product.count_type==2">{{'/ '}}кг</p>
@@ -126,7 +126,7 @@
                         <p class="product__price" v-if="product.count_type==3">{{'/ '}}литр</p>
                       </div>
                     </div>
-                    <div class="product__sale" v-if="product.percent">
+                    <div class="product__sale" v-if="product.percent && product.price_sale!=product.price">
                       <p >-{{product.percent}} &nbsp;%</p>
                     </div>
 
@@ -306,7 +306,7 @@
             },
             searchProduct() {
                 this.all_products = [];
-                this.$http.get('/search/product?name='+this.nameProduct)
+                this.$http.get('/search/product?name='+this.nameProduct.toLowerCase())
                 .then(res => {
 
                     this.total_page = res.data.total;

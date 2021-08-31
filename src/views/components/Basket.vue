@@ -208,6 +208,8 @@ export default {
             this.delivery_type = type;
          },
         createOrder() {
+
+
                 if(this.delivery_type==1 && this.address=='') {
                     this.$toast.open({
                       message: 'Заполните поле адрес',
@@ -216,9 +218,16 @@ export default {
                       duration: 5000,
                       queue: true
                     });
-
                 }
-
+                if(this.phone_number.replace(/[^0-9]/g,"").length<11) {
+                  this.$toast.open({
+                    message: 'Поле телефон не правильно заполнено',
+                    type: 'warning',
+                    position: 'bottom',
+                    duration: 5000,
+                    queue: true
+                  });
+                }
                 if (this.$v.$invalid) {
                     this.$toast.open({
                         message: 'Заполните необходимые поля',
@@ -229,8 +238,11 @@ export default {
                     });
 
                     this.$v.$touch()
-                    return 
-                }else {
+                    return
+                }
+
+
+                else {
 
                   this.showLoader = true;
                   let data = {
@@ -244,7 +256,7 @@ export default {
 
                   this.$http.post('/create/order',data,
                   {
-                  
+
                   })
                   .then(res => {
                       console.log(res);
