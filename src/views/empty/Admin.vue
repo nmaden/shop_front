@@ -908,13 +908,13 @@ export default {
             fd.append('id', this.products[index].id);
             fd.append('name_product', this.products[index].name_product);
             fd.append('category_id', this.products[index].category_id);
+            fd.append('description', this.products[index].description);
             fd.append('price',this.products[index].price);
             fd.append('count',this.products[index].count);
             fd.append('count_type',this.products[index].count_type);
             for (var i = 0; i < this.documents.length; i++) {
                 fd.append('images[]', this.documents[i])
             }
-            fd.append('description',this.description);
             this.$http.post('/update/product',fd,
                 {
                     headers: {

@@ -88,16 +88,16 @@
 
                 <router-view :openBasket="openBasket"></router-view>
 
-                <div class="main__block__title">
-                    <div class="main__block__round"></div>
-                    <p>О нашем магазине</p>
-                </div>
-                <div class="main__block__description">
-                    <p class="main__block__description">
-                      Более 15 лет мы ответственно работаем вместе с несколькими тщательно отобранными фермерскими хозяйствами центральной части
-                      Казахстана и вместе производим по-настоящему лучшее мясо для наших покупателей по доступной цене.
-                    </p>
-                </div>
+<!--                <div class="main__block__title" >-->
+<!--                    <div class="main__block__round"></div>-->
+<!--                    <p>О нашем магазине</p>-->
+<!--                </div>-->
+<!--                <div class="main__block__description">-->
+<!--                    <p class="main__block__description">-->
+<!--                      Более 15 лет мы ответственно работаем вместе с несколькими тщательно отобранными фермерскими хозяйствами центральной части-->
+<!--                      Казахстана и вместе производим по-настоящему лучшее мясо для наших покупателей по доступной цене.-->
+<!--                    </p>-->
+<!--                </div>-->
 
 <!--                <div class="main__block__title">-->
 <!--                    <div class="main__block__round"></div>-->

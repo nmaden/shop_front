@@ -26,7 +26,13 @@
                       <img  :src="'https://api.kenesmebel.kz/'+cor.image_path" v-else-if="description.images.length!=0" v-bind:class="{product__corousel__active: description.corousel_index==i}">
                   </div>
               </div>
-              <div class="product__levels">
+              <div class="item__row item__ac product__description" v-if="description.description">
+
+                <p>{{ description.description }}</p>
+
+              </div>
+
+            <div class="product__levels">
                 <div class="product__level"></div>
                 <div class="product__level"></div>
                 <div class="product__level"></div>
@@ -52,12 +58,6 @@
               <div class="product__size main__mb__xl" v-if="description.size">
                   <p class="pr__size__text">Размеры, мм</p>
                   <p class="pr__size__value"  >{{description.size}}</p>
-              </div>
-
-              <div class="item__row item__ac">
-                  <div></div>
-                  <p></p>
-                  <div></div>
               </div>
 
               <!-- <div class="pr__val  product__row product__row__c main__mb__s">
@@ -228,7 +228,9 @@ export default {
         }
     }
 
-
+.product__description {
+  font-size: 26px;
+}
 .product__row {
     display: flex;
     flex-direction: row;
