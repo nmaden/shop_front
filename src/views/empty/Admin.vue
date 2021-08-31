@@ -950,7 +950,7 @@ export default {
             this.dialog = false;
             let type = 'category';
             if(index==2) {
-                type='product';
+                type='product/admin';
             }
             if(index==3) {
                 type='application';
