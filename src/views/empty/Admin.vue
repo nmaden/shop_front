@@ -720,7 +720,7 @@ export default {
             const config = {
                 headers: { 'Authorization': `Bearer ${this.token}` }
             };
-            this.$http.get('/get/orders',  config)
+            this.$http.get('/get/orders/list',  config)
             .then(res => {
                 this.orders = res.data
             })
